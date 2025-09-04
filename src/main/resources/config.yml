@@ -1,0 +1,98 @@
+# ------------------------------------------------- #
+#                ForcePlugin Config                 #
+# ------------------------------------------------- #
+
+force-energy:
+  regeneration-per-second: 2.5
+
+abilities:
+  # ------------------------------------------------- #
+  #                 Light Side Abilities              #
+  # ------------------------------------------------- #
+  FORCE_HEAL:
+    energy-cost: 30.0
+    cooldown: 12.0
+    heal-amount-hearts: 2.0
+  FORCE_SPEED:
+    energy-cost: 25.0
+    cooldown: 20.0
+    duration-seconds: 8
+    amplifier: 2
+  FORCE_VALOR:
+    energy-cost: 40.0
+    cooldown: 30.0
+    duration-seconds: 10
+    resistance-amplifier: 1
+    strength-amplifier: 1
+  FORCE_REPULSE:
+    energy-cost: 35.0
+    cooldown: 18.0
+    radius: 6
+    strength: 2.5
+    upward-force: 0.8
+  FORCE_STASIS:
+    energy-cost: 20.0
+    cooldown: 15.0
+    range: 15
+    duration-seconds: 3
+  FORCE_BARRIER:
+    energy-cost: 30.0
+    cooldown: 25.0
+    duration-seconds: 10
+    shield-hearts: 2
+
+  # ------------------------------------------------- #
+  #                  Dark Side Abilities              #
+  # ------------------------------------------------- #
+  FORCE_CHOKE:
+    energy-cost: 30.0
+    cooldown: 12.0
+    range: 15
+    duration-seconds: 3
+    levitation-amplifier: 1
+    damage-per-second-hearts: 1.0
+  FORCE_LIGHTNING:
+    energy-cost: 25.0
+    cooldown: 8.0
+    range: 20
+    damage-hearts: 3.0
+  FORCE_SCREAM:
+    energy-cost: 25.0
+    cooldown: 20.0
+    radius: 8
+    duration-seconds: 5
+    weakness-amplifier: 1
+    slowness-amplifier: 2
+  FORCE_DRAIN:
+    energy-cost: 40.0
+    cooldown: 25.0
+    range: 15
+    drain-amount-hearts: 2.0
+  FORCE_CRUSH:
+    energy-cost: 35.0
+    cooldown: 15.0
+    range: 20
+    damage-hearts: 4.0
+    slowness-duration-seconds: 3
+    slowness-amplifier: 3
+  FORCE_RAGE:
+    energy-cost: 40.0
+    cooldown: 35.0
+    duration-seconds: 8
+    speed-amplifier: 2
+    strength-amplifier: 2
+
+  # ------------------------------------------------- #
+  #                Universal Abilities                #
+  # ------------------------------------------------- #
+  FORCE_PUSH:
+    energy-cost: 15.0
+    cooldown: 4.0
+    range: 10
+    strength: 2.0
+    upward-force: 1.2
+  FORCE_PULL:
+    energy-cost: 15.0
+    cooldown: 10.0
+    range: 20
+    strength: 2.5

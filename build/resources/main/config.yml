@@ -1,0 +1,110 @@
+# ------------------------------------------------- #
+#                ForcePlugin Config                 #
+# ------------------------------------------------- #
+# Here you can customize all the values for the abilities in the plugin.
+# - energy-cost: How much Force Energy the ability uses.
+# - cooldown: How many seconds the player must wait before using the ability again.
+# - Other values are specific to each ability (e.g., damage, range, duration).
+#
+# To apply changes, save this file and run /reload on your server.
+# (A full server restart is sometimes better to ensure all changes are loaded correctly).
+
+# General settings for the Force system.
+force-energy:
+  # How much Force Energy a player regenerates per second.
+  regeneration-per-second: 2.5
+
+abilities:
+  # ------------------------------------------------- #
+  #                 Light Side Abilities              #
+  # ------------------------------------------------- #
+  FORCE_PUSH:
+    energy-cost: 15.0
+    cooldown: 4.0
+    # The range in blocks to check for entities.
+    range: 10
+    # The knockback power. Higher is stronger.
+    strength: 2.0
+    # The upward force of the push. Higher launches enemies into the air more.
+    upward-force: 1.2
+  FORCE_HEAL:
+    energy-cost: 30.0
+    cooldown: 12.0
+    # The amount of health to restore, in hearts (1 heart = 2 health points).
+    heal-amount-hearts: 2.0
+  FORCE_SPEED:
+    energy-cost: 25.0
+    cooldown: 20.0
+    # How long the speed effect lasts, in seconds.
+    duration-seconds: 8
+    # The level of the speed effect (e.g., 2 for Speed II).
+    amplifier: 2
+  FORCE_VALOR:
+    energy-cost: 40.0
+    cooldown: 30.0
+    # How long the effects last, in seconds.
+    duration-seconds: 10
+    # The level of the Resistance effect (e.g., 1 for Resistance I).
+    resistance-amplifier: 1
+    # The level of the Strength effect (e.g., 1 for Strength I).
+    strength-amplifier: 1
+  FORCE_REPULSE:
+    energy-cost: 35.0
+    cooldown: 18.0
+    # The radius of the 360-degree blast, in blocks.
+    radius: 6
+    # The knockback power of the blast.
+    strength: 2.5
+    # The upward force of the blast.
+    upward-force: 0.8
+
+  # ------------------------------------------------- #
+  #                  Dark Side Abilities              #
+  # ------------------------------------------------- #
+  FORCE_CHOKE:
+    energy-cost: 30.0
+    cooldown: 12.0
+    # The maximum distance to the target, in blocks.
+    range: 15
+    # How long the choke effect lasts, in seconds.
+    duration-seconds: 3
+    # The level of the Levitation effect (1 is usually enough).
+    levitation-amplifier: 1
+    # The damage dealt each second, in hearts.
+    damage-per-second-hearts: 1.0
+  FORCE_LIGHTNING:
+    energy-cost: 25.0
+    cooldown: 8.0
+    # The maximum distance to the target, in blocks.
+    range: 20
+    # The damage dealt by the lightning strike, in hearts.
+    damage-hearts: 3.0
+  FORCE_SCREAM:
+    energy-cost: 25.0
+    cooldown: 20.0
+    # The radius of the scream effect, in blocks.
+    radius: 8
+    # How long the debuffs last, in seconds.
+    duration-seconds: 5
+    # The level of the Weakness effect (e.g., 1 for Weakness I).
+    weakness-amplifier: 1
+    # The level of the Slowness effect (e.g., 2 for Slowness II).
+    slowness-amplifier: 2
+  FORCE_DRAIN:
+    energy-cost: 40.0
+    cooldown: 25.0
+    # The maximum distance to the target, in blocks.
+    range: 15
+    # The amount of health to steal from the target, in hearts.
+    drain-amount-hearts: 2.0
+  FORCE_CRUSH:
+    energy-cost: 35.0
+    cooldown: 15.0
+    # The maximum distance to the target, in blocks.
+    range: 20
+    # The initial burst damage, in hearts.
+    damage-hearts: 4.0
+    # How long the slowness effect lasts, in seconds.
+    slowness-duration-seconds: 3
+    # The level of the Slowness effect (e.g., 3 for Slowness III).
+    slowness-amplifier: 3
