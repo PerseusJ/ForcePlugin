@@ -28,11 +28,11 @@ public class AbilityManager {
 
         // Light Side Exclusive
         registerAbility(new ForceHeal(configManager));
-        registerAbility(new ForceSpeed(configManager));
-        registerAbility(new ForceValor(configManager));
         registerAbility(new ForceRepulse(configManager));
         registerAbility(new ForceStasis(configManager));
         registerAbility(new ForceBarrier(configManager));
+        registerAbility(new ForceJudgment(configManager));
+        registerAbility(new ForceDeflection(configManager, plugin));
 
         // Dark Side Exclusive
         registerAbility(new ForceChoke(plugin, configManager));

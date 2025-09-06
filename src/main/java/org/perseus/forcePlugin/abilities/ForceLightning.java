@@ -1,11 +1,14 @@
 package org.perseus.forcePlugin.abilities;
 
+import org.bukkit.Color;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.RayTraceResult;
 import org.perseus.forcePlugin.AbilityConfigManager;
 import org.perseus.forcePlugin.ForceSide;
+import org.perseus.forcePlugin.ParticleUtil;
 
 public class ForceLightning implements Ability {
 
@@ -22,20 +25,16 @@ public class ForceLightning implements Ability {
     public String getName() { return "Force Lightning"; }
 
     @Override
-    public String getDescription() { return "Shoots a bolt of lightning at your target."; }
+    public String getDescription() { return "Unleash a dash of lightning at your target."; }
 
     @Override
     public ForceSide getSide() { return ForceSide.DARK; }
 
     @Override
-    public double getEnergyCost() {
-        return configManager.getDoubleValue(getID(), "energy-cost", 25.0);
-    }
+    public double getEnergyCost() { return configManager.getDoubleValue(getID(), "energy-cost", 25.0); }
 
     @Override
-    public double getCooldown() {
-        return configManager.getDoubleValue(getID(), "cooldown", 8.0);
-    }
+    public double getCooldown() { return configManager.getDoubleValue(getID(), "cooldown", 8.0); }
 
     @Override
     public void execute(Player player) {
@@ -48,8 +47,13 @@ public class ForceLightning implements Ability {
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
         double damage = configManager.getDoubleValue(getID(), "damage-hearts", 3.0) * 2;
 
-        player.getWorld().strikeLightningEffect(target.getLocation());
+        // --- THE FINAL FIX ---
+        // The particle is called DUST, and its color is defined by DustOptions.
+        Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(100, 150, 255), 1.0F);
+        ParticleUtil.drawParticleBeam(player, target, Particle.DUST, 3.0, dustOptions);
+        // --- END FIX ---
+
         target.damage(damage, player);
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1.0f, 1.2f);
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 0.5f, 1.8f);
     }
 }

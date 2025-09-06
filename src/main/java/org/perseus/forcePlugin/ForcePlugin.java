@@ -33,6 +33,7 @@ public class ForcePlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new AbilityListener(forceUserManager, abilityManager, cooldownManager, forceBarManager, telekinesisManager), this);
         getServer().getPluginManager().registerEvents(new GUIListener(this), this);
         getServer().getPluginManager().registerEvents(new ActionBarListener(forceUserManager, abilityManager), this);
+        getServer().getPluginManager().registerEvents(new ProjectileDeflectionListener(), this);
 
         getCommand("force").setExecutor(new ForceCommand(forceUserManager));
         getCommand("powers").setExecutor(new PowersCommand(forceUserManager));
@@ -54,7 +55,6 @@ public class ForcePlugin extends JavaPlugin {
         getLogger().info("ForcePlugin has been disabled!");
     }
 
-    // --- FIX: The @Override annotation has been removed from this custom method ---
     public void reloadPluginConfig() {
         reloadConfig();
         this.abilityConfigManager = new AbilityConfigManager(this);
