@@ -11,31 +11,20 @@ public class AbilityManager {
 
     private final Map<String, Ability> abilities = new HashMap<>();
 
-    public AbilityManager(ForcePlugin plugin, AbilityConfigManager configManager) {
-        // The constructor now just calls the registration method.
-        registerAbilities(plugin, configManager);
+    public AbilityManager(ForcePlugin plugin, AbilityConfigManager configManager, TelekinesisManager telekinesisManager) {
+        registerAbilities(plugin, configManager, telekinesisManager);
     }
 
-    // --- NEW METHOD ---
-    /**
-     * Clears and re-registers all abilities with a new configuration.
-     * This is the core of the reload logic.
-     * @param plugin The main plugin instance.
-     * @param configManager The new, reloaded config manager.
-     */
-    public void reload(ForcePlugin plugin, AbilityConfigManager configManager) {
-        abilities.clear(); // Remove all old ability instances
-        registerAbilities(plugin, configManager); // Register them again with the new config
+    public void reload(ForcePlugin plugin, AbilityConfigManager configManager, TelekinesisManager telekinesisManager) {
+        abilities.clear();
+        registerAbilities(plugin, configManager, telekinesisManager);
     }
-    // --- END NEW ---
 
-    /**
-     * A helper method to register all abilities. Can be called from constructor or reload.
-     */
-    private void registerAbilities(ForcePlugin plugin, AbilityConfigManager configManager) {
+    private void registerAbilities(ForcePlugin plugin, AbilityConfigManager configManager, TelekinesisManager telekinesisManager) {
         // Universal Abilities
         registerAbility(new ForcePush(configManager));
         registerAbility(new ForcePull(configManager));
+        registerAbility(new Telekinesis(configManager, telekinesisManager));
 
         // Light Side Exclusive
         registerAbility(new ForceHeal(configManager));

@@ -96,3 +96,9 @@ abilities:
     cooldown: 10.0
     range: 20
     strength: 2.5
+  TELEKINESIS:
+    initial-energy-cost: 10.0
+    energy-cost-per-second: 5.0
+    cooldown: 20.0
+    range: 20
+    launch-strength: 3.0

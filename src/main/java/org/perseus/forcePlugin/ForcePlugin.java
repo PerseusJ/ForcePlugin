@@ -7,30 +7,30 @@ import java.io.File;
 
 public class ForcePlugin extends JavaPlugin {
 
-    // ... (manager instances are the same)
     private ForceUserManager forceUserManager;
     private AbilityManager abilityManager;
     private CooldownManager cooldownManager;
     private ForceBarManager forceBarManager;
     private GUIManager guiManager;
     private AbilityConfigManager abilityConfigManager;
+    private TelekinesisManager telekinesisManager;
 
     @Override
     public void onEnable() {
-        // ... (the onEnable method is exactly the same as before)
         saveDefaultConfig();
         File dataFolder = new File(getDataFolder(), "playerdata");
         if (!dataFolder.exists()) dataFolder.mkdirs();
 
         this.forceUserManager = new ForceUserManager(this);
         this.abilityConfigManager = new AbilityConfigManager(this);
-        this.abilityManager = new AbilityManager(this, abilityConfigManager);
+        this.telekinesisManager = new TelekinesisManager(this);
+        this.abilityManager = new AbilityManager(this, abilityConfigManager, telekinesisManager);
         this.cooldownManager = new CooldownManager();
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
         this.guiManager = new GUIManager(abilityManager, forceUserManager);
 
         getServer().getPluginManager().registerEvents(new PlayerConnectionListener(forceUserManager, forceBarManager), this);
-        getServer().getPluginManager().registerEvents(new AbilityListener(forceUserManager, abilityManager, cooldownManager, forceBarManager), this);
+        getServer().getPluginManager().registerEvents(new AbilityListener(forceUserManager, abilityManager, cooldownManager, forceBarManager, telekinesisManager), this);
         getServer().getPluginManager().registerEvents(new GUIListener(this), this);
         getServer().getPluginManager().registerEvents(new ActionBarListener(forceUserManager, abilityManager), this);
 
@@ -54,25 +54,19 @@ public class ForcePlugin extends JavaPlugin {
         getLogger().info("ForcePlugin has been disabled!");
     }
 
-    // --- MODIFIED: The Corrected Reload Method ---
+    // --- FIX: The @Override annotation has been removed from this custom method ---
     public void reloadPluginConfig() {
-        // 1. Reload the config file from disk.
         reloadConfig();
-
-        // 2. Create a new config manager to hold the new values.
         this.abilityConfigManager = new AbilityConfigManager(this);
-
-        // 3. Tell the EXISTING managers to reload their internal data using the new config.
-        this.abilityManager.reload(this, this.abilityConfigManager);
+        this.abilityManager.reload(this, this.abilityConfigManager, this.telekinesisManager);
         this.forceBarManager.reloadConfig();
     }
-    // --- END MODIFIED ---
 
-    // ... (getters are the same)
     public ForceUserManager getForceUserManager() { return forceUserManager; }
     public AbilityManager getAbilityManager() { return abilityManager; }
     public CooldownManager getCooldownManager() { return cooldownManager; }
     public ForceBarManager getForceBarManager() { return forceBarManager; }
     public GUIManager getGuiManager() { return guiManager; }
     public AbilityConfigManager getAbilityConfigManager() { return abilityConfigManager; }
+    public TelekinesisManager getTelekinesisManager() { return telekinesisManager; }
 }
