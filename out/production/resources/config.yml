@@ -7,23 +7,33 @@ force-energy:
 
 abilities:
   # ------------------------------------------------- #
-  #                 Light Side Abilities              #
+  #                Universal Abilities                #
+  # ------------------------------------------------- #
+  FORCE_PUSH:
+    energy-cost: 15.0
+    cooldown: 4.0
+    range: 10
+    strength: 2.0
+    upward-force: 1.2
+  FORCE_PULL:
+    energy-cost: 15.0
+    cooldown: 10.0
+    range: 20
+    strength: 2.5
+  TELEKINESIS:
+    initial-energy-cost: 10.0
+    energy-cost-per-second: 5.0
+    cooldown: 20.0
+    range: 20
+    launch-strength: 3.0
+
+  # ------------------------------------------------- #
+  #              Light Side Exclusive                 #
   # ------------------------------------------------- #
   FORCE_HEAL:
     energy-cost: 30.0
     cooldown: 12.0
     heal-amount-hearts: 2.0
-  FORCE_SPEED:
-    energy-cost: 25.0
-    cooldown: 20.0
-    duration-seconds: 8
-    amplifier: 2
-  FORCE_VALOR:
-    energy-cost: 40.0
-    cooldown: 30.0
-    duration-seconds: 10
-    resistance-amplifier: 1
-    strength-amplifier: 1
   FORCE_REPULSE:
     energy-cost: 35.0
     cooldown: 18.0
@@ -40,9 +50,20 @@ abilities:
     cooldown: 25.0
     duration-seconds: 10
     shield-hearts: 2
+  FORCE_JUDGMENT:
+    energy-cost: 25.0
+    cooldown: 8.0
+    range: 20
+    damage-hearts: 3.0
+    bonus-damage-multiplier-dark-side: 1.5
+    bonus-damage-multiplier-undead: 1.5
+  FORCE_DEFLECTION:
+    energy-cost: 20.0
+    cooldown: 12.0
+    duration-seconds: 1.5
 
   # ------------------------------------------------- #
-  #                  Dark Side Abilities              #
+  #               Dark Side Exclusive                 #
   # ------------------------------------------------- #
   FORCE_CHOKE:
     energy-cost: 30.0
@@ -81,18 +102,3 @@ abilities:
     duration-seconds: 8
     speed-amplifier: 2
     strength-amplifier: 2
-
-  # ------------------------------------------------- #
-  #                Universal Abilities                #
-  # ------------------------------------------------- #
-  FORCE_PUSH:
-    energy-cost: 15.0
-    cooldown: 4.0
-    range: 10
-    strength: 2.0
-    upward-force: 1.2
-  FORCE_PULL:
-    energy-cost: 15.0
-    cooldown: 10.0
-    range: 20
-    strength: 2.5

@@ -29,26 +29,28 @@ public class AbilityListener implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        ForceUser forceUser = userManager.getForceUser(player);
+        Action action = event.getAction();
 
+        // We only care about left-clicks for all abilities now.
+        if (action != Action.LEFT_CLICK_AIR && action != Action.LEFT_CLICK_BLOCK) {
+            return;
+        }
+
+        // --- NEW, SIMPLIFIED TELEKINESIS LOGIC ---
+        // If the player is already lifting something, the next left-click will launch it.
+        if (telekinesisManager.isLifting(player)) {
+            event.setCancelled(true); // Prevent hitting the entity.
+            telekinesisManager.launch(player);
+            return; // Stop processing here.
+        }
+        // --- END NEW LOGIC ---
+
+        // If not using Telekinesis, proceed with normal ability activation.
+        ForceUser forceUser = userManager.getForceUser(player);
         if (forceUser == null || !forceUser.arePowersActive()) return;
 
         ItemStack itemInHand = player.getInventory().getItemInMainHand();
         if (itemInHand.getType() != Material.AIR) return;
-
-        Action action = event.getAction();
-
-        if (telekinesisManager.isLifting(player)) {
-            event.setCancelled(true);
-            if (action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) {
-                telekinesisManager.stopLifting(player, false);
-            } else if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
-                telekinesisManager.launch(player);
-            }
-            return;
-        }
-
-        if (action != Action.LEFT_CLICK_AIR && action != Action.LEFT_CLICK_BLOCK) return;
 
         int selectedSlot = player.getInventory().getHeldItemSlot();
         if (selectedSlot > 2) return;
