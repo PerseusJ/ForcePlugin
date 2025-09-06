@@ -14,17 +14,21 @@ commands:
   abilities:
     description: Opens the ability selection menu.
     usage: /<command>
-  # --- NEW ---
   forceadmin:
     description: Admin command for the ForcePlugin.
     usage: /<command> [reload|setside|reset|check]
-    aliases: [fa] # Allows players to use /fa as a shortcut
+    aliases: [fa]
+  # --- NEW ---
+  forcestats:
+    description: Displays your Force progression stats.
+    usage: /<command> [player]
+    aliases: [fs]
+  # --- END NEW ---
 
-# --- NEW: Permissions ---
 permissions:
   forceplugin.admin:
-    description: Grants access to all /forceadmin commands.
-    default: op # Only server operators will have this by default.
+    description: Grants access to all /forceadmin commands and checking other players' stats.
+    default: op
   forceplugin.use:
-    description: Grants access to the basic player commands (/force, /powers, /abilities).
-    default: true # All players will have this by default.
+    description: Grants access to the basic player commands.
+    default: true

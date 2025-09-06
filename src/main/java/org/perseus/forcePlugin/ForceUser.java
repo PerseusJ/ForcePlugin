@@ -1,94 +1,92 @@
 package org.perseus.forcePlugin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 /**
  * A data class that holds all plugin-specific information for a single player.
- * An instance of this class will be created for every player on the server.
  */
 public class ForceUser {
 
     // --- Core Player Identity ---
-    private final UUID uuid; // The player's unique Minecraft ID. Cannot be changed.
+    private final UUID uuid;
 
     // --- Player Choices & State ---
-    private ForceSide side; // The player's chosen alignment (LIGHT, DARK, or NONE).
-    private boolean powersActive; // Whether the player has their powers toggled on or off.
-    private double currentForceEnergy; // The player's current energy, from 0 to 100.
+    private ForceSide side;
+    private boolean powersActive;
+    private double currentForceEnergy;
 
     // --- Ability Management ---
-    // Stores the abilities bound to the hotbar slots.
-    // Key: The hotbar slot (e.g., 1, 2, 3).
-    // Value: The unique ID of the ability (e.g., "FORCE_PUSH").
     private final Map<Integer, String> boundAbilities;
+
+    // --- NEW: RPG Progression Fields ---
+    private int forceLevel;
+    private double forceXp;
+    private int forcePoints;
+    private final List<String> unlockedAbilities;
+    // --- END NEW ---
 
     /**
      * Constructor for a new ForceUser.
-     * Sets the default values for a player when they first join or are created.
      * @param uuid The UUID of the player this object belongs to.
      */
     public ForceUser(UUID uuid) {
         this.uuid = uuid;
-        this.side = ForceSide.NONE; // Players start with no alignment.
-        this.powersActive = false; // Powers are off by default.
-        this.currentForceEnergy = 100.0; // Players start with full energy.
+        this.side = ForceSide.NONE;
+        this.powersActive = false;
+        this.currentForceEnergy = 100.0;
         this.boundAbilities = new HashMap<>();
+
+        // --- NEW: Initialize RPG fields with default values ---
+        this.forceLevel = 1;
+        this.forceXp = 0.0;
+        this.forcePoints = 0; // Start with 0 points, maybe give 1 at level 1? For now, 0.
+        this.unlockedAbilities = new ArrayList<>();
+        // --- END NEW ---
     }
 
     // --- GETTERS (for retrieving information) ---
 
-    public UUID getUuid() {
-        return uuid;
-    }
+    public UUID getUuid() { return uuid; }
+    public ForceSide getSide() { return side; }
+    public boolean arePowersActive() { return powersActive; }
+    public double getCurrentForceEnergy() { return currentForceEnergy; }
+    public String getBoundAbility(int slot) { return boundAbilities.get(slot); }
 
-    public ForceSide getSide() {
-        return side;
-    }
+    // --- NEW: Getters for RPG fields ---
+    public int getForceLevel() { return forceLevel; }
+    public double getForceXp() { return forceXp; }
+    public int getForcePoints() { return forcePoints; }
+    public List<String> getUnlockedAbilities() { return unlockedAbilities; }
+    public boolean hasUnlockedAbility(String abilityId) { return unlockedAbilities.contains(abilityId); }
+    // --- END NEW ---
 
-    public boolean arePowersActive() {
-        return powersActive;
-    }
-
-    public double getCurrentForceEnergy() {
-        return currentForceEnergy;
-    }
-
-    /**
-     * Gets the unique ID of the ability bound to a specific slot.
-     * @param slot The slot number (1, 2, or 3).
-     * @return The ability ID as a String, or null if no ability is bound to that slot.
-     */
-    public String getBoundAbility(int slot) {
-        return boundAbilities.get(slot);
-    }
 
     // --- SETTERS (for modifying information) ---
 
-    public void setSide(ForceSide side) {
-        this.side = side;
-    }
-
-    public void setPowersActive(boolean powersActive) {
-        this.powersActive = powersActive;
-    }
-
-    public void setCurrentForceEnergy(double currentForceEnergy) {
-        // Clamps the value between 0 and 100 to prevent errors.
-        this.currentForceEnergy = Math.max(0, Math.min(100, currentForceEnergy));
-    }
-
-    /**
-     * Binds an ability's ID to a specific slot.
-     * @param slot The slot number (1, 2, or 3).
-     * @param abilityId The unique ID of the ability to bind.
-     */
+    public void setSide(ForceSide side) { this.side = side; }
+    public void setPowersActive(boolean powersActive) { this.powersActive = powersActive; }
+    public void setCurrentForceEnergy(double currentForceEnergy) { this.currentForceEnergy = Math.max(0, Math.min(100, currentForceEnergy)); }
     public void setBoundAbility(int slot, String abilityId) {
         if (abilityId == null) {
-            boundAbilities.remove(slot); // If the ID is null, unbind the ability.
+            boundAbilities.remove(slot);
         } else {
             boundAbilities.put(slot, abilityId);
         }
     }
+
+    // --- NEW: Setters for RPG fields ---
+    public void setForceLevel(int forceLevel) { this.forceLevel = forceLevel; }
+    public void setForceXp(double forceXp) { this.forceXp = forceXp; }
+    public void setForcePoints(int forcePoints) { this.forcePoints = forcePoints; }
+    public void addForcePoints(int amount) { this.forcePoints += amount; }
+    public void unlockAbility(String abilityId) {
+        if (!unlockedAbilities.contains(abilityId)) {
+            unlockedAbilities.add(abilityId);
+        }
+    }
+    // --- END NEW ---
 }

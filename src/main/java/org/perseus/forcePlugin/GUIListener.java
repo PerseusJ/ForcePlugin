@@ -1,6 +1,7 @@
 package org.perseus.forcePlugin;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,53 +32,71 @@ public class GUIListener implements Listener {
         Player player = (Player) event.getWhoClicked();
         ItemStack clickedItem = event.getCurrentItem();
         if (clickedItem == null || !clickedItem.hasItemMeta() || clickedItem.getItemMeta().getDisplayName().equals(" ")) {
-            return; // Ignore clicks on filler items
+            return;
         }
 
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
         if (forceUser == null) return;
 
-        int clickedSlot = event.getRawSlot();
+        String itemName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
+        Ability clickedAbility = findAbilityByName(forceUser, itemName);
 
-        // --- MODIFIED: Check for binding slots in their new positions ---
-        if (clickedSlot >= 40 && clickedSlot <= 42) {
-            int bindingSlot = clickedSlot - 39; // 40->1, 41->2, 42->3
+        // --- NEW: Handle clicks on ability icons (locked or unlocked) ---
+        if (clickedAbility != null) {
+            if (forceUser.hasUnlockedAbility(clickedAbility.getID())) {
+                // If it's unlocked, select it for binding.
+                selectedAbility.put(player.getUniqueId(), clickedAbility.getID());
+                player.sendMessage(ChatColor.GREEN + "Selected " + clickedAbility.getName() + ". Now click a binding slot.");
+                player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.5f);
+            } else {
+                // If it's locked, try to unlock it.
+                if (forceUser.getForcePoints() > 0) {
+                    forceUser.addForcePoints(-1);
+                    forceUser.unlockAbility(clickedAbility.getID());
+                    player.sendMessage(ChatColor.AQUA + "You have unlocked " + clickedAbility.getName() + "!");
+                    player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.2f);
+                    plugin.getGuiManager().openAbilityGUI(player); // Refresh GUI
+                } else {
+                    player.sendMessage(ChatColor.RED + "You do not have enough Force Points to unlock this.");
+                    player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                }
+            }
+            return;
+        }
+
+        // --- Handle clicks on binding slots ---
+        int clickedSlot = event.getRawSlot();
+        if (clickedSlot >= 48 && clickedSlot <= 50) {
+            int bindingSlot = clickedSlot - 47; // 48->1, 49->2, 50->3
 
             if (event.isLeftClick()) {
                 String selectedId = selectedAbility.get(player.getUniqueId());
                 if (selectedId == null) {
-                    player.sendMessage(ChatColor.YELLOW + "Please select an ability from the top section first.");
+                    player.sendMessage(ChatColor.YELLOW + "Please select an unlocked ability first.");
                     return;
                 }
                 forceUser.setBoundAbility(bindingSlot, selectedId);
-                Ability boundAbility = plugin.getAbilityManager().getAbility(selectedId);
+                player.sendMessage(ChatColor.AQUA + "Ability bound to slot " + bindingSlot + ".");
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.5f);
                 selectedAbility.remove(player.getUniqueId());
-                player.sendMessage(ChatColor.AQUA + "Successfully bound " + boundAbility.getName() + " to slot " + bindingSlot + ".");
                 plugin.getGuiManager().openAbilityGUI(player);
             } else if (event.isRightClick()) {
-                String currentlyBoundId = forceUser.getBoundAbility(bindingSlot);
-                if (currentlyBoundId == null) {
-                    player.sendMessage(ChatColor.YELLOW + "This slot is already empty.");
-                    return;
-                }
-                Ability unboundAbility = plugin.getAbilityManager().getAbility(currentlyBoundId);
-                forceUser.setBoundAbility(bindingSlot, null);
-                selectedAbility.remove(player.getUniqueId());
-                player.sendMessage(ChatColor.YELLOW + "Successfully unbound " + unboundAbility.getName() + " from slot " + bindingSlot + ".");
-                plugin.getGuiManager().openAbilityGUI(player);
-            }
-        }
-        // --- MODIFIED: Any other valid item click is an ability selection ---
-        else {
-            String abilityName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
-            // Find the ability that corresponds to the clicked icon.
-            for (Ability ability : plugin.getAbilityManager().getAbilitiesBySide(forceUser.getSide())) {
-                if (ability.getName().equalsIgnoreCase(abilityName)) {
-                    selectedAbility.put(player.getUniqueId(), ability.getID());
-                    player.sendMessage(ChatColor.GREEN + "Selected " + ability.getName() + ". Now click a binding slot.");
-                    return;
+                if (forceUser.getBoundAbility(bindingSlot) != null) {
+                    forceUser.setBoundAbility(bindingSlot, null);
+                    player.sendMessage(ChatColor.YELLOW + "Ability unbound from slot " + bindingSlot + ".");
+                    player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 0.8f);
+                    plugin.getGuiManager().openAbilityGUI(player);
                 }
             }
         }
+    }
+
+    private Ability findAbilityByName(ForceUser user, String name) {
+        for (Ability ability : plugin.getAbilityManager().getAbilitiesBySide(user.getSide())) {
+            if (ability.getName().equalsIgnoreCase(name)) {
+                return ability;
+            }
+        }
+        return null;
     }
 }

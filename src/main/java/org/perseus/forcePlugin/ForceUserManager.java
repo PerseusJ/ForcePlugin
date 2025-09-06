@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -24,25 +25,41 @@ public class ForceUserManager {
 
     /**
      * Loads a player's data from their file when they join the server.
-     * If no file exists, it creates a fresh data object for the new player.
-     * @param player The player whose data is being loaded.
      */
     public void loadPlayerData(Player player) {
         File playerFile = new File(plugin.getDataFolder(), "playerdata/" + player.getUniqueId() + ".yml");
-        FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerFile);
-
         ForceUser forceUser = new ForceUser(player.getUniqueId());
 
-        // Load the player's chosen side. Default to NONE if not found.
-        forceUser.setSide(ForceSide.valueOf(playerData.getString("side", "NONE")));
+        // If the file doesn't exist, it's a new player. Give them default abilities.
+        if (!playerFile.exists()) {
+            forceUser.unlockAbility("FORCE_PUSH");
+            forceUser.unlockAbility("FORCE_PULL");
+        } else {
+            FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerFile);
 
-        // Load the player's bound abilities.
-        if (playerData.isConfigurationSection("bound-abilities")) {
-            for (String key : playerData.getConfigurationSection("bound-abilities").getKeys(false)) {
-                int slot = Integer.parseInt(key);
-                String abilityId = playerData.getString("bound-abilities." + key);
-                forceUser.setBoundAbility(slot, abilityId);
+            // Load core data
+            forceUser.setSide(ForceSide.valueOf(playerData.getString("side", "NONE")));
+
+            // Load bound abilities
+            if (playerData.isConfigurationSection("bound-abilities")) {
+                for (String key : playerData.getConfigurationSection("bound-abilities").getKeys(false)) {
+                    int slot = Integer.parseInt(key);
+                    String abilityId = playerData.getString("bound-abilities." + key);
+                    forceUser.setBoundAbility(slot, abilityId);
+                }
             }
+
+            // --- NEW: Load RPG data ---
+            forceUser.setForceLevel(playerData.getInt("rpg.level", 1));
+            forceUser.setForceXp(playerData.getDouble("rpg.xp", 0.0));
+            forceUser.setForcePoints(playerData.getInt("rpg.points", 0));
+            // Load the list of unlocked abilities. If it's a new player file, default to Push and Pull.
+            forceUser.getUnlockedAbilities().addAll(playerData.getStringList("rpg.unlocked-abilities"));
+            if (forceUser.getUnlockedAbilities().isEmpty()) {
+                forceUser.unlockAbility("FORCE_PUSH");
+                forceUser.unlockAbility("FORCE_PULL");
+            }
+            // --- END NEW ---
         }
 
         onlineUsers.put(player.getUniqueId(), forceUser);
@@ -50,8 +67,7 @@ public class ForceUserManager {
     }
 
     /**
-     * Saves a player's data to their file. This is typically called when they quit.
-     * @param player The player whose data is being saved.
+     * Saves a player's data to their file.
      */
     public void savePlayerData(Player player) {
         ForceUser forceUser = onlineUsers.get(player.getUniqueId());
@@ -61,19 +77,25 @@ public class ForceUserManager {
         }
 
         File playerFile = new File(plugin.getDataFolder(), "playerdata/" + player.getUniqueId() + ".yml");
-        FileConfiguration playerData = new YamlConfiguration(); // Create a fresh config to avoid old data.
+        FileConfiguration playerData = new YamlConfiguration();
 
-        // Save the player's side.
+        // Save core data
         playerData.set("side", forceUser.getSide().name());
 
-        // Save the bound abilities.
+        // Save bound abilities
         for (int i = 1; i <= 3; i++) {
             String abilityId = forceUser.getBoundAbility(i);
             if (abilityId != null) {
-                // The path will look like "bound-abilities.1", "bound-abilities.2", etc.
                 playerData.set("bound-abilities." + i, abilityId);
             }
         }
+
+        // --- NEW: Save RPG data ---
+        playerData.set("rpg.level", forceUser.getForceLevel());
+        playerData.set("rpg.xp", forceUser.getForceXp());
+        playerData.set("rpg.points", forceUser.getForcePoints());
+        playerData.set("rpg.unlocked-abilities", forceUser.getUnlockedAbilities());
+        // --- END NEW ---
 
         try {
             playerData.save(playerFile);
@@ -84,10 +106,6 @@ public class ForceUserManager {
         }
     }
 
-    /**
-     * Removes a player from the online cache.
-     * @param player The player to remove.
-     */
     public void removePlayerFromCache(Player player) {
         onlineUsers.remove(player.getUniqueId());
     }
