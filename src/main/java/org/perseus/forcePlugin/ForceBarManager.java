@@ -16,31 +16,67 @@ public class ForceBarManager {
     private final ForcePlugin plugin;
     private final ForceUserManager userManager;
     private final Map<UUID, BossBar> playerBars = new HashMap<>();
-
-    // --- MODIFIED: No longer final ---
     private double regenAmountPerSecond;
 
     public ForceBarManager(ForcePlugin plugin, ForceUserManager userManager) {
         this.plugin = plugin;
         this.userManager = userManager;
-        // Load the initial value from the config.
         reloadConfig();
         startEnergyRegenTask();
+        // --- DEBUG ---
+        plugin.getLogger().info("ForceBarManager initialized successfully.");
     }
 
-    // --- NEW METHOD ---
-    /**
-     * Reloads the configuration values used by this manager from the config.yml.
-     */
     public void reloadConfig() {
         this.regenAmountPerSecond = plugin.getConfig().getDouble("force-energy.regeneration-per-second", 2.5);
+        // --- DEBUG ---
+        plugin.getLogger().info("ForceBarManager config reloaded. Regen rate is now: " + regenAmountPerSecond);
     }
-    // --- END NEW ---
 
-    // ... (addPlayer, removePlayer, updateBar methods remain exactly the same) ...
-    public void addPlayer(Player player) { /* ... */ }
-    public void removePlayer(Player player) { /* ... */ }
-    public void updateBar(Player player) { /* ... */ }
+    public void addPlayer(Player player) {
+        // --- DEBUG ---
+        plugin.getLogger().info("Attempting to add Boss Bar for player: " + player.getName());
+        ForceUser user = userManager.getForceUser(player);
+        if (user == null) {
+            // --- DEBUG ---
+            plugin.getLogger().warning("Could not add Boss Bar because ForceUser data was null for " + player.getName());
+            return;
+        }
+
+        BossBar bar = Bukkit.createBossBar("Force Energy", BarColor.BLUE, BarStyle.SOLID);
+        bar.addPlayer(player);
+        playerBars.put(player.getUniqueId(), bar);
+
+        updateBar(player);
+        // --- DEBUG ---
+        plugin.getLogger().info("Successfully added Boss Bar for " + player.getName());
+    }
+
+    public void removePlayer(Player player) {
+        BossBar bar = playerBars.remove(player.getUniqueId());
+        if (bar != null) {
+            bar.removeAll();
+            // --- DEBUG ---
+            plugin.getLogger().info("Removed Boss Bar for " + player.getName());
+        }
+    }
+
+    public void updateBar(Player player) {
+        BossBar bar = playerBars.get(player.getUniqueId());
+        ForceUser user = userManager.getForceUser(player);
+        if (bar == null || user == null) return;
+
+        if (user.getSide() == ForceSide.LIGHT) {
+            bar.setColor(BarColor.BLUE);
+        } else if (user.getSide() == ForceSide.DARK) {
+            bar.setColor(BarColor.RED);
+        } else {
+            bar.setColor(BarColor.WHITE);
+        }
+
+        double progress = user.getCurrentForceEnergy() / 100.0;
+        bar.setProgress(Math.max(0.0, Math.min(1.0, progress)));
+    }
 
     private void startEnergyRegenTask() {
         new BukkitRunnable() {

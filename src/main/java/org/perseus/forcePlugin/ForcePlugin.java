@@ -29,7 +29,7 @@ public class ForcePlugin extends JavaPlugin {
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
         this.guiManager = new GUIManager(abilityManager, forceUserManager);
 
-        getServer().getPluginManager().registerEvents(new PlayerConnectionListener(forceUserManager, forceBarManager), this);
+        getServer().getPluginManager().registerEvents(new PlayerConnectionListener(forceUserManager, forceBarManager, this), this);
         getServer().getPluginManager().registerEvents(new AbilityListener(forceUserManager, abilityManager, cooldownManager, forceBarManager, telekinesisManager), this);
         getServer().getPluginManager().registerEvents(new GUIListener(this), this);
         getServer().getPluginManager().registerEvents(new ActionBarListener(forceUserManager, abilityManager), this);
@@ -40,8 +40,10 @@ public class ForcePlugin extends JavaPlugin {
         getCommand("abilities").setExecutor(new AbilitiesCommand(this));
         getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
 
+        // Handle online players on startup/reload
         for (Player player : getServer().getOnlinePlayers()) {
             forceUserManager.loadPlayerData(player);
+            // --- THE FIX: Changed 'barManager' to 'forceBarManager' ---
             forceBarManager.addPlayer(player);
         }
         getLogger().info("ForcePlugin has been enabled!");
