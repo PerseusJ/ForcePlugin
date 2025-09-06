@@ -1,6 +1,7 @@
 package org.perseus.forcePlugin;
 
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
@@ -49,6 +50,16 @@ public class TelekinesisManager {
 
                 Location destination = caster.getEyeLocation().add(caster.getLocation().getDirection().multiply(5));
                 target.teleport(destination);
+
+                Location targetCenter = target.getLocation().add(0, target.getHeight() / 2, 0);
+                double angle = (ticks * Math.PI / 10);
+                double radius = 0.8;
+                double x = radius * Math.cos(angle);
+                double z = radius * Math.sin(angle);
+                Vector offset = new Vector(x, 0, z);
+                offset.rotateAroundX(Math.toRadians(caster.getLocation().getPitch() + 90));
+                // --- FIX: Changed CRIT_MAGIC to ENCHANTED_HIT ---
+                target.getWorld().spawnParticle(Particle.ENCHANTED_HIT, targetCenter.clone().add(offset), 1, 0, 0, 0, 0);
 
                 if (ticks % 20 == 0) {
                     Ability ability = plugin.getAbilityManager().getAbility("TELEKINESIS");

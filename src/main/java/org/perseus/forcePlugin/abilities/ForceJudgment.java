@@ -45,7 +45,6 @@ public class ForceJudgment implements Ability {
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
         double damage = configManager.getDoubleValue(getID(), "damage-hearts", 3.0) * 2;
 
-        // Bonus damage logic
         if (target instanceof Player) {
             ForceUser targetUser = ForcePlugin.getPlugin(ForcePlugin.class).getForceUserManager().getForceUser((Player) target);
             if (targetUser != null && targetUser.getSide() == ForceSide.DARK) {
@@ -55,8 +54,7 @@ public class ForceJudgment implements Ability {
             damage *= configManager.getDoubleValue(getID(), "bonus-damage-multiplier-undead", 1.5);
         }
 
-        // Use our new utility to draw the particle beam
-        ParticleUtil.drawParticleBeam(player, target, Particle.END_ROD, 3.0);
+        ParticleUtil.drawZigZagBeam(player, target, Particle.END_ROD, 4.0, 0.3, null);
         target.damage(damage, player);
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1.0f, 1.5f);
     }

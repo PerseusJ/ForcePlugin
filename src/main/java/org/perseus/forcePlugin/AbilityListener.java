@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -56,23 +58,25 @@ public class AbilityListener implements Listener {
         String abilityId = forceUser.getBoundAbility(selectedSlot + 1);
         if (abilityId == null) return;
 
-        // --- NEW: Security check for unlocked abilities ---
         if (!forceUser.hasUnlockedAbility(abilityId)) {
+            // This can stay as a chat message as it's a rare, important notification.
             player.sendMessage(ChatColor.RED + "You have not unlocked this ability yet!");
             return;
         }
-        // --- END NEW ---
 
         Ability ability = abilityManager.getAbility(abilityId);
         if (ability == null) return;
 
         if (cooldownManager.isOnCooldown(player, ability.getID())) {
-            player.sendMessage(ChatColor.RED + "You can use " + ability.getName() + " again in " + cooldownManager.getRemainingCooldownFormatted(player, ability.getID()) + ".");
+            // --- MODIFIED: Use Action Bar for cooldown message ---
+            String remaining = cooldownManager.getRemainingCooldownFormatted(player, ability.getID());
+            sendActionBarMessage(player, ChatColor.RED + ability.getName() + " is on cooldown: " + remaining);
             return;
         }
 
         if (forceUser.getCurrentForceEnergy() < ability.getEnergyCost()) {
-            player.sendMessage(ChatColor.AQUA + "You don't have enough Force Energy.");
+            // --- MODIFIED: Use Action Bar for energy message ---
+            sendActionBarMessage(player, ChatColor.AQUA + "Not enough Force Energy!");
             return;
         }
 
@@ -81,5 +85,14 @@ public class AbilityListener implements Listener {
         ability.execute(player);
         forceBarManager.updateBar(player);
         levelingManager.addXp(player, 1.0);
+    }
+
+    /**
+     * A helper method to send a message to the player's action bar.
+     * @param player The player to send the message to.
+     * @param message The text to display.
+     */
+    private void sendActionBarMessage(Player player, String message) {
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
     }
 }

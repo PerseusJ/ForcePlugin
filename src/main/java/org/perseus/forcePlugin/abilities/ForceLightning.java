@@ -47,12 +47,8 @@ public class ForceLightning implements Ability {
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
         double damage = configManager.getDoubleValue(getID(), "damage-hearts", 3.0) * 2;
 
-        // --- THE FINAL FIX ---
-        // The particle is called DUST, and its color is defined by DustOptions.
         Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(100, 150, 255), 1.0F);
-        ParticleUtil.drawParticleBeam(player, target, Particle.DUST, 3.0, dustOptions);
-        // --- END FIX ---
-
+        ParticleUtil.drawZigZagBeam(player, target, Particle.DUST, 4.0, 0.3, dustOptions);
         target.damage(damage, player);
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 0.5f, 1.8f);
     }

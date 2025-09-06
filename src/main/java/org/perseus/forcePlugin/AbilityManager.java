@@ -23,24 +23,24 @@ public class AbilityManager {
     private void registerAbilities(ForcePlugin plugin, AbilityConfigManager configManager, TelekinesisManager telekinesisManager) {
         // Universal Abilities
         registerAbility(new ForcePush(configManager));
-        registerAbility(new ForcePull(configManager));
+        registerAbility(new ForcePull(configManager, plugin)); // Pass plugin for task
         registerAbility(new Telekinesis(configManager, telekinesisManager));
 
         // Light Side Exclusive
-        registerAbility(new ForceHeal(configManager));
+        registerAbility(new ForceHeal(configManager, plugin));
         registerAbility(new ForceRepulse(configManager));
-        registerAbility(new ForceStasis(configManager));
-        registerAbility(new ForceBarrier(configManager));
+        registerAbility(new ForceStasis(configManager, plugin));
+        registerAbility(new ForceBarrier(configManager, plugin));
         registerAbility(new ForceJudgment(configManager));
         registerAbility(new ForceDeflection(configManager, plugin));
 
         // Dark Side Exclusive
         registerAbility(new ForceChoke(plugin, configManager));
         registerAbility(new ForceLightning(configManager));
-        registerAbility(new ForceScream(configManager));
-        registerAbility(new ForceDrain(configManager));
-        registerAbility(new ForceCrush(configManager));
-        registerAbility(new ForceRage(configManager));
+        registerAbility(new ForceScream(configManager, plugin));
+        registerAbility(new ForceDrain(configManager, plugin));
+        registerAbility(new ForceCrush(configManager, plugin));
+        registerAbility(new ForceRage(configManager, plugin));
     }
 
     private void registerAbility(Ability ability) {

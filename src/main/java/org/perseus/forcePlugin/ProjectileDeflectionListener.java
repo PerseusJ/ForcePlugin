@@ -23,6 +23,11 @@ public class ProjectileDeflectionListener implements Listener {
         deflectingPlayers.remove(uuid);
     }
 
+    // New method required by ForceDeflection
+    public static boolean isDeflecting(UUID uuid) {
+        return deflectingPlayers.contains(uuid);
+    }
+
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
         if (!(event.getHitEntity() instanceof Player)) return;
@@ -32,18 +37,14 @@ public class ProjectileDeflectionListener implements Listener {
 
         Projectile projectile = event.getEntity();
 
-        // Check if the projectile is coming from the front.
         Vector playerDirection = player.getLocation().getDirection();
         Vector projectileDirection = projectile.getVelocity().clone().normalize();
-        // A negative dot product means the vectors are pointing towards each other.
         if (playerDirection.dot(projectileDirection) < -0.5) {
-            event.setCancelled(true); // Stop the projectile from hitting the player.
-            projectile.remove(); // Remove the original projectile.
+            event.setCancelled(true);
+            projectile.remove();
 
-            // Create a new projectile of the same type and fire it back.
             Projectile newProjectile = player.launchProjectile(projectile.getClass());
             newProjectile.setShooter(player);
-            // Reflect it back along the player's line of sight with increased speed.
             newProjectile.setVelocity(player.getLocation().getDirection().multiply(2.5));
         }
     }

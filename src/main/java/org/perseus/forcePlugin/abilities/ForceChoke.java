@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
+import org.bukkit.util.Vector;
 import org.perseus.forcePlugin.AbilityConfigManager;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.ForceSide;
@@ -36,14 +37,10 @@ public class ForceChoke implements Ability {
     public ForceSide getSide() { return ForceSide.DARK; }
 
     @Override
-    public double getEnergyCost() {
-        return configManager.getDoubleValue(getID(), "energy-cost", 30.0);
-    }
+    public double getEnergyCost() { return configManager.getDoubleValue(getID(), "energy-cost", 30.0); }
 
     @Override
-    public double getCooldown() {
-        return configManager.getDoubleValue(getID(), "cooldown", 12.0);
-    }
+    public double getCooldown() { return configManager.getDoubleValue(getID(), "cooldown", 12.0); }
 
     @Override
     public void execute(Player player) {
@@ -54,7 +51,6 @@ public class ForceChoke implements Ability {
         if (rayTrace == null || rayTrace.getHitEntity() == null) return;
 
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
-
         int duration = configManager.getIntValue(getID(), "duration-seconds", 3) * 20;
         int levitationAmp = configManager.getIntValue(getID(), "levitation-amplifier", 1) - 1;
         double damagePerSecond = configManager.getDoubleValue(getID(), "damage-per-second-hearts", 1.0) * 2;
@@ -74,7 +70,12 @@ public class ForceChoke implements Ability {
                     target.damage(damagePerSecond, player);
                 }
                 Location particleLoc = target.getLocation().add(0, target.getHeight() * 0.8, 0);
-                target.getWorld().spawnParticle(Particle.SMOKE, particleLoc, 2, 0.1, 0.1, 0.1, 0);
+                double radius = 0.5 - ((double) ticks / duration) * 0.3;
+                double angle = ticks * Math.PI / 4;
+                double x = radius * Math.cos(angle);
+                double z = radius * Math.sin(angle);
+                target.getWorld().spawnParticle(Particle.SMOKE, particleLoc.clone().add(x, 0, z), 1, 0, 0, 0, 0);
+                target.getWorld().spawnParticle(Particle.SQUID_INK, particleLoc.clone().add(-x, 0, -z), 1, 0, 0, 0, 0);
                 ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);

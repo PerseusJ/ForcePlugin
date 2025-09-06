@@ -15,6 +15,7 @@ public class ForcePlugin extends JavaPlugin {
     private AbilityConfigManager abilityConfigManager;
     private TelekinesisManager telekinesisManager;
     private LevelingManager levelingManager;
+    private AmbientEffectsManager ambientEffectsManager; // --- NEW ---
 
     @Override
     public void onEnable() {
@@ -31,6 +32,7 @@ public class ForcePlugin extends JavaPlugin {
         this.cooldownManager = new CooldownManager();
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
         this.guiManager = new GUIManager(abilityManager, forceUserManager, levelingManager);
+        this.ambientEffectsManager = new AmbientEffectsManager(this); // --- NEW ---
 
         // Register listeners
         getServer().getPluginManager().registerEvents(new PlayerConnectionListener(forceUserManager, forceBarManager, this), this);
@@ -45,7 +47,7 @@ public class ForcePlugin extends JavaPlugin {
         getCommand("powers").setExecutor(new PowersCommand(forceUserManager));
         getCommand("abilities").setExecutor(new AbilitiesCommand(this));
         getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
-        getCommand("forcestats").setExecutor(new ForceStatsCommand(this)); // --- NEW ---
+        getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
 
         // Handle online players on startup/reload
         for (Player player : getServer().getOnlinePlayers()) {
@@ -80,4 +82,5 @@ public class ForcePlugin extends JavaPlugin {
     public AbilityConfigManager getAbilityConfigManager() { return abilityConfigManager; }
     public TelekinesisManager getTelekinesisManager() { return telekinesisManager; }
     public LevelingManager getLevelingManager() { return levelingManager; }
+    // No getter is needed for AmbientEffectsManager as it's self-contained.
 }

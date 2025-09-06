@@ -1,9 +1,11 @@
 package org.perseus.forcePlugin.abilities;
 
+import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 import org.perseus.forcePlugin.AbilityConfigManager;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.ForceSide;
@@ -42,17 +44,28 @@ public class ForceDeflection implements Ability {
         double durationSeconds = configManager.getDoubleValue(getID(), "duration-seconds", 1.5);
         int durationTicks = (int) (durationSeconds * 20);
 
-        // Add the player to the set of "deflecting" players.
         ProjectileDeflectionListener.addDeflectingPlayer(player.getUniqueId());
         player.getWorld().playSound(player.getLocation(), Sound.ITEM_SHIELD_BLOCK, 1.0f, 1.0f);
-        player.getWorld().spawnParticle(Particle.CRIT, player.getEyeLocation(), 20, 0.5, 0.5, 0.5);
 
-        // Schedule a task to remove them from the set after the duration expires.
         new BukkitRunnable() {
+            int ticks = 0;
             @Override
             public void run() {
-                ProjectileDeflectionListener.removeDeflectingPlayer(player.getUniqueId());
+                if (ticks >= durationTicks || !player.isOnline() || !ProjectileDeflectionListener.isDeflecting(player.getUniqueId())) {
+                    ProjectileDeflectionListener.removeDeflectingPlayer(player.getUniqueId());
+                    this.cancel();
+                    return;
+                }
+                Location center = player.getEyeLocation();
+                for (int i = 0; i < 5; i++) {
+                    Vector direction = player.getLocation().getDirection().clone();
+                    Vector random = new Vector(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiply(0.8);
+                    direction.add(random).normalize();
+                    Location particleLoc = center.clone().add(direction);
+                    player.getWorld().spawnParticle(Particle.CRIT, particleLoc, 1, 0, 0, 0, 0);
+                }
+                ticks++;
             }
-        }.runTaskLater(plugin, durationTicks);
+        }.runTaskTimer(plugin, 0L, 1L);
     }
 }
