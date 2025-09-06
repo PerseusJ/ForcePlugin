@@ -52,17 +52,13 @@ public class GUIManager {
         infoBook.setItemMeta(infoMeta);
         gui.setItem(4, infoBook);
 
-        // --- MODIFIED: Get all abilities in one list and place them together ---
         List<Ability> availableAbilities = new ArrayList<>(abilityManager.getAbilitiesBySide(forceUser.getSide()));
 
-        // Define the slots where ability icons will be placed.
-        int[] abilitySlots = {10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25};
+        int[] abilitySlots = {10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34};
         for (int i = 0; i < availableAbilities.size() && i < abilitySlots.length; i++) {
             gui.setItem(abilitySlots[i], createAbilityIcon(availableAbilities.get(i), forceUser.getSide()));
         }
-        // --- END MODIFIED ---
 
-        // --- MODIFIED: Use colored glass panes for empty binding slots ---
         int[] bindingSlots = {40, 41, 42};
         Material[] slotColors = {Material.BLUE_STAINED_GLASS_PANE, Material.YELLOW_STAINED_GLASS_PANE, Material.RED_STAINED_GLASS_PANE};
 
@@ -74,7 +70,6 @@ public class GUIManager {
                 Ability boundAbility = abilityManager.getAbility(boundAbilityId);
                 slotIcon = createAbilityIcon(boundAbility, forceUser.getSide());
             } else {
-                // Use a different colored pane for each empty slot.
                 slotIcon = new ItemStack(slotColors[i]);
                 ItemMeta meta = slotIcon.getItemMeta();
                 meta.setDisplayName(ChatColor.YELLOW + "Binding Slot " + slotNum);
@@ -83,7 +78,6 @@ public class GUIManager {
             }
             gui.setItem(bindingSlots[i], slotIcon);
         }
-        // --- END MODIFIED ---
 
         player.openInventory(gui);
     }
@@ -91,15 +85,26 @@ public class GUIManager {
     private ItemStack createAbilityIcon(Ability ability, ForceSide viewerSide) {
         Material iconMaterial;
         ChatColor nameColor;
-        ForceSide abilitySide = ability.getSide() == ForceSide.NONE ? viewerSide : ability.getSide();
+
+        // --- THE FIX: More robust logic for determining color and material ---
+        ForceSide abilitySide = ability.getSide();
 
         if (abilitySide == ForceSide.LIGHT) {
             iconMaterial = Material.NETHER_STAR;
             nameColor = ChatColor.AQUA;
-        } else {
+        } else if (abilitySide == ForceSide.DARK) {
             iconMaterial = Material.REDSTONE;
             nameColor = ChatColor.RED;
+        } else { // This handles the Universal (ForceSide.NONE) case
+            if (viewerSide == ForceSide.LIGHT) {
+                iconMaterial = Material.NETHER_STAR;
+                nameColor = ChatColor.AQUA;
+            } else { // If viewer is Dark Side (or somehow NONE), default to Dark Side look
+                iconMaterial = Material.REDSTONE;
+                nameColor = ChatColor.RED;
+            }
         }
+        // --- END FIX ---
 
         ItemStack icon = new ItemStack(iconMaterial);
         ItemMeta meta = icon.getItemMeta();
