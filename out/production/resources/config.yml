@@ -5,100 +5,118 @@
 force-energy:
   regeneration-per-second: 2.5
 
+# --- Progression System Settings ---
+progression:
+  # The maximum level a player can achieve.
+  max-force-level: 50
+  # How many Force Points are awarded each time a player levels up.
+  points-per-level: 1
+  # XP Formula: BaseXP + ( (CurrentLevel - 1) * Multiplier)
+  # The base amount of XP needed to get from level 1 to 2.
+  base-xp: 100
+  # How much additional XP is needed for each subsequent level.
+  xp-per-level-multiplier: 50
+  # XP Gain Sources
+  xp-gain:
+    per-ability-use: 1.0
+    per-telekinesis-launch: 2.0
+    per-mob-kill: 5.0
+
 abilities:
-  # ------------------------------------------------- #
-  #                Universal Abilities                #
-  # ------------------------------------------------- #
+  # --- Universal Abilities ---
   FORCE_PUSH:
-    energy-cost: 15.0
-    cooldown: 4.0
-    range: 10
-    strength: 2.0
-    upward-force: 1.2
+    unlock-cost: 1
+    max-level: 3
+    levels:
+      '1': { energy-cost: 15.0, cooldown: 4.0, strength: 2.0, upward-force: 1.2 }
+      '2': { energy-cost: 14.0, cooldown: 3.5, strength: 2.5, upward-force: 1.3 }
+      '3': { energy-cost: 12.0, cooldown: 3.0, strength: 3.0, upward-force: 1.4 }
   FORCE_PULL:
-    energy-cost: 15.0
-    cooldown: 10.0
-    range: 20
-    strength: 2.5
+    unlock-cost: 1
+    max-level: 2
+    levels:
+      '1': { energy-cost: 15.0, cooldown: 10.0, strength: 2.5 }
+      '2': { energy-cost: 12.0, cooldown: 8.0, strength: 3.0 }
   TELEKINESIS:
-    initial-energy-cost: 10.0
-    energy-cost-per-second: 5.0
-    cooldown: 20.0
-    range: 20
-    launch-strength: 3.0
+    unlock-cost: 3
+    max-level: 1
+    levels:
+      '1': { initial-energy-cost: 10.0, energy-cost-per-second: 5.0, cooldown: 20.0, range: 20, launch-strength: 3.0 }
 
-  # ------------------------------------------------- #
-  #              Light Side Exclusive                 #
-  # ------------------------------------------------- #
+  # --- Light Side Exclusive ---
   FORCE_HEAL:
-    energy-cost: 30.0
-    cooldown: 12.0
-    heal-amount-hearts: 2.0
+    unlock-cost: 1
+    max-level: 3
+    levels:
+      '1': { energy-cost: 30.0, cooldown: 12.0, heal-amount-hearts: 2.0 }
+      '2': { energy-cost: 28.0, cooldown: 10.0, heal-amount-hearts: 3.0 }
+      '3': { energy-cost: 25.0, cooldown: 8.0, heal-amount-hearts: 4.0 }
   FORCE_REPULSE:
-    energy-cost: 35.0
-    cooldown: 18.0
-    radius: 6
-    strength: 2.5
-    upward-force: 0.8
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 35.0, cooldown: 18.0, radius: 6, strength: 2.5 }
+      '2': { energy-cost: 30.0, cooldown: 15.0, radius: 8, strength: 3.0 }
   FORCE_STASIS:
-    energy-cost: 20.0
-    cooldown: 15.0
-    range: 15
-    duration-seconds: 3
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 20.0, cooldown: 15.0, duration-seconds: 3 }
+      '2': { energy-cost: 18.0, cooldown: 12.0, duration-seconds: 4 }
   FORCE_BARRIER:
-    energy-cost: 30.0
-    cooldown: 25.0
-    duration-seconds: 10
-    shield-hearts: 2
+    unlock-cost: 2
+    max-level: 3
+    levels:
+      '1': { energy-cost: 30.0, cooldown: 25.0, duration-seconds: 10, shield-hearts: 2 }
+      '2': { energy-cost: 28.0, cooldown: 22.0, duration-seconds: 12, shield-hearts: 3 }
+      '3': { energy-cost: 25.0, cooldown: 20.0, duration-seconds: 15, shield-hearts: 4 }
   FORCE_JUDGMENT:
-    energy-cost: 25.0
-    cooldown: 8.0
-    range: 20
-    damage-hearts: 3.0
-    bonus-damage-multiplier-dark-side: 1.5
-    bonus-damage-multiplier-undead: 1.5
+    unlock-cost: 2
+    max-level: 3
+    levels:
+      '1': { energy-cost: 25.0, cooldown: 8.0, damage-hearts: 3.0 }
+      '2': { energy-cost: 22.0, cooldown: 7.0, damage-hearts: 4.0 }
+      '3': { energy-cost: 20.0, cooldown: 6.0, damage-hearts: 5.0 }
   FORCE_DEFLECTION:
-    energy-cost: 20.0
-    cooldown: 12.0
-    duration-seconds: 1.5
+    unlock-cost: 3
+    max-level: 1
+    levels:
+      '1': { energy-cost: 20.0, cooldown: 12.0, duration-seconds: 1.5 }
 
-  # ------------------------------------------------- #
-  #               Dark Side Exclusive                 #
-  # ------------------------------------------------- #
+  # --- Dark Side Exclusive ---
   FORCE_CHOKE:
-    energy-cost: 30.0
-    cooldown: 12.0
-    range: 15
-    duration-seconds: 3
-    levitation-amplifier: 1
-    damage-per-second-hearts: 1.0
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 30.0, cooldown: 12.0, duration-seconds: 3, damage-per-second-hearts: 1.0 }
+      '2': { energy-cost: 28.0, cooldown: 10.0, duration-seconds: 4, damage-per-second-hearts: 1.5 }
   FORCE_LIGHTNING:
-    energy-cost: 25.0
-    cooldown: 8.0
-    range: 20
-    damage-hearts: 3.0
+    unlock-cost: 2
+    max-level: 3
+    levels:
+      '1': { energy-cost: 25.0, cooldown: 8.0, damage-hearts: 3.0 }
+      '2': { energy-cost: 22.0, cooldown: 7.0, damage-hearts: 4.0 }
+      '3': { energy-cost: 20.0, cooldown: 6.0, damage-hearts: 5.0 }
   FORCE_SCREAM:
-    energy-cost: 25.0
-    cooldown: 20.0
-    radius: 8
-    duration-seconds: 5
-    weakness-amplifier: 1
-    slowness-amplifier: 2
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 25.0, cooldown: 20.0, radius: 8, duration-seconds: 5 }
+      '2': { energy-cost: 22.0, cooldown: 16.0, radius: 10, duration-seconds: 7 }
   FORCE_DRAIN:
-    energy-cost: 40.0
-    cooldown: 25.0
-    range: 15
-    drain-amount-hearts: 2.0
+    unlock-cost: 3
+    max-level: 2
+    levels:
+      '1': { energy-cost: 40.0, cooldown: 25.0, drain-amount-hearts: 2.0 }
+      '2': { energy-cost: 35.0, cooldown: 20.0, drain-amount-hearts: 3.0 }
   FORCE_CRUSH:
-    energy-cost: 35.0
-    cooldown: 15.0
-    range: 20
-    damage-hearts: 4.0
-    slowness-duration-seconds: 3
-    slowness-amplifier: 3
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 35.0, cooldown: 15.0, damage-hearts: 4.0 }
+      '2': { energy-cost: 30.0, cooldown: 12.0, damage-hearts: 5.5 }
   FORCE_RAGE:
-    energy-cost: 40.0
-    cooldown: 35.0
-    duration-seconds: 8
-    speed-amplifier: 2
-    strength-amplifier: 2
+    unlock-cost: 3
+    max-level: 1
+    levels:
+      '1': { energy-cost: 40.0, cooldown: 35.0, duration-seconds: 8, speed-amplifier: 2, strength-amplifier: 2 }
