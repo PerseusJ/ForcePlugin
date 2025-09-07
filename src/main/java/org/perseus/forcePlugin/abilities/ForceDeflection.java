@@ -6,42 +6,23 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import org.perseus.forcePlugin.AbilityConfigManager;
-import org.perseus.forcePlugin.ForcePlugin;
-import org.perseus.forcePlugin.ForceSide;
-import org.perseus.forcePlugin.ProjectileDeflectionListener;
+import org.perseus.forcePlugin.*;
 
 public class ForceDeflection implements Ability {
-
     private final AbilityConfigManager configManager;
     private final ForcePlugin plugin;
-
-    public ForceDeflection(AbilityConfigManager configManager, ForcePlugin plugin) {
-        this.configManager = configManager;
-        this.plugin = plugin;
-    }
-
-    @Override
-    public String getID() { return "FORCE_DEFLECTION"; }
-
-    @Override
-    public String getName() { return "Force Deflection"; }
+    public ForceDeflection(AbilityConfigManager configManager, ForcePlugin plugin) { this.configManager = configManager; this.plugin = plugin; }
+    @Override public String getID() { return "FORCE_DEFLECTION"; }
+    @Override public String getName() { return "Force Deflection"; }
+    @Override public String getDescription() { return "Briefly reflect incoming projectiles."; }
+    @Override public ForceSide getSide() { return ForceSide.LIGHT; }
+    @Override public double getEnergyCost(int level) { return configManager.getDoubleValue(getID(), level, "energy-cost", 20.0); }
+    @Override public double getCooldown(int level) { return configManager.getDoubleValue(getID(), level, "cooldown", 12.0); }
 
     @Override
-    public String getDescription() { return "Briefly reflect incoming projectiles."; }
-
-    @Override
-    public ForceSide getSide() { return ForceSide.LIGHT; }
-
-    @Override
-    public double getEnergyCost() { return configManager.getDoubleValue(getID(), "energy-cost", 20.0); }
-
-    @Override
-    public double getCooldown() { return configManager.getDoubleValue(getID(), "cooldown", 12.0); }
-
-    @Override
-    public void execute(Player player) {
-        double durationSeconds = configManager.getDoubleValue(getID(), "duration-seconds", 1.5);
+    public void execute(Player player, ForceUser forceUser) {
+        int level = forceUser.getAbilityLevel(getID());
+        double durationSeconds = configManager.getDoubleValue(getID(), level, "duration-seconds", 1.5);
         int durationTicks = (int) (durationSeconds * 20);
 
         ProjectileDeflectionListener.addDeflectingPlayer(player.getUniqueId());

@@ -9,46 +9,28 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.perseus.forcePlugin.AbilityConfigManager;
-import org.perseus.forcePlugin.ForcePlugin;
-import org.perseus.forcePlugin.ForceSide;
+import org.perseus.forcePlugin.*;
 
 public class ForceScream implements Ability {
-
     private final AbilityConfigManager configManager;
     private final ForcePlugin plugin;
-
-    public ForceScream(AbilityConfigManager configManager, ForcePlugin plugin) {
-        this.configManager = configManager;
-        this.plugin = plugin;
-    }
-
-    @Override
-    public String getID() { return "FORCE_SCREAM"; }
-
-    @Override
-    public String getName() { return "Force Scream"; }
+    public ForceScream(AbilityConfigManager configManager, ForcePlugin plugin) { this.configManager = configManager; this.plugin = plugin; }
+    @Override public String getID() { return "FORCE_SCREAM"; }
+    @Override public String getName() { return "Force Scream"; }
+    @Override public String getDescription() { return "Weakens and slows all nearby enemies."; }
+    @Override public ForceSide getSide() { return ForceSide.DARK; }
+    @Override public double getEnergyCost(int level) { return configManager.getDoubleValue(getID(), level, "energy-cost", 25.0); }
+    @Override public double getCooldown(int level) { return configManager.getDoubleValue(getID(), level, "cooldown", 20.0); }
 
     @Override
-    public String getDescription() { return "Weakens and slows all nearby enemies."; }
+    public void execute(Player player, ForceUser forceUser) {
+        int level = forceUser.getAbilityLevel(getID());
+        int radius = configManager.getIntValue(getID(), level, "radius", 8);
+        int duration = configManager.getIntValue(getID(), level, "duration-seconds", 5) * 20;
+        int weaknessAmp = 0;
+        int slownessAmp = 1;
 
-    @Override
-    public ForceSide getSide() { return ForceSide.DARK; }
-
-    @Override
-    public double getEnergyCost() { return configManager.getDoubleValue(getID(), "energy-cost", 25.0); }
-
-    @Override
-    public double getCooldown() { return configManager.getDoubleValue(getID(), "cooldown", 20.0); }
-
-    @Override
-    public void execute(Player player) {
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GHAST_SCREAM, 1.0f, 0.9f);
-
-        int radius = configManager.getIntValue(getID(), "radius", 8);
-        int duration = configManager.getIntValue(getID(), "duration-seconds", 5) * 20;
-        int weaknessAmp = configManager.getIntValue(getID(), "weakness-amplifier", 1) - 1;
-        int slownessAmp = configManager.getIntValue(getID(), "slowness-amplifier", 2) - 1;
 
         for (Entity entity : player.getNearbyEntities(radius, radius, radius)) {
             if (entity instanceof LivingEntity && !entity.equals(player)) {
@@ -58,15 +40,11 @@ public class ForceScream implements Ability {
             }
         }
 
-        // --- NEW: Expanding Sonic Boom Ring ---
         new BukkitRunnable() {
             double currentRadius = 1.0;
             @Override
             public void run() {
-                if (currentRadius > radius) {
-                    this.cancel();
-                    return;
-                }
+                if (currentRadius > radius) { this.cancel(); return; }
                 Location center = player.getLocation();
                 for (double angle = 0; angle < 2 * Math.PI; angle += Math.PI / 16) {
                     double x = center.getX() + currentRadius * Math.cos(angle);
@@ -76,6 +54,5 @@ public class ForceScream implements Ability {
                 currentRadius += 0.5;
             }
         }.runTaskTimer(plugin, 0L, 1L);
-        // --- END NEW ---
     }
 }

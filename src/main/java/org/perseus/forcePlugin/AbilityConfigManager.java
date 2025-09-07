@@ -10,34 +10,49 @@ public class AbilityConfigManager {
 
     private final FileConfiguration config;
 
-    /**
-     * Constructor for the AbilityConfigManager.
-     * @param plugin A reference to the main plugin class to get its config.
-     */
     public AbilityConfigManager(ForcePlugin plugin) {
         this.config = plugin.getConfig();
     }
 
     /**
-     * A generic method to get any double value (like cost, cooldown, damage) for an ability.
+     * Gets the maximum level for a specific ability from the config.
      * @param abilityId The unique ID of the ability (e.g., "FORCE_PUSH").
-     * @param path The specific value to get (e.g., "energy-cost").
-     * @param defaultValue A fallback value in case the path is missing from the config.
-     * @return The value from the config, or the default value if not found.
+     * @return The max level, or 1 if not specified.
      */
-    public double getDoubleValue(String abilityId, String path, double defaultValue) {
-        // The full path in the config will look like: "abilities.FORCE_PUSH.energy-cost"
-        return config.getDouble("abilities." + abilityId + "." + path, defaultValue);
+    public int getMaxLevel(String abilityId) {
+        return config.getInt("abilities." + abilityId + ".max-level", 1);
     }
 
     /**
-     * A generic method to get any integer value (like duration, amplifier) for an ability.
-     * @param abilityId The unique ID of the ability (e.g., "FORCE_PUSH").
-     * @param path The specific value to get (e.g., "duration-seconds").
-     * @param defaultValue A fallback value in case the path is missing from the config.
-     * @return The value from the config, or the default value if not found.
+     * A generic method to get any double value for a specific level of an ability.
+     * @param abilityId The unique ID of the ability.
+     * @param level The level of the ability to get the value for.
+     * @param path The specific value to get (e.g., "energy-cost").
+     * @param defaultValue A fallback value.
+     * @return The value from the config.
      */
-    public int getIntValue(String abilityId, String path, int defaultValue) {
-        return config.getInt("abilities." + abilityId + "." + path, defaultValue);
+    public double getDoubleValue(String abilityId, int level, String path, double defaultValue) {
+        // The full path will look like: "abilities.FORCE_PUSH.levels.1.energy-cost"
+        String configPath = "abilities." + abilityId + ".levels." + level + "." + path;
+
+        // If the ability is not tiered, check the old path format.
+        if (!config.contains("abilities." + abilityId + ".levels")) {
+            configPath = "abilities." + abilityId + "." + path;
+        }
+
+        return config.getDouble(configPath, defaultValue);
+    }
+
+    /**
+     * A generic method to get any integer value for a specific level of an ability.
+     */
+    public int getIntValue(String abilityId, int level, String path, int defaultValue) {
+        String configPath = "abilities." + abilityId + ".levels." + level + "." + path;
+
+        if (!config.contains("abilities." + abilityId + ".levels")) {
+            configPath = "abilities." + abilityId + "." + path;
+        }
+
+        return config.getInt(configPath, defaultValue);
     }
 }

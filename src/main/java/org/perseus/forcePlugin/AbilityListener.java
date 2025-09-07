@@ -42,7 +42,8 @@ public class AbilityListener implements Listener {
         if (telekinesisManager.isLifting(player)) {
             event.setCancelled(true);
             telekinesisManager.launch(player);
-            levelingManager.addXp(player, 2.0);
+            double xpToGive = event.getWhoClicked().getServer().getPluginManager().getPlugin("ForcePlugin").getConfig().getDouble("progression.xp-gain.per-telekinesis-launch", 2.0);
+            levelingManager.addXp(player, xpToGive);
             return;
         }
 
@@ -59,7 +60,6 @@ public class AbilityListener implements Listener {
         if (abilityId == null) return;
 
         if (!forceUser.hasUnlockedAbility(abilityId)) {
-            // This can stay as a chat message as it's a rare, important notification.
             player.sendMessage(ChatColor.RED + "You have not unlocked this ability yet!");
             return;
         }
@@ -67,31 +67,28 @@ public class AbilityListener implements Listener {
         Ability ability = abilityManager.getAbility(abilityId);
         if (ability == null) return;
 
+        int abilityLevel = forceUser.getAbilityLevel(abilityId);
+
         if (cooldownManager.isOnCooldown(player, ability.getID())) {
-            // --- MODIFIED: Use Action Bar for cooldown message ---
             String remaining = cooldownManager.getRemainingCooldownFormatted(player, ability.getID());
             sendActionBarMessage(player, ChatColor.RED + ability.getName() + " is on cooldown: " + remaining);
             return;
         }
 
-        if (forceUser.getCurrentForceEnergy() < ability.getEnergyCost()) {
-            // --- MODIFIED: Use Action Bar for energy message ---
+        if (forceUser.getCurrentForceEnergy() < ability.getEnergyCost(abilityLevel)) {
             sendActionBarMessage(player, ChatColor.AQUA + "Not enough Force Energy!");
             return;
         }
 
-        forceUser.setCurrentForceEnergy(forceUser.getCurrentForceEnergy() - ability.getEnergyCost());
-        cooldownManager.setCooldown(player, ability.getID(), ability.getCooldown());
-        ability.execute(player);
+        forceUser.setCurrentForceEnergy(forceUser.getCurrentForceEnergy() - ability.getEnergyCost(abilityLevel));
+        cooldownManager.setCooldown(player, ability.getID(), ability.getCooldown(abilityLevel));
+        ability.execute(player, forceUser);
         forceBarManager.updateBar(player);
-        levelingManager.addXp(player, 1.0);
+
+        double xpToGive = event.getWhoClicked().getServer().getPluginManager().getPlugin("ForcePlugin").getConfig().getDouble("progression.xp-gain.per-ability-use", 1.0);
+        levelingManager.addXp(player, xpToGive);
     }
 
-    /**
-     * A helper method to send a message to the player's action bar.
-     * @param player The player to send the message to.
-     * @param message The text to display.
-     */
     private void sendActionBarMessage(Player player, String message) {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
     }

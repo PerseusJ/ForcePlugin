@@ -8,48 +8,29 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
-import org.perseus.forcePlugin.AbilityConfigManager;
-import org.perseus.forcePlugin.ForcePlugin;
-import org.perseus.forcePlugin.ForceSide;
+import org.perseus.forcePlugin.*;
 
 public class ForcePull implements Ability {
-
     private final AbilityConfigManager configManager;
     private final ForcePlugin plugin;
-
-    public ForcePull(AbilityConfigManager configManager, ForcePlugin plugin) {
-        this.configManager = configManager;
-        this.plugin = plugin;
-    }
-
-    @Override
-    public String getID() { return "FORCE_PULL"; }
-
-    @Override
-    public String getName() { return "Force Pull"; }
+    public ForcePull(AbilityConfigManager configManager, ForcePlugin plugin) { this.configManager = configManager; this.plugin = plugin; }
+    @Override public String getID() { return "FORCE_PULL"; }
+    @Override public String getName() { return "Force Pull"; }
+    @Override public String getDescription() { return "Yanks a single target towards you."; }
+    @Override public ForceSide getSide() { return ForceSide.NONE; }
+    @Override public double getEnergyCost(int level) { return configManager.getDoubleValue(getID(), level, "energy-cost", 15.0); }
+    @Override public double getCooldown(int level) { return configManager.getDoubleValue(getID(), level, "cooldown", 10.0); }
 
     @Override
-    public String getDescription() { return "Yanks a single target towards you."; }
+    public void execute(Player player, ForceUser forceUser) {
+        int level = forceUser.getAbilityLevel(getID());
+        int range = 20;
+        double strength = configManager.getDoubleValue(getID(), level, "strength", 2.5);
 
-    @Override
-    public ForceSide getSide() { return ForceSide.NONE; }
-
-    @Override
-    public double getEnergyCost() { return configManager.getDoubleValue(getID(), "energy-cost", 15.0); }
-
-    @Override
-    public double getCooldown() { return configManager.getDoubleValue(getID(), "cooldown", 10.0); }
-
-    @Override
-    public void execute(Player player) {
-        int range = configManager.getIntValue(getID(), "range", 20);
         RayTraceResult rayTrace = player.getWorld().rayTraceEntities(player.getEyeLocation(), player.getLocation().getDirection(), range,
                 entity -> entity instanceof LivingEntity && !entity.equals(player));
-
         if (rayTrace == null || rayTrace.getHitEntity() == null) return;
-
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
-        double strength = configManager.getDoubleValue(getID(), "strength", 2.5);
 
         new BukkitRunnable() {
             final Location start = target.getEyeLocation();
@@ -57,7 +38,6 @@ public class ForcePull implements Ability {
             final Vector direction = end.toVector().subtract(start.toVector()).normalize();
             final double distance = start.distance(end);
             double traveled = 0;
-
             @Override
             public void run() {
                 if (traveled >= distance) {
@@ -68,7 +48,6 @@ public class ForcePull implements Ability {
                     return;
                 }
                 Location point = start.clone().add(direction.clone().multiply(traveled));
-                // --- FIX: Changed CRIT_MAGIC to ENCHANTED_HIT ---
                 player.getWorld().spawnParticle(Particle.ENCHANTED_HIT, point, 1, 0, 0, 0, 0);
                 traveled += 1.0;
             }
