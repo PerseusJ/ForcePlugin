@@ -16,14 +16,12 @@ commands:
     usage: /<command>
   forceadmin:
     description: Admin command for the ForcePlugin.
-    usage: /<command> [reload|setside|reset|check]
+    usage: /<command> [reload|setside|reset|check|setlevel|givexp|givepoints]
     aliases: [fa]
-  # --- NEW ---
   forcestats:
     description: Displays your Force progression stats.
     usage: /<command> [player]
     aliases: [fs]
-  # --- END NEW ---
 
 permissions:
   forceplugin.admin:
