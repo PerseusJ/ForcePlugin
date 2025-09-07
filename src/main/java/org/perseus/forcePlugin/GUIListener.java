@@ -10,14 +10,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.perseus.forcePlugin.abilities.Ability;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
 public class GUIListener implements Listener {
 
     private final ForcePlugin plugin;
-    private final Map<UUID, String> selectedAbility = new HashMap<>();
 
     public GUIListener(ForcePlugin plugin) {
         this.plugin = plugin;
@@ -62,12 +57,6 @@ public class GUIListener implements Listener {
                     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                 }
             }
-            return;
-        }
-
-        int clickedSlot = event.getRawSlot();
-        if (clickedSlot >= 48 && clickedSlot <= 50) {
-            player.sendMessage(ChatColor.YELLOW + "Click an unlocked ability to view or bind it.");
         }
     }
 
@@ -84,7 +73,9 @@ public class GUIListener implements Listener {
         Ability ability = findAbilityByName(forceUser, abilityName);
         if (ability == null) return;
 
-        if (clickedItem.getType() == Material.EMERALD_BLOCK) {
+        Material clickedType = clickedItem.getType();
+
+        if (clickedType == Material.EMERALD_BLOCK) {
             if (forceUser.getForcePoints() > 0) {
                 forceUser.addForcePoints(-1);
                 forceUser.upgradeAbility(ability.getID());
@@ -95,12 +86,27 @@ public class GUIListener implements Listener {
                 player.sendMessage(ChatColor.RED + "You do not have enough Force Points to upgrade this.");
                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
             }
+        } else if (clickedType == Material.BARRIER) {
+            plugin.getGuiManager().openAbilityGUI(player);
+        } else if (clickedType == Material.BLUE_WOOL || clickedType == Material.YELLOW_WOOL || clickedType == Material.RED_WOOL) {
+            int slotToBind = -1;
+            if (clickedType == Material.BLUE_WOOL) slotToBind = 1;
+            if (clickedType == Material.YELLOW_WOOL) slotToBind = 2;
+            if (clickedType == Material.RED_WOOL) slotToBind = 3;
+
+            if (slotToBind != -1) {
+                forceUser.setBoundAbility(slotToBind, ability.getID());
+                player.sendMessage(ChatColor.GREEN + "Bound " + ability.getName() + " to Slot " + slotToBind + ".");
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.5f);
+                plugin.getGuiManager().openUpgradeGUI(player, ability);
+            }
         }
     }
 
     private Ability findAbilityByName(ForceUser user, String name) {
+        // A more robust way to find the ability, ignoring any extra text like "Level X"
         for (Ability ability : plugin.getAbilityManager().getAbilitiesBySide(user.getSide())) {
-            if (ability.getName().equalsIgnoreCase(name)) {
+            if (ability.getName().equalsIgnoreCase(name.trim())) {
                 return ability;
             }
         }

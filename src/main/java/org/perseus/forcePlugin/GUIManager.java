@@ -3,7 +3,6 @@ package org.perseus.forcePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -18,12 +17,11 @@ import java.util.List;
 public class GUIManager {
 
     public static final String ABILITY_GUI_TITLE = "Select Your Abilities";
-    // --- NEW: Title for the upgrade menu ---
-    public static final String UPGRADE_GUI_TITLE_PREFIX = "Upgrade: ";
+    public static final String UPGRADE_GUI_TITLE_PREFIX = "Manage: ";
 
     private final AbilityManager abilityManager;
     private final ForceUserManager userManager;
-    private final AbilityConfigManager configManager; // We now need the config manager
+    private final AbilityConfigManager configManager;
 
     public GUIManager(AbilityManager abilityManager, ForceUserManager userManager, AbilityConfigManager configManager) {
         this.abilityManager = abilityManager;
@@ -41,7 +39,9 @@ public class GUIManager {
         ItemMeta fillerMeta = filler.getItemMeta();
         fillerMeta.setDisplayName(" ");
         filler.setItemMeta(fillerMeta);
-        for (int i = 0; i < gui.getSize(); i++) { gui.setItem(i, filler); }
+        for (int i = 0; i < gui.getSize(); i++) {
+            gui.setItem(i, filler);
+        }
 
         ItemStack statusItem = new ItemStack(Material.EXPERIENCE_BOTTLE);
         ItemMeta statusMeta = statusItem.getItemMeta();
@@ -76,7 +76,7 @@ public class GUIManager {
                 slotIcon = new ItemStack(slotColors[i]);
                 ItemMeta meta = slotIcon.getItemMeta();
                 meta.setDisplayName(ChatColor.YELLOW + "Binding Slot " + slotNum);
-                meta.setLore(List.of(ChatColor.GRAY + "Select an unlocked ability,", ChatColor.GRAY + "then click here to bind it."));
+                meta.setLore(List.of(ChatColor.GRAY + "This slot is empty."));
                 slotIcon.setItemMeta(meta);
             }
             gui.setItem(bindingSlots[i], slotIcon);
@@ -84,44 +84,63 @@ public class GUIManager {
         player.openInventory(gui);
     }
 
-    // --- NEW: Method to open the specific upgrade menu ---
     public void openUpgradeGUI(Player player, Ability ability) {
         ForceUser forceUser = userManager.getForceUser(player);
         if (forceUser == null) return;
 
-        Inventory gui = Bukkit.createInventory(null, 27, UPGRADE_GUI_TITLE_PREFIX + ability.getName());
+        Inventory gui = Bukkit.createInventory(null, 45, UPGRADE_GUI_TITLE_PREFIX + ability.getName());
         ItemStack filler = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
         ItemMeta fillerMeta = filler.getItemMeta();
         fillerMeta.setDisplayName(" ");
         filler.setItemMeta(fillerMeta);
-        for (int i = 0; i < gui.getSize(); i++) { gui.setItem(i, filler); }
+        for (int i = 0; i < gui.getSize(); i++) {
+            gui.setItem(i, filler);
+        }
 
         int currentLevel = forceUser.getAbilityLevel(ability.getID());
         int maxLevel = configManager.getMaxLevel(ability.getID());
 
-        // Display current level stats
         gui.setItem(11, createLevelIcon(ability, currentLevel, "Current Level"));
 
-        // Display next level stats and upgrade button
         if (currentLevel < maxLevel) {
             gui.setItem(15, createLevelIcon(ability, currentLevel + 1, "Next Level"));
-
             ItemStack upgradeButton = new ItemStack(Material.EMERALD_BLOCK);
             ItemMeta upgradeMeta = upgradeButton.getItemMeta();
             upgradeMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Upgrade Ability");
-            upgradeMeta.setLore(List.of(
-                    ChatColor.GRAY + "Cost: " + ChatColor.GREEN + "1 Force Point",
-                    ChatColor.YELLOW + "Click to upgrade!"
-            ));
+            upgradeMeta.setLore(List.of(ChatColor.GRAY + "Cost: " + ChatColor.GREEN + "1 Force Point"));
             upgradeButton.setItemMeta(upgradeMeta);
-            gui.setItem(22, upgradeButton);
+            gui.setItem(13, upgradeButton);
         } else {
             ItemStack maxLevelItem = new ItemStack(Material.DIAMOND_BLOCK);
             ItemMeta maxMeta = maxLevelItem.getItemMeta();
             maxMeta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "Max Level Reached");
             maxLevelItem.setItemMeta(maxMeta);
-            gui.setItem(15, maxLevelItem);
+            gui.setItem(13, maxLevelItem);
         }
+
+        Material[] slotColors = {Material.BLUE_WOOL, Material.YELLOW_WOOL, Material.RED_WOOL};
+        for (int i = 0; i < 3; i++) {
+            int slotNum = i + 1;
+            ItemStack bindButton = new ItemStack(slotColors[i]);
+            ItemMeta bindMeta = bindButton.getItemMeta();
+            bindMeta.setDisplayName(ChatColor.YELLOW + "Bind to Slot " + slotNum);
+            if (ability.getID().equals(forceUser.getBoundAbility(slotNum))) {
+                bindMeta.addEnchant(Enchantment.UNBREAKING, 1, true);
+                bindMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                bindMeta.setLore(List.of(ChatColor.GREEN + "Currently Bound"));
+            } else {
+                bindMeta.setLore(List.of(ChatColor.GRAY + "Click to bind this ability."));
+            }
+            bindButton.setItemMeta(bindMeta);
+            gui.setItem(30 + i, bindButton);
+        }
+
+        ItemStack backButton = new ItemStack(Material.BARRIER);
+        ItemMeta backMeta = backButton.getItemMeta();
+        backMeta.setDisplayName(ChatColor.RED + "Back to Skill Tree");
+        backButton.setItemMeta(backMeta);
+        gui.setItem(40, backButton);
+
         player.openInventory(gui);
     }
 
@@ -152,9 +171,9 @@ public class GUIManager {
         lore.add(ChatColor.GREEN + "Cooldown: " + ChatColor.WHITE + ability.getCooldown(level) + "s");
         lore.add("");
         if (level < maxLevel) {
-            lore.add(ChatColor.YELLOW + "Click to Upgrade!");
+            lore.add(ChatColor.YELLOW + "Click to Manage/Upgrade!");
         } else {
-            lore.add(ChatColor.AQUA + "Max Level");
+            lore.add(ChatColor.AQUA + "Max Level | Click to Manage");
         }
         meta.setLore(lore);
 
@@ -172,7 +191,7 @@ public class GUIManager {
         lore.add(ChatColor.GRAY + ability.getDescription());
         lore.add("");
         lore.add(ChatColor.RED + "Locked");
-        lore.add(ChatColor.GREEN + "Cost: 1 Force Point");
+        lore.add(ChatColor.GREEN + "Cost: " + configManager.getIntValue(ability.getID(), 1, "unlock-cost", 1) + " Force Point(s)");
         lore.add("");
         lore.add(ChatColor.YELLOW + "Click to unlock!");
         meta.setLore(lore);
@@ -180,7 +199,6 @@ public class GUIManager {
         return icon;
     }
 
-    // --- NEW: Helper to create stat display icons for the upgrade menu ---
     private ItemStack createLevelIcon(Ability ability, int level, String title) {
         ItemStack icon = new ItemStack(Material.PAPER);
         ItemMeta meta = icon.getItemMeta();
@@ -188,7 +206,7 @@ public class GUIManager {
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + "Energy Cost: " + ChatColor.WHITE + ability.getEnergyCost(level));
         lore.add(ChatColor.GREEN + "Cooldown: " + ChatColor.WHITE + ability.getCooldown(level) + "s");
-        // You can add more stats here as needed (e.g., damage, duration)
+        // You can add more stats here as needed by reading from the config
         meta.setLore(lore);
         icon.setItemMeta(meta);
         return icon;

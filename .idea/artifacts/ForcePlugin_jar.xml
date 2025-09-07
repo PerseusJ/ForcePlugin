@@ -2,9 +2,9 @@
   <artifact type="jar" name="ForcePlugin:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/ForcePlugin_jar</output-path>
     <root id="archive" name="ForcePlugin.jar">
-      <element id="module-output" name="ForcePlugin.main" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/config.yml" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+      <element id="module-output" name="org.perseus.ForcePlugin.main" />
+      <element id="file-copy" path="$PROJECT_DIR$/out/production/resources/config.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/out/production/resources/plugin.yml" />
     </root>
   </artifact>
 </component>

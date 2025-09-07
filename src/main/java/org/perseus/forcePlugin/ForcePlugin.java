@@ -15,6 +15,7 @@ public class ForcePlugin extends JavaPlugin {
     private AbilityConfigManager abilityConfigManager;
     private TelekinesisManager telekinesisManager;
     private LevelingManager levelingManager;
+    private AmbientEffectsManager ambientEffectsManager;
 
     @Override
     public void onEnable() {
@@ -22,6 +23,7 @@ public class ForcePlugin extends JavaPlugin {
         File dataFolder = new File(getDataFolder(), "playerdata");
         if (!dataFolder.exists()) dataFolder.mkdirs();
 
+        // Initialize managers
         this.forceUserManager = new ForceUserManager(this);
         this.abilityConfigManager = new AbilityConfigManager(this);
         this.telekinesisManager = new TelekinesisManager(this);
@@ -30,7 +32,9 @@ public class ForcePlugin extends JavaPlugin {
         this.cooldownManager = new CooldownManager();
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
         this.guiManager = new GUIManager(abilityManager, forceUserManager, abilityConfigManager);
+        this.ambientEffectsManager = new AmbientEffectsManager(this);
 
+        // Register listeners
         getServer().getPluginManager().registerEvents(new PlayerConnectionListener(forceUserManager, forceBarManager, this), this);
         getServer().getPluginManager().registerEvents(new AbilityListener(forceUserManager, abilityManager, cooldownManager, forceBarManager, telekinesisManager, levelingManager), this);
         getServer().getPluginManager().registerEvents(new GUIListener(this), this);
@@ -38,12 +42,14 @@ public class ForcePlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ProjectileDeflectionListener(), this);
         getServer().getPluginManager().registerEvents(new ExperienceListener(levelingManager), this);
 
+        // Register commands
         getCommand("force").setExecutor(new ForceCommand(forceUserManager));
         getCommand("powers").setExecutor(new PowersCommand(forceUserManager));
         getCommand("abilities").setExecutor(new AbilitiesCommand(this));
         getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
         getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
 
+        // Handle online players on startup/reload
         for (Player player : getServer().getOnlinePlayers()) {
             forceUserManager.loadPlayerData(player);
             forceBarManager.addPlayer(player);
@@ -68,6 +74,7 @@ public class ForcePlugin extends JavaPlugin {
         this.levelingManager.loadConfigValues();
     }
 
+    // --- Getters for Managers ---
     public ForceUserManager getForceUserManager() { return forceUserManager; }
     public AbilityManager getAbilityManager() { return abilityManager; }
     public CooldownManager getCooldownManager() { return cooldownManager; }
