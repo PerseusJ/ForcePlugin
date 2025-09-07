@@ -42,7 +42,8 @@ public class AbilityListener implements Listener {
         if (telekinesisManager.isLifting(player)) {
             event.setCancelled(true);
             telekinesisManager.launch(player);
-            double xpToGive = event.getWhoClicked().getServer().getPluginManager().getPlugin("ForcePlugin").getConfig().getDouble("progression.xp-gain.per-telekinesis-launch", 2.0);
+            // --- FIX: Changed event.getWhoClicked() to event.getPlayer() ---
+            double xpToGive = event.getPlayer().getServer().getPluginManager().getPlugin("ForcePlugin").getConfig().getDouble("progression.xp-gain.per-telekinesis-launch", 2.0);
             levelingManager.addXp(player, xpToGive);
             return;
         }
@@ -85,7 +86,8 @@ public class AbilityListener implements Listener {
         ability.execute(player, forceUser);
         forceBarManager.updateBar(player);
 
-        double xpToGive = event.getWhoClicked().getServer().getPluginManager().getPlugin("ForcePlugin").getConfig().getDouble("progression.xp-gain.per-ability-use", 1.0);
+        // --- FIX: Changed event.getWhoClicked() to event.getPlayer() ---
+        double xpToGive = event.getPlayer().getServer().getPluginManager().getPlugin("ForcePlugin").getConfig().getDouble("progression.xp-gain.per-ability-use", 1.0);
         levelingManager.addXp(player, xpToGive);
     }
 
