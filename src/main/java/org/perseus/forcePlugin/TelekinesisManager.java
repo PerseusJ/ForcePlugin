@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -36,7 +37,8 @@ public class TelekinesisManager {
         if (isLifting(caster)) return;
 
         liftingTargets.put(caster.getUniqueId(), target);
-        target.addPotionEffect(PotionEffectType.LEVITATION.createEffect(Integer.MAX_VALUE, 0));
+        // --- THE FIX: Use the 'new PotionEffect(...)' constructor ---
+        target.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, Integer.MAX_VALUE, 0, false, false));
 
         BukkitTask task = new BukkitRunnable() {
             int ticks = 0;
@@ -58,7 +60,6 @@ public class TelekinesisManager {
                 double z = radius * Math.sin(angle);
                 Vector offset = new Vector(x, 0, z);
                 offset.rotateAroundX(Math.toRadians(caster.getLocation().getPitch() + 90));
-                // --- FIX: Changed CRIT_MAGIC to ENCHANTED_HIT ---
                 target.getWorld().spawnParticle(Particle.ENCHANTED_HIT, targetCenter.clone().add(offset), 1, 0, 0, 0, 0);
 
                 if (ticks % 20 == 0) {
@@ -68,7 +69,7 @@ public class TelekinesisManager {
                         stopLifting(caster, false);
                         return;
                     }
-                    double energyCost = plugin.getAbilityConfigManager().getDoubleValue(ability.getID(), "energy-cost-per-second", 5.0);
+                    double energyCost = plugin.getAbilityConfigManager().getDoubleValue(ability.getID(), 1, "energy-cost-per-second", 5.0);
                     if (forceUser.getCurrentForceEnergy() < energyCost) {
                         stopLifting(caster, true);
                     } else {
@@ -92,7 +93,8 @@ public class TelekinesisManager {
         if (target != null) {
             target.removePotionEffect(PotionEffectType.LEVITATION);
             if (!applyFallDamage) {
-                target.addPotionEffect(PotionEffectType.SLOW_FALLING.createEffect(60, 0));
+                // --- THE FIX: Use the 'new PotionEffect(...)' constructor ---
+                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 60, 0, false, false));
             }
         }
     }
@@ -104,7 +106,7 @@ public class TelekinesisManager {
         if (target != null) {
             Ability ability = plugin.getAbilityManager().getAbility("TELEKINESIS");
             if (ability == null) return;
-            double strength = plugin.getAbilityConfigManager().getDoubleValue(ability.getID(), "launch-strength", 3.0);
+            double strength = plugin.getAbilityConfigManager().getDoubleValue(ability.getID(), 1, "launch-strength", 3.0);
             Vector launchVector = caster.getLocation().getDirection().multiply(strength);
             target.setVelocity(launchVector);
         }
