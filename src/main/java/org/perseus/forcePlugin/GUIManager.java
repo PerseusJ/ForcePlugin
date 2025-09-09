@@ -147,14 +147,20 @@ public class GUIManager {
         ItemStack icon = new ItemStack(Material.BARRIER);
         ItemMeta meta = icon.getItemMeta();
         meta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + ability.getName());
+
+        // --- THE FIX: Use the new, dedicated getUnlockCost method ---
+        int unlockCost = configManager.getUnlockCost(ability.getID());
+        String pointString = (unlockCost == 1) ? " Force Point" : " Force Points";
+
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.GRAY + ability.getDescription());
         lore.add("");
         lore.add(ChatColor.RED + "Locked");
-        lore.add(ChatColor.GREEN + "Cost: " + configManager.getIntValue(ability.getID(), 1, "unlock-cost", 1) + " Force Point(s)");
+        lore.add(ChatColor.GREEN + "Cost: " + unlockCost + pointString);
         lore.add("");
         lore.add(ChatColor.YELLOW + "Click to unlock!");
         meta.setLore(lore);
+
         icon.setItemMeta(meta);
         return icon;
     }

@@ -24,19 +24,16 @@ public class ForceUserManager {
         ForceUser forceUser = new ForceUser(player.getUniqueId());
 
         if (!playerFile.exists()) {
-            forceUser.unlockAbility("FORCE_PUSH");
-            forceUser.unlockAbility("FORCE_PULL");
-            // Set a default active ability for new players
+            // This is a new player. Set their active ability to one of the defaults.
             forceUser.setActiveAbilityId("FORCE_PUSH");
         } else {
+            // This is an existing player. Load their data.
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerFile);
             forceUser.setSide(ForceSide.valueOf(playerData.getString("side", "NONE")));
-
-            // --- REMOVED: Logic for loading bound-abilities ---
-
             forceUser.setForceLevel(playerData.getInt("rpg.level", 1));
             forceUser.setForceXp(playerData.getDouble("rpg.xp", 0.0));
             forceUser.setForcePoints(playerData.getInt("rpg.points", 0));
+            forceUser.setActiveAbilityId(playerData.getString("active-ability", "FORCE_PUSH"));
 
             if (playerData.isConfigurationSection("rpg.unlocked-abilities")) {
                 for (String abilityId : playerData.getConfigurationSection("rpg.unlocked-abilities").getKeys(false)) {
@@ -44,14 +41,14 @@ public class ForceUserManager {
                     forceUser.getUnlockedAbilities().put(abilityId, level);
                 }
             }
-            if (forceUser.getUnlockedAbilities().isEmpty()) {
-                forceUser.unlockAbility("FORCE_PUSH");
-                forceUser.unlockAbility("FORCE_PULL");
-            }
-
-            // --- NEW: Load the active ability, default to FORCE_PUSH if not set ---
-            forceUser.setActiveAbilityId(playerData.getString("active-ability", "FORCE_PUSH"));
         }
+
+        // --- THE FIX: Ensure all players, new and old, always have the default universal abilities unlocked ---
+        // This will add them if they are missing for any reason.
+        forceUser.unlockAbility("FORCE_PUSH");
+        forceUser.unlockAbility("FORCE_PULL");
+        // --- END FIX ---
+
         onlineUsers.put(player.getUniqueId(), forceUser);
         plugin.getLogger().info("Loaded data for " + player.getName());
     }
@@ -64,8 +61,7 @@ public class ForceUserManager {
         FileConfiguration playerData = new YamlConfiguration();
 
         playerData.set("side", forceUser.getSide().name());
-
-        // --- REMOVED: Logic for saving bound-abilities ---
+        playerData.set("active-ability", forceUser.getActiveAbilityId());
 
         playerData.set("rpg.level", forceUser.getForceLevel());
         playerData.set("rpg.xp", forceUser.getForceXp());
@@ -74,9 +70,6 @@ public class ForceUserManager {
         for (Map.Entry<String, Integer> entry : forceUser.getUnlockedAbilities().entrySet()) {
             playerData.set("rpg.unlocked-abilities." + entry.getKey(), entry.getValue());
         }
-
-        // --- NEW: Save the active ability ---
-        playerData.set("active-ability", forceUser.getActiveAbilityId());
 
         try {
             playerData.save(playerFile);

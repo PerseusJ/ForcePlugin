@@ -9,13 +9,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.perseus.forcePlugin.abilities.Ability;
+
 import java.util.List;
 import java.util.UUID;
+
 public class HolocronManager {
 
     private final ForcePlugin plugin;
-    private static final String JEDI_HOLOCRON_TEXTURE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2Y5YjY3YjVjMzY3Y2QxZDRiYjc0M2Y5ODQ3YmI1Mjc5OTY1MWU5N2FiZmYxYjE2YjM3YjQ0YmY0Zjc0YmY0In19fQ==";
-    private static final String SITH_HOLOCRON_TEXTURE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmY3Y2M3Y2YxZTRhYmFkMWQyYTRlNmEwY2I0OThhZmMwODMyYmE1MGUxYmZlYjZmYjRjYjFkYjlmOTQ0YmU5NCJ9fX0=";
+
+    // --- PASTE YOUR NEW TEXTURE VALUES HERE ---
+    private static final String JEDI_HOLOCRON_TEXTURE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjA2OWM0NDk4YjdlNGU5MDI3NmZlZTI4Nzg2YmY1ZTliM2ZmOGIzOWQ2NjdkMzZhNjkyM2Q4ODBhNjI3YWI3NyJ9fX0=";
+    private static final String SITH_HOLOCRON_TEXTURE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2E1NWIzYTllYjE4MzA4Yjk2YmVhNGExNzJmZDI4MTFmMmU2MGQwYTllOGE3MmZmODI4YzQ0OTkxMzNkZjc2NyJ9fX0=";
+    // --- END OF PASTE SECTION ---
+
     public static final String HOLOCRON_IDENTIFIER = ChatColor.DARK_PURPLE + "Force Artifact";
 
     public HolocronManager(ForcePlugin plugin) {
@@ -30,28 +36,35 @@ public class HolocronManager {
 
         ItemStack holocron = createHolocronItem(forceUser.getSide());
         player.getInventory().addItem(holocron);
-        updateHolocronName(player, holocron);
+        updateHolocronName(player);
     }
 
     private ItemStack createHolocronItem(ForceSide side) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) head.getItemMeta();
 
-        // --- THE FIX: Explicitly use the Paper PlayerProfile and ProfileProperty ---
-        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID()); // Use createProfile for Paper
-        ProfileProperty property = new ProfileProperty("textures",
-                (side == ForceSide.LIGHT) ? JEDI_HOLOCRON_TEXTURE : SITH_HOLOCRON_TEXTURE);
+        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID());
+        String textureValue = (side == ForceSide.LIGHT) ? JEDI_HOLOCRON_TEXTURE : SITH_HOLOCRON_TEXTURE;
+
+        ProfileProperty property = new ProfileProperty("textures", textureValue);
         profile.setProperty(property);
+
         meta.setPlayerProfile(profile);
-        // --- END FIX ---
 
         meta.setLore(List.of(HOLOCRON_IDENTIFIER));
         head.setItemMeta(meta);
         return head;
     }
 
-    public void updateHolocronName(Player player, ItemStack holocron) {
-        if (holocron == null || !isHolocron(holocron)) return;
+    public void updateHolocronName(Player player) {
+        ItemStack holocron = null;
+        for (ItemStack item : player.getInventory().getContents()) {
+            if (isHolocron(item)) {
+                holocron = item;
+                break;
+            }
+        }
+        if (holocron == null) return;
 
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
         if (forceUser == null) return;
@@ -71,13 +84,14 @@ public class HolocronManager {
     }
 
     public boolean isHolocron(ItemStack item) {
-        if (item == null || !item.hasItemMeta() || !item.getItemMeta().hasLore()) {
+        if (item == null || item.getType() != Material.PLAYER_HEAD || !item.hasItemMeta() || !item.getItemMeta().hasLore()) {
             return false;
         }
         return item.getItemMeta().getLore().contains(HOLOCRON_IDENTIFIER);
     }
 
     public void removeHolocron(Player player) {
+        // --- THE FIX: Reverted to the universally compatible for-loop method ---
         for (ItemStack item : player.getInventory().getContents()) {
             if (isHolocron(item)) {
                 player.getInventory().remove(item);

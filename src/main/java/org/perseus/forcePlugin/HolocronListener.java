@@ -9,8 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -34,8 +32,6 @@ public class HolocronListener implements Listener {
         this.plugin = plugin;
     }
 
-    // --- Main Control Logic ---
-
     @EventHandler
     public void onSneak(PlayerToggleSneakEvent event) {
         Player player = event.getPlayer();
@@ -47,7 +43,8 @@ public class HolocronListener implements Listener {
             showSelectedAbility(player);
         } else {
             selectingPlayers.remove(player.getUniqueId());
-            plugin.getHolocronManager().updateHolocronName(player, itemInHand);
+            // --- THE FIX: Call the new, simplified method ---
+            plugin.getHolocronManager().updateHolocronName(player);
             sendActionBarMessage(player, "");
         }
     }
@@ -79,8 +76,6 @@ public class HolocronListener implements Listener {
         plugin.getGuiManager().openAbilityGUI(player);
     }
 
-    // --- Holocron Protection Logic ---
-
     @EventHandler(priority = EventPriority.HIGH)
     public void onDrop(PlayerDropItemEvent event) {
         if (plugin.getHolocronManager().isHolocron(event.getItemDrop().getItemStack())) {
@@ -94,18 +89,13 @@ public class HolocronListener implements Listener {
         ItemStack clickedItem = event.getCurrentItem();
         ItemStack cursorItem = event.getCursor();
 
-        // Check if the player is trying to move the Holocron
         if (plugin.getHolocronManager().isHolocron(clickedItem) || plugin.getHolocronManager().isHolocron(cursorItem)) {
-            // Allow them to move it within their own inventory (but not hotbar <-> main inv)
             if (event.getClickedInventory() == event.getWhoClicked().getInventory()) {
-                // Prevent moving it out of the hotbar if it's there
-                if (event.getSlot() < 9 && event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+                if (event.getSlot() < 9 && event.getAction().name().startsWith("MOVE_TO_OTHER")) {
                     event.setCancelled(true);
                 }
-                // Allow normal clicks within the main inventory space
                 return;
             }
-            // If the click is in any other inventory (chest, ender chest, etc.), cancel it.
             event.setCancelled(true);
             event.getWhoClicked().sendMessage(ChatColor.RED + "You cannot store a Force Artifact here.");
         }
@@ -113,7 +103,6 @@ public class HolocronListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerDeath(PlayerDeathEvent event) {
-        // Find the Holocron in the list of items to be dropped
         ItemStack holocron = null;
         for (ItemStack item : event.getDrops()) {
             if (plugin.getHolocronManager().isHolocron(item)) {
@@ -123,15 +112,10 @@ public class HolocronListener implements Listener {
         }
 
         if (holocron != null) {
-            // Remove it from the items that drop on the ground
             event.getDrops().remove(holocron);
-            // Add it to the list of items the player will keep after respawning
             event.getItemsToKeep().add(holocron);
         }
     }
-
-
-    // --- Helper Methods ---
 
     private void cycleAbility(Player player, int direction) {
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
@@ -141,7 +125,7 @@ public class HolocronListener implements Listener {
         if (unlocked.isEmpty()) return;
 
         int currentIndex = unlocked.indexOf(forceUser.getActiveAbilityId());
-        if (currentIndex == -1) currentIndex = 0; // Default to first if not found
+        if (currentIndex == -1) currentIndex = 0;
 
         currentIndex += direction;
 

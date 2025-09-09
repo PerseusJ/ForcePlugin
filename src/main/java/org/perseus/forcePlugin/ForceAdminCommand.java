@@ -79,12 +79,18 @@ public class ForceAdminCommand implements CommandExecutor {
             return;
         }
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(target);
+
+        // --- THE FIX: Correctly reset all data and add back defaults ---
         forceUser.setSide(ForceSide.NONE);
-        forceUser.getUnlockedAbilities().clear();
-        forceUser.setActiveAbilityId(null);
+        forceUser.getUnlockedAbilities().clear(); // Clear all unlocked abilities first
+        forceUser.unlockAbility("FORCE_PUSH");   // Add back the defaults
+        forceUser.unlockAbility("FORCE_PULL");   // Add back the defaults
+        forceUser.setActiveAbilityId("FORCE_PUSH"); // Set a default active ability
         forceUser.setForceLevel(1);
         forceUser.setForceXp(0);
         forceUser.setForcePoints(0);
+        // --- END FIX ---
+
         plugin.getHolocronManager().removeHolocron(target);
         plugin.getForceBarManager().updateBar(target);
         plugin.getLevelingManager().updateXpBar(target);

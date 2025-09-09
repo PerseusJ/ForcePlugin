@@ -41,7 +41,6 @@ public class ForceCommand implements CommandExecutor {
             }
 
             String chosenSideArg = args[1].toUpperCase();
-            // --- THE FIX: Restructured logic ---
             if (chosenSideArg.equals("LIGHT")) {
                 forceUser.setSide(ForceSide.LIGHT);
                 player.sendMessage(ChatColor.AQUA + "You have embraced the Light Side of the Force.");
@@ -53,10 +52,8 @@ public class ForceCommand implements CommandExecutor {
                 holocronManager.giveHolocron(player);
                 player.sendMessage(ChatColor.YELLOW + "A Holocron has been added to your inventory. Hold it to channel the Force!");
             } else {
-                // This now only runs if the side is neither LIGHT nor DARK.
                 player.sendMessage(ChatColor.YELLOW + "Invalid side. Usage: /force choose <light|dark>");
             }
-            // --- END FIX ---
         } else {
             player.sendMessage(ChatColor.YELLOW + "Usage: /force choose <light|dark>");
         }

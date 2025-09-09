@@ -1,5 +1,5 @@
 name: ForcePlugin
-version: 4.0
+version: 3.0
 main: org.perseus.forcePlugin.ForcePlugin
 api-version: 1.21
 author: Perseus
