@@ -1,5 +1,5 @@
 name: ForcePlugin
-version: 1.0
+version: 4.0
 main: org.perseus.forcePlugin.ForcePlugin
 api-version: 1.21
 author: Perseus
@@ -8,20 +8,14 @@ commands:
   force:
     description: Choose your side in the Force.
     usage: /<command> choose <light|dark>
-  powers:
-    description: Toggles your Force abilities on or off.
-    usage: /<command> <on|off>
-  abilities:
-    description: Opens the ability selection menu.
-    usage: /<command>
-  forceadmin:
-    description: Admin command for the ForcePlugin.
-    usage: /<command> [reload|setside|reset|check|setlevel|givexp|givepoints]
-    aliases: [fa]
   forcestats:
     description: Displays your Force progression stats.
     usage: /<command> [player]
     aliases: [fs]
+  forceadmin:
+    description: Admin command for the ForcePlugin.
+    usage: /<command> [sub-command]
+    aliases: [fa]
 
 permissions:
   forceplugin.admin:

@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ForcePlugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ForcePlugin.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ForcePlugin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ForcePlugin.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/org.perseus.ForcePlugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/org.perseus.ForcePlugin.main.iml" />
     </modules>
   </component>
 </project>

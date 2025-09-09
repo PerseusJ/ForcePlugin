@@ -21,5 +21,10 @@
       <option name="name" value="papermc-repo" />
       <option name="url" value="https://repo.papermc.io/repository/maven-public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="mojang-libraries" />
+      <option name="name" value="mojang-libraries" />
+      <option name="url" value="https://libraries.minecraft.net/" />
+    </remote-repository>
   </component>
 </project>

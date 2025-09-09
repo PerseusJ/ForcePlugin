@@ -1,18 +1,16 @@
 package org.perseus.forcePlugin;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.perseus.forcePlugin.abilities.Ability;
-
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.UUID;
-
 public class HolocronManager {
 
     private final ForcePlugin plugin;
@@ -39,18 +37,13 @@ public class HolocronManager {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) head.getItemMeta();
 
-        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
-        String texture = (side == ForceSide.LIGHT) ? JEDI_HOLOCRON_TEXTURE : SITH_HOLOCRON_TEXTURE;
-        profile.getProperties().put("textures", new Property("textures", texture));
-
-        try {
-            Field profileField = meta.getClass().getDeclaredField("profile");
-            profileField.setAccessible(true);
-            profileField.set(meta, profile);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-            return new ItemStack(Material.NETHER_STAR);
-        }
+        // --- THE FIX: Explicitly use the Paper PlayerProfile and ProfileProperty ---
+        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID()); // Use createProfile for Paper
+        ProfileProperty property = new ProfileProperty("textures",
+                (side == ForceSide.LIGHT) ? JEDI_HOLOCRON_TEXTURE : SITH_HOLOCRON_TEXTURE);
+        profile.setProperty(property);
+        meta.setPlayerProfile(profile);
+        // --- END FIX ---
 
         meta.setLore(List.of(HOLOCRON_IDENTIFIER));
         head.setItemMeta(meta);

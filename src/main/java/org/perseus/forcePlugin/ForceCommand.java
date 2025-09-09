@@ -9,11 +9,11 @@ import org.bukkit.entity.Player;
 public class ForceCommand implements CommandExecutor {
 
     private final ForceUserManager userManager;
-    private final HolocronManager holocronManager; // --- NEW ---
+    private final HolocronManager holocronManager;
 
     public ForceCommand(ForceUserManager userManager, HolocronManager holocronManager) {
         this.userManager = userManager;
-        this.holocronManager = holocronManager; // --- NEW ---
+        this.holocronManager = holocronManager;
     }
 
     @Override
@@ -40,24 +40,23 @@ public class ForceCommand implements CommandExecutor {
                 return true;
             }
 
-            try {
-                ForceSide chosenSide = ForceSide.valueOf(args[1].toUpperCase());
-                if (chosenSide == ForceSide.LIGHT || chosenSide == ForceSide.DARK) {
-                    forceUser.setSide(chosenSide);
-                    if (chosenSide == ForceSide.LIGHT) {
-                        player.sendMessage(ChatColor.AQUA + "You have embraced the Light Side of the Force.");
-                    } else {
-                        player.sendMessage(ChatColor.RED + "You have succumbed to the Dark Side of the Force.");
-                    }
-                    // --- NEW: Give the Holocron ---
-                    holocronManager.giveHolocron(player);
-                    player.sendMessage(ChatColor.YELLOW + "A Holocron has been added to your inventory. Hold it to channel the Force!");
-                } else {
-                    player.sendMessage(ChatColor.GRAY + "That is not a valid path to choose.");
-                }
-            } catch (IllegalArgumentException e) {
+            String chosenSideArg = args[1].toUpperCase();
+            // --- THE FIX: Restructured logic ---
+            if (chosenSideArg.equals("LIGHT")) {
+                forceUser.setSide(ForceSide.LIGHT);
+                player.sendMessage(ChatColor.AQUA + "You have embraced the Light Side of the Force.");
+                holocronManager.giveHolocron(player);
+                player.sendMessage(ChatColor.YELLOW + "A Holocron has been added to your inventory. Hold it to channel the Force!");
+            } else if (chosenSideArg.equals("DARK")) {
+                forceUser.setSide(ForceSide.DARK);
+                player.sendMessage(ChatColor.RED + "You have succumbed to the Dark Side of the Force.");
+                holocronManager.giveHolocron(player);
+                player.sendMessage(ChatColor.YELLOW + "A Holocron has been added to your inventory. Hold it to channel the Force!");
+            } else {
+                // This now only runs if the side is neither LIGHT nor DARK.
                 player.sendMessage(ChatColor.YELLOW + "Invalid side. Usage: /force choose <light|dark>");
             }
+            // --- END FIX ---
         } else {
             player.sendMessage(ChatColor.YELLOW + "Usage: /force choose <light|dark>");
         }
