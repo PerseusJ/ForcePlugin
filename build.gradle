@@ -12,17 +12,24 @@ repositories {
         name = "papermc-repo"
         url = "https://repo.papermc.io/repository/maven-public/"
     }
+    // --- NEW: Add Mojang's official library repository ---
+    maven {
+        name = "mojang-libraries"
+        url = "https://libraries.minecraft.net/"
+    }
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
+    // This should be compileOnly, as the server provides it.
+    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+
+    // --- NEW: Explicitly add the authlib library for compiling ---
+    // This is the library that contains GameProfile and Property.
+    compileOnly("com.mojang:authlib:5.0.51")
 }
 
 tasks {
     runServer {
-        // Configure the Minecraft version for our task.
-        // This is the only required configuration besides applying the plugin.
-        // Your plugin's jar (or shadowJar if present) will be used automatically.
         minecraftVersion("1.21")
     }
 }

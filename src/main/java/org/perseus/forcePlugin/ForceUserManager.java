@@ -26,15 +26,13 @@ public class ForceUserManager {
         if (!playerFile.exists()) {
             forceUser.unlockAbility("FORCE_PUSH");
             forceUser.unlockAbility("FORCE_PULL");
+            // Set a default active ability for new players
+            forceUser.setActiveAbilityId("FORCE_PUSH");
         } else {
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerFile);
             forceUser.setSide(ForceSide.valueOf(playerData.getString("side", "NONE")));
 
-            if (playerData.isConfigurationSection("bound-abilities")) {
-                for (String key : playerData.getConfigurationSection("bound-abilities").getKeys(false)) {
-                    forceUser.setBoundAbility(Integer.parseInt(key), playerData.getString("bound-abilities." + key));
-                }
-            }
+            // --- REMOVED: Logic for loading bound-abilities ---
 
             forceUser.setForceLevel(playerData.getInt("rpg.level", 1));
             forceUser.setForceXp(playerData.getDouble("rpg.xp", 0.0));
@@ -50,6 +48,9 @@ public class ForceUserManager {
                 forceUser.unlockAbility("FORCE_PUSH");
                 forceUser.unlockAbility("FORCE_PULL");
             }
+
+            // --- NEW: Load the active ability, default to FORCE_PUSH if not set ---
+            forceUser.setActiveAbilityId(playerData.getString("active-ability", "FORCE_PUSH"));
         }
         onlineUsers.put(player.getUniqueId(), forceUser);
         plugin.getLogger().info("Loaded data for " + player.getName());
@@ -64,10 +65,7 @@ public class ForceUserManager {
 
         playerData.set("side", forceUser.getSide().name());
 
-        // --- THE FIX: Call the new getter method ---
-        for (Map.Entry<Integer, String> entry : forceUser.getBoundAbilities().entrySet()) {
-            playerData.set("bound-abilities." + entry.getKey(), entry.getValue());
-        }
+        // --- REMOVED: Logic for saving bound-abilities ---
 
         playerData.set("rpg.level", forceUser.getForceLevel());
         playerData.set("rpg.xp", forceUser.getForceXp());
@@ -76,6 +74,9 @@ public class ForceUserManager {
         for (Map.Entry<String, Integer> entry : forceUser.getUnlockedAbilities().entrySet()) {
             playerData.set("rpg.unlocked-abilities." + entry.getKey(), entry.getValue());
         }
+
+        // --- NEW: Save the active ability ---
+        playerData.set("active-ability", forceUser.getActiveAbilityId());
 
         try {
             playerData.save(playerFile);

@@ -89,22 +89,13 @@ public class GUIListener implements Listener {
         } else if (clickedType == Material.BARRIER) {
             plugin.getGuiManager().openAbilityGUI(player);
         } else if (clickedType == Material.BLUE_WOOL || clickedType == Material.YELLOW_WOOL || clickedType == Material.RED_WOOL) {
-            int slotToBind = -1;
-            if (clickedType == Material.BLUE_WOOL) slotToBind = 1;
-            if (clickedType == Material.YELLOW_WOOL) slotToBind = 2;
-            if (clickedType == Material.RED_WOOL) slotToBind = 3;
-
-            if (slotToBind != -1) {
-                forceUser.setBoundAbility(slotToBind, ability.getID());
-                player.sendMessage(ChatColor.GREEN + "Bound " + ability.getName() + " to Slot " + slotToBind + ".");
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.5f);
-                plugin.getGuiManager().openUpgradeGUI(player, ability);
-            }
+            // This logic is now obsolete with the Holocron system, but we can leave it for now.
+            // A better implementation would be to remove these buttons from the upgrade GUI.
+            player.sendMessage(ChatColor.YELLOW + "Select your active ability by holding your Holocron and using Shift + Scroll.");
         }
     }
 
     private Ability findAbilityByName(ForceUser user, String name) {
-        // A more robust way to find the ability, ignoring any extra text like "Level X"
         for (Ability ability : plugin.getAbilityManager().getAbilitiesBySide(user.getSide())) {
             if (ability.getName().equalsIgnoreCase(name.trim())) {
                 return ability;

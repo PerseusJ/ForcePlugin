@@ -16,6 +16,7 @@ public class ForcePlugin extends JavaPlugin {
     private TelekinesisManager telekinesisManager;
     private LevelingManager levelingManager;
     private AmbientEffectsManager ambientEffectsManager;
+    private HolocronManager holocronManager;
 
     @Override
     public void onEnable() {
@@ -28,6 +29,7 @@ public class ForcePlugin extends JavaPlugin {
         this.abilityConfigManager = new AbilityConfigManager(this);
         this.telekinesisManager = new TelekinesisManager(this);
         this.levelingManager = new LevelingManager(this);
+        this.holocronManager = new HolocronManager(this);
         this.abilityManager = new AbilityManager(this, abilityConfigManager, telekinesisManager);
         this.cooldownManager = new CooldownManager();
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
@@ -36,18 +38,16 @@ public class ForcePlugin extends JavaPlugin {
 
         // Register listeners
         getServer().getPluginManager().registerEvents(new PlayerConnectionListener(forceUserManager, forceBarManager, this), this);
-        getServer().getPluginManager().registerEvents(new AbilityListener(forceUserManager, abilityManager, cooldownManager, forceBarManager, telekinesisManager, levelingManager), this);
+        getServer().getPluginManager().registerEvents(new AbilityListener(this), this); // Simplified constructor
         getServer().getPluginManager().registerEvents(new GUIListener(this), this);
-        getServer().getPluginManager().registerEvents(new ActionBarListener(forceUserManager, abilityManager), this);
         getServer().getPluginManager().registerEvents(new ProjectileDeflectionListener(), this);
         getServer().getPluginManager().registerEvents(new ExperienceListener(levelingManager), this);
+        getServer().getPluginManager().registerEvents(new HolocronListener(this), this); // New Listener
 
         // Register commands
-        getCommand("force").setExecutor(new ForceCommand(forceUserManager));
-        getCommand("powers").setExecutor(new PowersCommand(forceUserManager));
-        getCommand("abilities").setExecutor(new AbilitiesCommand(this));
-        getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
+        getCommand("force").setExecutor(new ForceCommand(forceUserManager, holocronManager));
         getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
+        getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
 
         // Handle online players on startup/reload
         for (Player player : getServer().getOnlinePlayers()) {
@@ -83,4 +83,5 @@ public class ForcePlugin extends JavaPlugin {
     public AbilityConfigManager getAbilityConfigManager() { return abilityConfigManager; }
     public TelekinesisManager getTelekinesisManager() { return telekinesisManager; }
     public LevelingManager getLevelingManager() { return levelingManager; }
+    public HolocronManager getHolocronManager() { return holocronManager; } // --- NEW ---
 }

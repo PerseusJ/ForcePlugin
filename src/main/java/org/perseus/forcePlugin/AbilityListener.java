@@ -3,7 +3,6 @@ package org.perseus.forcePlugin;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,84 +13,65 @@ import org.perseus.forcePlugin.abilities.Ability;
 
 public class AbilityListener implements Listener {
 
-    private final TelekinesisManager telekinesisManager;
-    private final ForceUserManager userManager;
-    private final AbilityManager abilityManager;
-    private final CooldownManager cooldownManager;
-    private final ForceBarManager forceBarManager;
-    private final LevelingManager levelingManager;
+    private final ForcePlugin plugin;
 
-    public AbilityListener(ForceUserManager userManager, AbilityManager abilityManager, CooldownManager cooldownManager, ForceBarManager forceBarManager, TelekinesisManager telekinesisManager, LevelingManager levelingManager) {
-        this.userManager = userManager;
-        this.abilityManager = abilityManager;
-        this.cooldownManager = cooldownManager;
-        this.forceBarManager = forceBarManager;
-        this.telekinesisManager = telekinesisManager;
-        this.levelingManager = levelingManager;
+    public AbilityListener(ForcePlugin plugin) {
+        this.plugin = plugin;
     }
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Action action = event.getAction();
+        ItemStack itemInHand = event.getItem();
 
-        if (action != Action.LEFT_CLICK_AIR && action != Action.LEFT_CLICK_BLOCK) {
+        if (!action.isLeftClick() || !plugin.getHolocronManager().isHolocron(itemInHand)) {
             return;
         }
 
-        if (telekinesisManager.isLifting(player)) {
-            event.setCancelled(true);
-            telekinesisManager.launch(player);
-            // --- FIX: Changed event.getWhoClicked() to event.getPlayer() ---
-            double xpToGive = event.getPlayer().getServer().getPluginManager().getPlugin("ForcePlugin").getConfig().getDouble("progression.xp-gain.per-telekinesis-launch", 2.0);
-            levelingManager.addXp(player, xpToGive);
+        event.setCancelled(true);
+
+        if (player.isSneaking()) {
             return;
         }
 
-        ForceUser forceUser = userManager.getForceUser(player);
-        if (forceUser == null || !forceUser.arePowersActive()) return;
+        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
+        if (forceUser == null) return;
 
-        ItemStack itemInHand = player.getInventory().getItemInMainHand();
-        if (itemInHand.getType() != Material.AIR) return;
-
-        int selectedSlot = player.getInventory().getHeldItemSlot();
-        if (selectedSlot > 2) return;
-
-        String abilityId = forceUser.getBoundAbility(selectedSlot + 1);
-        if (abilityId == null) return;
-
-        if (!forceUser.hasUnlockedAbility(abilityId)) {
-            player.sendMessage(ChatColor.RED + "You have not unlocked this ability yet!");
+        String abilityId = forceUser.getActiveAbilityId();
+        if (abilityId == null) {
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.YELLOW + "No ability selected."));
             return;
         }
 
-        Ability ability = abilityManager.getAbility(abilityId);
+        Ability ability = plugin.getAbilityManager().getAbility(abilityId);
         if (ability == null) return;
 
         int abilityLevel = forceUser.getAbilityLevel(abilityId);
+        CooldownManager cooldownManager = plugin.getCooldownManager();
+        LevelingManager levelingManager = plugin.getLevelingManager();
 
         if (cooldownManager.isOnCooldown(player, ability.getID())) {
             String remaining = cooldownManager.getRemainingCooldownFormatted(player, ability.getID());
-            sendActionBarMessage(player, ChatColor.RED + ability.getName() + " is on cooldown: " + remaining);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + ability.getName() + " is on cooldown: " + remaining));
             return;
         }
 
         if (forceUser.getCurrentForceEnergy() < ability.getEnergyCost(abilityLevel)) {
-            sendActionBarMessage(player, ChatColor.AQUA + "Not enough Force Energy!");
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.AQUA + "Not enough Force Energy!"));
             return;
         }
 
         forceUser.setCurrentForceEnergy(forceUser.getCurrentForceEnergy() - ability.getEnergyCost(abilityLevel));
         cooldownManager.setCooldown(player, ability.getID(), ability.getCooldown(abilityLevel));
         ability.execute(player, forceUser);
-        forceBarManager.updateBar(player);
+        plugin.getForceBarManager().updateBar(player);
 
-        // --- FIX: Changed event.getWhoClicked() to event.getPlayer() ---
-        double xpToGive = event.getPlayer().getServer().getPluginManager().getPlugin("ForcePlugin").getConfig().getDouble("progression.xp-gain.per-ability-use", 1.0);
-        levelingManager.addXp(player, xpToGive);
-    }
-
-    private void sendActionBarMessage(Player player, String message) {
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
+        double xpToGive = plugin.getConfig().getDouble("progression.xp-gain.per-ability-use", 1.0);
+        if (ability.getID().equals("TELEKINESIS")) {
+            // XP for Telekinesis is now handled in its own manager/listener
+        } else {
+            levelingManager.addXp(player, xpToGive);
+        }
     }
 }
