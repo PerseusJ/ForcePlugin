@@ -3,11 +3,14 @@ package org.perseus.forcePlugin;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -25,7 +28,6 @@ import java.util.UUID;
 public class HolocronListener implements Listener {
 
     private final ForcePlugin plugin;
-    // Tracks players who are in "Ability Selection Mode"
     private final Map<UUID, Integer> selectingPlayers = new HashMap<>();
 
     public HolocronListener(ForcePlugin plugin) {
@@ -38,35 +40,29 @@ public class HolocronListener implements Listener {
     public void onSneak(PlayerToggleSneakEvent event) {
         Player player = event.getPlayer();
         ItemStack itemInHand = player.getInventory().getItemInMainHand();
-
         if (!plugin.getHolocronManager().isHolocron(itemInHand)) return;
 
         if (event.isSneaking()) {
-            // Enter Selection Mode
-            selectingPlayers.put(player.getUniqueId(), 0); // Start at index 0
+            selectingPlayers.put(player.getUniqueId(), 0);
             showSelectedAbility(player);
         } else {
-            // Exit Selection Mode and confirm selection
             selectingPlayers.remove(player.getUniqueId());
             plugin.getHolocronManager().updateHolocronName(player, itemInHand);
-            sendActionBarMessage(player, ""); // Clear the action bar
+            sendActionBarMessage(player, "");
         }
     }
 
     @EventHandler
     public void onScroll(PlayerItemHeldEvent event) {
         Player player = event.getPlayer();
-        // Check if the player is in selection mode
         if (!selectingPlayers.containsKey(player.getUniqueId())) return;
+        event.setCancelled(true);
 
-        event.setCancelled(true); // Prevent the hotbar from actually changing
-
-        // Determine scroll direction
         int oldSlot = event.getPreviousSlot();
         int newSlot = event.getNewSlot();
         int direction = 0;
-        if (oldSlot == 8 && newSlot == 0) direction = 1; // Scroll forward
-        else if (oldSlot == 0 && newSlot == 8) direction = -1; // Scroll backward
+        if (oldSlot == 8 && newSlot == 0) direction = 1;
+        else if (oldSlot == 0 && newSlot == 8) direction = -1;
         else if (newSlot > oldSlot) direction = 1;
         else if (newSlot < oldSlot) direction = -1;
 
@@ -80,31 +76,60 @@ public class HolocronListener implements Listener {
         Player player = event.getPlayer();
         if (!event.getAction().isRightClick()) return;
         if (!plugin.getHolocronManager().isHolocron(event.getItem())) return;
-
-        // Right-clicking the Holocron opens the GUI
         plugin.getGuiManager().openAbilityGUI(player);
     }
 
     // --- Holocron Protection Logic ---
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onDrop(PlayerDropItemEvent event) {
         if (plugin.getHolocronManager().isHolocron(event.getItemDrop().getItemStack())) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage(ChatColor.RED + "You cannot drop a Holocron.");
+            event.getPlayer().sendMessage(ChatColor.RED + "You cannot drop a Force Artifact.");
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onInventoryClick(InventoryClickEvent event) {
-        if (plugin.getHolocronManager().isHolocron(event.getCurrentItem())) {
-            // Allow moving it within the player's inventory, but not into other inventories
-            if (event.getClickedInventory() != event.getWhoClicked().getInventory()) {
-                event.setCancelled(true);
-                event.getWhoClicked().sendMessage(ChatColor.RED + "You cannot store a Holocron here.");
+        ItemStack clickedItem = event.getCurrentItem();
+        ItemStack cursorItem = event.getCursor();
+
+        // Check if the player is trying to move the Holocron
+        if (plugin.getHolocronManager().isHolocron(clickedItem) || plugin.getHolocronManager().isHolocron(cursorItem)) {
+            // Allow them to move it within their own inventory (but not hotbar <-> main inv)
+            if (event.getClickedInventory() == event.getWhoClicked().getInventory()) {
+                // Prevent moving it out of the hotbar if it's there
+                if (event.getSlot() < 9 && event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+                    event.setCancelled(true);
+                }
+                // Allow normal clicks within the main inventory space
+                return;
             }
+            // If the click is in any other inventory (chest, ender chest, etc.), cancel it.
+            event.setCancelled(true);
+            event.getWhoClicked().sendMessage(ChatColor.RED + "You cannot store a Force Artifact here.");
         }
     }
+
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        // Find the Holocron in the list of items to be dropped
+        ItemStack holocron = null;
+        for (ItemStack item : event.getDrops()) {
+            if (plugin.getHolocronManager().isHolocron(item)) {
+                holocron = item;
+                break;
+            }
+        }
+
+        if (holocron != null) {
+            // Remove it from the items that drop on the ground
+            event.getDrops().remove(holocron);
+            // Add it to the list of items the player will keep after respawning
+            event.getItemsToKeep().add(holocron);
+        }
+    }
+
 
     // --- Helper Methods ---
 
@@ -115,14 +140,14 @@ public class HolocronListener implements Listener {
         List<String> unlocked = new ArrayList<>(forceUser.getUnlockedAbilities().keySet());
         if (unlocked.isEmpty()) return;
 
-        int currentIndex = selectingPlayers.getOrDefault(player.getUniqueId(), 0);
+        int currentIndex = unlocked.indexOf(forceUser.getActiveAbilityId());
+        if (currentIndex == -1) currentIndex = 0; // Default to first if not found
+
         currentIndex += direction;
 
-        // Loop around the list
         if (currentIndex >= unlocked.size()) currentIndex = 0;
         if (currentIndex < 0) currentIndex = unlocked.size() - 1;
 
-        selectingPlayers.put(player.getUniqueId(), currentIndex);
         forceUser.setActiveAbilityId(unlocked.get(currentIndex));
         showSelectedAbility(player);
     }
