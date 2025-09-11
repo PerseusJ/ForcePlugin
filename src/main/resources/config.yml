@@ -3,6 +3,7 @@
 # ------------------------------------------------- #
 
 force-energy:
+  # How much Force Energy a player regenerates per second.
   regeneration-per-second: 2.5
 
 # --- Progression System Settings ---
@@ -23,14 +24,34 @@ progression:
     per-mob-kill: 5.0
 
 abilities:
-  # --- Universal Abilities ---
+  # ------------------------------------------------- #
+  #                Universal Abilities                #
+  # ------------------------------------------------- #
   FORCE_PUSH:
     unlock-cost: 1
     max-level: 3
     levels:
-      '1': { energy-cost: 15.0, cooldown: 4.0, strength: 2.0, upward-force: 1.2 }
-      '2': { energy-cost: 14.0, cooldown: 3.5, strength: 2.5, upward-force: 1.3 }
-      '3': { energy-cost: 12.0, cooldown: 3.0, strength: 3.0, upward-force: 1.4 }
+      '1':
+        energy-cost: 15.0
+        cooldown: 4.0
+        strength: 2.0
+        upward-force: 1.2
+        nausea-duration-seconds: 3
+        nausea-amplifier: 1
+      '2':
+        energy-cost: 14.0
+        cooldown: 3.5
+        strength: 2.5
+        upward-force: 1.3
+        nausea-duration-seconds: 4
+        nausea-amplifier: 1
+      '3':
+        energy-cost: 12.0
+        cooldown: 3.0
+        strength: 3.0
+        upward-force: 1.4
+        nausea-duration-seconds: 5
+        nausea-amplifier: 2
   FORCE_PULL:
     unlock-cost: 1
     max-level: 2
@@ -43,7 +64,9 @@ abilities:
     levels:
       '1': { initial-energy-cost: 10.0, energy-cost-per-second: 5.0, cooldown: 20.0, range: 20, launch-strength: 3.0 }
 
-  # --- Light Side Exclusive ---
+  # ------------------------------------------------- #
+  #              Light Side Exclusive                 #
+  # ------------------------------------------------- #
   FORCE_HEAL:
     unlock-cost: 1
     max-level: 3
@@ -83,7 +106,9 @@ abilities:
     levels:
       '1': { energy-cost: 20.0, cooldown: 12.0, duration-seconds: 1.5 }
 
-  # --- Dark Side Exclusive ---
+  # ------------------------------------------------- #
+  #               Dark Side Exclusive                 #
+  # ------------------------------------------------- #
   FORCE_CHOKE:
     unlock-cost: 2
     max-level: 2
