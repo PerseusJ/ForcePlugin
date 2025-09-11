@@ -12,20 +12,24 @@ repositories {
         name = "papermc-repo"
         url = "https://repo.papermc.io/repository/maven-public/"
     }
-    // --- NEW: Add Mojang's official library repository ---
     maven {
         name = "mojang-libraries"
         url = "https://libraries.minecraft.net/"
     }
+    // --- NEW: Add the repository for PlaceholderAPI ---
+    maven {
+        name = "placeholderapi-repo"
+        url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"
+    }
 }
 
 dependencies {
-    // This should be compileOnly, as the server provides it.
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
-
-    // --- NEW: Explicitly add the authlib library for compiling ---
-    // This is the library that contains GameProfile and Property.
     compileOnly("com.mojang:authlib:5.0.51")
+
+    // --- NEW: Add the PlaceholderAPI dependency ---
+    // We use 'compileOnly' because PlaceholderAPI is a plugin that will be on the server.
+    compileOnly("me.clip:placeholderapi:2.11.6")
 }
 
 tasks {

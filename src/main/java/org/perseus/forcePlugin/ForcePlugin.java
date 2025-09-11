@@ -16,7 +16,7 @@ public class ForcePlugin extends JavaPlugin {
     private TelekinesisManager telekinesisManager;
     private LevelingManager levelingManager;
     private AmbientEffectsManager ambientEffectsManager;
-    private HolocronManager holocronManager; // --- ADDED BACK ---
+    private HolocronManager holocronManager;
 
     @Override
     public void onEnable() {
@@ -29,7 +29,7 @@ public class ForcePlugin extends JavaPlugin {
         this.abilityConfigManager = new AbilityConfigManager(this);
         this.telekinesisManager = new TelekinesisManager(this);
         this.levelingManager = new LevelingManager(this);
-        this.holocronManager = new HolocronManager(this); // --- ADDED BACK ---
+        this.holocronManager = new HolocronManager(this);
         this.abilityManager = new AbilityManager(this, abilityConfigManager, telekinesisManager);
         this.cooldownManager = new CooldownManager();
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
@@ -45,9 +45,18 @@ public class ForcePlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new HolocronListener(this), this);
 
         // Register commands
-        getCommand("force").setExecutor(new ForceCommand(forceUserManager, holocronManager)); // --- CORRECTED ---
+        getCommand("force").setExecutor(new ForceCommand(forceUserManager, holocronManager));
         getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
         getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
+
+        // --- NEW: Hook into PlaceholderAPI ---
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new ForcePlaceholders(this).register();
+            getLogger().info("Successfully hooked into PlaceholderAPI!");
+        } else {
+            getLogger().warning("PlaceholderAPI not found. Placeholders will not work.");
+        }
+        // --- END NEW ---
 
         // Handle online players on startup/reload
         for (Player player : getServer().getOnlinePlayers()) {
@@ -84,5 +93,5 @@ public class ForcePlugin extends JavaPlugin {
     public AbilityConfigManager getAbilityConfigManager() { return abilityConfigManager; }
     public TelekinesisManager getTelekinesisManager() { return telekinesisManager; }
     public LevelingManager getLevelingManager() { return levelingManager; }
-    public HolocronManager getHolocronManager() { return holocronManager; } // --- ADDED BACK ---
+    public HolocronManager getHolocronManager() { return holocronManager; }
 }

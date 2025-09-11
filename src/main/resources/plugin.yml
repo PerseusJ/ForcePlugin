@@ -1,8 +1,11 @@
 name: ForcePlugin
-version: 3.0
+version: '3.0'
 main: org.perseus.forcePlugin.ForcePlugin
-api-version: 1.21
+api-version: '1.21'
 author: Perseus
+
+# --- NEW: Declare a soft dependency ---
+softdepend: [PlaceholderAPI]
 
 commands:
   force:
@@ -14,7 +17,7 @@ commands:
     aliases: [fs]
   forceadmin:
     description: Admin command for the ForcePlugin.
-    usage: /<command> [sub-command]
+    usage: /<command> [reload|setside|reset|check|setlevel|givexp|givepoints|giveholocron]
     aliases: [fa]
 
 permissions:
