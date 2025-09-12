@@ -75,21 +75,21 @@ public class GUIListener implements Listener {
 
         Material clickedType = clickedItem.getType();
 
-        // --- THIS IS THE NEW LOGIC ---
         if (clickedType == Material.EMERALD_BLOCK) {
-            if (forceUser.getForcePoints() > 0) {
-                forceUser.addForcePoints(-1);
+            int currentLevel = forceUser.getAbilityLevel(ability.getID());
+            int upgradeCost = plugin.getAbilityConfigManager().getIntValue(ability.getID(), currentLevel, "upgrade-cost", 1);
+
+            if (forceUser.getForcePoints() >= upgradeCost) {
+                forceUser.addForcePoints(-upgradeCost);
                 forceUser.upgradeAbility(ability.getID());
                 player.sendMessage(ChatColor.AQUA + "Upgraded " + ability.getName() + " to Level " + forceUser.getAbilityLevel(ability.getID()) + "!");
                 player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_USE, 1.0f, 1.5f);
-                // Refresh the upgrade GUI to show the new stats
                 plugin.getGuiManager().openUpgradeGUI(player, ability);
             } else {
-                player.sendMessage(ChatColor.RED + "You do not have enough Force Points to upgrade this.");
+                player.sendMessage(ChatColor.RED + "You do not have enough Force Points to upgrade this! (Requires " + upgradeCost + ")");
                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
             }
         } else if (clickedType == Material.BARRIER) {
-            // Go back to the main skill tree
             plugin.getGuiManager().openAbilityGUI(player);
         }
     }
