@@ -45,7 +45,7 @@ public class GUIListener implements Listener {
             if (forceUser.hasUnlockedAbility(clickedAbility.getID())) {
                 plugin.getGuiManager().openUpgradeGUI(player, clickedAbility);
             } else {
-                int unlockCost = plugin.getConfig().getInt("abilities." + clickedAbility.getID() + ".unlock-cost", 1);
+                int unlockCost = plugin.getAbilityConfigManager().getUnlockCost(clickedAbility.getID());
                 if (forceUser.getForcePoints() >= unlockCost) {
                     forceUser.addForcePoints(-unlockCost);
                     forceUser.unlockAbility(clickedAbility.getID());
@@ -75,23 +75,22 @@ public class GUIListener implements Listener {
 
         Material clickedType = clickedItem.getType();
 
+        // --- THIS IS THE NEW LOGIC ---
         if (clickedType == Material.EMERALD_BLOCK) {
             if (forceUser.getForcePoints() > 0) {
                 forceUser.addForcePoints(-1);
                 forceUser.upgradeAbility(ability.getID());
                 player.sendMessage(ChatColor.AQUA + "Upgraded " + ability.getName() + " to Level " + forceUser.getAbilityLevel(ability.getID()) + "!");
                 player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_USE, 1.0f, 1.5f);
+                // Refresh the upgrade GUI to show the new stats
                 plugin.getGuiManager().openUpgradeGUI(player, ability);
             } else {
                 player.sendMessage(ChatColor.RED + "You do not have enough Force Points to upgrade this.");
                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
             }
         } else if (clickedType == Material.BARRIER) {
+            // Go back to the main skill tree
             plugin.getGuiManager().openAbilityGUI(player);
-        } else if (clickedType == Material.BLUE_WOOL || clickedType == Material.YELLOW_WOOL || clickedType == Material.RED_WOOL) {
-            // This logic is now obsolete with the Holocron system, but we can leave it for now.
-            // A better implementation would be to remove these buttons from the upgrade GUI.
-            player.sendMessage(ChatColor.YELLOW + "Select your active ability by holding your Holocron and using Shift + Scroll.");
         }
     }
 

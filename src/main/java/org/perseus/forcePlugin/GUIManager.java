@@ -77,14 +77,20 @@ public class GUIManager {
         int currentLevel = forceUser.getAbilityLevel(ability.getID());
         int maxLevel = configManager.getMaxLevel(ability.getID());
 
+        // Display current level stats
         gui.setItem(11, createLevelIcon(ability, currentLevel, "Current Level"));
 
+        // Display next level stats and the upgrade button
         if (currentLevel < maxLevel) {
             gui.setItem(15, createLevelIcon(ability, currentLevel + 1, "Next Level"));
+
             ItemStack upgradeButton = new ItemStack(Material.EMERALD_BLOCK);
             ItemMeta upgradeMeta = upgradeButton.getItemMeta();
             upgradeMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Upgrade Ability");
-            upgradeMeta.setLore(List.of(ChatColor.GRAY + "Cost: " + ChatColor.GREEN + "1 Force Point"));
+            upgradeMeta.setLore(List.of(
+                    ChatColor.GRAY + "Cost: " + ChatColor.GREEN + "1 Force Point",
+                    ChatColor.YELLOW + "Click to upgrade!"
+            ));
             upgradeButton.setItemMeta(upgradeMeta);
             gui.setItem(13, upgradeButton);
         } else {
@@ -95,6 +101,7 @@ public class GUIManager {
             gui.setItem(13, maxLevelItem);
         }
 
+        // Back Button
         ItemStack backButton = new ItemStack(Material.BARRIER);
         ItemMeta backMeta = backButton.getItemMeta();
         backMeta.setDisplayName(ChatColor.RED + "Back to Skill Tree");
@@ -147,11 +154,8 @@ public class GUIManager {
         ItemStack icon = new ItemStack(Material.BARRIER);
         ItemMeta meta = icon.getItemMeta();
         meta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + ability.getName());
-
-        // --- THE FIX: Use the new, dedicated getUnlockCost method ---
         int unlockCost = configManager.getUnlockCost(ability.getID());
         String pointString = (unlockCost == 1) ? " Force Point" : " Force Points";
-
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.GRAY + ability.getDescription());
         lore.add("");
@@ -160,7 +164,6 @@ public class GUIManager {
         lore.add("");
         lore.add(ChatColor.YELLOW + "Click to unlock!");
         meta.setLore(lore);
-
         icon.setItemMeta(meta);
         return icon;
     }
@@ -172,6 +175,7 @@ public class GUIManager {
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + "Energy Cost: " + ChatColor.WHITE + ability.getEnergyCost(level));
         lore.add(ChatColor.GREEN + "Cooldown: " + ChatColor.WHITE + ability.getCooldown(level) + "s");
+        // You can add more dynamic stats here later by reading from the config
         meta.setLore(lore);
         icon.setItemMeta(meta);
         return icon;
