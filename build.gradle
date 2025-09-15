@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id("xyz.jpenilla.run-paper") version "2.3.1"
+    // --- NEW: Add the shadow plugin for packaging our library ---
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'org.perseus'
@@ -8,29 +10,35 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-    maven {
-        name = "papermc-repo"
-        url = "https://repo.papermc.io/repository/maven-public/"
-    }
-    maven {
-        name = "mojang-libraries"
-        url = "https://libraries.minecraft.net/"
-    }
-    // --- NEW: Add the repository for PlaceholderAPI ---
-    maven {
-        name = "placeholderapi-repo"
-        url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"
-    }
+    maven { name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/" }
+    maven { name = "mojang-libraries"
+        url = "https://libraries.minecraft.net/" }
+    maven { name = "placeholderapi-repo"
+        url = "https://repo.extendedclip.com/content/repositories/placeholderapi/" }
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
     compileOnly("com.mojang:authlib:5.0.51")
-
-    // --- NEW: Add the PlaceholderAPI dependency ---
-    // We use 'compileOnly' because PlaceholderAPI is a plugin that will be on the server.
     compileOnly("me.clip:placeholderapi:2.11.6")
+
+    // --- NEW: Add the SQLite driver ---
+    // We use 'implementation' because we need to package this library inside our plugin's JAR file.
+    implementation("org.xerial:sqlite-jdbc:3.41.2.1")
 }
+
+// --- NEW: Configure the shadowJar task ---
+// This task will correctly package the SQLite driver into our final plugin file.
+shadowJar {
+    relocate 'org.sqlite', 'org.perseus.forcePlugin.lib.sqlite'
+    archiveBaseName.set(project.name)
+    archiveClassifier.set('')
+    archiveVersion.set(version)
+}
+
+// Tell the 'build' task to depend on our new shadowJar task
+build.dependsOn shadowJar
 
 tasks {
     runServer {

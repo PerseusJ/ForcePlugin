@@ -3,10 +3,9 @@ package org.perseus.forcePlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-
 public class ForcePlugin extends JavaPlugin {
 
+    private DatabaseManager databaseManager; // --- NEW ---
     private ForceUserManager forceUserManager;
     private AbilityManager abilityManager;
     private CooldownManager cooldownManager;
@@ -21,11 +20,11 @@ public class ForcePlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        File dataFolder = new File(getDataFolder(), "playerdata");
-        if (!dataFolder.exists()) dataFolder.mkdirs();
 
         // Initialize managers
-        this.forceUserManager = new ForceUserManager(this);
+        this.databaseManager = new DatabaseManager(this);
+        this.databaseManager.connect(); // Connect to the database on startup
+        this.forceUserManager = new ForceUserManager(this, databaseManager); // Pass DB manager
         this.abilityConfigManager = new AbilityConfigManager(this);
         this.telekinesisManager = new TelekinesisManager(this);
         this.levelingManager = new LevelingManager(this);
@@ -49,29 +48,22 @@ public class ForcePlugin extends JavaPlugin {
         getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
         getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
 
-        // --- NEW: Hook into PlaceholderAPI ---
-        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new ForcePlaceholders(this).register();
-            getLogger().info("Successfully hooked into PlaceholderAPI!");
-        } else {
-            getLogger().warning("PlaceholderAPI not found. Placeholders will not work.");
-        }
-        // --- END NEW ---
-
         // Handle online players on startup/reload
         for (Player player : getServer().getOnlinePlayers()) {
             forceUserManager.loadPlayerData(player);
-            forceBarManager.addPlayer(player);
-            levelingManager.updateXpBar(player);
+            // Note: addPlayer and updateXpBar are now called inside loadPlayerData after the async task
         }
         getLogger().info("ForcePlugin has been enabled!");
     }
 
     @Override
     public void onDisable() {
+        // Save any remaining online players' data
         for (Player player : getServer().getOnlinePlayers()) {
             forceUserManager.savePlayerData(player);
         }
+        // Disconnect from the database when the plugin is disabled
+        this.databaseManager.disconnect();
         getLogger().info("ForcePlugin has been disabled!");
     }
 
@@ -85,6 +77,7 @@ public class ForcePlugin extends JavaPlugin {
     }
 
     // --- Getters for Managers ---
+    public DatabaseManager getDatabaseManager() { return databaseManager; } // --- NEW ---
     public ForceUserManager getForceUserManager() { return forceUserManager; }
     public AbilityManager getAbilityManager() { return abilityManager; }
     public CooldownManager getCooldownManager() { return cooldownManager; }
