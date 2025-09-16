@@ -1,6 +1,9 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.managers;
 
 import org.bukkit.entity.Player;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.DatabaseManager;
+import org.perseus.forcePlugin.data.ForceUser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,22 +21,18 @@ public class ForceUserManager {
     }
 
     public void loadPlayerData(Player player) {
-        // Load data from the database asynchronously to prevent lag on join
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
             ForceUser forceUser = databaseManager.loadPlayerData(player.getUniqueId());
 
-            // If the player is new (no abilities unlocked), give them the defaults
-            if (forceUser.getUnlockedAbilities().isEmpty()) {
-                forceUser.unlockAbility("FORCE_PUSH");
-                forceUser.unlockAbility("FORCE_PULL");
+            forceUser.unlockAbility("FORCE_PUSH");
+            forceUser.unlockAbility("FORCE_PULL");
+            if (forceUser.getActiveAbilityId() == null) {
                 forceUser.setActiveAbilityId("FORCE_PUSH");
             }
 
-            // Add the loaded data to the main server thread
             plugin.getServer().getScheduler().runTask(plugin, () -> {
                 onlineUsers.put(player.getUniqueId(), forceUser);
                 plugin.getLogger().info("Loaded data for " + player.getName());
-                // Now that data is loaded, update their bars
                 plugin.getLevelingManager().updateXpBar(player);
                 plugin.getForceBarManager().addPlayer(player);
             });
@@ -44,7 +43,6 @@ public class ForceUserManager {
         ForceUser forceUser = onlineUsers.get(player.getUniqueId());
         if (forceUser == null) return;
 
-        // Save data to the database asynchronously to prevent lag on quit
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
             databaseManager.savePlayerData(forceUser);
             plugin.getLogger().info("Saved data for " + player.getName());

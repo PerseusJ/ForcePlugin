@@ -6,7 +6,11 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import org.perseus.forcePlugin.*;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.listeners.ProjectileDeflectionListener;
+import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 public class ForceDeflection implements Ability {
     private final AbilityConfigManager configManager;

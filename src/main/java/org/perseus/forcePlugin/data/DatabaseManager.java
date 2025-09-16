@@ -1,7 +1,8 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.data;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.perseus.forcePlugin.ForcePlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +15,7 @@ public class DatabaseManager {
 
     private final ForcePlugin plugin;
     private Connection connection;
-    private final Gson gson = new Gson(); // For serializing the ability map
+    private final Gson gson = new Gson();
 
     public DatabaseManager(ForcePlugin plugin) {
         this.plugin = plugin;
@@ -80,17 +81,18 @@ public class DatabaseManager {
             pstmt.setString(1, uuid.toString());
             ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) { // Player exists in database
+            if (rs.next()) {
                 forceUser.setSide(ForceSide.valueOf(rs.getString("side")));
                 forceUser.setActiveAbilityId(rs.getString("active_ability"));
                 forceUser.setForceLevel(rs.getInt("force_level"));
                 forceUser.setForceXp(rs.getDouble("force_xp"));
                 forceUser.setForcePoints(rs.getInt("force_points"));
 
-                // Deserialize the ability map from JSON
                 String json = rs.getString("unlocked_abilities");
                 Map<String, Integer> unlocked = gson.fromJson(json, new TypeToken<Map<String, Integer>>(){}.getType());
-                forceUser.getUnlockedAbilities().putAll(unlocked);
+                if (unlocked != null) {
+                    forceUser.getUnlockedAbilities().putAll(unlocked);
+                }
             }
         } catch (SQLException e) {
             plugin.getLogger().log(Level.SEVERE, "Could not load player data for " + uuid, e);
@@ -110,7 +112,6 @@ public class DatabaseManager {
             pstmt.setInt(4, forceUser.getForceLevel());
             pstmt.setDouble(5, forceUser.getForceXp());
             pstmt.setInt(6, forceUser.getForcePoints());
-            // Serialize the ability map to a JSON string for storage
             pstmt.setString(7, gson.toJson(forceUser.getUnlockedAbilities()));
             pstmt.executeUpdate();
         } catch (SQLException e) {

@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.listeners;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -15,7 +15,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +46,6 @@ public class HolocronListener implements Listener {
             showSelectedAbility(player);
         } else {
             selectingPlayers.remove(player.getUniqueId());
-            // --- THE FIX: Call the new, simplified method ---
             plugin.getHolocronManager().updateHolocronName(player);
             sendActionBarMessage(player, "");
         }

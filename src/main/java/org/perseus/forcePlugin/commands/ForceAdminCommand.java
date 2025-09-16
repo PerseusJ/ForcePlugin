@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -6,7 +6,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
 
 public class ForceAdminCommand implements CommandExecutor {
 
@@ -79,18 +82,14 @@ public class ForceAdminCommand implements CommandExecutor {
             return;
         }
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(target);
-
-        // --- THE FIX: Correctly reset all data and add back defaults ---
         forceUser.setSide(ForceSide.NONE);
-        forceUser.getUnlockedAbilities().clear(); // Clear all unlocked abilities first
-        forceUser.unlockAbility("FORCE_PUSH");   // Add back the defaults
-        forceUser.unlockAbility("FORCE_PULL");   // Add back the defaults
-        forceUser.setActiveAbilityId("FORCE_PUSH"); // Set a default active ability
+        forceUser.getUnlockedAbilities().clear();
+        forceUser.unlockAbility("FORCE_PUSH");
+        forceUser.unlockAbility("FORCE_PULL");
+        forceUser.setActiveAbilityId("FORCE_PUSH");
         forceUser.setForceLevel(1);
         forceUser.setForceXp(0);
         forceUser.setForcePoints(0);
-        // --- END FIX ---
-
         plugin.getHolocronManager().removeHolocron(target);
         plugin.getForceBarManager().updateBar(target);
         plugin.getLevelingManager().updateXpBar(target);

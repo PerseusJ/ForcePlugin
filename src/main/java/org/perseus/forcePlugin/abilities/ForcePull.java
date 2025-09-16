@@ -8,7 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
-import org.perseus.forcePlugin.*;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 public class ForcePull implements Ability {
     private final AbilityConfigManager configManager;
@@ -26,7 +29,6 @@ public class ForcePull implements Ability {
         int level = forceUser.getAbilityLevel(getID());
         int range = 20;
         double strength = configManager.getDoubleValue(getID(), level, "strength", 2.5);
-
         RayTraceResult rayTrace = player.getWorld().rayTraceEntities(player.getEyeLocation(), player.getLocation().getDirection(), range,
                 entity -> entity instanceof LivingEntity && !entity.equals(player));
         if (rayTrace == null || rayTrace.getHitEntity() == null) return;

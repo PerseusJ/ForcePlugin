@@ -7,18 +7,49 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.perseus.forcePlugin.*;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 public class ForceBarrier implements Ability {
     private final AbilityConfigManager configManager;
     private final ForcePlugin plugin;
-    public ForceBarrier(AbilityConfigManager configManager, ForcePlugin plugin) { this.configManager = configManager; this.plugin = plugin; }
-    @Override public String getID() { return "FORCE_BARRIER"; }
-    @Override public String getName() { return "Force Barrier"; }
-    @Override public String getDescription() { return "Grants temporary Absorption hearts."; }
-    @Override public ForceSide getSide() { return ForceSide.LIGHT; }
-    @Override public double getEnergyCost(int level) { return configManager.getDoubleValue(getID(), level, "energy-cost", 30.0); }
-    @Override public double getCooldown(int level) { return configManager.getDoubleValue(getID(), level, "cooldown", 25.0); }
+
+    public ForceBarrier(AbilityConfigManager configManager, ForcePlugin plugin) {
+        this.configManager = configManager;
+        this.plugin = plugin;
+    }
+
+    @Override
+    public String getID() {
+        return "FORCE_BARRIER";
+    }
+
+    @Override
+    public String getName() {
+        return "Force Barrier";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Grants temporary Absorption hearts.";
+    }
+
+    @Override
+    public ForceSide getSide() {
+        return ForceSide.LIGHT;
+    }
+
+    @Override
+    public double getEnergyCost(int level) {
+        return configManager.getDoubleValue(getID(), level, "energy-cost", 30.0);
+    }
+
+    @Override
+    public double getCooldown(int level) {
+        return configManager.getDoubleValue(getID(), level, "cooldown", 25.0);
+    }
 
     @Override
     public void execute(Player player, ForceUser forceUser) {
@@ -33,9 +64,13 @@ public class ForceBarrier implements Ability {
             int ticks = 0;
             double radius = 1.0;
             double angle = 0;
+
             @Override
             public void run() {
-                if (ticks >= duration || !player.isOnline()) { this.cancel(); return; }
+                if (ticks >= duration || !player.isOnline()) {
+                    this.cancel();
+                    return;
+                }
                 Location playerLoc = player.getLocation();
                 double x = playerLoc.getX() + radius * Math.cos(angle);
                 double z = playerLoc.getZ() + radius * Math.sin(angle);

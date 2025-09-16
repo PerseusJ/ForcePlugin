@@ -2,6 +2,14 @@ package org.perseus.forcePlugin;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.perseus.forcePlugin.commands.ForceAdminCommand;
+import org.perseus.forcePlugin.commands.ForceCommand;
+import org.perseus.forcePlugin.commands.ForceStatsCommand;
+import org.perseus.forcePlugin.data.DatabaseManager;
+import org.perseus.forcePlugin.gui.GUIManager;
+import org.perseus.forcePlugin.gui.GUIListener;
+import org.perseus.forcePlugin.listeners.*;
+import org.perseus.forcePlugin.managers.*;
 
 public class ForcePlugin extends JavaPlugin {
 

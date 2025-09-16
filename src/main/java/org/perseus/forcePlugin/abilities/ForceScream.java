@@ -9,7 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.perseus.forcePlugin.*;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 public class ForceScream implements Ability {
     private final AbilityConfigManager configManager;

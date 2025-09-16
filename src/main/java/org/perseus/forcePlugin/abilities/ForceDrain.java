@@ -11,7 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
-import org.perseus.forcePlugin.*;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 public class ForceDrain implements Ability {
     private final AbilityConfigManager configManager;
@@ -29,7 +32,6 @@ public class ForceDrain implements Ability {
         int level = forceUser.getAbilityLevel(getID());
         int range = 15;
         double drainAmount = configManager.getDoubleValue(getID(), level, "drain-amount-hearts", 2.0) * 2;
-
         RayTraceResult rayTrace = player.getWorld().rayTraceEntities(player.getEyeLocation(), player.getLocation().getDirection(), range,
                 entity -> entity instanceof LivingEntity && !entity.equals(player));
         if (rayTrace == null || rayTrace.getHitEntity() == null) return;

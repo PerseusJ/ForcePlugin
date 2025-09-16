@@ -8,9 +8,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
-import org.perseus.forcePlugin.AbilityConfigManager;
-import org.perseus.forcePlugin.ForceSide;
-import org.perseus.forcePlugin.ForceUser;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 public class ForcePush implements Ability {
     private final AbilityConfigManager configManager;
@@ -28,7 +28,6 @@ public class ForcePush implements Ability {
         double strength = configManager.getDoubleValue(getID(), level, "strength", 2.0);
         double upwardForce = configManager.getDoubleValue(getID(), level, "upward-force", 1.2);
         int range = 10;
-
         int nauseaDuration = configManager.getIntValue(getID(), level, "nausea-duration-seconds", 3) * 20;
         int nauseaAmplifier = configManager.getIntValue(getID(), level, "nausea-amplifier", 1) - 1;
 
@@ -41,9 +40,7 @@ public class ForcePush implements Ability {
             if (playerDirection.dot(entityDirection) > 0.7) {
                 Vector knockback = player.getLocation().getDirection().multiply(strength).setY(upwardForce);
                 entity.setVelocity(knockback);
-
                 if (entity instanceof LivingEntity && nauseaDuration > 0) {
-                    // --- THE FIX: Changed CONFUSION to NAUSEA ---
                     ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, nauseaDuration, nauseaAmplifier));
                 }
             }

@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.gui;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,6 +10,11 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.perseus.forcePlugin.abilities.Ability;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.managers.AbilityConfigManager;
+import org.perseus.forcePlugin.managers.AbilityManager;
+import org.perseus.forcePlugin.managers.ForceUserManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,10 +86,8 @@ public class GUIManager {
 
         if (currentLevel < maxLevel) {
             gui.setItem(15, createLevelIcon(ability, currentLevel + 1, "Next Level"));
-
             int upgradeCost = configManager.getIntValue(ability.getID(), currentLevel, "upgrade-cost", 1);
             String pointString = (upgradeCost == 1) ? " Force Point" : " Force Points";
-
             ItemStack upgradeButton = new ItemStack(Material.EMERALD_BLOCK);
             ItemMeta upgradeMeta = upgradeButton.getItemMeta();
             upgradeMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Upgrade Ability");
@@ -151,10 +154,8 @@ public class GUIManager {
         ItemStack icon = new ItemStack(Material.BARRIER);
         ItemMeta meta = icon.getItemMeta();
         meta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + ability.getName());
-
         int unlockCost = configManager.getUnlockCost(ability.getID());
         String pointString = (unlockCost == 1) ? " Force Point" : " Force Points";
-
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.GRAY + ability.getDescription());
         lore.add("");
@@ -163,7 +164,6 @@ public class GUIManager {
         lore.add("");
         lore.add(ChatColor.YELLOW + "Click to unlock!");
         meta.setLore(lore);
-
         icon.setItemMeta(meta);
         return icon;
     }

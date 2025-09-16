@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.managers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
@@ -6,6 +6,9 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,41 +26,27 @@ public class ForceBarManager {
         this.userManager = userManager;
         reloadConfig();
         startEnergyRegenTask();
-        // --- DEBUG ---
-        plugin.getLogger().info("ForceBarManager initialized successfully.");
     }
 
     public void reloadConfig() {
         this.regenAmountPerSecond = plugin.getConfig().getDouble("force-energy.regeneration-per-second", 2.5);
-        // --- DEBUG ---
-        plugin.getLogger().info("ForceBarManager config reloaded. Regen rate is now: " + regenAmountPerSecond);
     }
 
     public void addPlayer(Player player) {
-        // --- DEBUG ---
-        plugin.getLogger().info("Attempting to add Boss Bar for player: " + player.getName());
         ForceUser user = userManager.getForceUser(player);
         if (user == null) {
-            // --- DEBUG ---
-            plugin.getLogger().warning("Could not add Boss Bar because ForceUser data was null for " + player.getName());
             return;
         }
-
         BossBar bar = Bukkit.createBossBar("Force Energy", BarColor.BLUE, BarStyle.SOLID);
         bar.addPlayer(player);
         playerBars.put(player.getUniqueId(), bar);
-
         updateBar(player);
-        // --- DEBUG ---
-        plugin.getLogger().info("Successfully added Boss Bar for " + player.getName());
     }
 
     public void removePlayer(Player player) {
         BossBar bar = playerBars.remove(player.getUniqueId());
         if (bar != null) {
             bar.removeAll();
-            // --- DEBUG ---
-            plugin.getLogger().info("Removed Boss Bar for " + player.getName());
         }
     }
 

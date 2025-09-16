@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.data;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +13,6 @@ public class ForceUser {
     private double forceXp;
     private int forcePoints;
     private final Map<String, Integer> unlockedAbilities;
-
-    // --- NEW: Replaces the old binding system ---
     private String activeAbilityId;
 
     public ForceUser(UUID uuid) {
@@ -25,7 +23,6 @@ public class ForceUser {
         this.forceXp = 0.0;
         this.forcePoints = 0;
         this.unlockedAbilities = new HashMap<>();
-        // --- NEW: Default active ability can be null ---
         this.activeAbilityId = null;
     }
 
@@ -39,10 +36,7 @@ public class ForceUser {
     public Map<String, Integer> getUnlockedAbilities() { return unlockedAbilities; }
     public boolean hasUnlockedAbility(String abilityId) { return unlockedAbilities.containsKey(abilityId); }
     public int getAbilityLevel(String abilityId) { return unlockedAbilities.getOrDefault(abilityId, 0); }
-
-    // --- NEW: Getter for the active ability ---
     public String getActiveAbilityId() { return activeAbilityId; }
-
 
     // --- SETTERS ---
     public void setSide(ForceSide side) { this.side = side; }
@@ -62,7 +56,5 @@ public class ForceUser {
             unlockedAbilities.put(abilityId, currentLevel + 1);
         }
     }
-
-    // --- NEW: Setter for the active ability ---
     public void setActiveAbilityId(String activeAbilityId) { this.activeAbilityId = activeAbilityId; }
 }

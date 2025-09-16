@@ -1,6 +1,8 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.managers;
 
+import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.*;
+import org.perseus.forcePlugin.data.ForceSide;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,7 +25,7 @@ public class AbilityManager {
     private void registerAbilities(ForcePlugin plugin, AbilityConfigManager configManager, TelekinesisManager telekinesisManager) {
         // Universal Abilities
         registerAbility(new ForcePush(configManager));
-        registerAbility(new ForcePull(configManager, plugin)); // Pass plugin for task
+        registerAbility(new ForcePull(configManager, plugin));
         registerAbility(new Telekinesis(configManager, telekinesisManager));
 
         // Light Side Exclusive

@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.managers;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -6,6 +6,9 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
 
 public class AmbientEffectsManager {
 
@@ -24,7 +27,6 @@ public class AmbientEffectsManager {
                     ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
                     ItemStack itemInHand = player.getInventory().getItemInMainHand();
 
-                    // The new check: Is the player holding a Holocron?
                     if (forceUser != null && plugin.getHolocronManager().isHolocron(itemInHand) && forceUser.getSide() != ForceSide.NONE) {
                         spawnAmbientParticle(player, forceUser.getSide());
                     }

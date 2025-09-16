@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.listeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -23,7 +23,6 @@ public class ProjectileDeflectionListener implements Listener {
         deflectingPlayers.remove(uuid);
     }
 
-    // New method required by ForceDeflection
     public static boolean isDeflecting(UUID uuid) {
         return deflectingPlayers.contains(uuid);
     }

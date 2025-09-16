@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.managers;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -9,7 +9,9 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
+import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
+import org.perseus.forcePlugin.data.ForceUser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,19 +39,16 @@ public class TelekinesisManager {
         if (isLifting(caster)) return;
 
         liftingTargets.put(caster.getUniqueId(), target);
-        // --- THE FIX: Use the 'new PotionEffect(...)' constructor ---
         target.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, Integer.MAX_VALUE, 0, false, false));
 
         BukkitTask task = new BukkitRunnable() {
             int ticks = 0;
-
             @Override
             public void run() {
                 if (!caster.isOnline() || target.isDead() || !target.isValid()) {
                     stopLifting(caster, false);
                     return;
                 }
-
                 Location destination = caster.getEyeLocation().add(caster.getLocation().getDirection().multiply(5));
                 target.teleport(destination);
 
@@ -80,7 +79,6 @@ public class TelekinesisManager {
                 ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
-
         liftingTasks.put(caster.getUniqueId(), task);
     }
 
@@ -93,7 +91,6 @@ public class TelekinesisManager {
         if (target != null) {
             target.removePotionEffect(PotionEffectType.LEVITATION);
             if (!applyFallDamage) {
-                // --- THE FIX: Use the 'new PotionEffect(...)' constructor ---
                 target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 60, 0, false, false));
             }
         }

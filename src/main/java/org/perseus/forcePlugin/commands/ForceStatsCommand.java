@@ -1,14 +1,13 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceUser;
 
-/**
- * Handles the /force stats command for displaying player progression.
- */
 public class ForceStatsCommand implements CommandExecutor {
 
     private final ForcePlugin plugin;
@@ -19,20 +18,15 @@ public class ForceStatsCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // This command can be used by players to check their own stats,
-        // or by admins to check others' stats.
-
         Player target;
 
         if (args.length == 0) {
-            // If no player is specified, the sender must be a player checking their own stats.
             if (!(sender instanceof Player)) {
                 sender.sendMessage(ChatColor.RED + "Please specify a player to check.");
                 return true;
             }
             target = (Player) sender;
         } else {
-            // If a player is specified, the sender needs admin perms to check others.
             if (!sender.hasPermission("forceplugin.admin")) {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to check other players' stats.");
                 return true;
@@ -44,14 +38,12 @@ public class ForceStatsCommand implements CommandExecutor {
             }
         }
 
-        // At this point, we have a valid target player.
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(target);
         if (forceUser == null) {
             sender.sendMessage(ChatColor.RED + "Could not retrieve Force data for that player.");
             return true;
         }
 
-        // Display the stats in a clean format.
         sender.sendMessage(ChatColor.GOLD + "--- Force Stats for " + target.getName() + " ---");
         sender.sendMessage(ChatColor.YELLOW + "Side: " + ChatColor.WHITE + forceUser.getSide().name());
         sender.sendMessage(ChatColor.YELLOW + "Level: " + ChatColor.AQUA + forceUser.getForceLevel());

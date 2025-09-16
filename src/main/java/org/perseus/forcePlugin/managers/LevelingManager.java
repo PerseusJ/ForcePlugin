@@ -1,9 +1,12 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.managers;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
 
 public class LevelingManager {
 
@@ -30,7 +33,6 @@ public class LevelingManager {
         if (currentLevel >= maxLevel) {
             return Double.MAX_VALUE;
         }
-        // New Formula: Base + ( (Level - 1) * Multiplier)
         return baseXp + ((currentLevel - 1) * xpMultiplier);
     }
 

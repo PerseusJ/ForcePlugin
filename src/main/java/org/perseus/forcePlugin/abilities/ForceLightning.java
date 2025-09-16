@@ -6,7 +6,10 @@ import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.RayTraceResult;
-import org.perseus.forcePlugin.*;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.managers.AbilityConfigManager;
+import org.perseus.forcePlugin.managers.ParticleUtil;
 
 public class ForceLightning implements Ability {
     private final AbilityConfigManager configManager;
@@ -23,7 +26,6 @@ public class ForceLightning implements Ability {
         int level = forceUser.getAbilityLevel(getID());
         int range = 20;
         double damage = configManager.getDoubleValue(getID(), level, "damage-hearts", 3.0) * 2;
-
         RayTraceResult rayTrace = player.getWorld().rayTraceEntities(player.getEyeLocation(), player.getLocation().getDirection(), range,
                 entity -> entity instanceof LivingEntity && !entity.equals(player));
         if (rayTrace == null || rayTrace.getHitEntity() == null) return;

@@ -10,7 +10,10 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
-import org.perseus.forcePlugin.*;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 public class ForceCrush implements Ability {
     private final AbilityConfigManager configManager;
@@ -30,7 +33,6 @@ public class ForceCrush implements Ability {
         double damage = configManager.getDoubleValue(getID(), level, "damage-hearts", 4.0) * 2;
         int duration = 60;
         int slownessAmp = 2;
-
         RayTraceResult rayTrace = player.getWorld().rayTraceEntities(player.getEyeLocation(), player.getLocation().getDirection(), range,
                 entity -> entity instanceof LivingEntity && !entity.equals(player));
         if (rayTrace == null || rayTrace.getHitEntity() == null) return;

@@ -8,7 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.perseus.forcePlugin.*;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 public class ForceRage implements Ability {
     private final AbilityConfigManager configManager;
@@ -25,8 +28,8 @@ public class ForceRage implements Ability {
     public void execute(Player player, ForceUser forceUser) {
         int level = forceUser.getAbilityLevel(getID());
         int duration = configManager.getIntValue(getID(), level, "duration-seconds", 8) * 20;
-        int speedAmp = 1;
-        int strengthAmp = 1;
+        int speedAmp = configManager.getIntValue(getID(), level, "speed-amplifier", 2) - 1;
+        int strengthAmp = configManager.getIntValue(getID(), level, "strength-amplifier", 2) - 1;
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, speedAmp));
         player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, duration, strengthAmp));

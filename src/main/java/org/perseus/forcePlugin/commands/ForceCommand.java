@@ -1,19 +1,22 @@
-package org.perseus.forcePlugin;
+package org.perseus.forcePlugin.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.managers.HolocronManager;
+import org.perseus.forcePlugin.managers.ForceUserManager;
 
 public class ForceCommand implements CommandExecutor {
 
-    private final ForceUserManager userManager;
-    private final HolocronManager holocronManager;
+    private final ForcePlugin plugin;
 
-    public ForceCommand(ForceUserManager userManager, HolocronManager holocronManager) {
-        this.userManager = userManager;
-        this.holocronManager = holocronManager;
+    public ForceCommand(ForcePlugin plugin) {
+        this.plugin = plugin;
     }
 
     @Override
@@ -28,9 +31,12 @@ public class ForceCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
+        ForceUserManager userManager = plugin.getForceUserManager();
+        HolocronManager holocronManager = plugin.getHolocronManager();
         ForceUser forceUser = userManager.getForceUser(player);
+
         if (forceUser == null) {
-            player.sendMessage(ChatColor.RED + "Error: Your data could not be found. Please try relogging.");
+            player.sendMessage(ChatColor.RED + "Error: Your data is still loading. Please wait a moment and try again.");
             return true;
         }
 
