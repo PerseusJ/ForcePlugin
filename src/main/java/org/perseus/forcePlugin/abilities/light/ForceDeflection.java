@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin.abilities;
+package org.perseus.forcePlugin.abilities.light;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
 import org.perseus.forcePlugin.listeners.ProjectileDeflectionListener;

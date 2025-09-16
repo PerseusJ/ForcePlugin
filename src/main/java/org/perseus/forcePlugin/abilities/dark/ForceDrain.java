@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin.abilities;
+package org.perseus.forcePlugin.abilities.dark;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
 import org.perseus.forcePlugin.managers.AbilityConfigManager;

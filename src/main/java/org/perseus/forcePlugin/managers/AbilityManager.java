@@ -1,7 +1,10 @@
 package org.perseus.forcePlugin.managers;
 
 import org.perseus.forcePlugin.ForcePlugin;
-import org.perseus.forcePlugin.abilities.*;
+import org.perseus.forcePlugin.abilities.Ability;
+import org.perseus.forcePlugin.abilities.dark.*;
+import org.perseus.forcePlugin.abilities.light.*;
+import org.perseus.forcePlugin.abilities.universal.*;
 import org.perseus.forcePlugin.data.ForceSide;
 
 import java.util.Collection;

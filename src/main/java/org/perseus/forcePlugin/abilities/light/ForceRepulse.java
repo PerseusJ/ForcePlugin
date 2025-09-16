@@ -1,23 +1,51 @@
-package org.perseus.forcePlugin.abilities;
+package org.perseus.forcePlugin.abilities.light;
 
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
 import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 public class ForceRepulse implements Ability {
     private final AbilityConfigManager configManager;
-    public ForceRepulse(AbilityConfigManager configManager) { this.configManager = configManager; }
-    @Override public String getID() { return "FORCE_REPULSE"; }
-    @Override public String getName() { return "Force Repulse"; }
-    @Override public String getDescription() { return "A 360-degree blast that knocks all nearby enemies away."; }
-    @Override public ForceSide getSide() { return ForceSide.LIGHT; }
-    @Override public double getEnergyCost(int level) { return configManager.getDoubleValue(getID(), level, "energy-cost", 35.0); }
-    @Override public double getCooldown(int level) { return configManager.getDoubleValue(getID(), level, "cooldown", 18.0); }
+
+    public ForceRepulse(AbilityConfigManager configManager) {
+        this.configManager = configManager;
+    }
+
+    @Override
+    public String getID() {
+        return "FORCE_REPULSE";
+    }
+
+    @Override
+    public String getName() {
+        return "Force Repulse";
+    }
+
+    @Override
+    public String getDescription() {
+        return "A 360-degree blast that knocks all nearby enemies away.";
+    }
+
+    @Override
+    public ForceSide getSide() {
+        return ForceSide.LIGHT;
+    }
+
+    @Override
+    public double getEnergyCost(int level) {
+        return configManager.getDoubleValue(getID(), level, "energy-cost", 35.0);
+    }
+
+    @Override
+    public double getCooldown(int level) {
+        return configManager.getDoubleValue(getID(), level, "cooldown", 18.0);
+    }
 
     @Override
     public void execute(Player player, ForceUser forceUser) {
@@ -30,6 +58,7 @@ public class ForceRepulse implements Ability {
         player.getWorld().spawnParticle(Particle.EXPLOSION_EMITTER, player.getLocation(), 1);
 
         for (Entity entity : player.getNearbyEntities(radius, radius, radius)) {
+            if (entity instanceof Player && entity.equals(player)) continue;
             Vector direction = entity.getLocation().toVector().subtract(player.getLocation().toVector()).normalize();
             direction.setY(upwardForce).multiply(strength);
             entity.setVelocity(direction);

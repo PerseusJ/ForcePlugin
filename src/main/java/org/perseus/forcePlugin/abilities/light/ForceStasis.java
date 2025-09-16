@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin.abilities;
+package org.perseus.forcePlugin.abilities.light;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -11,50 +11,48 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
 import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
-public class ForceCrush implements Ability {
+public class ForceStasis implements Ability {
     private final AbilityConfigManager configManager;
     private final ForcePlugin plugin;
-    public ForceCrush(AbilityConfigManager configManager, ForcePlugin plugin) { this.configManager = configManager; this.plugin = plugin; }
-    @Override public String getID() { return "FORCE_CRUSH"; }
-    @Override public String getName() { return "Force Crush"; }
-    @Override public String getDescription() { return "Deals high damage and slows a single target."; }
-    @Override public ForceSide getSide() { return ForceSide.DARK; }
-    @Override public double getEnergyCost(int level) { return configManager.getDoubleValue(getID(), level, "energy-cost", 35.0); }
+    public ForceStasis(AbilityConfigManager configManager, ForcePlugin plugin) { this.configManager = configManager; this.plugin = plugin; }
+    @Override public String getID() { return "FORCE_STASIS"; }
+    @Override public String getName() { return "Force Stasis"; }
+    @Override public String getDescription() { return "Freezes a single target in place."; }
+    @Override public ForceSide getSide() { return ForceSide.LIGHT; }
+    @Override public double getEnergyCost(int level) { return configManager.getDoubleValue(getID(), level, "energy-cost", 20.0); }
     @Override public double getCooldown(int level) { return configManager.getDoubleValue(getID(), level, "cooldown", 15.0); }
 
     @Override
     public void execute(Player player, ForceUser forceUser) {
         int level = forceUser.getAbilityLevel(getID());
-        int range = 20;
-        double damage = configManager.getDoubleValue(getID(), level, "damage-hearts", 4.0) * 2;
-        int duration = 60;
-        int slownessAmp = 2;
+        int range = 15;
+        int duration = configManager.getIntValue(getID(), level, "duration-seconds", 3) * 20;
         RayTraceResult rayTrace = player.getWorld().rayTraceEntities(player.getEyeLocation(), player.getLocation().getDirection(), range,
                 entity -> entity instanceof LivingEntity && !entity.equals(player));
         if (rayTrace == null || rayTrace.getHitEntity() == null) return;
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
 
-        target.damage(damage, player);
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, duration, slownessAmp));
-        player.getWorld().playSound(target.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.8f, 0.8f);
+        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, duration, 200, false, false));
+        player.getWorld().playSound(target.getLocation(), Sound.BLOCK_GLASS_BREAK, 1.0f, 0.8f);
 
         new BukkitRunnable() {
-            double radius = 2.0;
+            int ticks = 0;
             @Override
             public void run() {
-                if (radius < 0.5) { this.cancel(); return; }
+                if (ticks >= duration || target.isDead() || !target.isValid()) { this.cancel(); return; }
                 Location center = target.getLocation().add(0, 1, 0);
-                for (int i = 0; i < 15; i++) {
+                for (int i = 0; i < 10; i++) {
                     Vector direction = new Vector(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize();
-                    Location particleLoc = center.clone().add(direction.multiply(radius));
-                    target.getWorld().spawnParticle(Particle.SQUID_INK, particleLoc, 1, 0, 0, 0, 0);
+                    Location particleLoc = center.clone().add(direction.multiply(1.2));
+                    target.getWorld().spawnParticle(Particle.SNOWFLAKE, particleLoc, 1, 0, 0, 0, 0);
                 }
-                radius -= 0.2;
+                ticks++;
             }
-        }.runTaskTimer(plugin, 0L, 1L);
+        }.runTaskTimer(plugin, 0L, 2L);
     }
 }

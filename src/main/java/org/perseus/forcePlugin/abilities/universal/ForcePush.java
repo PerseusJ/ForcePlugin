@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin.abilities;
+package org.perseus.forcePlugin.abilities.universal;
 
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
+import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
 import org.perseus.forcePlugin.managers.AbilityConfigManager;
@@ -35,6 +36,7 @@ public class ForcePush implements Ability {
         player.getWorld().spawnParticle(Particle.EXPLOSION, player.getLocation().add(0, 1, 0).add(player.getLocation().getDirection()), 5, 0.5, 0.5, 0.5, 0.0);
 
         for (Entity entity : player.getNearbyEntities(range, range, range)) {
+            if (entity instanceof Player && entity.equals(player)) continue;
             Vector playerDirection = player.getLocation().getDirection();
             Vector entityDirection = entity.getLocation().toVector().subtract(player.getLocation().toVector()).normalize();
             if (playerDirection.dot(entityDirection) > 0.7) {

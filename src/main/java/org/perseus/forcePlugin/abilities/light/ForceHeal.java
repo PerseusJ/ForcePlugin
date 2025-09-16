@@ -1,4 +1,4 @@
-package org.perseus.forcePlugin.abilities;
+package org.perseus.forcePlugin.abilities.light;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
 import org.perseus.forcePlugin.managers.AbilityConfigManager;
@@ -57,7 +58,7 @@ public class ForceHeal implements Ability {
                     double angle = Math.random() * 2 * Math.PI;
                     double x = center.getX() + radius * Math.cos(angle);
                     double z = center.getZ() + radius * Math.sin(angle);
-                    player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, new Location(player.getWorld(), x, center.getY(), z), 1, 0, 0, 0, 0);
+                    player.getWorld().spawnParticle(Particle.HAPPY_VILLAGER, new Location(player.getWorld(), x, center.getY(), z), 1, 0, 0, 0, 0);
                 }
                 radius += 0.1;
                 yOffset += 0.1;
