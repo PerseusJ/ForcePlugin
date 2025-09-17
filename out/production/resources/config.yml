@@ -7,16 +7,10 @@ force-energy:
 
 # --- Progression System Settings ---
 progression:
-  # The maximum level a player can achieve.
   max-force-level: 50
-  # How many Force Points are awarded each time a player levels up.
   points-per-level: 1
-  # XP Formula: BaseXP + ( (CurrentLevel - 1) * Multiplier)
-  # The base amount of XP needed to get from level 1 to 2.
   base-xp: 100
-  # How much additional XP is needed for each subsequent level.
   xp-per-level-multiplier: 50
-  # XP Gain Sources
   xp-gain:
     per-ability-use: 1.0
     per-telekinesis-launch: 2.0
@@ -28,14 +22,14 @@ abilities:
     unlock-cost: 1
     max-level: 3
     levels:
-      '1': { energy-cost: 15.0, cooldown: 4.0, strength: 2.0, upward-force: 1.2 }
-      '2': { energy-cost: 14.0, cooldown: 3.5, strength: 2.5, upward-force: 1.3 }
-      '3': { energy-cost: 12.0, cooldown: 3.0, strength: 3.0, upward-force: 1.4 }
+      '1': { energy-cost: 15.0, cooldown: 4.0, strength: 2.0, upward-force: 1.2, nausea-duration-seconds: 3, nausea-amplifier: 1, upgrade-cost: 1 }
+      '2': { energy-cost: 14.0, cooldown: 3.5, strength: 2.5, upward-force: 1.3, nausea-duration-seconds: 4, nausea-amplifier: 1, upgrade-cost: 2 }
+      '3': { energy-cost: 12.0, cooldown: 3.0, strength: 3.0, upward-force: 1.4, nausea-duration-seconds: 5, nausea-amplifier: 2 }
   FORCE_PULL:
     unlock-cost: 1
     max-level: 2
     levels:
-      '1': { energy-cost: 15.0, cooldown: 10.0, strength: 2.5 }
+      '1': { energy-cost: 15.0, cooldown: 10.0, strength: 2.5, upgrade-cost: 2 }
       '2': { energy-cost: 12.0, cooldown: 8.0, strength: 3.0 }
   TELEKINESIS:
     unlock-cost: 3
@@ -48,34 +42,34 @@ abilities:
     unlock-cost: 1
     max-level: 3
     levels:
-      '1': { energy-cost: 30.0, cooldown: 12.0, heal-amount-hearts: 2.0 }
-      '2': { energy-cost: 28.0, cooldown: 10.0, heal-amount-hearts: 3.0 }
+      '1': { energy-cost: 30.0, cooldown: 12.0, heal-amount-hearts: 2.0, upgrade-cost: 1 }
+      '2': { energy-cost: 28.0, cooldown: 10.0, heal-amount-hearts: 3.0, upgrade-cost: 2 }
       '3': { energy-cost: 25.0, cooldown: 8.0, heal-amount-hearts: 4.0 }
   FORCE_REPULSE:
     unlock-cost: 2
     max-level: 2
     levels:
-      '1': { energy-cost: 35.0, cooldown: 18.0, radius: 6, strength: 2.5 }
+      '1': { energy-cost: 35.0, cooldown: 18.0, radius: 6, strength: 2.5, upgrade-cost: 2 }
       '2': { energy-cost: 30.0, cooldown: 15.0, radius: 8, strength: 3.0 }
   FORCE_STASIS:
     unlock-cost: 2
     max-level: 2
     levels:
-      '1': { energy-cost: 20.0, cooldown: 15.0, duration-seconds: 3 }
+      '1': { energy-cost: 20.0, cooldown: 15.0, duration-seconds: 3, upgrade-cost: 2 }
       '2': { energy-cost: 18.0, cooldown: 12.0, duration-seconds: 4 }
   FORCE_BARRIER:
     unlock-cost: 2
     max-level: 3
     levels:
-      '1': { energy-cost: 30.0, cooldown: 25.0, duration-seconds: 10, shield-hearts: 2 }
-      '2': { energy-cost: 28.0, cooldown: 22.0, duration-seconds: 12, shield-hearts: 3 }
+      '1': { energy-cost: 30.0, cooldown: 25.0, duration-seconds: 10, shield-hearts: 2, upgrade-cost: 1 }
+      '2': { energy-cost: 28.0, cooldown: 22.0, duration-seconds: 12, shield-hearts: 3, upgrade-cost: 2 }
       '3': { energy-cost: 25.0, cooldown: 20.0, duration-seconds: 15, shield-hearts: 4 }
   FORCE_JUDGMENT:
     unlock-cost: 2
     max-level: 3
     levels:
-      '1': { energy-cost: 25.0, cooldown: 8.0, damage-hearts: 3.0 }
-      '2': { energy-cost: 22.0, cooldown: 7.0, damage-hearts: 4.0 }
+      '1': { energy-cost: 25.0, cooldown: 8.0, damage-hearts: 3.0, upgrade-cost: 2 }
+      '2': { energy-cost: 22.0, cooldown: 7.0, damage-hearts: 4.0, upgrade-cost: 3 }
       '3': { energy-cost: 20.0, cooldown: 6.0, damage-hearts: 5.0 }
   FORCE_DEFLECTION:
     unlock-cost: 3
@@ -88,32 +82,32 @@ abilities:
     unlock-cost: 2
     max-level: 2
     levels:
-      '1': { energy-cost: 30.0, cooldown: 12.0, duration-seconds: 3, damage-per-second-hearts: 1.0 }
+      '1': { energy-cost: 30.0, cooldown: 12.0, duration-seconds: 3, damage-per-second-hearts: 1.0, upgrade-cost: 2 }
       '2': { energy-cost: 28.0, cooldown: 10.0, duration-seconds: 4, damage-per-second-hearts: 1.5 }
   FORCE_LIGHTNING:
     unlock-cost: 2
     max-level: 3
     levels:
-      '1': { energy-cost: 25.0, cooldown: 8.0, damage-hearts: 3.0 }
-      '2': { energy-cost: 22.0, cooldown: 7.0, damage-hearts: 4.0 }
+      '1': { energy-cost: 25.0, cooldown: 8.0, damage-hearts: 3.0, upgrade-cost: 2 }
+      '2': { energy-cost: 22.0, cooldown: 7.0, damage-hearts: 4.0, upgrade-cost: 3 }
       '3': { energy-cost: 20.0, cooldown: 6.0, damage-hearts: 5.0 }
   FORCE_SCREAM:
     unlock-cost: 2
     max-level: 2
     levels:
-      '1': { energy-cost: 25.0, cooldown: 20.0, radius: 8, duration-seconds: 5 }
+      '1': { energy-cost: 25.0, cooldown: 20.0, radius: 8, duration-seconds: 5, upgrade-cost: 2 }
       '2': { energy-cost: 22.0, cooldown: 16.0, radius: 10, duration-seconds: 7 }
   FORCE_DRAIN:
     unlock-cost: 3
     max-level: 2
     levels:
-      '1': { energy-cost: 40.0, cooldown: 25.0, drain-amount-hearts: 2.0 }
+      '1': { energy-cost: 40.0, cooldown: 25.0, drain-amount-hearts: 2.0, upgrade-cost: 3 }
       '2': { energy-cost: 35.0, cooldown: 20.0, drain-amount-hearts: 3.0 }
   FORCE_CRUSH:
     unlock-cost: 2
     max-level: 2
     levels:
-      '1': { energy-cost: 35.0, cooldown: 15.0, damage-hearts: 4.0 }
+      '1': { energy-cost: 35.0, cooldown: 15.0, damage-hearts: 4.0, upgrade-cost: 2 }
       '2': { energy-cost: 30.0, cooldown: 12.0, damage-hearts: 5.5 }
   FORCE_RAGE:
     unlock-cost: 3

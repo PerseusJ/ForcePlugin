@@ -46,11 +46,23 @@ public class ForceStatsCommand implements CommandExecutor {
 
         sender.sendMessage(ChatColor.GOLD + "--- Force Stats for " + target.getName() + " ---");
         sender.sendMessage(ChatColor.YELLOW + "Side: " + ChatColor.WHITE + forceUser.getSide().name());
+
+        // --- NEW: Display the player's rank ---
+        String rank = plugin.getRankManager().getRank(forceUser.getSide(), forceUser.getForceLevel());
+        if (!rank.isEmpty()) {
+            sender.sendMessage(ChatColor.YELLOW + "Rank: " + rank);
+        }
+        // --- END NEW ---
+
         sender.sendMessage(ChatColor.YELLOW + "Level: " + ChatColor.AQUA + forceUser.getForceLevel());
 
         double currentXp = forceUser.getForceXp();
         double neededXp = plugin.getLevelingManager().getXpForNextLevel(forceUser.getForceLevel());
-        sender.sendMessage(String.format(ChatColor.YELLOW + "XP: " + ChatColor.WHITE + "%.1f / %.1f", currentXp, neededXp));
+        if (neededXp == Double.MAX_VALUE) {
+            sender.sendMessage(ChatColor.YELLOW + "XP: " + ChatColor.GOLD + "Max Level");
+        } else {
+            sender.sendMessage(String.format(ChatColor.YELLOW + "XP: " + ChatColor.WHITE + "%.1f / %.1f", currentXp, neededXp));
+        }
 
         sender.sendMessage(ChatColor.YELLOW + "Available Points: " + ChatColor.GREEN + forceUser.getForcePoints());
         sender.sendMessage(ChatColor.GOLD + "--------------------------");

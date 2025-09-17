@@ -19,8 +19,8 @@ import java.util.UUID;
 public class HolocronManager {
 
     private final ForcePlugin plugin;
-    private static final String JEDI_HOLOCRON_TEXTURE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2Y5YjY3YjVjMzY3Y2QxZDRiYjc0M2Y5ODQ3YmI1Mjc5OTY1MWU5N2FiZmYxYjE2YjM3YjQ0YmY0Zjc0YmY0In19fQ==";
-    private static final String SITH_HOLOCRON_TEXTURE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmY3Y2M3Y2YxZTRhYmFkMWQyYTRlNmEwY2I0OThhZmMwODMyYmE1MGUxYmZlYjZmYjRjYjFkYjlmOTQ0YmU5NCJ9fX0=";
+    private static final String JEDI_HOLOCRON_TEXTURE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjA2OWM0NDk4YjdlNGU5MDI3NmZlZTI4Nzg2YmY1ZTliM2ZmOGIzOWQ2NjdkMzZhNjkyM2Q4ODBhNjI3YWI3NyJ9fX0=";
+    private static final String SITH_HOLOCRON_TEXTURE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2E1NWIzYTllYjE4MzA4Yjk2YmVhNGExNzJmZDI4MTFmMmU2MGQwYTllOGE3MmZmODI4YzQ0OTkxMzNkZjc2NyJ9fX0=";
     public static final String HOLOCRON_IDENTIFIER = ChatColor.DARK_PURPLE + "Force Artifact";
 
     public HolocronManager(ForcePlugin plugin) {

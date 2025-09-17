@@ -8,12 +8,17 @@ import org.perseus.forcePlugin.commands.ForceStatsCommand;
 import org.perseus.forcePlugin.data.DatabaseManager;
 import org.perseus.forcePlugin.gui.GUIManager;
 import org.perseus.forcePlugin.gui.GUIListener;
-import org.perseus.forcePlugin.listeners.*;
+import org.perseus.forcePlugin.listeners.AbilityListener;
+import org.perseus.forcePlugin.listeners.ExperienceListener;
+import org.perseus.forcePlugin.listeners.HolocronListener;
+import org.perseus.forcePlugin.listeners.PlayerConnectionListener;
+import org.perseus.forcePlugin.listeners.ProjectileDeflectionListener;
 import org.perseus.forcePlugin.managers.*;
+
+import java.io.File;
 
 public class ForcePlugin extends JavaPlugin {
 
-    private DatabaseManager databaseManager; // --- NEW ---
     private ForceUserManager forceUserManager;
     private AbilityManager abilityManager;
     private CooldownManager cooldownManager;
@@ -24,15 +29,19 @@ public class ForcePlugin extends JavaPlugin {
     private LevelingManager levelingManager;
     private AmbientEffectsManager ambientEffectsManager;
     private HolocronManager holocronManager;
+    private DatabaseManager databaseManager;
+    private RankManager rankManager; // --- NEW ---
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        // This will create the ranks.yml file in the plugin's folder if it doesn't exist.
+        saveResource("ranks.yml", false);
 
         // Initialize managers
         this.databaseManager = new DatabaseManager(this);
-        this.databaseManager.connect(); // Connect to the database on startup
-        this.forceUserManager = new ForceUserManager(this, databaseManager); // Pass DB manager
+        this.databaseManager.connect();
+        this.forceUserManager = new ForceUserManager(this, databaseManager);
         this.abilityConfigManager = new AbilityConfigManager(this);
         this.telekinesisManager = new TelekinesisManager(this);
         this.levelingManager = new LevelingManager(this);
@@ -42,9 +51,10 @@ public class ForcePlugin extends JavaPlugin {
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
         this.guiManager = new GUIManager(abilityManager, forceUserManager, abilityConfigManager);
         this.ambientEffectsManager = new AmbientEffectsManager(this);
+        this.rankManager = new RankManager(this); // --- NEW ---
 
         // Register listeners
-        getServer().getPluginManager().registerEvents(new PlayerConnectionListener(forceUserManager, forceBarManager, this), this);
+        getServer().getPluginManager().registerEvents(new PlayerConnectionListener(this), this);
         getServer().getPluginManager().registerEvents(new AbilityListener(this), this);
         getServer().getPluginManager().registerEvents(new GUIListener(this), this);
         getServer().getPluginManager().registerEvents(new ProjectileDeflectionListener(), this);
@@ -52,25 +62,24 @@ public class ForcePlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new HolocronListener(this), this);
 
         // Register commands
-        getCommand("force").setExecutor(new ForceCommand(forceUserManager, holocronManager));
+        getCommand("force").setExecutor(new ForceCommand(this));
         getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
         getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
 
         // Handle online players on startup/reload
         for (Player player : getServer().getOnlinePlayers()) {
             forceUserManager.loadPlayerData(player);
-            // Note: addPlayer and updateXpBar are now called inside loadPlayerData after the async task
         }
         getLogger().info("ForcePlugin has been enabled!");
     }
 
     @Override
     public void onDisable() {
-        // Save any remaining online players' data
         for (Player player : getServer().getOnlinePlayers()) {
-            forceUserManager.savePlayerData(player);
+            if (forceUserManager.getForceUser(player) != null) {
+                forceUserManager.savePlayerData(player);
+            }
         }
-        // Disconnect from the database when the plugin is disabled
         this.databaseManager.disconnect();
         getLogger().info("ForcePlugin has been disabled!");
     }
@@ -82,10 +91,10 @@ public class ForcePlugin extends JavaPlugin {
         this.forceBarManager.reloadConfig();
         this.levelingManager.loadConfigValues();
         this.guiManager = new GUIManager(this.abilityManager, this.forceUserManager, this.abilityConfigManager);
+        this.rankManager.loadRanks(); // --- NEW ---
     }
 
     // --- Getters for Managers ---
-    public DatabaseManager getDatabaseManager() { return databaseManager; } // --- NEW ---
     public ForceUserManager getForceUserManager() { return forceUserManager; }
     public AbilityManager getAbilityManager() { return abilityManager; }
     public CooldownManager getCooldownManager() { return cooldownManager; }
@@ -95,4 +104,6 @@ public class ForcePlugin extends JavaPlugin {
     public TelekinesisManager getTelekinesisManager() { return telekinesisManager; }
     public LevelingManager getLevelingManager() { return levelingManager; }
     public HolocronManager getHolocronManager() { return holocronManager; }
+    public DatabaseManager getDatabaseManager() { return databaseManager; }
+    public RankManager getRankManager() { return rankManager; } // --- NEW ---
 }

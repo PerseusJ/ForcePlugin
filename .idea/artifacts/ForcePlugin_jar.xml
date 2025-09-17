@@ -2,9 +2,11 @@
   <artifact type="jar" name="ForcePlugin:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/ForcePlugin_jar</output-path>
     <root id="archive" name="ForcePlugin.jar">
-      <element id="module-output" name="org.perseus.ForcePlugin.main" />
-      <element id="file-copy" path="$PROJECT_DIR$/out/production/resources/config.yml" />
-      <element id="file-copy" path="$PROJECT_DIR$/out/production/resources/plugin.yml" />
+      <element id="module-output" name="ForcePlugin.main" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.xerial/sqlite-jdbc/3.41.2.1/a07a0a80c1c276760df3601a319800037e275fc3/sqlite-jdbc-3.41.2.1.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/config.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/ranks.yml" />
     </root>
   </artifact>
 </component>

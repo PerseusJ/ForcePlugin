@@ -17,7 +17,6 @@ public class ForcePlaceholders extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getIdentifier() {
-        // This is the prefix for all our placeholders (e.g., %forceplugin_level%)
         return "forceplugin";
     }
 
@@ -33,10 +32,9 @@ public class ForcePlaceholders extends PlaceholderExpansion {
 
     @Override
     public boolean persist() {
-        return true; // This is required on newer PAPI versions
+        return true;
     }
 
-    // This is the core method that gets called when a placeholder is used.
     @Override
     public String onPlaceholderRequest(Player player, @NotNull String identifier) {
         if (player == null) {
@@ -44,10 +42,9 @@ public class ForcePlaceholders extends PlaceholderExpansion {
         }
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
         if (forceUser == null) {
-            return "N/A"; // Return something if the player's data isn't loaded
+            return "N/A";
         }
 
-        // Use a switch statement to handle different placeholders
         switch (identifier) {
             case "side":
                 return forceUser.getSide().name();
@@ -67,21 +64,27 @@ public class ForcePlaceholders extends PlaceholderExpansion {
                 return String.format("%.1f", forceUser.getForceXp());
 
             case "xp_needed":
-                return String.format("%.1f", plugin.getLevelingManager().getXpForNextLevel(forceUser.getForceLevel()));
+                double needed = plugin.getLevelingManager().getXpForNextLevel(forceUser.getForceLevel());
+                return (needed == Double.MAX_VALUE) ? "Max" : String.format("%.1f", needed);
 
             case "xp_bar":
-                // This is a more advanced placeholder that creates a visual progress bar
                 return createProgressBar(forceUser.getForceXp(), plugin.getLevelingManager().getXpForNextLevel(forceUser.getForceLevel()));
 
+            // --- NEW PLACEHOLDER ---
+            case "rank":
+                return plugin.getRankManager().getRank(forceUser.getSide(), forceUser.getForceLevel());
+
             default:
-                return null; // Let PAPI know we don't recognize this placeholder
+                return null;
         }
     }
 
     private String createProgressBar(double current, double max) {
-        if (max <= 0) return "";
+        if (max <= 0 || max == Double.MAX_VALUE) {
+            return ChatColor.GOLD + "" + "|".repeat(10); // Full bar at max level
+        }
         float percent = (float) (current / max);
-        int progressBars = 10; // The total number of bars in the progress bar
+        int progressBars = 10;
         int barsToShow = (int) (progressBars * percent);
 
         return ChatColor.GREEN + "" + "|".repeat(barsToShow)
