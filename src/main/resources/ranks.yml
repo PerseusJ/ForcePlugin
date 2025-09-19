@@ -1,41 +1,62 @@
 # ------------------------------------------------- #
 #                ForcePlugin Ranks                  #
 # ------------------------------------------------- #
-# Define the rank titles players will receive as they level up.
-# The plugin will check from top to bottom and give the player the highest rank they qualify for.
-# You can add, remove, or edit as many ranks as you want.
-#
-# - 'level-required': The Force Level a player must be to achieve this rank.
-# - 'display-name': The name of the rank. Use color codes (&a, &c, etc.) for style.
 
+# --- Linear Ranks ---
+# The plugin will check from top to bottom and give the player the highest rank they qualify for.
 ranks:
   LIGHT:
     - level-required: 1
       display-name: "&bPadawan"
     - level-required: 11
       display-name: "&bJedi Knight"
-    - level-required: 31
-      display-name: "&bJedi Master" # Example of a single final rank
-    # --- Example of your three final ranks ---
-    # - level-required: 31
-    #   display-name: "&aJedi Consular"
-    # - level-required: 31
-    #   display-name: "&9Jedi Guardian"
-    # - level-required: 31
-    #   display-name: "&eJedi Sentinel"
-    # (Note: Having multiple ranks at the same level isn't supported yet, but this shows the structure)
-
   DARK:
     - level-required: 1
       display-name: "&cAcolyte"
     - level-required: 11
       display-name: "&cSith Apprentice"
-    - level-required: 31
-      display-name: "&cSith Lord"
-    # --- Example of your three final ranks ---
-    # - level-required: 31
-    #   display-name: "&5Sith Sorcerer"
-    # - level-required: 31
-    #   display-name: "&4Sith Warrior"
-    # - level-required: 31
-    #   display-name: "&6Sith Inquisitor"
+
+# --- Specialization Paths ---
+# These are the final paths a player can choose at level 31.
+# The 'id' must be a simple, one-word uppercase string.
+# The 'display-name' is what players will see.
+# The 'description' is shown in the choice GUI.
+specializations:
+  LIGHT:
+    - id: "GUARDIAN"
+      display-name: "&9Jedi Guardian"
+      description:
+        - "&7Focuses on combat and protection."
+        - "&7The shield of the Jedi Order."
+      material: "IRON_SWORD"
+    - id: "SENTINEL"
+      display-name: "&eJedi Sentinel"
+      description:
+        - "&7Balances combat and Force abilities."
+        - "&7A versatile and adaptable warrior."
+      material: "FEATHER"
+    - id: "CONSULAR"
+      display-name: "&aJedi Consular"
+      description:
+        - "&7A master of the Force's deepest secrets."
+        - "&7Unlocks the ultimate potential of their powers."
+      material: "GLASS_BOTTLE"
+  DARK:
+    - id: "WARRIOR"
+      display-name: "&4Sith Warrior"
+      description:
+        - "&7An unstoppable agent of destruction."
+        - "&7Crushes enemies with pure aggression."
+      material: "NETHERITE_SWORD"
+    - id: "INQUISITOR"
+      display-name: "&6Sith Inquisitor"
+      description:
+        - "&7Hunts down and eliminates all opposition."
+        - "&7A cunning and relentless foe."
+      material: "SKELETON_SKULL"
+    - id: "SORCERER"
+      display-name: "&5Sith Sorcerer"
+      description:
+        - "&7Twists the Force to their will."
+        - "&7Wields the most terrifying dark side powers."
+      material: "WITHER_SKELETON_SKULL"

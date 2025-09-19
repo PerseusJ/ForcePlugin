@@ -47,12 +47,10 @@ public class ForceStatsCommand implements CommandExecutor {
         sender.sendMessage(ChatColor.GOLD + "--- Force Stats for " + target.getName() + " ---");
         sender.sendMessage(ChatColor.YELLOW + "Side: " + ChatColor.WHITE + forceUser.getSide().name());
 
-        // --- NEW: Display the player's rank ---
-        String rank = plugin.getRankManager().getRank(forceUser.getSide(), forceUser.getForceLevel());
+        String rank = plugin.getRankManager().getRank(forceUser);
         if (!rank.isEmpty()) {
             sender.sendMessage(ChatColor.YELLOW + "Rank: " + rank);
         }
-        // --- END NEW ---
 
         sender.sendMessage(ChatColor.YELLOW + "Level: " + ChatColor.AQUA + forceUser.getForceLevel());
 

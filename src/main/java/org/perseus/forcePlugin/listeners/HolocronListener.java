@@ -75,7 +75,15 @@ public class HolocronListener implements Listener {
         Player player = event.getPlayer();
         if (!event.getAction().isRightClick()) return;
         if (!plugin.getHolocronManager().isHolocron(event.getItem())) return;
-        plugin.getGuiManager().openAbilityGUI(player);
+
+        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
+        if (forceUser == null) return;
+
+        if (forceUser.needsToChoosePath()) {
+            plugin.getGuiManager().openSpecializationGUI(player);
+        } else {
+            plugin.getGuiManager().openAbilityGUI(player);
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGH)

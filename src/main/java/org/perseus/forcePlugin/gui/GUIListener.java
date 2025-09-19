@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.data.Rank;
 
 public class GUIListener implements Listener {
 
@@ -29,6 +30,8 @@ public class GUIListener implements Listener {
             handleAbilitySelection(event, player);
         } else if (viewTitle.startsWith(GUIManager.UPGRADE_GUI_TITLE_PREFIX)) {
             handleUpgradeMenu(event, player);
+        } else if (viewTitle.equals(GUIManager.SPECIALIZATION_GUI_TITLE)) {
+            handleSpecializationChoice(event, player);
         }
     }
 
@@ -93,6 +96,28 @@ public class GUIListener implements Listener {
             }
         } else if (clickedType == Material.BARRIER) {
             plugin.getGuiManager().openAbilityGUI(player);
+        }
+    }
+
+    private void handleSpecializationChoice(InventoryClickEvent event, Player player) {
+        event.setCancelled(true);
+        ItemStack clickedItem = event.getCurrentItem();
+        if (clickedItem == null || !clickedItem.hasItemMeta() || clickedItem.getType() == Material.BLACK_STAINED_GLASS_PANE) return;
+
+        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
+        if (forceUser == null) return;
+
+        String displayName = clickedItem.getItemMeta().getDisplayName();
+        for (Rank spec : plugin.getRankManager().getSpecializations(forceUser.getSide())) {
+            if (spec.getDisplayName().equals(displayName)) {
+                forceUser.setSpecialization(spec.getId());
+                forceUser.setNeedsToChoosePath(false);
+
+                player.closeInventory();
+                player.sendMessage(ChatColor.GOLD + "You have chosen the path of the " + spec.getDisplayName() + ChatColor.GOLD + "!");
+                player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f);
+                return;
+            }
         }
     }
 

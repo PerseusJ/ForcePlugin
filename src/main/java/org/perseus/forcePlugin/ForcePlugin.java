@@ -30,12 +30,11 @@ public class ForcePlugin extends JavaPlugin {
     private AmbientEffectsManager ambientEffectsManager;
     private HolocronManager holocronManager;
     private DatabaseManager databaseManager;
-    private RankManager rankManager; // --- NEW ---
+    private RankManager rankManager;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        // This will create the ranks.yml file in the plugin's folder if it doesn't exist.
         saveResource("ranks.yml", false);
 
         // Initialize managers
@@ -49,9 +48,10 @@ public class ForcePlugin extends JavaPlugin {
         this.abilityManager = new AbilityManager(this, abilityConfigManager, telekinesisManager);
         this.cooldownManager = new CooldownManager();
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
-        this.guiManager = new GUIManager(abilityManager, forceUserManager, abilityConfigManager);
+        this.rankManager = new RankManager(this);
+        // --- THE FIX: Pass the RankManager to the GUIManager constructor ---
+        this.guiManager = new GUIManager(abilityManager, forceUserManager, abilityConfigManager, rankManager);
         this.ambientEffectsManager = new AmbientEffectsManager(this);
-        this.rankManager = new RankManager(this); // --- NEW ---
 
         // Register listeners
         getServer().getPluginManager().registerEvents(new PlayerConnectionListener(this), this);
@@ -86,12 +86,14 @@ public class ForcePlugin extends JavaPlugin {
 
     public void reloadPluginConfig() {
         reloadConfig();
+        saveResource("ranks.yml", true); // Overwrite ranks.yml on reload to ensure it's up to date
         this.abilityConfigManager = new AbilityConfigManager(this);
         this.abilityManager.reload(this, this.abilityConfigManager, this.telekinesisManager);
         this.forceBarManager.reloadConfig();
         this.levelingManager.loadConfigValues();
-        this.guiManager = new GUIManager(this.abilityManager, this.forceUserManager, this.abilityConfigManager);
-        this.rankManager.loadRanks(); // --- NEW ---
+        this.rankManager.loadRanks();
+        // --- THE FIX: Pass the RankManager to the GUIManager constructor during reload ---
+        this.guiManager = new GUIManager(this.abilityManager, this.forceUserManager, this.abilityConfigManager, this.rankManager);
     }
 
     // --- Getters for Managers ---
@@ -105,5 +107,5 @@ public class ForcePlugin extends JavaPlugin {
     public LevelingManager getLevelingManager() { return levelingManager; }
     public HolocronManager getHolocronManager() { return holocronManager; }
     public DatabaseManager getDatabaseManager() { return databaseManager; }
-    public RankManager getRankManager() { return rankManager; } // --- NEW ---
+    public RankManager getRankManager() { return rankManager; }
 }

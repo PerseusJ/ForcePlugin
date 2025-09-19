@@ -56,8 +56,9 @@ public class LevelingManager {
     private void levelUp(Player player, ForceUser forceUser) {
         double xpNeeded = getXpForNextLevel(forceUser.getForceLevel());
         double excessXp = forceUser.getForceXp() - xpNeeded;
+        int newLevel = forceUser.getForceLevel() + 1;
 
-        forceUser.setForceLevel(forceUser.getForceLevel() + 1);
+        forceUser.setForceLevel(newLevel);
         forceUser.setForceXp(excessXp);
         forceUser.addForcePoints(pointsPerLevel);
 
@@ -66,6 +67,19 @@ public class LevelingManager {
                 ChatColor.YELLOW + "You are now Level " + forceUser.getForceLevel(),
                 10, 70, 20);
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
+
+        // --- NEW: Trigger Specialization Choice ---
+        // We check if their new level is 31 and they haven't chosen a path yet.
+        if (newLevel == 31 && forceUser.getSpecialization() == null) {
+            forceUser.setNeedsToChoosePath(true);
+            // Send a persistent message to guide the player.
+            player.sendMessage("");
+            player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "You have reached a new milestone!");
+            player.sendMessage(ChatColor.YELLOW + "You are ready to choose your final path.");
+            player.sendMessage(ChatColor.YELLOW + "Right-click your Holocron to make your permanent choice.");
+            player.sendMessage("");
+        }
+        // --- END NEW ---
 
         if (forceUser.getForceLevel() < maxLevel && forceUser.getForceXp() >= getXpForNextLevel(forceUser.getForceLevel())) {
             levelUp(player, forceUser);

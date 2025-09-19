@@ -12,9 +12,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.data.Rank;
 import org.perseus.forcePlugin.managers.AbilityConfigManager;
 import org.perseus.forcePlugin.managers.AbilityManager;
 import org.perseus.forcePlugin.managers.ForceUserManager;
+import org.perseus.forcePlugin.managers.RankManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +25,18 @@ public class GUIManager {
 
     public static final String ABILITY_GUI_TITLE = "Select Your Abilities";
     public static final String UPGRADE_GUI_TITLE_PREFIX = "Manage: ";
+    public static final String SPECIALIZATION_GUI_TITLE = "Choose Your Final Path";
 
     private final AbilityManager abilityManager;
     private final ForceUserManager userManager;
     private final AbilityConfigManager configManager;
+    private final RankManager rankManager;
 
-    public GUIManager(AbilityManager abilityManager, ForceUserManager userManager, AbilityConfigManager configManager) {
+    public GUIManager(AbilityManager abilityManager, ForceUserManager userManager, AbilityConfigManager configManager, RankManager rankManager) {
         this.abilityManager = abilityManager;
         this.userManager = userManager;
         this.configManager = configManager;
+        this.rankManager = rankManager;
     }
 
     public void openAbilityGUI(Player player) {
@@ -108,6 +113,34 @@ public class GUIManager {
         backButton.setItemMeta(backMeta);
         gui.setItem(26, backButton);
 
+        player.openInventory(gui);
+    }
+
+    public void openSpecializationGUI(Player player) {
+        ForceUser forceUser = userManager.getForceUser(player);
+        if (forceUser == null || forceUser.getSide() == ForceSide.NONE) return;
+
+        Inventory gui = Bukkit.createInventory(null, 27, SPECIALIZATION_GUI_TITLE);
+        ItemStack filler = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta fillerMeta = filler.getItemMeta();
+        fillerMeta.setDisplayName(" ");
+        filler.setItemMeta(fillerMeta);
+        for (int i = 0; i < gui.getSize(); i++) { gui.setItem(i, filler); }
+
+        List<Rank> specs = rankManager.getSpecializations(forceUser.getSide());
+        int[] specSlots = {11, 13, 15};
+
+        for (int i = 0; i < specs.size() && i < specSlots.length; i++) {
+            Rank spec = specs.get(i);
+            ItemStack icon = new ItemStack(spec.getMaterial());
+            ItemMeta meta = icon.getItemMeta();
+            meta.setDisplayName(spec.getDisplayName());
+            meta.setLore(spec.getDescription());
+            meta.addEnchant(Enchantment.UNBREAKING, 1, true);
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            icon.setItemMeta(meta);
+            gui.setItem(specSlots[i], icon);
+        }
         player.openInventory(gui);
     }
 

@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.data.ForceUser;
 import org.perseus.forcePlugin.data.Rank;
 
 import java.io.File;
@@ -17,7 +18,8 @@ import java.util.Map;
 public class RankManager {
 
     private final ForcePlugin plugin;
-    private final Map<ForceSide, List<Rank>> ranks = new HashMap<>();
+    private final Map<ForceSide, List<Rank>> linearRanks = new HashMap<>();
+    private final Map<ForceSide, List<Rank>> specializations = new HashMap<>();
 
     public RankManager(ForcePlugin plugin) {
         this.plugin = plugin;
@@ -25,58 +27,76 @@ public class RankManager {
     }
 
     public void loadRanks() {
-        ranks.clear();
+        linearRanks.clear();
+        specializations.clear();
         File ranksFile = new File(plugin.getDataFolder(), "ranks.yml");
         if (!ranksFile.exists()) {
             plugin.saveResource("ranks.yml", false);
         }
 
         FileConfiguration ranksConfig = YamlConfiguration.loadConfiguration(ranksFile);
+
+        // Load Linear Ranks
         ConfigurationSection ranksSection = ranksConfig.getConfigurationSection("ranks");
-        if (ranksSection == null) return;
-
-        for (String sideKey : ranksSection.getKeys(false)) {
-            try {
-                ForceSide side = ForceSide.valueOf(sideKey.toUpperCase());
-                List<Rank> sideRanks = new ArrayList<>();
-                List<Map<?, ?>> rankMaps = ranksSection.getMapList(sideKey);
-
-                for (Map<?, ?> rankMap : rankMaps) {
-                    int level = (int) rankMap.get("level-required");
-                    String name = (String) rankMap.get("display-name");
-                    sideRanks.add(new Rank(level, name));
+        if (ranksSection != null) {
+            for (String sideKey : ranksSection.getKeys(false)) {
+                try {
+                    ForceSide side = ForceSide.valueOf(sideKey.toUpperCase());
+                    List<Rank> sideRanks = new ArrayList<>();
+                    for (Map<?, ?> rankMap : ranksSection.getMapList(sideKey)) {
+                        sideRanks.add(new Rank((int) rankMap.get("level-required"), (String) rankMap.get("display-name")));
+                    }
+                    sideRanks.sort(Comparator.comparingInt(Rank::getLevelRequired).reversed());
+                    linearRanks.put(side, sideRanks);
+                } catch (Exception e) {
+                    plugin.getLogger().warning("Invalid rank configuration for side: " + sideKey);
                 }
-
-                // Sort ranks by level required, highest to lowest.
-                sideRanks.sort(Comparator.comparingInt(Rank::getLevelRequired).reversed());
-                ranks.put(side, sideRanks);
-
-            } catch (IllegalArgumentException e) {
-                plugin.getLogger().warning("Invalid Force Side '" + sideKey + "' found in ranks.yml.");
             }
         }
-        plugin.getLogger().info("Loaded " + ranks.values().stream().mapToInt(List::size).sum() + " ranks from ranks.yml.");
+
+        // Load Specializations
+        ConfigurationSection specSection = ranksConfig.getConfigurationSection("specializations");
+        if (specSection != null) {
+            for (String sideKey : specSection.getKeys(false)) {
+                try {
+                    ForceSide side = ForceSide.valueOf(sideKey.toUpperCase());
+                    List<Rank> sideSpecs = new ArrayList<>();
+                    for (Map<?, ?> specMap : specSection.getMapList(sideKey)) {
+                        sideSpecs.add(new Rank((String) specMap.get("id"), (String) specMap.get("display-name"), (List<String>) specMap.get("description"), (String) specMap.get("material")));
+                    }
+                    specializations.put(side, sideSpecs);
+                } catch (Exception e) {
+                    plugin.getLogger().warning("Invalid specialization configuration for side: " + sideKey);
+                }
+            }
+        }
+        plugin.getLogger().info("Loaded ranks and specializations from ranks.yml.");
     }
 
-    /**
-     * Gets the correct rank title for a player based on their side and level.
-     * @param side The player's ForceSide.
-     * @param level The player's Force Level.
-     * @return The display name of the rank, or an empty string if none is found.
-     */
-    public String getRank(ForceSide side, int level) {
-        List<Rank> sideRanks = ranks.get(side);
-        if (sideRanks == null || sideRanks.isEmpty()) {
-            return "";
+    public String getRank(ForceUser forceUser) {
+        if (forceUser.getSide() == ForceSide.NONE) return "";
+
+        // If player has a specialization, that is their rank.
+        if (forceUser.getSpecialization() != null) {
+            return specializations.get(forceUser.getSide()).stream()
+                    .filter(spec -> spec.getId().equals(forceUser.getSpecialization()))
+                    .findFirst()
+                    .map(Rank::getDisplayName)
+                    .orElse("");
         }
 
-        // Because the list is sorted from highest to lowest, the first one we find is the correct one.
+        // Otherwise, find their highest linear rank.
+        List<Rank> sideRanks = linearRanks.get(forceUser.getSide());
+        if (sideRanks == null) return "";
         for (Rank rank : sideRanks) {
-            if (level >= rank.getLevelRequired()) {
+            if (forceUser.getForceLevel() >= rank.getLevelRequired()) {
                 return rank.getDisplayName();
             }
         }
+        return "";
+    }
 
-        return ""; // Should not happen if ranks are configured from level 1.
+    public List<Rank> getSpecializations(ForceSide side) {
+        return specializations.getOrDefault(side, new ArrayList<>());
     }
 }

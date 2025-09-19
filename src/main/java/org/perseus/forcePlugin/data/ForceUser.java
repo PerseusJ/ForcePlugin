@@ -15,6 +15,10 @@ public class ForceUser {
     private final Map<String, Integer> unlockedAbilities;
     private String activeAbilityId;
 
+    // --- NEW: Specialization Fields ---
+    private String specialization; // e.g., "GUARDIAN", "SORCERER", or null
+    private boolean needsToChoosePath; // Flag for when the choice is pending
+
     public ForceUser(UUID uuid) {
         this.uuid = uuid;
         this.side = ForceSide.NONE;
@@ -24,6 +28,10 @@ public class ForceUser {
         this.forcePoints = 0;
         this.unlockedAbilities = new HashMap<>();
         this.activeAbilityId = null;
+
+        // --- NEW: Initialize new fields ---
+        this.specialization = null;
+        this.needsToChoosePath = false;
     }
 
     // --- GETTERS ---
@@ -37,6 +45,11 @@ public class ForceUser {
     public boolean hasUnlockedAbility(String abilityId) { return unlockedAbilities.containsKey(abilityId); }
     public int getAbilityLevel(String abilityId) { return unlockedAbilities.getOrDefault(abilityId, 0); }
     public String getActiveAbilityId() { return activeAbilityId; }
+
+    // --- NEW: Getters for specialization ---
+    public String getSpecialization() { return specialization; }
+    public boolean needsToChoosePath() { return needsToChoosePath; }
+
 
     // --- SETTERS ---
     public void setSide(ForceSide side) { this.side = side; }
@@ -57,4 +70,8 @@ public class ForceUser {
         }
     }
     public void setActiveAbilityId(String activeAbilityId) { this.activeAbilityId = activeAbilityId; }
+
+    // --- NEW: Setters for specialization ---
+    public void setSpecialization(String specialization) { this.specialization = specialization; }
+    public void setNeedsToChoosePath(boolean needsToChoosePath) { this.needsToChoosePath = needsToChoosePath; }
 }

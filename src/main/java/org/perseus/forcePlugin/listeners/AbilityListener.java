@@ -12,12 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceUser;
-import org.perseus.forcePlugin.managers.AbilityManager;
-import org.perseus.forcePlugin.managers.CooldownManager;
-import org.perseus.forcePlugin.managers.ForceBarManager;
-import org.perseus.forcePlugin.managers.ForceUserManager;
-import org.perseus.forcePlugin.managers.LevelingManager;
-import org.perseus.forcePlugin.managers.TelekinesisManager;
+import org.perseus.forcePlugin.managers.*;
 
 public class AbilityListener implements Listener {
 
@@ -33,7 +28,6 @@ public class AbilityListener implements Listener {
         Action action = event.getAction();
         ItemStack itemInHand = event.getItem();
 
-        // Get managers from the main plugin class
         TelekinesisManager telekinesisManager = plugin.getTelekinesisManager();
         ForceUserManager userManager = plugin.getForceUserManager();
 
@@ -47,15 +41,20 @@ public class AbilityListener implements Listener {
             return;
         }
 
+        ForceUser forceUser = userManager.getForceUser(player);
+        if (forceUser == null) return;
+
+        if (forceUser.needsToChoosePath()) {
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + "You must choose your final path! Right-click your Holocron."));
+            return;
+        }
+
         if (telekinesisManager.isLifting(player)) {
             telekinesisManager.launch(player);
             double xpToGive = plugin.getConfig().getDouble("progression.xp-gain.per-telekinesis-launch", 2.0);
             plugin.getLevelingManager().addXp(player, xpToGive);
             return;
         }
-
-        ForceUser forceUser = userManager.getForceUser(player);
-        if (forceUser == null) return;
 
         String abilityId = forceUser.getActiveAbilityId();
         if (abilityId == null) {

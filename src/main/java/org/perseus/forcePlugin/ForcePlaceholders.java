@@ -70,9 +70,8 @@ public class ForcePlaceholders extends PlaceholderExpansion {
             case "xp_bar":
                 return createProgressBar(forceUser.getForceXp(), plugin.getLevelingManager().getXpForNextLevel(forceUser.getForceLevel()));
 
-            // --- NEW PLACEHOLDER ---
             case "rank":
-                return plugin.getRankManager().getRank(forceUser.getSide(), forceUser.getForceLevel());
+                return plugin.getRankManager().getRank(forceUser);
 
             default:
                 return null;
@@ -81,7 +80,7 @@ public class ForcePlaceholders extends PlaceholderExpansion {
 
     private String createProgressBar(double current, double max) {
         if (max <= 0 || max == Double.MAX_VALUE) {
-            return ChatColor.GOLD + "" + "|".repeat(10); // Full bar at max level
+            return ChatColor.GOLD + "" + "|".repeat(10);
         }
         float percent = (float) (current / max);
         int progressBars = 10;
