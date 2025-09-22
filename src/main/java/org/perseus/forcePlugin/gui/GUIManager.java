@@ -19,6 +19,7 @@ import org.perseus.forcePlugin.managers.ForceUserManager;
 import org.perseus.forcePlugin.managers.RankManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GUIManager {
@@ -54,7 +55,7 @@ public class GUIManager {
         ItemStack statusItem = new ItemStack(Material.EXPERIENCE_BOTTLE);
         ItemMeta statusMeta = statusItem.getItemMeta();
         statusMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Your Status");
-        statusMeta.setLore(List.of(
+        statusMeta.setLore(Arrays.asList(
                 ChatColor.GRAY + "Level: " + ChatColor.WHITE + forceUser.getForceLevel(),
                 ChatColor.GRAY + "Points Available: " + ChatColor.GREEN + forceUser.getForcePoints()
         ));
@@ -106,7 +107,7 @@ public class GUIManager {
             ItemStack upgradeButton = new ItemStack(Material.EMERALD_BLOCK);
             ItemMeta upgradeMeta = upgradeButton.getItemMeta();
             upgradeMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Upgrade Ability");
-            upgradeMeta.setLore(List.of(ChatColor.GRAY + "Cost: " + ChatColor.GREEN + upgradeCost + pointString));
+            upgradeMeta.setLore(Arrays.asList(ChatColor.GRAY + "Cost: " + ChatColor.GREEN + upgradeCost + pointString));
             upgradeButton.setItemMeta(upgradeMeta);
             gui.setItem(13, upgradeButton);
         } else {
@@ -126,6 +127,7 @@ public class GUIManager {
         player.openInventory(gui);
     }
 
+    // --- THE MISSING METHOD ---
     public void openSpecializationGUI(Player player) {
         ForceUser forceUser = userManager.getForceUser(player);
         if (forceUser == null || forceUser.getSide() == ForceSide.NONE) return;
@@ -146,13 +148,14 @@ public class GUIManager {
             ItemMeta meta = icon.getItemMeta();
             meta.setDisplayName(spec.getDisplayName());
             meta.setLore(spec.getDescription());
-            meta.addEnchant(Enchantment.DURABILITY, 1, true); // Use DURABILITY for 1.16
+            meta.addEnchant(Enchantment.DURABILITY, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             icon.setItemMeta(meta);
             gui.setItem(specSlots[i], icon);
         }
         player.openInventory(gui);
     }
+    // --- END MISSING METHOD ---
 
     private ItemStack createUnlockedAbilityIcon(Ability ability, ForceUser forceUser) {
         int level = forceUser.getAbilityLevel(ability.getID());
@@ -187,7 +190,7 @@ public class GUIManager {
         }
         meta.setLore(lore);
 
-        meta.addEnchant(Enchantment.DURABILITY, 1, true); // Use DURABILITY for 1.16
+        meta.addEnchant(Enchantment.DURABILITY, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         icon.setItemMeta(meta);
         return icon;
