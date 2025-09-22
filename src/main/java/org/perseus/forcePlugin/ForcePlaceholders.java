@@ -80,13 +80,23 @@ public class ForcePlaceholders extends PlaceholderExpansion {
 
     private String createProgressBar(double current, double max) {
         if (max <= 0 || max == Double.MAX_VALUE) {
-            return ChatColor.GOLD + "" + "|".repeat(10);
+            return ChatColor.GOLD + "" + repeat("|", 10);
         }
         float percent = (float) (current / max);
         int progressBars = 10;
         int barsToShow = (int) (progressBars * percent);
 
-        return ChatColor.GREEN + "" + "|".repeat(barsToShow)
-                + ChatColor.GRAY + "" + "|".repeat(progressBars - barsToShow);
+        return ChatColor.GREEN + "" + repeat("|", barsToShow)
+                + ChatColor.GRAY + "" + repeat("|", progressBars - barsToShow);
+    }
+
+    // Helper method to replace String.repeat() for Java 8 compatibility
+    private String repeat(String str, int times) {
+        if (times <= 0) return "";
+        StringBuilder sb = new StringBuilder(str.length() * times);
+        for (int i = 0; i < times; i++) {
+            sb.append(str);
+        }
+        return sb.toString();
     }
 }

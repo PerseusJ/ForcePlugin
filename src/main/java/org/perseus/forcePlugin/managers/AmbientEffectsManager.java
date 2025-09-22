@@ -45,8 +45,9 @@ public class AmbientEffectsManager {
         if (side == ForceSide.LIGHT) {
             player.getWorld().spawnParticle(Particle.END_ROD, location, 1, 0, 0, 0, 0);
         } else {
+            // The particle for colored dust in 1.16 is REDSTONE
             Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(150, 0, 0), 0.7F);
-            player.getWorld().spawnParticle(Particle.DUST, location, 1, 0, 0, 0, 0, dustOptions);
+            player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, dustOptions);
         }
     }
 }

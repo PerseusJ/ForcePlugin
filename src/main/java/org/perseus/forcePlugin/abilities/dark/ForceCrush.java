@@ -40,7 +40,7 @@ public class ForceCrush implements Ability {
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
 
         target.damage(damage, player);
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, duration, slownessAmp));
+        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration, slownessAmp)); // SLOW is the correct name for 1.16
         player.getWorld().playSound(target.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.8f, 0.8f);
 
         new BukkitRunnable() {

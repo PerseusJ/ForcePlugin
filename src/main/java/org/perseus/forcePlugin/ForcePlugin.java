@@ -1,5 +1,6 @@
 package org.perseus.forcePlugin;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.perseus.forcePlugin.commands.ForceAdminCommand;
@@ -8,8 +9,15 @@ import org.perseus.forcePlugin.commands.ForceStatsCommand;
 import org.perseus.forcePlugin.data.DatabaseManager;
 import org.perseus.forcePlugin.gui.GUIManager;
 import org.perseus.forcePlugin.gui.GUIListener;
-import org.perseus.forcePlugin.listeners.*;
+import org.perseus.forcePlugin.listeners.AbilityListener;
+import org.perseus.forcePlugin.listeners.ExperienceListener;
+import org.perseus.forcePlugin.listeners.HolocronListener;
+import org.perseus.forcePlugin.listeners.PlayerConnectionListener;
+import org.perseus.forcePlugin.listeners.ProjectileDeflectionListener;
 import org.perseus.forcePlugin.managers.*;
+import org.perseus.forcePlugin.versioning.Adapter_1_16;
+import org.perseus.forcePlugin.versioning.Adapter_1_21;
+import org.perseus.forcePlugin.versioning.VersionAdapter;
 
 import java.io.File;
 
@@ -27,9 +35,18 @@ public class ForcePlugin extends JavaPlugin {
     private HolocronManager holocronManager;
     private DatabaseManager databaseManager;
     private RankManager rankManager;
+    private VersionAdapter versionAdapter; // --- NEW ---
 
     @Override
     public void onEnable() {
+        // --- NEW: Version Detection must happen FIRST ---
+        if (!setupVersionAdapter()) {
+            getLogger().severe("!!! This version of Minecraft is not supported by ForcePlugin. Disabling plugin. !!!");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        // --- END NEW ---
+
         saveDefaultConfig();
         saveResource("ranks.yml", false);
 
@@ -55,7 +72,7 @@ public class ForcePlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ProjectileDeflectionListener(), this);
         getServer().getPluginManager().registerEvents(new ExperienceListener(levelingManager), this);
         getServer().getPluginManager().registerEvents(new HolocronListener(this), this);
-        getServer().getPluginManager().registerEvents(new UltimateAbilityListener(this), this);
+        // We will register the UltimateAbilityListener in the final step
 
         // Register commands
         getCommand("force").setExecutor(new ForceCommand(this));
@@ -72,11 +89,13 @@ public class ForcePlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         for (Player player : getServer().getOnlinePlayers()) {
-            if (forceUserManager.getForceUser(player) != null) {
+            if (forceUserManager != null && forceUserManager.getForceUser(player) != null) {
                 forceUserManager.savePlayerData(player);
             }
         }
-        this.databaseManager.disconnect();
+        if (this.databaseManager != null) {
+            this.databaseManager.disconnect();
+        }
         getLogger().info("ForcePlugin has been disabled!");
     }
 
@@ -91,7 +110,28 @@ public class ForcePlugin extends JavaPlugin {
         this.guiManager = new GUIManager(this.abilityManager, this.forceUserManager, this.abilityConfigManager, this.rankManager);
     }
 
-    // --- Getters for Managers ---
+    // --- NEW: Version Detection Logic ---
+    private boolean setupVersionAdapter() {
+        String version = Bukkit.getServer().getBukkitVersion();
+        getLogger().info("Detected server version: " + version);
+
+        if (version.contains("1.21")) {
+            this.versionAdapter = new Adapter_1_21();
+            return true;
+        } else if (version.contains("1.20") || version.contains("1.19") || version.contains("1.18") || version.contains("1.17")) {
+            // These versions are similar enough to 1.21 for our purposes
+            this.versionAdapter = new Adapter_1_21();
+            return true;
+        } else if (version.contains("1.16")) {
+            this.versionAdapter = new Adapter_1_16();
+            return true;
+        } else {
+            return false; // Unsupported version
+        }
+    }
+    // --- END NEW ---
+
+    // --- Getters for Managers (and the new adapter) ---
     public ForceUserManager getForceUserManager() { return forceUserManager; }
     public AbilityManager getAbilityManager() { return abilityManager; }
     public CooldownManager getCooldownManager() { return cooldownManager; }
@@ -103,4 +143,5 @@ public class ForcePlugin extends JavaPlugin {
     public HolocronManager getHolocronManager() { return holocronManager; }
     public DatabaseManager getDatabaseManager() { return databaseManager; }
     public RankManager getRankManager() { return rankManager; }
+    public VersionAdapter getVersionAdapter() { return versionAdapter; } // --- NEW ---
 }

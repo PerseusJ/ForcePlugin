@@ -60,7 +60,6 @@ public class GUIManager {
         ));
         gui.setItem(4, statusItem);
 
-        // --- MODIFIED: Get only the standard abilities for the main tree ---
         List<Ability> availableAbilities = new ArrayList<>(abilityManager.getAbilitiesBySide(forceUser.getSide()));
         int[] abilitySlots = {10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34};
         for (int i = 0; i < availableAbilities.size() && i < abilitySlots.length; i++) {
@@ -72,17 +71,15 @@ public class GUIManager {
             }
         }
 
-        // --- NEW: Check if the player has an ultimate and display it in a special slot ---
         if (forceUser.getSpecialization() != null) {
             String ultimateId = getUltimateForSpec(forceUser.getSpecialization());
             if (ultimateId != null && forceUser.hasUnlockedAbility(ultimateId)) {
                 Ability ultimate = abilityManager.getAbility(ultimateId);
                 if (ultimate != null) {
-                    gui.setItem(40, createUnlockedAbilityIcon(ultimate, forceUser)); // Center bottom slot
+                    gui.setItem(40, createUnlockedAbilityIcon(ultimate, forceUser));
                 }
             }
         }
-
         player.openInventory(gui);
     }
 
@@ -149,7 +146,7 @@ public class GUIManager {
             ItemMeta meta = icon.getItemMeta();
             meta.setDisplayName(spec.getDisplayName());
             meta.setLore(spec.getDescription());
-            meta.addEnchant(Enchantment.UNBREAKING, 1, true);
+            meta.addEnchant(Enchantment.DURABILITY, 1, true); // Use DURABILITY for 1.16
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             icon.setItemMeta(meta);
             gui.setItem(specSlots[i], icon);
@@ -190,7 +187,7 @@ public class GUIManager {
         }
         meta.setLore(lore);
 
-        icon.addUnsafeEnchantment(Enchantment.UNBREAKING, 1);
+        meta.addEnchant(Enchantment.DURABILITY, 1, true); // Use DURABILITY for 1.16
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         icon.setItemMeta(meta);
         return icon;
@@ -225,7 +222,7 @@ public class GUIManager {
         icon.setItemMeta(meta);
         return icon;
     }
-    // --- NEW: Helper method to get ultimate ID, moved from GUIListener ---
+
     private String getUltimateForSpec(String specId) {
         if (specId == null) return null;
         switch (specId) {

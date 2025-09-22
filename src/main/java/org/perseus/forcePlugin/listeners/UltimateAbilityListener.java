@@ -1,6 +1,5 @@
 package org.perseus.forcePlugin.listeners;
 
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,10 +7,11 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.perseus.forcePlugin.ForcePlugin;
-import org.perseus.forcePlugin.abilities.Ability;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -19,6 +19,12 @@ import java.util.UUID;
 public class UltimateAbilityListener implements Listener {
 
     private final ForcePlugin plugin;
+    // --- THE FIX: Define the list of ultimate IDs here ---
+    public static final List<String> ULTIMATE_ABILITY_IDS = Arrays.asList(
+            "FORCE_ABSORB", "FORCE_CAMOUFLAGE", "FORCE_SERENITY",
+            "UNSTOPPABLE_VENGEANCE", "MARK_OF_THE_HUNT", "CHAIN_LIGHTNING"
+    );
+
     private static final Map<UUID, Double> absorbingPlayers = new HashMap<>();
     private static final Set<UUID> camouflagedPlayers = new HashSet<>();
     private static final Map<UUID, Double> vengefulPlayers = new HashMap<>();

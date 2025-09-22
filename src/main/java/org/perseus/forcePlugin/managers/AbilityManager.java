@@ -6,22 +6,16 @@ import org.perseus.forcePlugin.abilities.dark.*;
 import org.perseus.forcePlugin.abilities.light.*;
 import org.perseus.forcePlugin.abilities.universal.*;
 import org.perseus.forcePlugin.data.ForceSide;
+import org.perseus.forcePlugin.listeners.UltimateAbilityListener;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AbilityManager {
 
     private final Map<String, Ability> abilities = new HashMap<>();
-    // --- NEW: A list to keep track of which abilities are ultimates ---
-    private static final List<String> ULTIMATE_ABILITY_IDS = Arrays.asList(
-            "FORCE_ABSORB", "FORCE_CAMOUFLAGE", "FORCE_SERENITY",
-            "UNSTOPPABLE_VENGEANCE", "MARK_OF_THE_HUNT", "CHAIN_LIGHTNING"
-    );
 
     public AbilityManager(ForcePlugin plugin, AbilityConfigManager configManager, TelekinesisManager telekinesisManager) {
         registerAbilities(plugin, configManager, telekinesisManager);
@@ -40,7 +34,7 @@ public class AbilityManager {
 
         // Light Side
         registerAbility(new ForceHeal(configManager, plugin));
-        registerAbility(new ForceRepulse(configManager));
+        registerAbility(new ForceRepulse(configManager, plugin));
         registerAbility(new ForceStasis(configManager, plugin));
         registerAbility(new ForceBarrier(configManager, plugin));
         registerAbility(new ForceJudgment(configManager));
@@ -69,20 +63,13 @@ public class AbilityManager {
         return abilities.get(id);
     }
 
-    /**
-     * Gets a collection of all STANDARD abilities for a side (excluding ultimates).
-     */
     public Collection<Ability> getAbilitiesBySide(ForceSide side) {
         return abilities.values().stream()
-                .filter(ability -> !ULTIMATE_ABILITY_IDS.contains(ability.getID())) // Exclude ultimates
+                .filter(ability -> !UltimateAbilityListener.ULTIMATE_ABILITY_IDS.contains(ability.getID()))
                 .filter(ability -> ability.getSide() == side || ability.getSide() == ForceSide.NONE)
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Gets ALL abilities for a side, including any unlocked ultimates.
-     * Used for the Holocron cycling.
-     */
     public Collection<Ability> getAllAbilitiesBySide(ForceSide side) {
         return abilities.values().stream()
                 .filter(ability -> ability.getSide() == side || ability.getSide() == ForceSide.NONE)

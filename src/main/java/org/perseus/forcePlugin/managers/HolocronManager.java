@@ -1,8 +1,5 @@
 package org.perseus.forcePlugin.managers;
 
-import com.destroystokyo.paper.profile.PlayerProfile;
-import com.destroystokyo.paper.profile.ProfileProperty;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,7 +11,6 @@ import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
 
 import java.util.List;
-import java.util.UUID;
 
 public class HolocronManager {
 
@@ -39,17 +35,18 @@ public class HolocronManager {
     }
 
     private ItemStack createHolocronItem(ForceSide side) {
-        ItemStack head = new ItemStack(Material.PLAYER_HEAD);
-        SkullMeta meta = (SkullMeta) head.getItemMeta();
-
-        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID());
+        // --- THE FIX: Use the Version Adapter ---
+        // This single line now handles both 1.16 and 1.21 head creation.
         String textureValue = (side == ForceSide.LIGHT) ? JEDI_HOLOCRON_TEXTURE : SITH_HOLOCRON_TEXTURE;
-        ProfileProperty property = new ProfileProperty("textures", textureValue);
-        profile.setProperty(property);
-        meta.setPlayerProfile(profile);
+        ItemStack head = plugin.getVersionAdapter().createCustomHead(textureValue, side);
+        // --- END FIX ---
 
-        meta.setLore(List.of(HOLOCRON_IDENTIFIER));
-        head.setItemMeta(meta);
+        // We still need to set the lore, which is not version-specific.
+        SkullMeta meta = (SkullMeta) head.getItemMeta();
+        if (meta != null) {
+            meta.setLore(List.of(HOLOCRON_IDENTIFIER));
+            head.setItemMeta(meta);
+        }
         return head;
     }
 

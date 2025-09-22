@@ -61,7 +61,7 @@ public class ForceDrain implements Ability {
                 if (traveled >= distance) { this.cancel(); return; }
                 Location point = start.clone().add(direction.clone().multiply(traveled));
                 Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(200, 0, 0), 1.0F);
-                player.getWorld().spawnParticle(Particle.DUST, point, 1, 0, 0, 0, 0, dustOptions);
+                player.getWorld().spawnParticle(Particle.REDSTONE, point, 1, 0, 0, 0, 0, dustOptions);
                 traveled += 0.5;
             }
         }.runTaskTimer(plugin, 0L, 1L);

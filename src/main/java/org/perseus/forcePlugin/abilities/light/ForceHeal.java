@@ -18,9 +18,10 @@ import java.util.List;
 public class ForceHeal implements Ability {
     private final AbilityConfigManager configManager;
     private final ForcePlugin plugin;
+    // Corrected PotionEffectType names for 1.16
     private static final List<PotionEffectType> DEBUFFS = Arrays.asList(
-            PotionEffectType.SLOWNESS, PotionEffectType.WEAKNESS, PotionEffectType.POISON,
-            PotionEffectType.WITHER, PotionEffectType.BLINDNESS, PotionEffectType.NAUSEA,
+            PotionEffectType.SLOW, PotionEffectType.WEAKNESS, PotionEffectType.POISON,
+            PotionEffectType.WITHER, PotionEffectType.BLINDNESS, PotionEffectType.CONFUSION,
             PotionEffectType.HUNGER, PotionEffectType.LEVITATION
     );
     public ForceHeal(AbilityConfigManager configManager, ForcePlugin plugin) { this.configManager = configManager; this.plugin = plugin; }
@@ -58,7 +59,8 @@ public class ForceHeal implements Ability {
                     double angle = Math.random() * 2 * Math.PI;
                     double x = center.getX() + radius * Math.cos(angle);
                     double z = center.getZ() + radius * Math.sin(angle);
-                    player.getWorld().spawnParticle(Particle.HAPPY_VILLAGER, new Location(player.getWorld(), x, center.getY(), z), 1, 0, 0, 0, 0);
+                    // The particle for happy villagers in 1.16 is VILLAGER_HAPPY
+                    player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, new Location(player.getWorld(), x, center.getY(), z), 1, 0, 0, 0, 0);
                 }
                 radius += 0.1;
                 yOffset += 0.1;

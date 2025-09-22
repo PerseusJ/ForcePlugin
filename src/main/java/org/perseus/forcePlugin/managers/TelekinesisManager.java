@@ -43,12 +43,14 @@ public class TelekinesisManager {
 
         BukkitTask task = new BukkitRunnable() {
             int ticks = 0;
+
             @Override
             public void run() {
                 if (!caster.isOnline() || target.isDead() || !target.isValid()) {
                     stopLifting(caster, false);
                     return;
                 }
+
                 Location destination = caster.getEyeLocation().add(caster.getLocation().getDirection().multiply(5));
                 target.teleport(destination);
 
@@ -59,7 +61,8 @@ public class TelekinesisManager {
                 double z = radius * Math.sin(angle);
                 Vector offset = new Vector(x, 0, z);
                 offset.rotateAroundX(Math.toRadians(caster.getLocation().getPitch() + 90));
-                target.getWorld().spawnParticle(Particle.ENCHANTED_HIT, targetCenter.clone().add(offset), 1, 0, 0, 0, 0);
+                // The particle for enchanted effects in 1.16 is CRIT_MAGIC
+                target.getWorld().spawnParticle(Particle.CRIT_MAGIC, targetCenter.clone().add(offset), 1, 0, 0, 0, 0);
 
                 if (ticks % 20 == 0) {
                     Ability ability = plugin.getAbilityManager().getAbility("TELEKINESIS");
@@ -79,6 +82,7 @@ public class TelekinesisManager {
                 ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
+
         liftingTasks.put(caster.getUniqueId(), task);
     }
 

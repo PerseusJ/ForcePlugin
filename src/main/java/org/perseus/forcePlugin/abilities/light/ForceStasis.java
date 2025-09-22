@@ -37,7 +37,8 @@ public class ForceStasis implements Ability {
         if (rayTrace == null || rayTrace.getHitEntity() == null) return;
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
 
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, duration, 200, false, false));
+        // The correct name for Slowness in 1.16 is SLOW
+        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration, 200, false, false));
         player.getWorld().playSound(target.getLocation(), Sound.BLOCK_GLASS_BREAK, 1.0f, 0.8f);
 
         new BukkitRunnable() {
@@ -49,7 +50,8 @@ public class ForceStasis implements Ability {
                 for (int i = 0; i < 10; i++) {
                     Vector direction = new Vector(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize();
                     Location particleLoc = center.clone().add(direction.multiply(1.2));
-                    target.getWorld().spawnParticle(Particle.SNOWFLAKE, particleLoc, 1, 0, 0, 0, 0);
+                    // The particle SNOWFLAKE does not exist in 1.16, use SNOW_SHOVEL as a fallback
+                    target.getWorld().spawnParticle(Particle.SNOW_SHOVEL, particleLoc, 1, 0, 0, 0, 0);
                 }
                 ticks++;
             }

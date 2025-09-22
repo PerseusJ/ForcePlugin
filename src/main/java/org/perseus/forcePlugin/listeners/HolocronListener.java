@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -73,7 +74,10 @@ public class HolocronListener implements Listener {
     @EventHandler
     public void onRightClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (!event.getAction().isRightClick()) return;
+        // Use older Action check for 1.16 compatibility
+        if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
         if (!plugin.getHolocronManager().isHolocron(event.getItem())) return;
 
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);

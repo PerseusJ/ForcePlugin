@@ -31,7 +31,12 @@ public class AbilityListener implements Listener {
         TelekinesisManager telekinesisManager = plugin.getTelekinesisManager();
         ForceUserManager userManager = plugin.getForceUserManager();
 
-        if (!action.isLeftClick() || !plugin.getHolocronManager().isHolocron(itemInHand)) {
+        // Use older Action check for 1.16 compatibility
+        if (action != Action.LEFT_CLICK_AIR && action != Action.LEFT_CLICK_BLOCK) {
+            return;
+        }
+
+        if (!plugin.getHolocronManager().isHolocron(itemInHand)) {
             return;
         }
 
@@ -41,20 +46,15 @@ public class AbilityListener implements Listener {
             return;
         }
 
-        ForceUser forceUser = userManager.getForceUser(player);
-        if (forceUser == null) return;
-
-        if (forceUser.needsToChoosePath()) {
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + "You must choose your final path! Right-click your Holocron."));
-            return;
-        }
-
         if (telekinesisManager.isLifting(player)) {
             telekinesisManager.launch(player);
             double xpToGive = plugin.getConfig().getDouble("progression.xp-gain.per-telekinesis-launch", 2.0);
             plugin.getLevelingManager().addXp(player, xpToGive);
             return;
         }
+
+        ForceUser forceUser = userManager.getForceUser(player);
+        if (forceUser == null) return;
 
         String abilityId = forceUser.getActiveAbilityId();
         if (abilityId == null) {

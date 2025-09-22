@@ -51,7 +51,8 @@ public class ForcePull implements Ability {
                     return;
                 }
                 Location point = start.clone().add(direction.clone().multiply(traveled));
-                player.getWorld().spawnParticle(Particle.ENCHANTED_HIT, point, 1, 0, 0, 0, 0);
+                // The particle ENCHANTED_HIT does not exist in 1.16, use CRIT_MAGIC
+                player.getWorld().spawnParticle(Particle.CRIT_MAGIC, point, 1, 0, 0, 0, 0);
                 traveled += 1.0;
             }
         }.runTaskTimer(plugin, 0L, 1L);

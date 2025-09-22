@@ -45,8 +45,7 @@ public class ForceAbsorb implements Ability {
                     double finalKnockback = 2.5 + knockbackBonus;
 
                     player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SPAWN, 1.0f, 1.0f);
-                    // --- THE FIX: Changed EXPLOSION_HUGE to EXPLOSION_EMITTER ---
-                    player.getWorld().spawnParticle(Particle.EXPLOSION_EMITTER, player.getLocation(), 1);
+                    plugin.getVersionAdapter().playExplosionEmitter(player.getLocation());
 
                     for (Entity entity : player.getNearbyEntities(10, 10, 10)) {
                         if (entity instanceof Player && entity.equals(player)) continue;

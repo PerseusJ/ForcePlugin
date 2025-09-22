@@ -30,7 +30,7 @@ public class ForceChoke implements Ability {
     public void execute(Player player, ForceUser forceUser) {
         int level = forceUser.getAbilityLevel(getID());
         int range = 15;
-        int duration = configManager.getIntValue(getID(), level, "duration-seconds", 3) * 20;
+        final int duration = configManager.getIntValue(getID(), level, "duration-seconds", 3) * 20;
         int levitationAmp = 0;
         double damagePerSecond = configManager.getDoubleValue(getID(), level, "damage-per-second-hearts", 1.0) * 2;
         RayTraceResult rayTrace = player.getWorld().rayTraceEntities(player.getEyeLocation(), player.getLocation().getDirection(), range,
@@ -52,7 +52,8 @@ public class ForceChoke implements Ability {
                 double angle = ticks * Math.PI / 4;
                 double x = radius * Math.cos(angle);
                 double z = radius * Math.sin(angle);
-                target.getWorld().spawnParticle(Particle.SMOKE, particleLoc.clone().add(x, 0, z), 1, 0, 0, 0, 0);
+                // SMOKE_NORMAL is not in 1.16, use SMOKE_LARGE as a fallback
+                target.getWorld().spawnParticle(Particle.SMOKE_LARGE, particleLoc.clone().add(x, 0, z), 1, 0, 0, 0, 0);
                 target.getWorld().spawnParticle(Particle.SQUID_INK, particleLoc.clone().add(-x, 0, -z), 1, 0, 0, 0, 0);
                 ticks++;
             }

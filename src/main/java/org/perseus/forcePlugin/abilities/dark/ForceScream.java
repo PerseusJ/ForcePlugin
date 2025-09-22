@@ -1,7 +1,6 @@
 package org.perseus.forcePlugin.abilities.dark;
 
 import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -40,7 +39,7 @@ public class ForceScream implements Ability {
             if (entity instanceof LivingEntity && !entity.equals(player)) {
                 LivingEntity target = (LivingEntity) entity;
                 target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, duration, weaknessAmp));
-                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, duration, slownessAmp));
+                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration, slownessAmp)); // SLOW is the correct name for 1.16
             }
         }
 
@@ -53,7 +52,7 @@ public class ForceScream implements Ability {
                 for (double angle = 0; angle < 2 * Math.PI; angle += Math.PI / 16) {
                     double x = center.getX() + currentRadius * Math.cos(angle);
                     double z = center.getZ() + currentRadius * Math.sin(angle);
-                    player.getWorld().spawnParticle(Particle.SONIC_BOOM, new Location(player.getWorld(), x, center.getY() + 1, z), 1, 0, 0, 0, 0);
+                    plugin.getVersionAdapter().playSonicBoom(new Location(player.getWorld(), x, center.getY() + 1, z));
                 }
                 currentRadius += 0.5;
             }
