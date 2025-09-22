@@ -8,11 +8,7 @@ import org.perseus.forcePlugin.commands.ForceStatsCommand;
 import org.perseus.forcePlugin.data.DatabaseManager;
 import org.perseus.forcePlugin.gui.GUIManager;
 import org.perseus.forcePlugin.gui.GUIListener;
-import org.perseus.forcePlugin.listeners.AbilityListener;
-import org.perseus.forcePlugin.listeners.ExperienceListener;
-import org.perseus.forcePlugin.listeners.HolocronListener;
-import org.perseus.forcePlugin.listeners.PlayerConnectionListener;
-import org.perseus.forcePlugin.listeners.ProjectileDeflectionListener;
+import org.perseus.forcePlugin.listeners.*;
 import org.perseus.forcePlugin.managers.*;
 
 import java.io.File;
@@ -49,7 +45,6 @@ public class ForcePlugin extends JavaPlugin {
         this.cooldownManager = new CooldownManager();
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
         this.rankManager = new RankManager(this);
-        // --- THE FIX: Pass the RankManager to the GUIManager constructor ---
         this.guiManager = new GUIManager(abilityManager, forceUserManager, abilityConfigManager, rankManager);
         this.ambientEffectsManager = new AmbientEffectsManager(this);
 
@@ -60,6 +55,7 @@ public class ForcePlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ProjectileDeflectionListener(), this);
         getServer().getPluginManager().registerEvents(new ExperienceListener(levelingManager), this);
         getServer().getPluginManager().registerEvents(new HolocronListener(this), this);
+        getServer().getPluginManager().registerEvents(new UltimateAbilityListener(this), this);
 
         // Register commands
         getCommand("force").setExecutor(new ForceCommand(this));
@@ -86,13 +82,12 @@ public class ForcePlugin extends JavaPlugin {
 
     public void reloadPluginConfig() {
         reloadConfig();
-        saveResource("ranks.yml", true); // Overwrite ranks.yml on reload to ensure it's up to date
+        saveResource("ranks.yml", true);
         this.abilityConfigManager = new AbilityConfigManager(this);
         this.abilityManager.reload(this, this.abilityConfigManager, this.telekinesisManager);
         this.forceBarManager.reloadConfig();
         this.levelingManager.loadConfigValues();
         this.rankManager.loadRanks();
-        // --- THE FIX: Pass the RankManager to the GUIManager constructor during reload ---
         this.guiManager = new GUIManager(this.abilityManager, this.forceUserManager, this.abilityConfigManager, this.rankManager);
     }
 

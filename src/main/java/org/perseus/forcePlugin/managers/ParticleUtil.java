@@ -9,25 +9,31 @@ import org.bukkit.util.Vector;
 public class ParticleUtil {
 
     public static void drawParticleBeam(Player caster, LivingEntity target, Particle particle, double density) {
-        drawParticleBeam(caster, target, particle, density, null);
+        drawParticleBeam(caster.getEyeLocation(), target.getEyeLocation(), particle, density, null);
     }
 
     public static void drawParticleBeam(Player caster, LivingEntity target, Particle particle, double density, Object data) {
-        Location start = caster.getEyeLocation();
-        Location end = target.getEyeLocation();
+        drawParticleBeam(caster.getEyeLocation(), target.getEyeLocation(), particle, density, data);
+    }
+
+    // --- NEW: Overloaded method for drawing between any two locations ---
+    public static void drawParticleBeam(Location start, Location end, Particle particle, double density, Object data) {
         Vector direction = end.toVector().subtract(start.toVector());
         double distance = direction.length();
         direction.normalize();
 
         for (double i = 0; i < distance; i += (1 / density)) {
             Location point = start.clone().add(direction.clone().multiply(i));
-            caster.getWorld().spawnParticle(particle, point, 1, 0, 0, 0, 0, data);
+            start.getWorld().spawnParticle(particle, point, 1, 0, 0, 0, 0, data);
         }
     }
 
     public static void drawZigZagBeam(Player caster, LivingEntity target, Particle particle, double density, double amplitude, Object data) {
-        Location start = caster.getEyeLocation();
-        Location end = target.getEyeLocation();
+        drawZigZagBeam(caster.getEyeLocation(), target.getEyeLocation(), particle, density, amplitude, data);
+    }
+
+    // --- NEW: Overloaded method for drawing zig-zag between any two locations ---
+    public static void drawZigZagBeam(Location start, Location end, Particle particle, double density, double amplitude, Object data) {
         Vector direction = end.toVector().subtract(start.toVector());
         double distance = direction.length();
         direction.normalize();
@@ -38,7 +44,7 @@ public class ParticleUtil {
             Location point = start.clone().add(direction.clone().multiply(i));
             double offset = Math.sin(i * 2) * amplitude;
             point.add(perpendicular.clone().multiply(offset));
-            caster.getWorld().spawnParticle(particle, point, 1, 0, 0, 0, 0, data);
+            start.getWorld().spawnParticle(particle, point, 1, 0, 0, 0, 0, data);
         }
     }
 }

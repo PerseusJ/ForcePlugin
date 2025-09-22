@@ -60,6 +60,7 @@ public class GUIManager {
         ));
         gui.setItem(4, statusItem);
 
+        // --- MODIFIED: Get only the standard abilities for the main tree ---
         List<Ability> availableAbilities = new ArrayList<>(abilityManager.getAbilitiesBySide(forceUser.getSide()));
         int[] abilitySlots = {10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34};
         for (int i = 0; i < availableAbilities.size() && i < abilitySlots.length; i++) {
@@ -70,6 +71,18 @@ public class GUIManager {
                 gui.setItem(abilitySlots[i], createLockedAbilityIcon(ability));
             }
         }
+
+        // --- NEW: Check if the player has an ultimate and display it in a special slot ---
+        if (forceUser.getSpecialization() != null) {
+            String ultimateId = getUltimateForSpec(forceUser.getSpecialization());
+            if (ultimateId != null && forceUser.hasUnlockedAbility(ultimateId)) {
+                Ability ultimate = abilityManager.getAbility(ultimateId);
+                if (ultimate != null) {
+                    gui.setItem(40, createUnlockedAbilityIcon(ultimate, forceUser)); // Center bottom slot
+                }
+            }
+        }
+
         player.openInventory(gui);
     }
 
@@ -211,5 +224,18 @@ public class GUIManager {
         meta.setLore(lore);
         icon.setItemMeta(meta);
         return icon;
+    }
+    // --- NEW: Helper method to get ultimate ID, moved from GUIListener ---
+    private String getUltimateForSpec(String specId) {
+        if (specId == null) return null;
+        switch (specId) {
+            case "GUARDIAN": return "FORCE_ABSORB";
+            case "SENTINEL": return "FORCE_CAMOUFLAGE";
+            case "CONSULAR": return "FORCE_SERENITY";
+            case "WARRIOR": return "UNSTOPPABLE_VENGEANCE";
+            case "INQUISITOR": return "MARK_OF_THE_HUNT";
+            case "SORCERER": return "CHAIN_LIGHTNING";
+            default: return null;
+        }
     }
 }

@@ -113,6 +113,15 @@ public class GUIListener implements Listener {
                 forceUser.setSpecialization(spec.getId());
                 forceUser.setNeedsToChoosePath(false);
 
+                String ultimateId = getUltimateForSpec(spec.getId());
+                if (ultimateId != null) {
+                    forceUser.unlockAbility(ultimateId);
+                    Ability ultimateAbility = plugin.getAbilityManager().getAbility(ultimateId);
+                    if (ultimateAbility != null) {
+                        player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Ultimate Ability Unlocked: " + ultimateAbility.getName());
+                    }
+                }
+
                 player.closeInventory();
                 player.sendMessage(ChatColor.GOLD + "You have chosen the path of the " + spec.getDisplayName() + ChatColor.GOLD + "!");
                 player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f);
@@ -121,8 +130,23 @@ public class GUIListener implements Listener {
         }
     }
 
+    // --- MODIFIED: This helper is now also in GUIManager, but we keep it here for the choice logic ---
+    private String getUltimateForSpec(String specId) {
+        if (specId == null) return null;
+        switch (specId) {
+            case "GUARDIAN": return "FORCE_ABSORB";
+            case "SENTINEL": return "FORCE_CAMOUFLAGE";
+            case "CONSULAR": return "FORCE_SERENITY";
+            case "WARRIOR": return "UNSTOPPABLE_VENGEANCE";
+            case "INQUISITOR": return "MARK_OF_THE_HUNT";
+            case "SORCERER": return "CHAIN_LIGHTNING";
+            default: return null;
+        }
+    }
+
     private Ability findAbilityByName(ForceUser user, String name) {
-        for (Ability ability : plugin.getAbilityManager().getAbilitiesBySide(user.getSide())) {
+        // --- MODIFIED: Use the new getAllAbilitiesBySide method to find any ability by name ---
+        for (Ability ability : plugin.getAbilityManager().getAllAbilitiesBySide(user.getSide())) {
             if (ability.getName().equalsIgnoreCase(name.trim())) {
                 return ability;
             }
