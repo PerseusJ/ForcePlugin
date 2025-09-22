@@ -114,3 +114,53 @@ abilities:
     max-level: 1
     levels:
       '1': { energy-cost: 40.0, cooldown: 35.0, duration-seconds: 8, speed-amplifier: 2, strength-amplifier: 2 }
+
+
+# ------------------------------------------------- #
+#              Ultimate Abilities                   #
+# ------------------------------------------------- #
+# These are powerful abilities granted automatically when a player chooses their specialization.
+# They are not unlocked with points.
+ultimate-abilities:
+  # --- Light Side Ultimates ---
+  FORCE_ABSORB: # Guardian
+    energy-cost: 50.0
+    cooldown: 60.0
+    duration-seconds: 3.0
+    # How much knockback is added per heart of damage absorbed.
+    knockback-per-heart: 0.2
+  FORCE_CAMOUFLAGE: # Sentinel
+    energy-cost: 40.0
+    cooldown: 50.0
+    duration-seconds: 8.0
+    # How much extra damage the first ability used from camouflage deals.
+    bonus-damage-multiplier: 1.5
+  FORCE_SERENITY: # Consular
+    energy-cost: 60.0
+    cooldown: 75.0
+    duration-seconds: 5.0
+    # How many hearts to heal per second to allies in the area.
+    heal-per-second-hearts: 1.0
+    radius: 7
+
+  # --- Dark Side Ultimates ---
+  UNSTOPPABLE_VENGEANCE: # Warrior
+    energy-cost: 50.0
+    cooldown: 60.0
+    duration-seconds: 8.0
+    # How much extra damage is gained per heart of damage taken.
+    damage-increase-per-heart: 0.1 # 10%
+  MARK_OF_THE_HUNT: # Inquisitor
+    energy-cost: 30.0
+    cooldown: 90.0
+    duration-seconds: 60.0 # How long the mark lasts
+    # How much extra damage marked targets take (e.g., 1.2 = 20% more damage).
+    damage-multiplier: 1.2
+  CHAIN_LIGHTNING: # Sorcerer
+    energy-cost: 55.0
+    cooldown: 45.0
+    initial-damage-hearts: 4.0
+    # How many additional enemies the lightning can jump to.
+    max-jumps: 3
+    # How much the damage is reduced for each subsequent jump (e.g., 0.75 = 25% less damage).
+    damage-falloff-per-jump: 0.75
