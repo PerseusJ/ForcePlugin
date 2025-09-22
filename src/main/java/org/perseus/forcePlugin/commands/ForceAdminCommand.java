@@ -12,6 +12,7 @@ import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
 
 public class ForceAdminCommand implements CommandExecutor {
+
     private final ForcePlugin plugin;
 
     public ForceAdminCommand(ForcePlugin plugin) {
@@ -30,33 +31,15 @@ public class ForceAdminCommand implements CommandExecutor {
         }
         String subCommand = args[0].toLowerCase();
         switch (subCommand) {
-            case "reload":
-                handleReload(sender);
-                break;
-            case "setside":
-                handleSetSide(sender, args);
-                break;
-            case "reset":
-                handleReset(sender, args);
-                break;
-            case "check":
-                handleCheck(sender, args);
-                break;
-            case "setlevel":
-                handleSetLevel(sender, args);
-                break;
-            case "givexp":
-                handleGiveXp(sender, args);
-                break;
-            case "givepoints":
-                handleGivePoints(sender, args);
-                break;
-            case "giveholocron":
-                handleGiveHolocron(sender, args);
-                break;
-            default:
-                sendHelpMessage(sender);
-                break;
+            case "reload": handleReload(sender); break;
+            case "setside": handleSetSide(sender, args); break;
+            case "reset": handleReset(sender, args); break;
+            case "check": handleCheck(sender, args); break;
+            case "setlevel": handleSetLevel(sender, args); break;
+            case "givexp": handleGiveXp(sender, args); break;
+            case "givepoints": handleGivePoints(sender, args); break;
+            case "giveholocron": handleGiveHolocron(sender, args); break;
+            default: sendHelpMessage(sender); break;
         }
         return true;
     }
@@ -100,7 +83,6 @@ public class ForceAdminCommand implements CommandExecutor {
         }
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(target);
 
-        // --- THE FIX: Reset all RPG data, including specialization ---
         forceUser.setSide(ForceSide.NONE);
         forceUser.getUnlockedAbilities().clear();
         forceUser.unlockAbility("FORCE_PUSH");
@@ -109,9 +91,8 @@ public class ForceAdminCommand implements CommandExecutor {
         forceUser.setForceLevel(1);
         forceUser.setForceXp(0);
         forceUser.setForcePoints(0);
-        forceUser.setSpecialization(null); // Reset the chosen path
-        forceUser.setNeedsToChoosePath(false); // Reset the choice flag
-        // --- END FIX ---
+        forceUser.setSpecialization(null);
+        forceUser.setNeedsToChoosePath(false);
 
         plugin.getHolocronManager().removeHolocron(target);
         plugin.getForceBarManager().updateBar(target);
@@ -138,8 +119,16 @@ public class ForceAdminCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.YELLOW + "Rank: " + rank);
         }
         sender.sendMessage(ChatColor.YELLOW + "Level: " + ChatColor.AQUA + forceUser.getForceLevel());
+
+        // --- THE FIX: Check for max level before formatting the string ---
         double neededXp = plugin.getLevelingManager().getXpForNextLevel(forceUser.getForceLevel());
-        sender.sendMessage(String.format(ChatColor.YELLOW + "XP: " + ChatColor.WHITE + "%.1f / %.1f", forceUser.getForceXp(), neededXp));
+        if (neededXp == Double.MAX_VALUE) {
+            sender.sendMessage(ChatColor.YELLOW + "XP: " + ChatColor.GOLD + "Max Level");
+        } else {
+            sender.sendMessage(String.format(ChatColor.YELLOW + "XP: " + ChatColor.WHITE + "%.1f / %.1f", forceUser.getForceXp(), neededXp));
+        }
+        // --- END FIX ---
+
         sender.sendMessage(ChatColor.YELLOW + "Points: " + ChatColor.GREEN + forceUser.getForcePoints());
         String activeAbilityName = "None";
         if (forceUser.getActiveAbilityId() != null) {
