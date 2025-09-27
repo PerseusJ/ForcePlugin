@@ -14,10 +14,11 @@ public class ForceUser {
     private int forcePoints;
     private final Map<String, Integer> unlockedAbilities;
     private String activeAbilityId;
+    private String specialization;
+    private boolean needsToChoosePath;
 
-    // --- NEW: Specialization Fields ---
-    private String specialization; // e.g., "GUARDIAN", "SORCERER", or null
-    private boolean needsToChoosePath; // Flag for when the choice is pending
+    // --- NEW: Field for tracking passive ability ranks ---
+    private final Map<String, Integer> passiveRanks;
 
     public ForceUser(UUID uuid) {
         this.uuid = uuid;
@@ -28,10 +29,10 @@ public class ForceUser {
         this.forcePoints = 0;
         this.unlockedAbilities = new HashMap<>();
         this.activeAbilityId = null;
-
-        // --- NEW: Initialize new fields ---
         this.specialization = null;
         this.needsToChoosePath = false;
+        // --- NEW: Initialize the map ---
+        this.passiveRanks = new HashMap<>();
     }
 
     // --- GETTERS ---
@@ -45,10 +46,12 @@ public class ForceUser {
     public boolean hasUnlockedAbility(String abilityId) { return unlockedAbilities.containsKey(abilityId); }
     public int getAbilityLevel(String abilityId) { return unlockedAbilities.getOrDefault(abilityId, 0); }
     public String getActiveAbilityId() { return activeAbilityId; }
-
-    // --- NEW: Getters for specialization ---
     public String getSpecialization() { return specialization; }
     public boolean needsToChoosePath() { return needsToChoosePath; }
+
+    // --- NEW: Getters for passives ---
+    public Map<String, Integer> getPassiveRanks() { return passiveRanks; }
+    public int getPassiveRank(String passiveId) { return passiveRanks.getOrDefault(passiveId, 0); }
 
 
     // --- SETTERS ---
@@ -70,8 +73,12 @@ public class ForceUser {
         }
     }
     public void setActiveAbilityId(String activeAbilityId) { this.activeAbilityId = activeAbilityId; }
-
-    // --- NEW: Setters for specialization ---
     public void setSpecialization(String specialization) { this.specialization = specialization; }
     public void setNeedsToChoosePath(boolean needsToChoosePath) { this.needsToChoosePath = needsToChoosePath; }
+
+    // --- NEW: Method to upgrade a passive ---
+    public void upgradePassive(String passiveId) {
+        int currentRank = getPassiveRank(passiveId);
+        passiveRanks.put(passiveId, currentRank + 1);
+    }
 }

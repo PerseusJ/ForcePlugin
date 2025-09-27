@@ -40,14 +40,11 @@ public class HolocronManager {
     }
 
     private ItemStack createHolocronItem(ForceSide side) {
-        ItemStack head = plugin.getVersionAdapter().createCustomHead(
-                (side == ForceSide.LIGHT) ? JEDI_HOLOCRON_TEXTURE : SITH_HOLOCRON_TEXTURE,
-                side
-        );
+        String textureValue = (side == ForceSide.LIGHT) ? JEDI_HOLOCRON_TEXTURE : SITH_HOLOCRON_TEXTURE;
+        ItemStack head = plugin.getVersionAdapter().createCustomHead(textureValue, side);
 
         SkullMeta meta = (SkullMeta) head.getItemMeta();
         if (meta != null) {
-            // --- THE FIX: Use Arrays.asList() instead of List.of() ---
             meta.setLore(Arrays.asList(HOLOCRON_IDENTIFIER));
             head.setItemMeta(meta);
         }

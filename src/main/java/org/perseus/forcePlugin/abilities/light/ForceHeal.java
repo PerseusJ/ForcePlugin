@@ -4,12 +4,14 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.data.PassiveAbility;
 import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 import java.util.Arrays;
@@ -18,13 +20,17 @@ import java.util.List;
 public class ForceHeal implements Ability {
     private final AbilityConfigManager configManager;
     private final ForcePlugin plugin;
-    // Corrected PotionEffectType names for 1.16
     private static final List<PotionEffectType> DEBUFFS = Arrays.asList(
             PotionEffectType.SLOW, PotionEffectType.WEAKNESS, PotionEffectType.POISON,
             PotionEffectType.WITHER, PotionEffectType.BLINDNESS, PotionEffectType.CONFUSION,
             PotionEffectType.HUNGER, PotionEffectType.LEVITATION
     );
-    public ForceHeal(AbilityConfigManager configManager, ForcePlugin plugin) { this.configManager = configManager; this.plugin = plugin; }
+
+    public ForceHeal(AbilityConfigManager configManager, ForcePlugin plugin) {
+        this.configManager = configManager;
+        this.plugin = plugin;
+    }
+
     @Override public String getID() { return "FORCE_HEAL"; }
     @Override public String getName() { return "Force Heal"; }
     @Override public String getDescription() { return "Restores health and cleanses negative effects."; }
@@ -41,11 +47,25 @@ public class ForceHeal implements Ability {
 
         double newHealth = Math.min(player.getHealth() + healAmount, player.getMaxHealth());
         player.setHealth(newHealth);
+
         for (PotionEffectType debuffType : DEBUFFS) {
             if (player.hasPotionEffect(debuffType)) {
                 player.removePotionEffect(debuffType);
             }
         }
+
+        // Benevolence Passive (Jedi Consular)
+        if (forceUser.getSpecialization() != null && forceUser.getSpecialization().equals("CONSULAR")) {
+            int rank = forceUser.getPassiveRank("BENEVOLENCE");
+            if (rank > 0) {
+                PassiveAbility passive = findPassive(forceUser.getSpecialization(), "BENEVOLENCE");
+                if (passive != null) {
+                    int duration = (int) (passive.getValue(rank) * 20);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, 0));
+                }
+            }
+        }
+
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.5f);
 
         new BukkitRunnable() {
@@ -59,12 +79,17 @@ public class ForceHeal implements Ability {
                     double angle = Math.random() * 2 * Math.PI;
                     double x = center.getX() + radius * Math.cos(angle);
                     double z = center.getZ() + radius * Math.sin(angle);
-                    // The particle for happy villagers in 1.16 is VILLAGER_HAPPY
                     player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, new Location(player.getWorld(), x, center.getY(), z), 1, 0, 0, 0, 0);
                 }
                 radius += 0.1;
                 yOffset += 0.1;
             }
         }.runTaskTimer(plugin, 0L, 1L);
+    }
+
+    private PassiveAbility findPassive(String specId, String passiveId) {
+        return plugin.getPassiveManager().getPassivesForSpec(specId).stream()
+                .filter(p -> p.getId().equals(passiveId))
+                .findFirst().orElse(null);
     }
 }

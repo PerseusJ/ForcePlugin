@@ -19,7 +19,6 @@ import java.util.UUID;
 public class UltimateAbilityListener implements Listener {
 
     private final ForcePlugin plugin;
-    // --- THE FIX: Define the list of ultimate IDs here ---
     public static final List<String> ULTIMATE_ABILITY_IDS = Arrays.asList(
             "FORCE_ABSORB", "FORCE_CAMOUFLAGE", "FORCE_SERENITY",
             "UNSTOPPABLE_VENGEANCE", "MARK_OF_THE_HUNT", "CHAIN_LIGHTNING"
@@ -36,7 +35,9 @@ public class UltimateAbilityListener implements Listener {
 
     // --- Force Absorb Logic ---
     public static void addAbsorbingPlayer(UUID uuid) { absorbingPlayers.put(uuid, 0.0); }
-    public static double removeAbsorbingPlayer(UUID uuid) { return absorbingPlayers.remove(uuid); }
+    public static double removeAbsorbingPlayer(UUID uuid) {
+        return absorbingPlayers.remove(uuid) != null ? absorbingPlayers.getOrDefault(uuid, 0.0) : 0.0;
+    }
 
     @EventHandler
     public void onPlayerAbsorbDamage(EntityDamageEvent event) {
@@ -87,6 +88,12 @@ public class UltimateAbilityListener implements Listener {
 
     // --- Mark of the Hunt Logic ---
     public static void addMarkedEntity(UUID uuid) { markedEntities.add(uuid); }
+
+    // --- THE FIX: The missing helper method ---
+    public static boolean isMarked(UUID uuid) {
+        return markedEntities.contains(uuid);
+    }
+    // --- END FIX ---
 
     @EventHandler
     public void onMarkedDamage(EntityDamageByEntityEvent event) {

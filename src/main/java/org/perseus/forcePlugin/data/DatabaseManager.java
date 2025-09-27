@@ -56,7 +56,6 @@ public class DatabaseManager {
     }
 
     private void initializeDatabase() {
-        // --- MODIFIED: Add new columns to the table ---
         String sql = "CREATE TABLE IF NOT EXISTS force_users ("
                 + "uuid TEXT PRIMARY KEY NOT NULL,"
                 + "side TEXT NOT NULL,"
@@ -65,25 +64,25 @@ public class DatabaseManager {
                 + "force_xp REAL NOT NULL,"
                 + "force_points INTEGER NOT NULL,"
                 + "unlocked_abilities TEXT NOT NULL,"
-                + "specialization TEXT," // New column
-                + "needs_choice INTEGER NOT NULL DEFAULT 0" // New column (using 0 for false, 1 for true)
+                + "specialization TEXT,"
+                + "needs_choice INTEGER NOT NULL DEFAULT 0,"
+                + "passive_ranks TEXT" // --- NEW ---
                 + ");";
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
-            // --- NEW: Handle adding columns to an existing database ---
             addColumnIfNotExists("specialization", "TEXT");
             addColumnIfNotExists("needs_choice", "INTEGER NOT NULL DEFAULT 0");
+            addColumnIfNotExists("passive_ranks", "TEXT"); // --- NEW ---
         } catch (SQLException e) {
             plugin.getLogger().log(Level.SEVERE, "Could not create or update database table!", e);
         }
     }
 
-    // --- NEW: Helper method to safely add columns to an existing table ---
     private void addColumnIfNotExists(String columnName, String columnType) {
         try {
             DatabaseMetaData md = connection.getMetaData();
             ResultSet rs = md.getColumns(null, null, "force_users", columnName);
-            if (!rs.next()) { // If the column does not exist
+            if (!rs.next()) {
                 try (Statement stmt = connection.createStatement()) {
                     stmt.execute("ALTER TABLE force_users ADD COLUMN " + columnName + " " + columnType + ";");
                     plugin.getLogger().info("Added new database column: " + columnName);
@@ -110,15 +109,23 @@ public class DatabaseManager {
                 forceUser.setForceXp(rs.getDouble("force_xp"));
                 forceUser.setForcePoints(rs.getInt("force_points"));
 
-                String json = rs.getString("unlocked_abilities");
-                Map<String, Integer> unlocked = gson.fromJson(json, new TypeToken<Map<String, Integer>>(){}.getType());
+                String unlockedJson = rs.getString("unlocked_abilities");
+                Map<String, Integer> unlocked = gson.fromJson(unlockedJson, new TypeToken<Map<String, Integer>>(){}.getType());
                 if (unlocked != null) {
                     forceUser.getUnlockedAbilities().putAll(unlocked);
                 }
 
-                // --- NEW: Load specialization data ---
                 forceUser.setSpecialization(rs.getString("specialization"));
                 forceUser.setNeedsToChoosePath(rs.getInt("needs_choice") == 1);
+
+                // --- NEW: Load passive ranks ---
+                String passivesJson = rs.getString("passive_ranks");
+                if (passivesJson != null) {
+                    Map<String, Integer> passives = gson.fromJson(passivesJson, new TypeToken<Map<String, Integer>>(){}.getType());
+                    if (passives != null) {
+                        forceUser.getPassiveRanks().putAll(passives);
+                    }
+                }
             }
         } catch (SQLException e) {
             plugin.getLogger().log(Level.SEVERE, "Could not load player data for " + uuid, e);
@@ -128,9 +135,8 @@ public class DatabaseManager {
 
     public synchronized void savePlayerData(ForceUser forceUser) {
         connect();
-        // --- MODIFIED: Add new columns to the query ---
-        String sql = "INSERT OR REPLACE INTO force_users (uuid, side, active_ability, force_level, force_xp, force_points, unlocked_abilities, specialization, needs_choice) "
-                + "VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT OR REPLACE INTO force_users (uuid, side, active_ability, force_level, force_xp, force_points, unlocked_abilities, specialization, needs_choice, passive_ranks) "
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, forceUser.getUuid().toString());
@@ -140,9 +146,10 @@ public class DatabaseManager {
             pstmt.setDouble(5, forceUser.getForceXp());
             pstmt.setInt(6, forceUser.getForcePoints());
             pstmt.setString(7, gson.toJson(forceUser.getUnlockedAbilities()));
-            // --- NEW: Save specialization data ---
             pstmt.setString(8, forceUser.getSpecialization());
-            pstmt.setInt(9, forceUser.needsToChoosePath() ? 1 : 0); // Convert boolean to integer
+            pstmt.setInt(9, forceUser.needsToChoosePath() ? 1 : 0);
+            // --- NEW: Save passive ranks ---
+            pstmt.setString(10, gson.toJson(forceUser.getPassiveRanks()));
             pstmt.executeUpdate();
         } catch (SQLException e) {
             plugin.getLogger().log(Level.SEVERE, "Could not save player data for " + forceUser.getUuid(), e);

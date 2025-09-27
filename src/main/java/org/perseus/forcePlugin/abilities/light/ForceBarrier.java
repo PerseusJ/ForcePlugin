@@ -3,6 +3,7 @@ package org.perseus.forcePlugin.abilities.light;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -11,6 +12,7 @@ import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.data.PassiveAbility;
 import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 public class ForceBarrier implements Ability {
@@ -33,6 +35,32 @@ public class ForceBarrier implements Ability {
         player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, duration, amplifier));
         player.getWorld().playSound(player.getLocation(), Sound.ITEM_SHIELD_BLOCK, 1.0f, 1.2f);
 
+        // --- NEW: Protective Spirit Passive (Jedi Guardian) ---
+        if (forceUser.getSpecialization() != null && forceUser.getSpecialization().equals("GUARDIAN")) {
+            int rank = forceUser.getPassiveRank("PROTECTIVE_SPIRIT");
+            if (rank > 0) {
+                PassiveAbility passive = findPassive(forceUser.getSpecialization(), "PROTECTIVE_SPIRIT");
+                if (passive != null) {
+                    double allyShieldMultiplier = passive.getValue(rank);
+                    int allyAmplifier = (int) Math.floor(amplifier * allyShieldMultiplier);
+                    if (allyAmplifier >= 0) {
+                        for (Entity entity : player.getNearbyEntities(10, 10, 10)) {
+                            // Check for other players who are also Light Side
+                            if (entity instanceof Player && !entity.equals(player)) {
+                                Player ally = (Player) entity;
+                                ForceUser allyUser = plugin.getForceUserManager().getForceUser(ally);
+                                if (allyUser != null && allyUser.getSide() == ForceSide.LIGHT) {
+                                    ally.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, duration, allyAmplifier));
+                                    ally.getWorld().spawnParticle(Particle.END_ROD, ally.getLocation().add(0, 1, 0), 15, 0.4, 0.4, 0.4, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // --- END NEW ---
+
         new BukkitRunnable() {
             int ticks = 0;
             double radius = 1.0;
@@ -49,5 +77,11 @@ public class ForceBarrier implements Ability {
                 ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
+    }
+
+    private PassiveAbility findPassive(String specId, String passiveId) {
+        return plugin.getPassiveManager().getPassivesForSpec(specId).stream()
+                .filter(p -> p.getId().equals(passiveId))
+                .findFirst().orElse(null);
     }
 }
