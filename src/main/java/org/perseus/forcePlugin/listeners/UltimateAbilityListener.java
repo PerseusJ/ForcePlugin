@@ -33,11 +33,8 @@ public class UltimateAbilityListener implements Listener {
         this.plugin = plugin;
     }
 
-    // --- Force Absorb Logic ---
     public static void addAbsorbingPlayer(UUID uuid) { absorbingPlayers.put(uuid, 0.0); }
-    public static double removeAbsorbingPlayer(UUID uuid) {
-        return absorbingPlayers.remove(uuid) != null ? absorbingPlayers.getOrDefault(uuid, 0.0) : 0.0;
-    }
+    public static double removeAbsorbingPlayer(UUID uuid) { return absorbingPlayers.remove(uuid); }
 
     @EventHandler
     public void onPlayerAbsorbDamage(EntityDamageEvent event) {
@@ -49,7 +46,6 @@ public class UltimateAbilityListener implements Listener {
         }
     }
 
-    // --- Force Camouflage Logic ---
     public static void addCamouflagedPlayer(UUID uuid) { camouflagedPlayers.add(uuid); }
 
     @EventHandler
@@ -64,7 +60,6 @@ public class UltimateAbilityListener implements Listener {
         }
     }
 
-    // --- Unstoppable Vengeance Logic ---
     public static void addVengefulPlayer(UUID uuid) { vengefulPlayers.put(uuid, 1.0); }
     public static void removeVengefulPlayer(UUID uuid) { vengefulPlayers.remove(uuid); }
 
@@ -86,14 +81,7 @@ public class UltimateAbilityListener implements Listener {
         }
     }
 
-    // --- Mark of the Hunt Logic ---
     public static void addMarkedEntity(UUID uuid) { markedEntities.add(uuid); }
-
-    // --- THE FIX: The missing helper method ---
-    public static boolean isMarked(UUID uuid) {
-        return markedEntities.contains(uuid);
-    }
-    // --- END FIX ---
 
     @EventHandler
     public void onMarkedDamage(EntityDamageByEntityEvent event) {

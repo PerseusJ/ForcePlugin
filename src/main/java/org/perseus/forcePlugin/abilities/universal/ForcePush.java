@@ -33,7 +33,6 @@ public class ForcePush implements Ability {
         int nauseaAmplifier = configManager.getIntValue(getID(), level, "nausea-amplifier", 1) - 1;
 
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GHAST_SHOOT, 0.7f, 1.5f);
-        // The particle EXPLOSION does not exist in 1.16, use EXPLOSION_NORMAL
         player.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, player.getLocation().add(0, 1, 0).add(player.getLocation().getDirection()), 5, 0.5, 0.5, 0.5, 0.0);
 
         for (Entity entity : player.getNearbyEntities(range, range, range)) {
@@ -44,7 +43,6 @@ public class ForcePush implements Ability {
                 Vector knockback = player.getLocation().getDirection().multiply(strength).setY(upwardForce);
                 entity.setVelocity(knockback);
                 if (entity instanceof LivingEntity && nauseaDuration > 0) {
-                    // The correct name for Nausea in 1.16 is CONFUSION
                     ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, nauseaDuration, nauseaAmplifier));
                 }
             }

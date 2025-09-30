@@ -90,7 +90,6 @@ public class ForcePlaceholders extends PlaceholderExpansion {
                 + ChatColor.GRAY + "" + repeat("|", progressBars - barsToShow);
     }
 
-    // Helper method to replace String.repeat() for Java 8 compatibility
     private String repeat(String str, int times) {
         if (times <= 0) return "";
         StringBuilder sb = new StringBuilder(str.length() * times);

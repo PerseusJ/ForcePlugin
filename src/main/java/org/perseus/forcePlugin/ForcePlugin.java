@@ -14,7 +14,6 @@ import org.perseus.forcePlugin.managers.*;
 import org.perseus.forcePlugin.versioning.Adapter_1_16;
 import org.perseus.forcePlugin.versioning.Adapter_1_21;
 import org.perseus.forcePlugin.versioning.VersionAdapter;
-import org.perseus.forcePlugin.listeners.PassiveEffectsListener; // New import
 
 import java.io.File;
 
@@ -32,9 +31,7 @@ public class ForcePlugin extends JavaPlugin {
     private HolocronManager holocronManager;
     private DatabaseManager databaseManager;
     private RankManager rankManager;
-    private PassiveManager passiveManager;
     private VersionAdapter versionAdapter;
-    private PassiveEffectsListener passiveEffectsListener; // New
 
     @Override
     public void onEnable() {
@@ -46,7 +43,6 @@ public class ForcePlugin extends JavaPlugin {
 
         saveDefaultConfig();
         saveResource("ranks.yml", false);
-        saveResource("passives.yml", false);
 
         // Initialize managers
         this.databaseManager = new DatabaseManager(this);
@@ -57,29 +53,33 @@ public class ForcePlugin extends JavaPlugin {
         this.levelingManager = new LevelingManager(this);
         this.holocronManager = new HolocronManager(this);
         this.abilityManager = new AbilityManager(this, abilityConfigManager, telekinesisManager);
-        this.cooldownManager = new CooldownManager(this); // Modified
+        this.cooldownManager = new CooldownManager();
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
         this.rankManager = new RankManager(this);
-        this.passiveManager = new PassiveManager(this);
-        this.passiveEffectsListener = new PassiveEffectsListener(this);
-        this.guiManager = new GUIManager(abilityManager, forceUserManager, abilityConfigManager, rankManager, passiveManager);
+        this.guiManager = new GUIManager(abilityManager, forceUserManager, abilityConfigManager, rankManager);
         this.ambientEffectsManager = new AmbientEffectsManager(this);
 
         // Register listeners
         getServer().getPluginManager().registerEvents(new PlayerConnectionListener(this), this);
         getServer().getPluginManager().registerEvents(new AbilityListener(this), this);
-        // --- MODIFIED: Pass the listener instance to the GUIListener constructor ---
-        getServer().getPluginManager().registerEvents(new GUIListener(this, passiveEffectsListener), this);
+        getServer().getPluginManager().registerEvents(new GUIListener(this), this);
         getServer().getPluginManager().registerEvents(new ProjectileDeflectionListener(), this);
         getServer().getPluginManager().registerEvents(new ExperienceListener(levelingManager), this);
         getServer().getPluginManager().registerEvents(new HolocronListener(this), this);
         getServer().getPluginManager().registerEvents(new UltimateAbilityListener(this), this);
-        getServer().getPluginManager().registerEvents(this.passiveEffectsListener, this); // Register the new listener
 
         // Register commands
         getCommand("force").setExecutor(new ForceCommand(this));
         getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
         getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
+
+        // Hook into PlaceholderAPI
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new ForcePlaceholders(this).register();
+            getLogger().info("Successfully hooked into PlaceholderAPI!");
+        } else {
+            getLogger().warning("PlaceholderAPI not found. Placeholders will not work.");
+        }
 
         // Handle online players on startup/reload
         for (Player player : getServer().getOnlinePlayers()) {
@@ -104,14 +104,12 @@ public class ForcePlugin extends JavaPlugin {
     public void reloadPluginConfig() {
         reloadConfig();
         saveResource("ranks.yml", true);
-        saveResource("passives.yml", true);
         this.abilityConfigManager = new AbilityConfigManager(this);
         this.abilityManager.reload(this, this.abilityConfigManager, this.telekinesisManager);
         this.forceBarManager.reloadConfig();
         this.levelingManager.loadConfigValues();
         this.rankManager.loadRanks();
-        this.passiveManager.loadPassives();
-        this.guiManager = new GUIManager(this.abilityManager, this.forceUserManager, this.abilityConfigManager, this.rankManager, this.passiveManager);
+        this.guiManager = new GUIManager(this.abilityManager, this.forceUserManager, this.abilityConfigManager, this.rankManager);
     }
 
     private boolean setupVersionAdapter() {
@@ -141,6 +139,5 @@ public class ForcePlugin extends JavaPlugin {
     public HolocronManager getHolocronManager() { return holocronManager; }
     public DatabaseManager getDatabaseManager() { return databaseManager; }
     public RankManager getRankManager() { return rankManager; }
-    public PassiveManager getPassiveManager() { return passiveManager; }
     public VersionAdapter getVersionAdapter() { return versionAdapter; }
 }

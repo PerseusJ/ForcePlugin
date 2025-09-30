@@ -1,7 +1,6 @@
 package org.perseus.forcePlugin.abilities.light;
 
 import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -59,7 +58,7 @@ public class ForceAbsorb implements Ability {
                 for (double angle = 0; angle < 2 * Math.PI; angle += Math.PI / 8) {
                     double x = center.getX() + 1.5 * Math.cos(angle + ticks);
                     double z = center.getZ() + 1.5 * Math.sin(angle + ticks);
-                    player.getWorld().spawnParticle(Particle.END_ROD, new Location(player.getWorld(), x, center.getY() + 1, z), 1, 0, 0, 0, 0);
+                    player.getWorld().spawnParticle(org.bukkit.Particle.END_ROD, new Location(player.getWorld(), x, center.getY() + 1, z), 1, 0, 0, 0, 0);
                 }
                 ticks++;
             }

@@ -12,10 +12,15 @@ import org.perseus.forcePlugin.data.ForceSide;
 
 import java.util.UUID;
 
+// This annotation tells the compiler to ignore warnings about using APIs that
+// don't exist in our compile-time version (1.16.5), because we know
+// this class will only ever be loaded on a 1.17+ server.
 @SuppressWarnings("deprecation")
 public class Adapter_1_21 implements VersionAdapter {
+
     private Particle sonicBoomParticle;
     private Particle explosionEmitterParticle;
+
     public Adapter_1_21() {
         try {
             sonicBoomParticle = Particle.valueOf("SONIC_BOOM");
@@ -28,21 +33,26 @@ public class Adapter_1_21 implements VersionAdapter {
             explosionEmitterParticle = Particle.EXPLOSION_HUGE;
         }
     }
+
     @Override
     public ItemStack createCustomHead(String textureValue, ForceSide side) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) head.getItemMeta();
+
         PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID());
         ProfileProperty property = new ProfileProperty("textures", textureValue);
         profile.setProperty(property);
         meta.setPlayerProfile(profile);
+
         head.setItemMeta(meta);
         return head;
     }
+
     @Override
     public void playSonicBoom(Location location) {
         location.getWorld().spawnParticle(sonicBoomParticle, location, 1);
     }
+
     @Override
     public void playExplosionEmitter(Location location) {
         location.getWorld().spawnParticle(explosionEmitterParticle, location, 1);

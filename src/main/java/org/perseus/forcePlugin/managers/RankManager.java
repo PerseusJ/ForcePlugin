@@ -76,7 +76,6 @@ public class RankManager {
     public String getRank(ForceUser forceUser) {
         if (forceUser.getSide() == ForceSide.NONE) return "";
 
-        // If player has a specialization, that is their rank.
         if (forceUser.getSpecialization() != null) {
             return specializations.get(forceUser.getSide()).stream()
                     .filter(spec -> spec.getId().equals(forceUser.getSpecialization()))
@@ -85,7 +84,6 @@ public class RankManager {
                     .orElse("");
         }
 
-        // Otherwise, find their highest linear rank.
         List<Rank> sideRanks = linearRanks.get(forceUser.getSide());
         if (sideRanks == null) return "";
         for (Rank rank : sideRanks) {

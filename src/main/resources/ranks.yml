@@ -3,7 +3,6 @@
 # ------------------------------------------------- #
 
 # --- Linear Ranks ---
-# The plugin will check from top to bottom and give the player the highest rank they qualify for.
 ranks:
   LIGHT:
     - level-required: 1
@@ -17,10 +16,6 @@ ranks:
       display-name: "&cSith Apprentice"
 
 # --- Specialization Paths ---
-# These are the final paths a player can choose at level 31.
-# The 'id' must be a simple, one-word uppercase string.
-# The 'display-name' is what players will see.
-# The 'description' is shown in the choice GUI.
 specializations:
   LIGHT:
     - id: "GUARDIAN"

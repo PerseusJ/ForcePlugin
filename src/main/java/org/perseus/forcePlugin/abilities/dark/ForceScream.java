@@ -39,7 +39,8 @@ public class ForceScream implements Ability {
             if (entity instanceof LivingEntity && !entity.equals(player)) {
                 LivingEntity target = (LivingEntity) entity;
                 target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, duration, weaknessAmp));
-                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration, slownessAmp)); // SLOW is the correct name for 1.16
+                // SLOWNESS is not in 1.16, use SLOW
+                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration, slownessAmp));
             }
         }
 

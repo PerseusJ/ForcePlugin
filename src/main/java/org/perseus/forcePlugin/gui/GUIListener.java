@@ -11,18 +11,14 @@ import org.bukkit.inventory.ItemStack;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceUser;
-import org.perseus.forcePlugin.data.PassiveAbility;
 import org.perseus.forcePlugin.data.Rank;
-import org.perseus.forcePlugin.listeners.PassiveEffectsListener; // Import the new listener
 
 public class GUIListener implements Listener {
 
     private final ForcePlugin plugin;
-    private final PassiveEffectsListener passiveEffectsListener; // Store an instance
 
-    public GUIListener(ForcePlugin plugin, PassiveEffectsListener passiveEffectsListener) {
+    public GUIListener(ForcePlugin plugin) {
         this.plugin = plugin;
-        this.passiveEffectsListener = passiveEffectsListener;
     }
 
     @EventHandler
@@ -36,8 +32,6 @@ public class GUIListener implements Listener {
             handleUpgradeMenu(event, player);
         } else if (viewTitle.equals(GUIManager.SPECIALIZATION_GUI_TITLE)) {
             handleSpecializationChoice(event, player);
-        } else if (viewTitle.startsWith(GUIManager.PASSIVE_GUI_TITLE_PREFIX)) {
-            handlePassiveTree(event, player);
         }
     }
 
@@ -48,12 +42,6 @@ public class GUIListener implements Listener {
 
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
         if (forceUser == null) return;
-
-        // Handle Passive Tree button
-        if (clickedItem.getType() == Material.NETHER_STAR && ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName()).equals("View Passive Tree")) {
-            plugin.getGuiManager().openPassiveGUI(player);
-            return;
-        }
 
         String itemName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName()).split(" - ")[0];
         Ability clickedAbility = findAbilityByName(forceUser, itemName);
@@ -137,53 +125,6 @@ public class GUIListener implements Listener {
                 player.closeInventory();
                 player.sendMessage(ChatColor.GOLD + "You have chosen the path of the " + spec.getDisplayName() + ChatColor.GOLD + "!");
                 player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f);
-                return;
-            }
-        }
-    }
-
-    private void handlePassiveTree(InventoryClickEvent event, Player player) {
-        event.setCancelled(true);
-        ItemStack clickedItem = event.getCurrentItem();
-        if (clickedItem == null || !clickedItem.hasItemMeta() || clickedItem.getType() == Material.BLACK_STAINED_GLASS_PANE) return;
-
-        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
-        if (forceUser == null || forceUser.getSpecialization() == null) return;
-
-        if (clickedItem.getType() == Material.BARRIER) {
-            plugin.getGuiManager().openAbilityGUI(player);
-            return;
-        }
-
-        String passiveName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName()).split(" \\[")[0];
-        for (PassiveAbility passive : plugin.getPassiveManager().getPassivesForSpec(forceUser.getSpecialization())) {
-            if (ChatColor.stripColor(passive.getDisplayName()).equals(passiveName)) {
-                int currentRank = forceUser.getPassiveRank(passive.getId());
-                int maxRank = passive.getMaxRank();
-                int pointsSpent = forceUser.getPassiveRanks().values().stream().mapToInt(Integer::intValue).sum();
-                int requiredPoints = (passive.getTier() - 1) * 5;
-
-                if (currentRank >= maxRank) {
-                    player.sendMessage(ChatColor.AQUA + "This passive is already at its maximum rank.");
-                    return;
-                }
-                if (pointsSpent < requiredPoints) {
-                    player.sendMessage(ChatColor.RED + "You have not spent enough points in this tree to unlock this tier.");
-                    return;
-                }
-                if (forceUser.getForcePoints() > 0) {
-                    forceUser.addForcePoints(-1);
-                    forceUser.upgradePassive(passive.getId());
-                    player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.5f);
-
-                    // --- NEW: Immediately apply permanent passive effects after upgrading ---
-                    passiveEffectsListener.applyPermanentPassives(player);
-
-                    plugin.getGuiManager().openPassiveGUI(player);
-                } else {
-                    player.sendMessage(ChatColor.RED + "You do not have enough Force Points.");
-                    player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
-                }
                 return;
             }
         }

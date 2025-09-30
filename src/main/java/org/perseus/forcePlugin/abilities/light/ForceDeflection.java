@@ -10,7 +10,6 @@ import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
-import org.perseus.forcePlugin.data.PassiveAbility;
 import org.perseus.forcePlugin.listeners.ProjectileDeflectionListener;
 import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
@@ -29,18 +28,6 @@ public class ForceDeflection implements Ability {
     public void execute(Player player, ForceUser forceUser) {
         int level = forceUser.getAbilityLevel(getID());
         double durationSeconds = configManager.getDoubleValue(getID(), level, "duration-seconds", 1.5);
-
-        // Master of Soresu Passive (Jedi Guardian)
-        if (forceUser.getSpecialization() != null && forceUser.getSpecialization().equals("GUARDIAN")) {
-            int rank = forceUser.getPassiveRank("MASTER_OF_SORESU");
-            if (rank > 0) {
-                PassiveAbility passive = findPassive(forceUser.getSpecialization(), "MASTER_OF_SORESU");
-                if (passive != null) {
-                    durationSeconds += passive.getValue(rank);
-                }
-            }
-        }
-
         int durationTicks = (int) (durationSeconds * 20);
 
         ProjectileDeflectionListener.addDeflectingPlayer(player.getUniqueId());
@@ -66,11 +53,5 @@ public class ForceDeflection implements Ability {
                 ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
-    }
-
-    private PassiveAbility findPassive(String specId, String passiveId) {
-        return plugin.getPassiveManager().getPassivesForSpec(specId).stream()
-                .filter(p -> p.getId().equals(passiveId))
-                .findFirst().orElse(null);
     }
 }

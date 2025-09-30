@@ -1,6 +1,5 @@
 package org.perseus.forcePlugin.abilities.light;
 
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -42,7 +41,7 @@ public class ForceJudgment implements Ability {
             damage *= configManager.getDoubleValue(getID(), level, "bonus-damage-multiplier-undead", 1.5);
         }
 
-        ParticleUtil.drawZigZagBeam(player, target, Particle.END_ROD, 4.0, 0.3, null);
+        ParticleUtil.drawZigZagBeam(player.getEyeLocation(), target.getEyeLocation(), org.bukkit.Particle.END_ROD, 4.0, 0.3, null);
         target.damage(damage, player);
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1.0f, 1.5f);
     }

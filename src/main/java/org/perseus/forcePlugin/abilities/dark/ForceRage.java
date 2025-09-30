@@ -33,7 +33,6 @@ public class ForceRage implements Ability {
         int strengthAmp = configManager.getIntValue(getID(), level, "strength-amplifier", 2) - 1;
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, speedAmp));
-        // The correct name for Strength in 1.16 is INCREASE_DAMAGE
         player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, duration, strengthAmp));
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1.0f, 1.3f);
 
@@ -52,9 +51,7 @@ public class ForceRage implements Ability {
                 double z2 = playerLoc.getZ() + radius * Math.sin(angle + Math.PI);
                 Location particleLoc2 = new Location(player.getWorld(), x2, playerLoc.getY() + (20 - (ticks % 20)) / 10.0, z2);
                 Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(50, 0, 0), 1.0F);
-                // The correct name for colored dust in 1.16 is REDSTONE
                 player.getWorld().spawnParticle(Particle.REDSTONE, particleLoc1, 1, 0, 0, 0, 0, dustOptions);
-                // The correct name for smoke in 1.16 is SMOKE_LARGE
                 player.getWorld().spawnParticle(Particle.SMOKE_LARGE, particleLoc2, 1, 0, 0, 0, 0);
                 angle += Math.PI / 6;
                 ticks++;

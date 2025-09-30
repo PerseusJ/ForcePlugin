@@ -42,7 +42,7 @@ public class ChainLightning implements Ability {
         hitTargets.add(currentTarget);
 
         Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(100, 150, 255), 1.0F);
-        ParticleUtil.drawZigZagBeam(player, currentTarget, Particle.REDSTONE, 4.0, 0.3, dustOptions);
+        ParticleUtil.drawZigZagBeam(player.getEyeLocation(), currentTarget.getEyeLocation(), Particle.REDSTONE, 4.0, 0.3, dustOptions);
         currentTarget.damage(initialDamage, player);
         player.getWorld().playSound(currentTarget.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 0.5f, 1.8f);
 

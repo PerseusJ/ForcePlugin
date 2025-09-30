@@ -32,7 +32,7 @@ public class UnstoppableVengeance implements Ability {
         int duration = configManager.getIntValue(getID(), level, "duration-seconds", 8) * 20;
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, 0));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, duration, 1)); // DAMAGE_RESISTANCE is the correct name for 1.16
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, duration, 1));
         UltimateAbilityListener.addVengefulPlayer(player.getUniqueId());
 
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.2f);

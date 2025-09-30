@@ -15,7 +15,6 @@ import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
-import org.perseus.forcePlugin.data.PassiveAbility;
 import org.perseus.forcePlugin.managers.AbilityConfigManager;
 
 public class ForceDrain implements Ability {
@@ -48,19 +47,6 @@ public class ForceDrain implements Ability {
         target.damage(drainAmount, player);
         double newHealth = Math.min(player.getHealth() + drainAmount, player.getMaxHealth());
         player.setHealth(newHealth);
-
-        // Essence Transfer Passive (Sith Sorcerer)
-        if (forceUser.getSpecialization() != null && forceUser.getSpecialization().equals("SORCERER")) {
-            int rank = forceUser.getPassiveRank("ESSENCE_TRANSFER");
-            if (rank > 0) {
-                PassiveAbility passive = findPassive(forceUser.getSpecialization(), "ESSENCE_TRANSFER");
-                if (passive != null) {
-                    double energyToRestore = passive.getValue(rank);
-                    forceUser.setCurrentForceEnergy(forceUser.getCurrentForceEnergy() + energyToRestore);
-                }
-            }
-        }
-
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 1.0f, 1.5f);
         player.getWorld().spawnParticle(Particle.HEART, player.getLocation().add(0, 1, 0), 5, 0.5, 0.5, 0.5);
 
@@ -79,11 +65,5 @@ public class ForceDrain implements Ability {
                 traveled += 0.5;
             }
         }.runTaskTimer(plugin, 0L, 1L);
-    }
-
-    private PassiveAbility findPassive(String specId, String passiveId) {
-        return plugin.getPassiveManager().getPassivesForSpec(specId).stream()
-                .filter(p -> p.getId().equals(passiveId))
-                .findFirst().orElse(null);
     }
 }

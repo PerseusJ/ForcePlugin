@@ -52,7 +52,7 @@ public class ForceChoke implements Ability {
                 double angle = ticks * Math.PI / 4;
                 double x = radius * Math.cos(angle);
                 double z = radius * Math.sin(angle);
-                // SMOKE_NORMAL is not in 1.16, use SMOKE_LARGE as a fallback
+                // SMOKE_NORMAL is not in 1.16, use SMOKE_LARGE
                 target.getWorld().spawnParticle(Particle.SMOKE_LARGE, particleLoc.clone().add(x, 0, z), 1, 0, 0, 0, 0);
                 target.getWorld().spawnParticle(Particle.SQUID_INK, particleLoc.clone().add(-x, 0, -z), 1, 0, 0, 0, 0);
                 ticks++;

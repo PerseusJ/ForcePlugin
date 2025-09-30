@@ -82,7 +82,6 @@ public class ForceAdminCommand implements CommandExecutor {
             return;
         }
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(target);
-
         forceUser.setSide(ForceSide.NONE);
         forceUser.getUnlockedAbilities().clear();
         forceUser.unlockAbility("FORCE_PUSH");
@@ -93,7 +92,6 @@ public class ForceAdminCommand implements CommandExecutor {
         forceUser.setForcePoints(0);
         forceUser.setSpecialization(null);
         forceUser.setNeedsToChoosePath(false);
-
         plugin.getHolocronManager().removeHolocron(target);
         plugin.getForceBarManager().updateBar(target);
         plugin.getLevelingManager().updateXpBar(target);
@@ -119,16 +117,8 @@ public class ForceAdminCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.YELLOW + "Rank: " + rank);
         }
         sender.sendMessage(ChatColor.YELLOW + "Level: " + ChatColor.AQUA + forceUser.getForceLevel());
-
-        // --- THE FIX: Check for max level before formatting the string ---
         double neededXp = plugin.getLevelingManager().getXpForNextLevel(forceUser.getForceLevel());
-        if (neededXp == Double.MAX_VALUE) {
-            sender.sendMessage(ChatColor.YELLOW + "XP: " + ChatColor.GOLD + "Max Level");
-        } else {
-            sender.sendMessage(String.format(ChatColor.YELLOW + "XP: " + ChatColor.WHITE + "%.1f / %.1f", forceUser.getForceXp(), neededXp));
-        }
-        // --- END FIX ---
-
+        sender.sendMessage(String.format(ChatColor.YELLOW + "XP: " + ChatColor.WHITE + "%.1f / %.1f", forceUser.getForceXp(), neededXp));
         sender.sendMessage(ChatColor.YELLOW + "Points: " + ChatColor.GREEN + forceUser.getForcePoints());
         String activeAbilityName = "None";
         if (forceUser.getActiveAbilityId() != null) {

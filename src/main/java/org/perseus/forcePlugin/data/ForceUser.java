@@ -17,9 +17,6 @@ public class ForceUser {
     private String specialization;
     private boolean needsToChoosePath;
 
-    // --- NEW: Field for tracking passive ability ranks ---
-    private final Map<String, Integer> passiveRanks;
-
     public ForceUser(UUID uuid) {
         this.uuid = uuid;
         this.side = ForceSide.NONE;
@@ -31,8 +28,6 @@ public class ForceUser {
         this.activeAbilityId = null;
         this.specialization = null;
         this.needsToChoosePath = false;
-        // --- NEW: Initialize the map ---
-        this.passiveRanks = new HashMap<>();
     }
 
     // --- GETTERS ---
@@ -48,11 +43,6 @@ public class ForceUser {
     public String getActiveAbilityId() { return activeAbilityId; }
     public String getSpecialization() { return specialization; }
     public boolean needsToChoosePath() { return needsToChoosePath; }
-
-    // --- NEW: Getters for passives ---
-    public Map<String, Integer> getPassiveRanks() { return passiveRanks; }
-    public int getPassiveRank(String passiveId) { return passiveRanks.getOrDefault(passiveId, 0); }
-
 
     // --- SETTERS ---
     public void setSide(ForceSide side) { this.side = side; }
@@ -75,10 +65,4 @@ public class ForceUser {
     public void setActiveAbilityId(String activeAbilityId) { this.activeAbilityId = activeAbilityId; }
     public void setSpecialization(String specialization) { this.specialization = specialization; }
     public void setNeedsToChoosePath(boolean needsToChoosePath) { this.needsToChoosePath = needsToChoosePath; }
-
-    // --- NEW: Method to upgrade a passive ---
-    public void upgradePassive(String passiveId) {
-        int currentRank = getPassiveRank(passiveId);
-        passiveRanks.put(passiveId, currentRank + 1);
-    }
 }

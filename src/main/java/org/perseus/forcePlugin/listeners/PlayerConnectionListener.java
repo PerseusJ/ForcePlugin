@@ -22,9 +22,8 @@ public class PlayerConnectionListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         ForceUserManager userManager = plugin.getForceUserManager();
-        ForceBarManager barManager = plugin.getForceBarManager();
 
-        // Load data asynchronously
+        // Load data asynchronously. The callback will handle bar creation.
         userManager.loadPlayerData(player);
     }
 

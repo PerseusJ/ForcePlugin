@@ -8,15 +8,6 @@ import org.bukkit.util.Vector;
 
 public class ParticleUtil {
 
-    public static void drawParticleBeam(Player caster, LivingEntity target, Particle particle, double density) {
-        drawParticleBeam(caster.getEyeLocation(), target.getEyeLocation(), particle, density, null);
-    }
-
-    public static void drawParticleBeam(Player caster, LivingEntity target, Particle particle, double density, Object data) {
-        drawParticleBeam(caster.getEyeLocation(), target.getEyeLocation(), particle, density, data);
-    }
-
-    // --- NEW: Overloaded method for drawing between any two locations ---
     public static void drawParticleBeam(Location start, Location end, Particle particle, double density, Object data) {
         Vector direction = end.toVector().subtract(start.toVector());
         double distance = direction.length();
@@ -28,11 +19,6 @@ public class ParticleUtil {
         }
     }
 
-    public static void drawZigZagBeam(Player caster, LivingEntity target, Particle particle, double density, double amplitude, Object data) {
-        drawZigZagBeam(caster.getEyeLocation(), target.getEyeLocation(), particle, density, amplitude, data);
-    }
-
-    // --- NEW: Overloaded method for drawing zig-zag between any two locations ---
     public static void drawZigZagBeam(Location start, Location end, Particle particle, double density, double amplitude, Object data) {
         Vector direction = end.toVector().subtract(start.toVector());
         double distance = direction.length();

@@ -1,8 +1,5 @@
 package org.perseus.forcePlugin.managers;
 
-import com.destroystokyo.paper.profile.PlayerProfile;
-import com.destroystokyo.paper.profile.ProfileProperty;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,9 +10,8 @@ import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
 
-import java.util.Arrays; // Import Arrays
+import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 public class HolocronManager {
 

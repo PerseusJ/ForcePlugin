@@ -12,7 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceUser;
-import org.perseus.forcePlugin.data.PassiveAbility;
 import org.perseus.forcePlugin.managers.*;
 
 public class AbilityListener implements Listener {
@@ -32,11 +31,9 @@ public class AbilityListener implements Listener {
         TelekinesisManager telekinesisManager = plugin.getTelekinesisManager();
         ForceUserManager userManager = plugin.getForceUserManager();
 
-        // --- THE FIX: Use the 1.16 compatible Action check ---
         if (action != Action.LEFT_CLICK_AIR && action != Action.LEFT_CLICK_BLOCK) {
             return;
         }
-        // --- END FIX ---
 
         if (!plugin.getHolocronManager().isHolocron(itemInHand)) {
             return;
@@ -48,18 +45,18 @@ public class AbilityListener implements Listener {
             return;
         }
 
-        if (telekinesisManager.isLifting(player)) {
-            telekinesisManager.launch(player);
-            double xpToGive = plugin.getConfig().getDouble("progression.xp-gain.per-telekinesis-launch", 2.0);
-            plugin.getLevelingManager().addXp(player, xpToGive);
-            return;
-        }
-
         ForceUser forceUser = userManager.getForceUser(player);
         if (forceUser == null) return;
 
         if (forceUser.needsToChoosePath()) {
             sendActionBarMessage(player, ChatColor.RED + "You must choose your final path! Right-click your Holocron.");
+            return;
+        }
+
+        if (telekinesisManager.isLifting(player)) {
+            telekinesisManager.launch(player);
+            double xpToGive = plugin.getConfig().getDouble("progression.xp-gain.per-telekinesis-launch", 2.0);
+            plugin.getLevelingManager().addXp(player, xpToGive);
             return;
         }
 
@@ -83,36 +80,18 @@ public class AbilityListener implements Listener {
         LevelingManager levelingManager = plugin.getLevelingManager();
         ForceBarManager forceBarManager = plugin.getForceBarManager();
 
-        double energyCost = ability.getEnergyCost(abilityLevel);
-
-        if (forceUser.getSpecialization() != null) {
-            if (forceUser.getSpecialization().equals("SENTINEL")) {
-                int rank = forceUser.getPassiveRank("DUAL_FOCUS");
-                if (rank > 0) {
-                    PassiveAbility passive = findPassive(forceUser.getSpecialization(), "DUAL_FOCUS");
-                    if (passive != null) energyCost *= passive.getValue(rank);
-                }
-            } else if (forceUser.getSpecialization().equals("SORCERER")) {
-                int rank = forceUser.getPassiveRank("EFFICIENT_CORRUPTION");
-                if (rank > 0 && ability.getSide() == forceUser.getSide()) {
-                    PassiveAbility passive = findPassive(forceUser.getSpecialization(), "EFFICIENT_CORRUPTION");
-                    if (passive != null) energyCost *= passive.getValue(rank);
-                }
-            }
-        }
-
         if (cooldownManager.isOnCooldown(player, ability.getID())) {
             String remaining = cooldownManager.getRemainingCooldownFormatted(player, ability.getID());
             sendActionBarMessage(player, ChatColor.RED + ability.getName() + " is on cooldown: " + remaining);
             return;
         }
 
-        if (forceUser.getCurrentForceEnergy() < energyCost) {
+        if (forceUser.getCurrentForceEnergy() < ability.getEnergyCost(abilityLevel)) {
             sendActionBarMessage(player, ChatColor.AQUA + "Not enough Force Energy!");
             return;
         }
 
-        forceUser.setCurrentForceEnergy(forceUser.getCurrentForceEnergy() - energyCost);
+        forceUser.setCurrentForceEnergy(forceUser.getCurrentForceEnergy() - ability.getEnergyCost(abilityLevel));
         cooldownManager.setCooldown(player, ability.getID(), ability.getCooldown(abilityLevel));
         ability.execute(player, forceUser);
         forceBarManager.updateBar(player);
@@ -123,11 +102,5 @@ public class AbilityListener implements Listener {
 
     private void sendActionBarMessage(Player player, String message) {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
-    }
-
-    private PassiveAbility findPassive(String specId, String passiveId) {
-        return plugin.getPassiveManager().getPassivesForSpec(specId).stream()
-                .filter(p -> p.getId().equals(passiveId))
-                .findFirst().orElse(null);
     }
 }
