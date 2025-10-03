@@ -1,9 +1,7 @@
 name: ForcePlugin
 version: '1.0'
 main: org.perseus.forcePlugin.ForcePlugin
-# --- THE FIX: Change the API version to the oldest supported version ---
 api-version: '1.16'
-# --- END FIX ---
 author: Perseus
 
 softdepend: [PlaceholderAPI]

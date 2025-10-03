@@ -34,9 +34,7 @@ public class ForceBarManager {
 
     public void addPlayer(Player player) {
         ForceUser user = userManager.getForceUser(player);
-        if (user == null) {
-            return;
-        }
+        if (user == null) return;
         BossBar bar = Bukkit.createBossBar("Force Energy", BarColor.BLUE, BarStyle.SOLID);
         bar.addPlayer(player);
         playerBars.put(player.getUniqueId(), bar);
@@ -78,7 +76,13 @@ public class ForceBarManager {
                         if (user != null && user.getSide() != ForceSide.NONE) {
                             double currentEnergy = user.getCurrentForceEnergy();
                             if (currentEnergy < 100.0) {
-                                user.setCurrentForceEnergy(currentEnergy + regenAmountPerSecond);
+                                double finalRegen = regenAmountPerSecond;
+                                // --- NEW: Add Meditation bonus ---
+                                if (user.hasUnlockedPassive("MEDITATION")) {
+                                    int level = user.getPassiveLevel("MEDITATION");
+                                    finalRegen += plugin.getPassiveManager().getPassiveDoubleValue("MEDITATION", level, "regen-bonus", 0.5);
+                                }
+                                user.setCurrentForceEnergy(currentEnergy + finalRegen);
                                 updateBar(player);
                             }
                         }

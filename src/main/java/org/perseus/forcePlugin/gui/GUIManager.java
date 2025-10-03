@@ -9,14 +9,13 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.data.Passive;
 import org.perseus.forcePlugin.data.Rank;
-import org.perseus.forcePlugin.managers.AbilityConfigManager;
-import org.perseus.forcePlugin.managers.AbilityManager;
-import org.perseus.forcePlugin.managers.ForceUserManager;
-import org.perseus.forcePlugin.managers.RankManager;
+import org.perseus.forcePlugin.managers.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,17 +26,22 @@ public class GUIManager {
     public static final String ABILITY_GUI_TITLE = "Select Your Abilities";
     public static final String UPGRADE_GUI_TITLE_PREFIX = "Manage: ";
     public static final String SPECIALIZATION_GUI_TITLE = "Choose Your Final Path";
+    public static final String PASSIVES_GUI_TITLE = "Passive Skills";
 
+    private final ForcePlugin plugin;
     private final AbilityManager abilityManager;
     private final ForceUserManager userManager;
     private final AbilityConfigManager configManager;
     private final RankManager rankManager;
+    private final PassiveManager passiveManager;
 
-    public GUIManager(AbilityManager abilityManager, ForceUserManager userManager, AbilityConfigManager configManager, RankManager rankManager) {
+    public GUIManager(ForcePlugin plugin, AbilityManager abilityManager, ForceUserManager userManager, AbilityConfigManager configManager, RankManager rankManager, PassiveManager passiveManager) {
+        this.plugin = plugin;
         this.abilityManager = abilityManager;
         this.userManager = userManager;
         this.configManager = configManager;
         this.rankManager = rankManager;
+        this.passiveManager = passiveManager;
     }
 
     public void openAbilityGUI(Player player) {
@@ -60,6 +64,13 @@ public class GUIManager {
                 ChatColor.GRAY + "Points Available: " + ChatColor.GREEN + forceUser.getForcePoints()
         ));
         gui.setItem(4, statusItem);
+
+        ItemStack passivesButton = new ItemStack(Material.BEACON);
+        ItemMeta passivesMeta = passivesButton.getItemMeta();
+        passivesMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Passive Skills");
+        passivesMeta.setLore(Arrays.asList(ChatColor.GRAY + "View and upgrade your passive abilities."));
+        passivesButton.setItemMeta(passivesMeta);
+        gui.setItem(49, passivesButton);
 
         List<Ability> availableAbilities = new ArrayList<>(abilityManager.getAbilitiesBySide(forceUser.getSide()));
         int[] abilitySlots = {10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34};
@@ -116,6 +127,41 @@ public class GUIManager {
             maxMeta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "Max Level Reached");
             maxLevelItem.setItemMeta(maxMeta);
             gui.setItem(13, maxLevelItem);
+        }
+
+        ItemStack backButton = new ItemStack(Material.BARRIER);
+        ItemMeta backMeta = backButton.getItemMeta();
+        backMeta.setDisplayName(ChatColor.RED + "Back to Skill Tree");
+        backButton.setItemMeta(backMeta);
+        gui.setItem(26, backButton);
+
+        player.openInventory(gui);
+    }
+
+    public void openPassivesGUI(Player player) {
+        ForceUser forceUser = userManager.getForceUser(player);
+        if (forceUser == null) return;
+
+        Inventory gui = Bukkit.createInventory(null, 27, PASSIVES_GUI_TITLE);
+        ItemStack filler = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta fillerMeta = filler.getItemMeta();
+        fillerMeta.setDisplayName(" ");
+        filler.setItemMeta(fillerMeta);
+        for (int i = 0; i < gui.getSize(); i++) { gui.setItem(i, filler); }
+
+        List<String> passiveIds = passiveManager.getPassiveIdsForSide(forceUser.getSide());
+        int[] passiveSlots = {11, 13, 15};
+
+        for (int i = 0; i < passiveIds.size() && i < passiveSlots.length; i++) {
+            String passiveId = passiveIds.get(i);
+            Passive passive = passiveManager.getPassive(passiveId);
+            if (passive == null) continue;
+
+            if (forceUser.hasUnlockedPassive(passiveId)) {
+                gui.setItem(passiveSlots[i], createUnlockedPassiveIcon(passive, forceUser));
+            } else {
+                gui.setItem(passiveSlots[i], createLockedPassiveIcon(passive));
+            }
         }
 
         ItemStack backButton = new ItemStack(Material.BARRIER);
@@ -219,6 +265,49 @@ public class GUIManager {
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + "Energy Cost: " + ChatColor.WHITE + ability.getEnergyCost(level));
         lore.add(ChatColor.GREEN + "Cooldown: " + ChatColor.WHITE + ability.getCooldown(level) + "s");
+        meta.setLore(lore);
+        icon.setItemMeta(meta);
+        return icon;
+    }
+
+    private ItemStack createUnlockedPassiveIcon(Passive passive, ForceUser forceUser) {
+        int level = forceUser.getPassiveLevel(passive.getId());
+        // --- THE FIX: Use the new, correct method to get max-level ---
+        int maxLevel = plugin.getPassiveManager().getPassiveTopLevelIntValue(passive.getId(), "max-level", 1);
+
+        ItemStack icon = new ItemStack(Material.NETHER_STAR);
+        ItemMeta meta = icon.getItemMeta();
+        meta.setDisplayName(passive.getDisplayName() + " - Level " + level);
+        List<String> lore = new ArrayList<>(passive.getDescription());
+        lore.add("");
+        if (level < maxLevel) {
+            // --- THE FIX: Use the correct method to get upgrade-cost ---
+            int upgradeCost = plugin.getPassiveManager().getPassiveIntValue(passive.getId(), level, "upgrade-cost", 1);
+            lore.add(ChatColor.YELLOW + "Click to upgrade!");
+            lore.add(ChatColor.GRAY + "Cost: " + ChatColor.GREEN + upgradeCost + " Point(s)");
+        } else {
+            lore.add(ChatColor.AQUA + "Max Level");
+        }
+        meta.setLore(lore);
+        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        icon.setItemMeta(meta);
+        return icon;
+    }
+
+    private ItemStack createLockedPassiveIcon(Passive passive) {
+        ItemStack icon = new ItemStack(Material.GRAY_DYE);
+        ItemMeta meta = icon.getItemMeta();
+        meta.setDisplayName(ChatColor.GRAY + passive.getDisplayName());
+        // --- THE FIX: Use the new, correct method to get unlock-cost ---
+        int unlockCost = plugin.getPassiveManager().getPassiveTopLevelIntValue(passive.getId(), "unlock-cost", 1);
+        String pointString = (unlockCost == 1) ? " Force Point" : " Force Points";
+        List<String> lore = new ArrayList<>(passive.getDescription());
+        lore.add("");
+        lore.add(ChatColor.RED + "Locked");
+        lore.add(ChatColor.GREEN + "Cost: " + unlockCost + pointString);
+        lore.add("");
+        lore.add(ChatColor.YELLOW + "Click to unlock!");
         meta.setLore(lore);
         icon.setItemMeta(meta);
         return icon;

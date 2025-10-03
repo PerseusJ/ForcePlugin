@@ -3,12 +3,16 @@ package org.perseus.forcePlugin.listeners;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceUser;
@@ -98,6 +102,37 @@ public class AbilityListener implements Listener {
 
         double xpToGive = plugin.getConfig().getDouble("progression.xp-gain.per-ability-use", 1.0);
         levelingManager.addXp(player, xpToGive);
+    }
+
+    @EventHandler
+    public void onAbilityDamage(EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof Player) || !(event.getEntity() instanceof LivingEntity)) return;
+        Player player = (Player) event.getDamager();
+        LivingEntity target = (LivingEntity) event.getEntity();
+        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
+        if (forceUser == null) return;
+
+        // --- Siphoning Strikes Logic ---
+        if (forceUser.hasUnlockedPassive("SIPHONING_STRIKES")) {
+            int level = forceUser.getPassiveLevel("SIPHONING_STRIKES");
+            double chance = plugin.getPassiveManager().getPassiveDoubleValue("SIPHONING_STRIKES", level, "lifesteal-chance", 10.0);
+            if (Math.random() * 100 < chance) {
+                double percent = plugin.getPassiveManager().getPassiveDoubleValue("SIPHONING_STRIKES", level, "lifesteal-percent", 25.0);
+                double healAmount = event.getDamage() * (percent / 100.0);
+                player.setHealth(Math.min(player.getMaxHealth(), player.getHealth() + healAmount));
+            }
+        }
+
+        // --- Corrupted Energy Logic ---
+        if (forceUser.hasUnlockedPassive("CORRUPTED_ENERGY")) {
+            int level = forceUser.getPassiveLevel("CORRUPTED_ENERGY");
+            double chance = plugin.getPassiveManager().getPassiveDoubleValue("CORRUPTED_ENERGY", level, "wither-chance", 15.0);
+            if (Math.random() * 100 < chance) {
+                int duration = plugin.getPassiveManager().getPassiveIntValue("CORRUPTED_ENERGY", level, "wither-duration", 3) * 20;
+                int amplifier = plugin.getPassiveManager().getPassiveIntValue("CORRUPTED_ENERGY", level, "wither-amplifier", 1) - 1;
+                target.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, duration, amplifier));
+            }
+        }
     }
 
     private void sendActionBarMessage(Player player, String message) {

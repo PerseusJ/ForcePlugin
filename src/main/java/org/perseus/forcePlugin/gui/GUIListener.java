@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceUser;
+import org.perseus.forcePlugin.data.Passive;
 import org.perseus.forcePlugin.data.Rank;
 
 public class GUIListener implements Listener {
@@ -32,6 +33,8 @@ public class GUIListener implements Listener {
             handleUpgradeMenu(event, player);
         } else if (viewTitle.equals(GUIManager.SPECIALIZATION_GUI_TITLE)) {
             handleSpecializationChoice(event, player);
+        } else if (viewTitle.equals(GUIManager.PASSIVES_GUI_TITLE)) {
+            handlePassivesMenu(event, player);
         }
     }
 
@@ -39,6 +42,11 @@ public class GUIListener implements Listener {
         event.setCancelled(true);
         ItemStack clickedItem = event.getCurrentItem();
         if (clickedItem == null || !clickedItem.hasItemMeta() || clickedItem.getItemMeta().getDisplayName().equals(" ")) return;
+
+        if (clickedItem.getType() == Material.BEACON) {
+            plugin.getGuiManager().openPassivesGUI(player);
+            return;
+        }
 
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
         if (forceUser == null) return;
@@ -130,6 +138,59 @@ public class GUIListener implements Listener {
         }
     }
 
+    private void handlePassivesMenu(InventoryClickEvent event, Player player) {
+        event.setCancelled(true);
+        ItemStack clickedItem = event.getCurrentItem();
+        if (clickedItem == null || !clickedItem.hasItemMeta() || clickedItem.getItemMeta().getDisplayName().equals(" ")) return;
+
+        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
+        if (forceUser == null) return;
+
+        if (clickedItem.getType() == Material.BARRIER) {
+            plugin.getGuiManager().openAbilityGUI(player);
+            return;
+        }
+
+        String passiveName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName()).split(" - ")[0];
+        Passive clickedPassive = findPassiveByName(forceUser, passiveName);
+        if (clickedPassive == null) return;
+
+        String passiveId = clickedPassive.getId();
+        if (forceUser.hasUnlockedPassive(passiveId)) {
+            // --- UPGRADE LOGIC ---
+            int currentLevel = forceUser.getPassiveLevel(passiveId);
+            int maxLevel = plugin.getPassiveManager().getPassiveTopLevelIntValue(passiveId, "max-level", 1);
+            if (currentLevel < maxLevel) {
+                // --- THE FIX: Use the correct manager to get the upgrade cost ---
+                int upgradeCost = plugin.getPassiveManager().getPassiveIntValue(passiveId, currentLevel, "upgrade-cost", 1);
+                if (forceUser.getForcePoints() >= upgradeCost) {
+                    forceUser.addForcePoints(-upgradeCost);
+                    forceUser.upgradePassive(passiveId);
+                    player.sendMessage(ChatColor.AQUA + "Upgraded " + clickedPassive.getDisplayName() + " to Level " + forceUser.getPassiveLevel(passiveId) + "!");
+                    player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_USE, 1.0f, 1.5f);
+                    plugin.getGuiManager().openPassivesGUI(player);
+                } else {
+                    player.sendMessage(ChatColor.RED + "Not enough Force Points! (Requires " + upgradeCost + ")");
+                    player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                }
+            }
+        } else {
+            // --- UNLOCK LOGIC ---
+            // --- THE FIX: Use the correct manager to get the unlock cost ---
+            int unlockCost = plugin.getPassiveManager().getPassiveTopLevelIntValue(passiveId, "unlock-cost", 1);
+            if (forceUser.getForcePoints() >= unlockCost) {
+                forceUser.addForcePoints(-unlockCost);
+                forceUser.unlockPassive(passiveId);
+                player.sendMessage(ChatColor.AQUA + "Unlocked " + clickedPassive.getDisplayName() + "!");
+                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.2f);
+                plugin.getGuiManager().openPassivesGUI(player);
+            } else {
+                player.sendMessage(ChatColor.RED + "Not enough Force Points! (Requires " + unlockCost + ")");
+                player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+            }
+        }
+    }
+
     private String getUltimateForSpec(String specId) {
         if (specId == null) return null;
         switch (specId) {
@@ -147,6 +208,16 @@ public class GUIListener implements Listener {
         for (Ability ability : plugin.getAbilityManager().getAllAbilitiesBySide(user.getSide())) {
             if (ability.getName().equalsIgnoreCase(name.trim())) {
                 return ability;
+            }
+        }
+        return null;
+    }
+
+    private Passive findPassiveByName(ForceUser user, String name) {
+        for (String passiveId : plugin.getPassiveManager().getPassiveIdsForSide(user.getSide())) {
+            Passive passive = plugin.getPassiveManager().getPassive(passiveId);
+            if (passive != null && ChatColor.stripColor(passive.getDisplayName()).equalsIgnoreCase(name.trim())) {
+                return passive;
             }
         }
         return null;

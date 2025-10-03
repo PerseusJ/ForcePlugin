@@ -17,6 +17,9 @@ public class ForceUser {
     private String specialization;
     private boolean needsToChoosePath;
 
+    // --- NEW: Map to store unlocked passive abilities and their levels ---
+    private final Map<String, Integer> unlockedPassives;
+
     public ForceUser(UUID uuid) {
         this.uuid = uuid;
         this.side = ForceSide.NONE;
@@ -28,6 +31,7 @@ public class ForceUser {
         this.activeAbilityId = null;
         this.specialization = null;
         this.needsToChoosePath = false;
+        this.unlockedPassives = new HashMap<>(); // Initialize new map
     }
 
     // --- GETTERS ---
@@ -43,6 +47,12 @@ public class ForceUser {
     public String getActiveAbilityId() { return activeAbilityId; }
     public String getSpecialization() { return specialization; }
     public boolean needsToChoosePath() { return needsToChoosePath; }
+
+    // --- NEW: Getters for passives ---
+    public Map<String, Integer> getUnlockedPassives() { return unlockedPassives; }
+    public boolean hasUnlockedPassive(String passiveId) { return unlockedPassives.containsKey(passiveId); }
+    public int getPassiveLevel(String passiveId) { return unlockedPassives.getOrDefault(passiveId, 0); }
+
 
     // --- SETTERS ---
     public void setSide(ForceSide side) { this.side = side; }
@@ -65,4 +75,17 @@ public class ForceUser {
     public void setActiveAbilityId(String activeAbilityId) { this.activeAbilityId = activeAbilityId; }
     public void setSpecialization(String specialization) { this.specialization = specialization; }
     public void setNeedsToChoosePath(boolean needsToChoosePath) { this.needsToChoosePath = needsToChoosePath; }
+
+    // --- NEW: Setters for passives ---
+    public void unlockPassive(String passiveId) {
+        if (!unlockedPassives.containsKey(passiveId)) {
+            unlockedPassives.put(passiveId, 1);
+        }
+    }
+    public void upgradePassive(String passiveId) {
+        if (hasUnlockedPassive(passiveId)) {
+            int currentLevel = getPassiveLevel(passiveId);
+            unlockedPassives.put(passiveId, currentLevel + 1);
+        }
+    }
 }

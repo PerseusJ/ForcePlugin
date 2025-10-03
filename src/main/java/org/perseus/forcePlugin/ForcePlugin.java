@@ -32,17 +32,20 @@ public class ForcePlugin extends JavaPlugin {
     private DatabaseManager databaseManager;
     private RankManager rankManager;
     private VersionAdapter versionAdapter;
+    private PassiveManager passiveManager;
 
     @Override
     public void onEnable() {
         if (!setupVersionAdapter()) {
-            getLogger().severe("!!! This version of Minecraft is not supported by ForcePlugin. Disabling plugin. !!!");
+            getLogger().severe("!!! This version of Minecraft is not supported. Disabling plugin. !!!");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
         saveDefaultConfig();
+        // Use 'false' to only create if they don't exist
         saveResource("ranks.yml", false);
+        saveResource("passives.yml", false);
 
         // Initialize managers
         this.databaseManager = new DatabaseManager(this);
@@ -56,7 +59,8 @@ public class ForcePlugin extends JavaPlugin {
         this.cooldownManager = new CooldownManager();
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
         this.rankManager = new RankManager(this);
-        this.guiManager = new GUIManager(abilityManager, forceUserManager, abilityConfigManager, rankManager);
+        this.passiveManager = new PassiveManager(this);
+        this.guiManager = new GUIManager(this, abilityManager, forceUserManager, abilityConfigManager, rankManager, passiveManager);
         this.ambientEffectsManager = new AmbientEffectsManager(this);
 
         // Register listeners
@@ -67,21 +71,18 @@ public class ForcePlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ExperienceListener(levelingManager), this);
         getServer().getPluginManager().registerEvents(new HolocronListener(this), this);
         getServer().getPluginManager().registerEvents(new UltimateAbilityListener(this), this);
+        getServer().getPluginManager().registerEvents(new PassiveListener(this), this);
 
         // Register commands
         getCommand("force").setExecutor(new ForceCommand(this));
         getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
         getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
 
-        // Hook into PlaceholderAPI
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new ForcePlaceholders(this).register();
             getLogger().info("Successfully hooked into PlaceholderAPI!");
-        } else {
-            getLogger().warning("PlaceholderAPI not found. Placeholders will not work.");
         }
 
-        // Handle online players on startup/reload
         for (Player player : getServer().getOnlinePlayers()) {
             forceUserManager.loadPlayerData(player);
         }
@@ -103,13 +104,19 @@ public class ForcePlugin extends JavaPlugin {
 
     public void reloadPluginConfig() {
         reloadConfig();
-        saveResource("ranks.yml", true);
+        // --- THE FIX: Changed 'true' to 'false' to prevent overwriting ---
+        saveResource("ranks.yml", false);
+        saveResource("passives.yml", false);
+        // --- END FIX ---
+
         this.abilityConfigManager = new AbilityConfigManager(this);
         this.abilityManager.reload(this, this.abilityConfigManager, this.telekinesisManager);
         this.forceBarManager.reloadConfig();
         this.levelingManager.loadConfigValues();
         this.rankManager.loadRanks();
-        this.guiManager = new GUIManager(this.abilityManager, this.forceUserManager, this.abilityConfigManager, this.rankManager);
+        this.passiveManager.loadPassives();
+        this.guiManager = new GUIManager(this, this.abilityManager, this.forceUserManager, this.abilityConfigManager, this.rankManager, this.passiveManager);
+        getLogger().info("ForcePlugin configuration has been reloaded.");
     }
 
     private boolean setupVersionAdapter() {
@@ -140,4 +147,5 @@ public class ForcePlugin extends JavaPlugin {
     public DatabaseManager getDatabaseManager() { return databaseManager; }
     public RankManager getRankManager() { return rankManager; }
     public VersionAdapter getVersionAdapter() { return versionAdapter; }
+    public PassiveManager getPassiveManager() { return passiveManager; }
 }
