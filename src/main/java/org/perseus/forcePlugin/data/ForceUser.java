@@ -20,6 +20,10 @@ public class ForceUser {
     // --- NEW: Map to store unlocked passive abilities and their levels ---
     private final Map<String, Integer> unlockedPassives;
 
+    // --- NEW: Fields for Force Enchanting debuff ---
+    private double forceRegenModifier;
+    private long regenDebuffExpiry;
+
     public ForceUser(UUID uuid) {
         this.uuid = uuid;
         this.side = ForceSide.NONE;
@@ -32,6 +36,8 @@ public class ForceUser {
         this.specialization = null;
         this.needsToChoosePath = false;
         this.unlockedPassives = new HashMap<>(); // Initialize new map
+        this.forceRegenModifier = 1.0;
+        this.regenDebuffExpiry = 0L;
     }
 
     // --- GETTERS ---
@@ -52,6 +58,8 @@ public class ForceUser {
     public Map<String, Integer> getUnlockedPassives() { return unlockedPassives; }
     public boolean hasUnlockedPassive(String passiveId) { return unlockedPassives.containsKey(passiveId); }
     public int getPassiveLevel(String passiveId) { return unlockedPassives.getOrDefault(passiveId, 0); }
+    public double getForceRegenModifier() { return forceRegenModifier; }
+    public long getRegenDebuffExpiry() { return regenDebuffExpiry; }
 
 
     // --- SETTERS ---
@@ -75,6 +83,8 @@ public class ForceUser {
     public void setActiveAbilityId(String activeAbilityId) { this.activeAbilityId = activeAbilityId; }
     public void setSpecialization(String specialization) { this.specialization = specialization; }
     public void setNeedsToChoosePath(boolean needsToChoosePath) { this.needsToChoosePath = needsToChoosePath; }
+    public void setForceRegenModifier(double forceRegenModifier) { this.forceRegenModifier = forceRegenModifier; }
+    public void setRegenDebuffExpiry(long regenDebuffExpiry) { this.regenDebuffExpiry = regenDebuffExpiry; }
 
     // --- NEW: Setters for passives ---
     public void unlockPassive(String passiveId) {

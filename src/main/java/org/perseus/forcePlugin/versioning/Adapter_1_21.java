@@ -11,12 +11,28 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.perseus.forcePlugin.data.ForceSide;
 
 import java.util.UUID;
+import org.bukkit.potion.PotionEffectType;
 
 @SuppressWarnings("deprecation")
 public class Adapter_1_21 implements VersionAdapter {
 
     private Particle sonicBoomParticle;
     private Particle explosionEmitterParticle;
+
+    @Override
+    public org.bukkit.entity.FallingBlock spawnFallingBlock(Location location, ItemStack itemStack) {
+        return location.getWorld().spawnFallingBlock(location, itemStack.getData());
+    }
+
+    @Override
+    public void launchFallingBlock(org.bukkit.entity.FallingBlock fallingBlock, org.bukkit.util.Vector velocity) {
+        fallingBlock.setVelocity(velocity);
+    }
+
+    @Override
+    public void applyGlowingEffect(org.bukkit.entity.Player player, int durationTicks) {
+        player.addPotionEffect(new org.bukkit.potion.PotionEffect(PotionEffectType.GLOWING, durationTicks, 0, false, false));
+    }
 
     public Adapter_1_21() {
         try {
@@ -53,5 +69,15 @@ public class Adapter_1_21 implements VersionAdapter {
     @Override
     public void playExplosionEmitter(Location location) {
         location.getWorld().spawnParticle(explosionEmitterParticle, location, 1);
+    }
+
+    @Override
+    public Particle getRedstoneParticle() {
+        return Particle.valueOf("DUST");
+    }
+
+    @Override
+    public PotionEffectType getMiningFatigueEffectType() {
+        return PotionEffectType.SLOW_DIGGING;
     }
 }

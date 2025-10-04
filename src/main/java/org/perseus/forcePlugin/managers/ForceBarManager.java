@@ -74,6 +74,13 @@ public class ForceBarManager {
                     if (player != null && player.isOnline()) {
                         ForceUser user = userManager.getForceUser(player);
                         if (user != null && user.getSide() != ForceSide.NONE) {
+
+                            // --- NEW: Check for and handle expired debuffs ---
+                            if (user.getRegenDebuffExpiry() > 0 && System.currentTimeMillis() > user.getRegenDebuffExpiry()) {
+                                user.setForceRegenModifier(1.0);
+                                user.setRegenDebuffExpiry(0L);
+                            }
+
                             double currentEnergy = user.getCurrentForceEnergy();
                             if (currentEnergy < 100.0) {
                                 double finalRegen = regenAmountPerSecond;
@@ -82,6 +89,10 @@ public class ForceBarManager {
                                     int level = user.getPassiveLevel("MEDITATION");
                                     finalRegen += plugin.getPassiveManager().getPassiveDoubleValue("MEDITATION", level, "regen-bonus", 0.5);
                                 }
+
+                                // --- NEW: Apply the debuff modifier ---
+                                finalRegen *= user.getForceRegenModifier();
+
                                 user.setCurrentForceEnergy(currentEnergy + finalRegen);
                                 updateBar(player);
                             }

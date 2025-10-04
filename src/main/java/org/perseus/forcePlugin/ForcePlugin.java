@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.perseus.forcePlugin.commands.ForceAdminCommand;
 import org.perseus.forcePlugin.commands.ForceCommand;
+import org.perseus.forcePlugin.commands.ForceEnchantCommand;
 import org.perseus.forcePlugin.commands.ForceStatsCommand;
 import org.perseus.forcePlugin.data.DatabaseManager;
 import org.perseus.forcePlugin.gui.GUIManager;
@@ -33,6 +34,7 @@ public class ForcePlugin extends JavaPlugin {
     private RankManager rankManager;
     private VersionAdapter versionAdapter;
     private PassiveManager passiveManager;
+    private ForceEnchantManager forceEnchantManager;
 
     @Override
     public void onEnable() {
@@ -60,6 +62,7 @@ public class ForcePlugin extends JavaPlugin {
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
         this.rankManager = new RankManager(this);
         this.passiveManager = new PassiveManager(this);
+        this.forceEnchantManager = new ForceEnchantManager(this);
         this.guiManager = new GUIManager(this, abilityManager, forceUserManager, abilityConfigManager, rankManager, passiveManager);
         this.ambientEffectsManager = new AmbientEffectsManager(this);
 
@@ -77,6 +80,7 @@ public class ForcePlugin extends JavaPlugin {
         getCommand("force").setExecutor(new ForceCommand(this));
         getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
         getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
+        getCommand("forceenchant").setExecutor(new ForceEnchantCommand(this));
 
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new ForcePlaceholders(this).register();
@@ -115,6 +119,7 @@ public class ForcePlugin extends JavaPlugin {
         this.levelingManager.loadConfigValues();
         this.rankManager.loadRanks();
         this.passiveManager.loadPassives();
+        this.forceEnchantManager.loadEnchantmentData();
         this.guiManager = new GUIManager(this, this.abilityManager, this.forceUserManager, this.abilityConfigManager, this.rankManager, this.passiveManager);
         getLogger().info("ForcePlugin configuration has been reloaded.");
     }
@@ -148,4 +153,5 @@ public class ForcePlugin extends JavaPlugin {
     public RankManager getRankManager() { return rankManager; }
     public VersionAdapter getVersionAdapter() { return versionAdapter; }
     public PassiveManager getPassiveManager() { return passiveManager; }
+    public ForceEnchantManager getForceEnchantManager() { return forceEnchantManager; }
 }

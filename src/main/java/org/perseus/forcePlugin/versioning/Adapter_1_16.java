@@ -5,16 +5,18 @@ import com.mojang.authlib.properties.Property;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.entity.FallingBlock;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 import org.perseus.forcePlugin.data.ForceSide;
 
 import java.lang.reflect.Field;
 import java.util.UUID;
 
-/**
- * The implementation of the VersionAdapter for Minecraft 1.16.5.
- */
 public class Adapter_1_16 implements VersionAdapter {
 
     @Override
@@ -39,6 +41,22 @@ public class Adapter_1_16 implements VersionAdapter {
     }
 
     @Override
+    public void applyGlowingEffect(Player target, int durationSeconds) {
+        target.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, durationSeconds * 20, 0, false, false));
+    }
+
+    @Override
+    public FallingBlock spawnFallingBlock(Location location, ItemStack itemStack) {
+        // getData() is deprecated but is the correct way for this version.
+        return location.getWorld().spawnFallingBlock(location, itemStack.getData());
+    }
+
+    @Override
+    public void launchFallingBlock(FallingBlock block, Vector velocity) {
+        block.setVelocity(velocity);
+    }
+
+    @Override
     public void playSonicBoom(Location location) {
         // SONIC_BOOM does not exist in 1.16. We use a similar-looking fallback.
         location.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, location, 1);
@@ -48,5 +66,15 @@ public class Adapter_1_16 implements VersionAdapter {
     public void playExplosionEmitter(Location location) {
         // EXPLOSION_EMITTER does not exist in 1.16. This is the closest equivalent.
         location.getWorld().spawnParticle(Particle.EXPLOSION_HUGE, location, 1);
+    }
+
+    @Override
+    public Particle getRedstoneParticle() {
+        return Particle.REDSTONE;
+    }
+
+    @Override
+    public PotionEffectType getMiningFatigueEffectType() {
+        return PotionEffectType.SLOW_DIGGING;
     }
 }

@@ -19,6 +19,10 @@ commands:
     description: Admin command for the ForcePlugin.
     usage: /<command> [reload|setside|reset|check|setlevel|givexp|givepoints|giveholocron]
     aliases: [fa]
+  forceenchant:
+    description: Use Force Energy to temporarily enchant tools.
+    usage: /<command>
+    aliases: [fe]
 
 permissions:
   forceplugin.admin:

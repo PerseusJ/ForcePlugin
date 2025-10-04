@@ -34,6 +34,7 @@ public class GUIManager {
     private final AbilityConfigManager configManager;
     private final RankManager rankManager;
     private final PassiveManager passiveManager;
+    private final ForceEnchantGUI forceEnchantGUI;
 
     public GUIManager(ForcePlugin plugin, AbilityManager abilityManager, ForceUserManager userManager, AbilityConfigManager configManager, RankManager rankManager, PassiveManager passiveManager) {
         this.plugin = plugin;
@@ -42,6 +43,7 @@ public class GUIManager {
         this.configManager = configManager;
         this.rankManager = rankManager;
         this.passiveManager = passiveManager;
+        this.forceEnchantGUI = new ForceEnchantGUI(plugin);
     }
 
     public void openAbilityGUI(Player player) {
@@ -324,5 +326,13 @@ public class GUIManager {
             case "SORCERER": return "CHAIN_LIGHTNING";
             default: return null;
         }
+    }
+
+    public ForceEnchantGUI getForceEnchantGUI() {
+        return forceEnchantGUI;
+    }
+
+    public void openForceEnchantGUI(Player player) {
+        forceEnchantGUI.open(player);
     }
 }

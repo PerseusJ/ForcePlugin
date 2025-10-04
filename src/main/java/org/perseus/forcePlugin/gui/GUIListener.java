@@ -10,9 +10,25 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
+import org.perseus.forcePlugin.data.ForceEnchantment;
 import org.perseus.forcePlugin.data.ForceUser;
 import org.perseus.forcePlugin.data.Passive;
 import org.perseus.forcePlugin.data.Rank;
+import org.perseus.forcePlugin.managers.ForceEnchantManager;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
+import org.bukkit.enchantments.Enchantment;
 
 public class GUIListener implements Listener {
 
@@ -35,6 +51,51 @@ public class GUIListener implements Listener {
             handleSpecializationChoice(event, player);
         } else if (viewTitle.equals(GUIManager.PASSIVES_GUI_TITLE)) {
             handlePassivesMenu(event, player);
+        } else if (viewTitle.equals(ForceEnchantGUI.GUI_TITLE)) {
+            handleForceEnchantGUI(event, player);
+        }
+    }
+
+    private void handleForceEnchantGUI(InventoryClickEvent event, Player player) {
+        event.setCancelled(true);
+        ItemStack clickedItem = event.getCurrentItem();
+        if (clickedItem == null || !clickedItem.hasItemMeta() || clickedItem.getItemMeta().getDisplayName().equals(" ")) return;
+
+        ForceEnchantManager enchantManager = plugin.getForceEnchantManager();
+        Material type = clickedItem.getType();
+
+        if (type == Material.LIME_STAINED_GLASS_PANE) { // CONFIRM
+            enchantManager.applyEnchantments(player);
+        } else if (type == Material.ENCHANTED_BOOK) { // SELECT ENCHANT
+            String enchantName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
+            Enchantment enchantment = null;
+            for (Enchantment e : Enchantment.values()) {
+                if (plugin.getGuiManager().getForceEnchantGUI().getFriendlyEnchantmentName(e).equalsIgnoreCase(enchantName)) {
+                    enchantment = e;
+                    break;
+                }
+            }
+            if (enchantment == null) return;
+
+            ItemStack itemInHand = player.getInventory().getItemInMainHand();
+            Map<Enchantment, Integer> selections = enchantManager.getPlayerSelections(player);
+            int currentLevel = itemInHand.getEnchantmentLevel(enchantment);
+            int currentlySelectedLevel = selections.getOrDefault(enchantment, currentLevel);
+
+            int nextLevel = currentlySelectedLevel + 1;
+            ForceEnchantment fe = enchantManager.getEnchantmentData().get(enchantment);
+            if (fe != null && nextLevel <= fe.getMaxLevel()) {
+                enchantManager.updatePlayerSelection(player, enchantment, nextLevel);
+            } else {
+                // If they click again at max level, reset to original level
+                if (currentLevel == 0) {
+                    selections.remove(enchantment);
+                } else {
+                    enchantManager.updatePlayerSelection(player, enchantment, currentLevel);
+                }
+            }
+            // Refresh the GUI to show updated selections and cost
+            plugin.getGuiManager().openForceEnchantGUI(player);
         }
     }
 

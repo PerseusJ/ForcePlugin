@@ -148,3 +148,146 @@ ultimate-abilities:
     initial-damage-hearts: 4.0
     max-jumps: 3
     damage-falloff-per-jump: 0.75
+
+force-enchanting:
+  # The duration of the enchantment in seconds.
+  enchant-duration-seconds: 300
+  # --- Debuffs applied after enchanting ---
+  debuffs:
+    # Duration of the regen slowdown in seconds. This scales with the total enchantment cost.
+    # Formula: duration = base-duration * total-energy-cost
+    regen-slowdown-base-duration: 1.5
+    # How much to reduce energy regen by. 0.5 means 50% slower.
+    regen-slowdown-modifier: 0.5
+    # Hunger effect level to apply. Set to 0 to disable.
+    hunger-level: 1
+    # Duration of the hunger effect in seconds.
+    hunger-duration-seconds: 20
+    # Fatigue effect level to apply. Set to 0 to disable.
+    fatigue-level: 1
+    # Duration of the fatigue effect in seconds.
+    fatigue-duration-seconds: 20
+  # --- Enchantments ---
+  # A list of all enchantments that can be applied.
+  # Bukkit Enchantment Names: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/enchantments/Enchantment.html
+  # Cost is PER LEVEL. A level 2 enchant costs twice the base, level 3 three times, etc.
+  enchantments:
+    EFFICIENCY:
+      # Cost in Force Energy per level.
+      energy-cost-per-level: 15
+      # Maximum level the player can apply.
+      max-level: 5
+    UNBREAKING:
+      energy-cost-per-level: 10
+      max-level: 3
+    FORTUNE:
+      energy-cost-per-level: 25
+      max-level: 3
+    SILK_TOUCH:
+      energy-cost-per-level: 30
+      max-level: 1
+    SHARPNESS:
+      energy-cost-per-level: 15
+      max-level: 5
+    LOOTING:
+      energy-cost-per-level: 25
+      max-level: 3
+    PROTECTION:
+      energy-cost-per-level: 20
+      max-level: 4
+    FEATHER_FALLING:
+      energy-cost-per-level: 10
+      max-level: 4
+    MENDING:
+      energy-cost-per-level: 50
+      max-level: 1
+    # --- Other Armor ---
+    FIRE_PROTECTION:
+      energy-cost-per-level: 15
+      max-level: 4
+    BLAST_PROTECTION:
+      energy-cost-per-level: 15
+      max-level: 4
+    PROJECTILE_PROTECTION:
+      energy-cost-per-level: 15
+      max-level: 4
+    RESPIRATION:
+      energy-cost-per-level: 15
+      max-level: 3
+    AQUA_AFFINITY:
+      energy-cost-per-level: 15
+      max-level: 1
+    THORNS:
+      energy-cost-per-level: 20
+      max-level: 3
+    DEPTH_STRIDER:
+      energy-cost-per-level: 10
+      max-level: 3
+    FROST_WALKER:
+      energy-cost-per-level: 20
+      max-level: 2
+    SOUL_SPEED:
+      energy-cost-per-level: 15
+      max-level: 3
+    SWIFT_SNEAK: # 1.19+
+      energy-cost-per-level: 15
+      max-level: 3
+    # --- Other Melee Weapons ---
+    SMITE:
+      energy-cost-per-level: 12
+      max-level: 5
+    BANE_OF_ARTHROPODS:
+      energy-cost-per-level: 12
+      max-level: 5
+    KNOCKBACK:
+      energy-cost-per-level: 10
+      max-level: 2
+    FIRE_ASPECT:
+      energy-cost-per-level: 20
+      max-level: 2
+    SWEEPING_EDGE:
+      energy-cost-per-level: 15
+      max-level: 3
+    # --- Bows ---
+    POWER:
+      energy-cost-per-level: 15
+      max-level: 5
+    PUNCH:
+      energy-cost-per-level: 10
+      max-level: 2
+    FLAME:
+      energy-cost-per-level: 25
+      max-level: 1
+    INFINITY:
+      energy-cost-per-level: 30
+      max-level: 1
+    # --- Crossbows ---
+    QUICK_CHARGE:
+      energy-cost-per-level: 15
+      max-level: 3
+    MULTISHOT:
+      energy-cost-per-level: 25
+      max-level: 1
+    PIERCING:
+      energy-cost-per-level: 20
+      max-level: 4
+    # --- Tridents ---
+    LOYALTY:
+      energy-cost-per-level: 15
+      max-level: 3
+    IMPALING:
+      energy-cost-per-level: 15
+      max-level: 5
+    RIPTIDE:
+      energy-cost-per-level: 20
+      max-level: 3
+    CHANNELING:
+      energy-cost-per-level: 30
+      max-level: 1
+    # --- Fishing Rods ---
+    LUCK_OF_THE_SEA:
+      energy-cost-per-level: 25
+      max-level: 3
+    LURE:
+      energy-cost-per-level: 10
+      max-level: 3
