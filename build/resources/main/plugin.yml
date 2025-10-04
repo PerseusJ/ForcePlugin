@@ -1,10 +1,9 @@
 name: ForcePlugin
-version: '3.0'
+version: '1.0'
 main: org.perseus.forcePlugin.ForcePlugin
-api-version: '1.21'
+api-version: '1.16'
 author: Perseus
 
-# --- NEW: Declare a soft dependency ---
 softdepend: [PlaceholderAPI]
 
 commands:
