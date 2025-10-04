@@ -12,9 +12,6 @@ import org.perseus.forcePlugin.data.ForceSide;
 
 import java.util.UUID;
 
-// This annotation tells the compiler to ignore warnings about using APIs that
-// don't exist in our compile-time version (1.16.5), because we know
-// this class will only ever be loaded on a 1.17+ server.
 @SuppressWarnings("deprecation")
 public class Adapter_1_21 implements VersionAdapter {
 
