@@ -1,7 +1,6 @@
 # ------------------------------------------------- #
 #                ForcePlugin Config                 #
 # ------------------------------------------------- #
-#Testing note
 
 force-energy:
   regeneration-per-second: 2.5
