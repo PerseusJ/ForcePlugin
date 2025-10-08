@@ -1,0 +1,33 @@
+name: ForcePlugin
+version: '1.0'
+main: org.perseus.forcePlugin.ForcePlugin
+api-version: '1.16'
+author: Perseusj
+
+
+softdepend: [PlaceholderAPI]
+
+commands:
+  force:
+    description: Choose your side in the Force.
+    usage: /<command> choose <light|dark>
+  forcestats:
+    description: Displays your Force progression stats.
+    usage: /<command> [player]
+    aliases: [fs]
+  forceadmin:
+    description: Admin command for the ForcePlugin.
+    usage: /<command> [reload|setside|reset|check|setlevel|givexp|givepoints|giveholocron]
+    aliases: [fa]
+  forceenchant:
+    description: Use Force Energy to temporarily enchant tools.
+    usage: /<command>
+    aliases: [fe]
+
+permissions:
+  forceplugin.admin:
+    description: Grants access to all /forceadmin commands and checking other players' stats.
+    default: op
+  forceplugin.use:
+    description: Grants access to the basic player commands.
+    default: true
