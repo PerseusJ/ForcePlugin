@@ -109,8 +109,8 @@ public class ForcePlugin extends JavaPlugin {
     public void reloadPluginConfig() {
         reloadConfig();
         // --- THE FIX: Changed 'true' to 'false' to prevent overwriting ---
-        saveResource("ranks.yml", false);
-        saveResource("passives.yml", false);
+        saveResource("ranks.yml", true);
+        saveResource("passives.yml", true);
         // --- END FIX ---
 
         this.abilityConfigManager = new AbilityConfigManager(this);

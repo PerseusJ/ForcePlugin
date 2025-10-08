@@ -27,6 +27,7 @@ public class GUIManager {
     public static final String UPGRADE_GUI_TITLE_PREFIX = "Manage: ";
     public static final String SPECIALIZATION_GUI_TITLE = "Choose Your Final Path";
     public static final String PASSIVES_GUI_TITLE = "Passive Skills";
+    public static final String CHOOSE_SIDE_GUI_TITLE = "Choose your side";
 
     private final ForcePlugin plugin;
     private final AbilityManager abilityManager;
@@ -284,7 +285,7 @@ public class GUIManager {
         lore.add("");
         if (level < maxLevel) {
             // --- THE FIX: Use the correct method to get upgrade-cost ---
-            int upgradeCost = plugin.getPassiveManager().getPassiveIntValue(passive.getId(), level, "upgrade-cost", 1);
+            int upgradeCost = plugin.getPassiveManager().getPassiveIntValue(passive.getId(), level + 1, "upgrade-cost", 1);
             lore.add(ChatColor.YELLOW + "Click to upgrade!");
             lore.add(ChatColor.GRAY + "Cost: " + ChatColor.GREEN + upgradeCost + " Point(s)");
         } else {
@@ -334,5 +335,28 @@ public class GUIManager {
 
     public void openForceEnchantGUI(Player player) {
         forceEnchantGUI.open(player);
+    }
+
+    public void openChooseSideGUI(Player player) {
+        Inventory gui = Bukkit.createInventory(null, 27, CHOOSE_SIDE_GUI_TITLE);
+
+        // Light Side item
+        ItemStack lightSide = new ItemStack(Material.WHITE_WOOL);
+        ItemMeta lightMeta = lightSide.getItemMeta();
+        lightMeta.setDisplayName(ChatColor.AQUA + "Light Side");
+        lightMeta.setLore(Arrays.asList(ChatColor.GRAY + "Embrace the Light Side of the Force."));
+        lightSide.setItemMeta(lightMeta);
+
+        // Dark Side item
+        ItemStack darkSide = new ItemStack(Material.BLACK_WOOL);
+        ItemMeta darkMeta = darkSide.getItemMeta();
+        darkMeta.setDisplayName(ChatColor.RED + "Dark Side");
+        darkMeta.setLore(Arrays.asList(ChatColor.GRAY + "Succumb to the Dark Side of the Force."));
+        darkSide.setItemMeta(darkMeta);
+
+        gui.setItem(11, lightSide);
+        gui.setItem(15, darkSide);
+
+        player.openInventory(gui);
     }
 }

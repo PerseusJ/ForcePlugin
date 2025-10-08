@@ -40,28 +40,14 @@ public class ForceCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length == 2 && args[0].equalsIgnoreCase("choose")) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("choose")) {
             if (forceUser.getSide() != ForceSide.NONE) {
                 player.sendMessage(ChatColor.RED + "You have already chosen your path. You cannot change it.");
                 return true;
             }
-
-            String chosenSideArg = args[1].toUpperCase();
-            if (chosenSideArg.equals("LIGHT")) {
-                forceUser.setSide(ForceSide.LIGHT);
-                player.sendMessage(ChatColor.AQUA + "You have embraced the Light Side of the Force.");
-                holocronManager.giveHolocron(player);
-                player.sendMessage(ChatColor.YELLOW + "A Holocron has been added to your inventory. Hold it to channel the Force!");
-            } else if (chosenSideArg.equals("DARK")) {
-                forceUser.setSide(ForceSide.DARK);
-                player.sendMessage(ChatColor.RED + "You have succumbed to the Dark Side of the Force.");
-                holocronManager.giveHolocron(player);
-                player.sendMessage(ChatColor.YELLOW + "A Holocron has been added to your inventory. Hold it to channel the Force!");
-            } else {
-                player.sendMessage(ChatColor.YELLOW + "Invalid side. Usage: /force choose <light|dark>");
-            }
+            plugin.getGuiManager().openChooseSideGUI(player);
         } else {
-            player.sendMessage(ChatColor.YELLOW + "Usage: /force choose <light|dark>");
+            player.sendMessage(ChatColor.YELLOW + "Usage: /force choose");
         }
         return true;
     }

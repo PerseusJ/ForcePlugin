@@ -39,7 +39,7 @@ public class ForceDrain implements Ability {
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
 
         EntityType type = target.getType();
-        if (type == EntityType.ZOMBIE || type == EntityType.SKELETON || type == EntityType.WITHER || type == EntityType.STRAY) {
+        if (type == EntityType.ZOMBIE || type == EntityType.SKELETON || type == EntityType.WITHER || type == EntityType.STRAY || type == EntityType.ZOMBIE_VILLAGER || type == EntityType.HUSK || type == EntityType.WITHER_SKELETON || type == EntityType.PHANTOM) {
             player.sendMessage(ChatColor.RED + "You cannot drain life from the undead.");
             return;
         }

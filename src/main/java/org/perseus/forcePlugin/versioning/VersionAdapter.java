@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import org.perseus.forcePlugin.data.ForceSide;
-// Removed: import org.perseus.forcePlugin.util.Particle; (cannot be resolved)
+
 
 public interface VersionAdapter {
 

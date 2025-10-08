@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceEnchantment;
+import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
 import org.perseus.forcePlugin.data.Passive;
 import org.perseus.forcePlugin.data.Rank;
@@ -53,6 +54,8 @@ public class GUIListener implements Listener {
             handlePassivesMenu(event, player);
         } else if (viewTitle.equals(ForceEnchantGUI.GUI_TITLE)) {
             handleForceEnchantGUI(event, player);
+        } else if (viewTitle.equals(GUIManager.CHOOSE_SIDE_GUI_TITLE)) {
+            handleChooseSideGUI(event, player);
         }
     }
 
@@ -223,7 +226,7 @@ public class GUIListener implements Listener {
             int maxLevel = plugin.getPassiveManager().getPassiveTopLevelIntValue(passiveId, "max-level", 1);
             if (currentLevel < maxLevel) {
                 // --- THE FIX: Use the correct manager to get the upgrade cost ---
-                int upgradeCost = plugin.getPassiveManager().getPassiveIntValue(passiveId, currentLevel, "upgrade-cost", 1);
+                int upgradeCost = plugin.getPassiveManager().getPassiveIntValue(passiveId, currentLevel + 1, "upgrade-cost", 1);
                 if (forceUser.getForcePoints() >= upgradeCost) {
                     forceUser.addForcePoints(-upgradeCost);
                     forceUser.upgradePassive(passiveId);
@@ -282,5 +285,30 @@ public class GUIListener implements Listener {
             }
         }
         return null;
+    }
+
+    private void handleChooseSideGUI(InventoryClickEvent event, Player player) {
+        event.setCancelled(true);
+        ItemStack clickedItem = event.getCurrentItem();
+        if (clickedItem == null || !clickedItem.hasItemMeta()) return;
+
+        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
+        if (forceUser == null) return;
+
+        Material clickedType = clickedItem.getType();
+
+        if (clickedType == Material.WHITE_WOOL) {
+            forceUser.setSide(ForceSide.LIGHT);
+            player.sendMessage(ChatColor.AQUA + "You have embraced the Light Side of the Force.");
+            plugin.getHolocronManager().giveHolocron(player);
+            player.sendMessage(ChatColor.YELLOW + "A Holocron has been added to your inventory. Hold it to channel the Force!");
+            player.closeInventory();
+        } else if (clickedType == Material.BLACK_WOOL) {
+            forceUser.setSide(ForceSide.DARK);
+            player.sendMessage(ChatColor.RED + "You have succumbed to the Dark Side of the Force.");
+            plugin.getHolocronManager().giveHolocron(player);
+            player.sendMessage(ChatColor.YELLOW + "A Holocron has been added to your inventory. Hold it to channel the Force!");
+            player.closeInventory();
+        }
     }
 }

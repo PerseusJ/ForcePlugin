@@ -171,6 +171,5 @@ public class ForceEnchantManager {
         }
     }
 
-    // TODO: Implement the enchanting logic
-    // TODO: Implement energy costs and debuffs
+
 }
