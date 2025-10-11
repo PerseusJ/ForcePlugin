@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id("xyz.jpenilla.run-paper") version "2.3.1"
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'org.perseus'
@@ -29,15 +28,6 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.6")
     implementation("org.xerial:sqlite-jdbc:3.41.2.1")
 }
-
-shadowJar {
-    relocate 'org.sqlite', 'org.perseus.forcePlugin.lib.sqlite'
-    archiveBaseName.set(project.name)
-    archiveClassifier.set('')
-    archiveVersion.set(version)
-}
-
-build.dependsOn shadowJar
 
 tasks {
     runServer {

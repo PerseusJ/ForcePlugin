@@ -1,0 +1,80 @@
+# ------------------------------------------------- #
+#              ForcePlugin Passives                 #
+# ------------------------------------------------- #
+
+passives:
+  # ------------------------------------------------- #
+  #                 Light Side Passives               #
+  # ------------------------------------------------- #
+  LIGHT:
+    SOOTHING_PRESENCE:
+      display-name: "&bSoothing Presence"
+      description:
+        - "&7Your calm and centered presence"
+        - "&7passively mends your wounds."
+      unlock-cost: 2
+      max-level: 3
+      levels:
+        '1': { heal-amount: 0.25, upgrade-cost: 2 }
+        '2': { heal-amount: 0.5, upgrade-cost: 3 }
+        '3': { heal-amount: 1.0 }
+    DEFLECTING_PALM:
+      display-name: "&9Deflecting Palm"
+      description:
+        - "&7You have a chance to instinctively"
+        - "&7negate the damage of a melee attack."
+      unlock-cost: 3
+      max-level: 3
+      levels:
+        '1': { negate-chance: 5, upgrade-cost: 3 }
+        '2': { negate-chance: 10, upgrade-cost: 4 }
+        '3': { negate-chance: 15 }
+    MEDITATION:
+      display-name: "&aMeditation"
+      description:
+        - "&7Your deep connection to the Force"
+        - "&7allows for faster energy recovery."
+      unlock-cost: 1
+      max-level: 3
+      levels:
+        '1': { regen-bonus: 0.5, upgrade-cost: 2 }
+        '2': { regen-bonus: 1.0, upgrade-cost: 2 }
+        '3': { regen-bonus: 1.5 }
+
+  # ------------------------------------------------- #
+  #                  Dark Side Passives               #
+  # ------------------------------------------------- #
+  DARK:
+    SIPHONING_STRIKES:
+      display-name: "&cSiphoning Strikes"
+      description:
+        - "&7Your damaging abilities have a chance"
+        - "&7to siphon life from your victims."
+      unlock-cost: 3
+      max-level: 3
+      levels:
+        '1': { lifesteal-chance: 10, lifesteal-percent: 25, upgrade-cost: 3 }
+        '2': { lifesteal-chance: 15, lifesteal-percent: 35, upgrade-cost: 4 }
+        '3': { lifesteal-chance: 20, lifesteal-percent: 50 }
+    FORCE_FEROCITY:
+      display-name: "&4Force Ferocity"
+      description:
+        - "&7Defeating an enemy fuels your rage,"
+        - "&7granting you a burst of speed."
+      unlock-cost: 2
+      max-level: 3
+      levels:
+        '1': { duration-seconds: 3, speed-amplifier: 1, upgrade-cost: 2 }
+        '2': { duration-seconds: 4, speed-amplifier: 1, upgrade-cost: 3 }
+        '3': { duration-seconds: 5, speed-amplifier: 2 }
+    CORRUPTED_ENERGY:
+      display-name: "&5Corrupted Energy"
+      description:
+        - "&7Your dark side abilities have a chance"
+        - "&7to inflict a debilitating wither effect."
+      unlock-cost: 2
+      max-level: 3
+      levels:
+        '1': { wither-chance: 15, wither-duration: 3, wither-amplifier: 1, upgrade-cost: 2 }
+        '2': { wither-chance: 20, wither-duration: 4, wither-amplifier: 1, upgrade-cost: 3 }
+        '3': { wither-chance: 25, wither-duration: 5, wither-amplifier: 2 }

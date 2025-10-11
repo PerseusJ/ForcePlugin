@@ -1,0 +1,57 @@
+# ------------------------------------------------- #
+#                ForcePlugin Ranks                  #
+# ------------------------------------------------- #
+
+# --- Linear Ranks ---
+ranks:
+  LIGHT:
+    - level-required: 1
+      display-name: "&bPadawan"
+    - level-required: 11
+      display-name: "&bJedi Knight"
+  DARK:
+    - level-required: 1
+      display-name: "&cAcolyte"
+    - level-required: 11
+      display-name: "&cSith Apprentice"
+
+# --- Specialization Paths ---
+specializations:
+  LIGHT:
+    - id: "GUARDIAN"
+      display-name: "&9Jedi Guardian"
+      description:
+        - "&7Focuses on combat and protection."
+        - "&7The shield of the Jedi Order."
+      material: "IRON_SWORD"
+    - id: "SENTINEL"
+      display-name: "&eJedi Sentinel"
+      description:
+        - "&7Balances combat and Force abilities."
+        - "&7A versatile and adaptable warrior."
+      material: "FEATHER"
+    - id: "CONSULAR"
+      display-name: "&aJedi Consular"
+      description:
+        - "&7A master of the Force's deepest secrets."
+        - "&7Unlocks the ultimate potential of their powers."
+      material: "GLASS_BOTTLE"
+  DARK:
+    - id: "WARRIOR"
+      display-name: "&4Sith Warrior"
+      description:
+        - "&7An unstoppable agent of destruction."
+        - "&7Crushes enemies with pure aggression."
+      material: "NETHERITE_SWORD"
+    - id: "INQUISITOR"
+      display-name: "&6Sith Inquisitor"
+      description:
+        - "&7Hunts down and eliminates all opposition."
+        - "&7A cunning and relentless foe."
+      material: "SKELETON_SKULL"
+    - id: "SORCERER"
+      display-name: "&5Sith Sorcerer"
+      description:
+        - "&7Twists the Force to their will."
+        - "&7Wields the most terrifying dark side powers."
+      material: "WITHER_SKELETON_SKULL"
