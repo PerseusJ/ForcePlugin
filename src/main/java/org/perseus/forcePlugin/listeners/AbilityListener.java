@@ -1,7 +1,5 @@
 package org.perseus.forcePlugin.listeners;
 
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -53,7 +51,7 @@ public class AbilityListener implements Listener {
         if (forceUser == null) return;
 
         if (forceUser.needsToChoosePath()) {
-            sendActionBarMessage(player, ChatColor.RED + "You must choose your final path! Right-click your Holocron.");
+            org.perseus.forcePlugin.managers.ActionBarUtil.send(player, ChatColor.RED + "You must choose your final path! Right-click your Holocron.");
             return;
         }
 
@@ -66,7 +64,7 @@ public class AbilityListener implements Listener {
 
         String abilityId = forceUser.getActiveAbilityId();
         if (abilityId == null) {
-            sendActionBarMessage(player, ChatColor.YELLOW + "No ability selected.");
+            org.perseus.forcePlugin.managers.ActionBarUtil.send(player, ChatColor.YELLOW + "No ability selected.");
             return;
         }
 
@@ -86,12 +84,12 @@ public class AbilityListener implements Listener {
 
         if (cooldownManager.isOnCooldown(player, ability.getID())) {
             String remaining = cooldownManager.getRemainingCooldownFormatted(player, ability.getID());
-            sendActionBarMessage(player, ChatColor.RED + ability.getName() + " is on cooldown: " + remaining);
+            org.perseus.forcePlugin.managers.ActionBarUtil.send(player, ChatColor.RED + ability.getName() + " is on cooldown: " + remaining);
             return;
         }
 
         if (forceUser.getCurrentForceEnergy() < ability.getEnergyCost(abilityLevel)) {
-            sendActionBarMessage(player, ChatColor.AQUA + "Not enough Force Energy!");
+            org.perseus.forcePlugin.managers.ActionBarUtil.send(player, ChatColor.AQUA + "Not enough Force Energy!");
             return;
         }
 
@@ -119,7 +117,7 @@ public class AbilityListener implements Listener {
             if (Math.random() * 100 < chance) {
                 double percent = plugin.getPassiveManager().getPassiveDoubleValue("SIPHONING_STRIKES", level, "lifesteal-percent", 25.0);
                 double healAmount = event.getDamage() * (percent / 100.0);
-                player.setHealth(Math.min(player.getMaxHealth(), player.getHealth() + healAmount));
+                player.setHealth(Math.min(org.perseus.forcePlugin.managers.HealthUtil.getMaxHealth(player), player.getHealth() + healAmount));
             }
         }
 
@@ -135,7 +133,5 @@ public class AbilityListener implements Listener {
         }
     }
 
-    private void sendActionBarMessage(Player player, String message) {
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
-    }
+    
 }

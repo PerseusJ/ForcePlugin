@@ -46,7 +46,7 @@ public class AmbientEffectsManager {
             player.getWorld().spawnParticle(Particle.END_ROD, location, 1, 0, 0, 0, 0);
         } else {
             Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(150, 0, 0), 0.7F);
-            player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, dustOptions);
+            player.getWorld().spawnParticle(plugin.getVersionAdapter().getRedstoneParticle(), location, 1, 0, 0, 0, 0, dustOptions);
         }
     }
 }

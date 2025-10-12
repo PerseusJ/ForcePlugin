@@ -14,7 +14,8 @@ import org.perseus.forcePlugin.managers.ParticleUtil;
 
 public class ForceLightning implements Ability {
     private final AbilityConfigManager configManager;
-    public ForceLightning(AbilityConfigManager configManager) { this.configManager = configManager; }
+    private final org.perseus.forcePlugin.ForcePlugin plugin;
+    public ForceLightning(AbilityConfigManager configManager, org.perseus.forcePlugin.ForcePlugin plugin) { this.configManager = configManager; this.plugin = plugin; }
     @Override public String getID() { return "FORCE_LIGHTNING"; }
     @Override public String getName() { return "Force Lightning"; }
     @Override public String getDescription() { return "Unleash a dash of lightning at your target."; }
@@ -32,9 +33,8 @@ public class ForceLightning implements Ability {
         if (rayTrace == null || rayTrace.getHitEntity() == null) return;
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
 
-        // DUST is not in 1.16, use REDSTONE
         Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(100, 150, 255), 1.0F);
-        ParticleUtil.drawZigZagBeam(player.getEyeLocation(), target.getEyeLocation(), Particle.REDSTONE, 4.0, 0.3, dustOptions);
+        ParticleUtil.drawZigZagBeam(player.getEyeLocation(), target.getEyeLocation(), plugin.getVersionAdapter().getRedstoneParticle(), 4.0, 0.3, dustOptions);
         target.damage(damage, player);
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 0.5f, 1.8f);
     }

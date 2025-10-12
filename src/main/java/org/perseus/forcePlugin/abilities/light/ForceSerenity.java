@@ -48,7 +48,7 @@ public class ForceSerenity implements Ability {
                     for (Entity entity : player.getNearbyEntities(radius, radius, radius)) {
                         if (entity instanceof Player) {
                             Player ally = (Player) entity;
-                            double newHealth = Math.min(ally.getHealth() + healPerSecond, ally.getMaxHealth());
+                            double newHealth = Math.min(ally.getHealth() + healPerSecond, org.perseus.forcePlugin.managers.HealthUtil.getMaxHealth(ally));
                             ally.setHealth(newHealth);
                         }
                     }

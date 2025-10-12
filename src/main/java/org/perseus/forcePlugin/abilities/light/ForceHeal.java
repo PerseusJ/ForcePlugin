@@ -36,9 +36,9 @@ public class ForceHeal implements Ability {
         int level = forceUser.getAbilityLevel(getID());
         double healAmount = configManager.getDoubleValue(getID(), level, "heal-amount-hearts", 2.0) * 2;
         boolean hasDebuff = player.getActivePotionEffects().stream().anyMatch(effect -> DEBUFFS.contains(effect.getType()));
-        if (player.getHealth() >= player.getMaxHealth() && !hasDebuff) return;
+        if (player.getHealth() >= org.perseus.forcePlugin.managers.HealthUtil.getMaxHealth(player) && !hasDebuff) return;
 
-        double newHealth = Math.min(player.getHealth() + healAmount, player.getMaxHealth());
+        double newHealth = Math.min(player.getHealth() + healAmount, org.perseus.forcePlugin.managers.HealthUtil.getMaxHealth(player));
         player.setHealth(newHealth);
         for (PotionEffectType debuffType : DEBUFFS) {
             if (player.hasPotionEffect(debuffType)) {

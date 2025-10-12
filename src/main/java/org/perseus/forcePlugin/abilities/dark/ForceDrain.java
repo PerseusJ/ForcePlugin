@@ -45,7 +45,7 @@ public class ForceDrain implements Ability {
         }
 
         target.damage(drainAmount, player);
-        double newHealth = Math.min(player.getHealth() + drainAmount, player.getMaxHealth());
+        double newHealth = Math.min(player.getHealth() + drainAmount, org.perseus.forcePlugin.managers.HealthUtil.getMaxHealth(player));
         player.setHealth(newHealth);
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 1.0f, 1.5f);
         player.getWorld().spawnParticle(Particle.HEART, player.getLocation().add(0, 1, 0), 5, 0.5, 0.5, 0.5);
@@ -61,7 +61,7 @@ public class ForceDrain implements Ability {
                 if (traveled >= distance) { this.cancel(); return; }
                 Location point = start.clone().add(direction.clone().multiply(traveled));
                 Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(200, 0, 0), 1.0F);
-                player.getWorld().spawnParticle(Particle.REDSTONE, point, 1, 0, 0, 0, 0, dustOptions);
+                player.getWorld().spawnParticle(org.perseus.forcePlugin.ForcePlugin.getPlugin(org.perseus.forcePlugin.ForcePlugin.class).getVersionAdapter().getRedstoneParticle(), point, 1, 0, 0, 0, 0, dustOptions);
                 traveled += 0.5;
             }
         }.runTaskTimer(plugin, 0L, 1L);

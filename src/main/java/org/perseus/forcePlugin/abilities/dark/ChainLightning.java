@@ -18,7 +18,8 @@ import java.util.List;
 
 public class ChainLightning implements Ability {
     private final AbilityConfigManager configManager;
-    public ChainLightning(AbilityConfigManager configManager) { this.configManager = configManager; }
+    private final org.perseus.forcePlugin.ForcePlugin plugin;
+    public ChainLightning(AbilityConfigManager configManager, org.perseus.forcePlugin.ForcePlugin plugin) { this.configManager = configManager; this.plugin = plugin; }
     @Override public String getID() { return "CHAIN_LIGHTNING"; }
     @Override public String getName() { return "Chain Lightning"; }
     @Override public String getDescription() { return "Unleash lightning that arcs between multiple foes."; }
@@ -42,7 +43,7 @@ public class ChainLightning implements Ability {
         hitTargets.add(currentTarget);
 
         Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(100, 150, 255), 1.0F);
-        ParticleUtil.drawZigZagBeam(player.getEyeLocation(), currentTarget.getEyeLocation(), Particle.REDSTONE, 4.0, 0.3, dustOptions);
+        ParticleUtil.drawZigZagBeam(player.getEyeLocation(), currentTarget.getEyeLocation(), plugin.getVersionAdapter().getRedstoneParticle(), 4.0, 0.3, dustOptions);
         currentTarget.damage(initialDamage, player);
         player.getWorld().playSound(currentTarget.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 0.5f, 1.8f);
 
@@ -55,7 +56,7 @@ public class ChainLightning implements Ability {
             hitTargets.add(currentTarget);
             currentDamage *= falloff;
 
-            ParticleUtil.drawZigZagBeam(lastTarget.getEyeLocation(), currentTarget.getEyeLocation(), Particle.REDSTONE, 4.0, 0.3, dustOptions);
+            ParticleUtil.drawZigZagBeam(lastTarget.getEyeLocation(), currentTarget.getEyeLocation(), plugin.getVersionAdapter().getRedstoneParticle(), 4.0, 0.3, dustOptions);
             currentTarget.damage(currentDamage, player);
             player.getWorld().playSound(currentTarget.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 0.4f, 1.9f);
         }

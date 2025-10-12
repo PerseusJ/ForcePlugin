@@ -49,7 +49,7 @@ public class UnstoppableVengeance implements Ability {
                 Location center = player.getLocation();
                 player.getWorld().spawnParticle(Particle.SMOKE_LARGE, center.clone().add(0, 1, 0), 3, 0.3, 0.3, 0.3, 0);
                 Particle.DustOptions dustOptions = new Particle.DustOptions(Color.MAROON, 1.5F);
-                player.getWorld().spawnParticle(Particle.REDSTONE, center.clone().add(Math.random() - 0.5, Math.random() * 2, Math.random() - 0.5), 1, 0, 0, 0, 0, dustOptions);
+                player.getWorld().spawnParticle(org.perseus.forcePlugin.ForcePlugin.getPlugin(org.perseus.forcePlugin.ForcePlugin.class).getVersionAdapter().getRedstoneParticle(), center.clone().add(Math.random() - 0.5, Math.random() * 2, Math.random() - 0.5), 1, 0, 0, 0, 0, dustOptions);
                 ticks++;
             }
         }.runTaskTimer(plugin, 0L, 2L);

@@ -37,7 +37,7 @@ public class AbilityManager {
         registerAbility(new ForceRepulse(configManager, plugin));
         registerAbility(new ForceStasis(configManager, plugin));
         registerAbility(new ForceBarrier(configManager, plugin));
-        registerAbility(new ForceJudgment(configManager));
+        registerAbility(new ForceJudgment(configManager, plugin));
         registerAbility(new ForceDeflection(configManager, plugin));
         registerAbility(new ForceAbsorb(configManager, plugin));
         registerAbility(new ForceCamouflage(configManager));
@@ -45,14 +45,14 @@ public class AbilityManager {
 
         // Dark Side
         registerAbility(new ForceChoke(plugin, configManager));
-        registerAbility(new ForceLightning(configManager));
+        registerAbility(new ForceLightning(configManager, plugin));
         registerAbility(new ForceScream(configManager, plugin));
         registerAbility(new ForceDrain(configManager, plugin));
         registerAbility(new ForceCrush(configManager, plugin));
         registerAbility(new ForceRage(configManager, plugin));
         registerAbility(new UnstoppableVengeance(configManager, plugin));
         registerAbility(new MarkOfTheHunt(configManager));
-        registerAbility(new ChainLightning(configManager));
+        registerAbility(new ChainLightning(configManager, plugin));
     }
 
     private void registerAbility(Ability ability) {

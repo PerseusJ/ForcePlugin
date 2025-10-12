@@ -8,38 +8,38 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
-import org.perseus.forcePlugin.managers.LevelingManager;
+import org.perseus.forcePlugin.ForcePlugin;
 
 public class ExperienceListener implements Listener {
 
-    private final LevelingManager levelingManager;
+    private final ForcePlugin plugin;
 
-    public ExperienceListener(LevelingManager levelingManager) {
-        this.levelingManager = levelingManager;
+    public ExperienceListener(ForcePlugin plugin) {
+        this.plugin = plugin;
     }
 
     @EventHandler
     public void onMobKill(EntityDeathEvent event) {
         if (event.getEntity().getKiller() != null) {
             Player killer = event.getEntity().getKiller();
-            double xpToGive = killer.getServer().getPluginManager().getPlugin("ForcePlugin").getConfig().getDouble("progression.xp-gain.per-mob-kill", 5.0);
-            levelingManager.addXp(killer, xpToGive);
+            double xpToGive = plugin.getConfig().getDouble("progression.xp-gain.per-mob-kill", 5.0);
+            plugin.getLevelingManager().addXp(killer, xpToGive);
         }
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        levelingManager.updateXpBar(event.getPlayer());
+        plugin.getLevelingManager().updateXpBar(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onExpChange(PlayerExpChangeEvent event) {
         event.setAmount(0);
-        levelingManager.updateXpBar(event.getPlayer());
+        plugin.getLevelingManager().updateXpBar(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLevelChange(PlayerLevelChangeEvent event) {
-        levelingManager.updateXpBar(event.getPlayer());
+        plugin.getLevelingManager().updateXpBar(event.getPlayer());
     }
 }

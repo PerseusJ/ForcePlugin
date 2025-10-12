@@ -14,7 +14,7 @@ import org.perseus.forcePlugin.managers.ParticleUtil;
 
 public class ForceJudgment implements Ability {
     private final AbilityConfigManager configManager;
-    public ForceJudgment(AbilityConfigManager configManager) { this.configManager = configManager; }
+    public ForceJudgment(AbilityConfigManager configManager, ForcePlugin plugin) { this.configManager = configManager; }
     @Override public String getID() { return "FORCE_JUDGMENT"; }
     @Override public String getName() { return "Force Judgment"; }
     @Override public String getDescription() { return "Hurl a blast of pure energy at a target."; }

@@ -16,8 +16,6 @@ import org.perseus.forcePlugin.versioning.Adapter_1_16;
 import org.perseus.forcePlugin.versioning.Adapter_1_21;
 import org.perseus.forcePlugin.versioning.VersionAdapter;
 
-import java.io.File;
-
 public class ForcePlugin extends JavaPlugin {
 
     private ForceUserManager forceUserManager;
@@ -28,7 +26,6 @@ public class ForcePlugin extends JavaPlugin {
     private AbilityConfigManager abilityConfigManager;
     private TelekinesisManager telekinesisManager;
     private LevelingManager levelingManager;
-    private AmbientEffectsManager ambientEffectsManager;
     private HolocronManager holocronManager;
     private DatabaseManager databaseManager;
     private RankManager rankManager;
@@ -64,23 +61,35 @@ public class ForcePlugin extends JavaPlugin {
         this.passiveManager = new PassiveManager(this);
         this.forceEnchantManager = new ForceEnchantManager(this);
         this.guiManager = new GUIManager(this, abilityManager, forceUserManager, abilityConfigManager, rankManager, passiveManager);
-        this.ambientEffectsManager = new AmbientEffectsManager(this);
+        new AmbientEffectsManager(this);
 
         // Register listeners
         getServer().getPluginManager().registerEvents(new PlayerConnectionListener(this), this);
         getServer().getPluginManager().registerEvents(new AbilityListener(this), this);
         getServer().getPluginManager().registerEvents(new GUIListener(this), this);
         getServer().getPluginManager().registerEvents(new ProjectileDeflectionListener(), this);
-        getServer().getPluginManager().registerEvents(new ExperienceListener(levelingManager), this);
+        getServer().getPluginManager().registerEvents(new ExperienceListener(this), this);
         getServer().getPluginManager().registerEvents(new HolocronListener(this), this);
         getServer().getPluginManager().registerEvents(new UltimateAbilityListener(this), this);
         getServer().getPluginManager().registerEvents(new PassiveListener(this), this);
 
-        // Register commands
-        getCommand("force").setExecutor(new ForceCommand(this));
-        getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
-        getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
-        getCommand("forceenchant").setExecutor(new ForceEnchantCommand(this));
+        // Register commands (null-checked to avoid NPEs if plugin.yml is misconfigured)
+        if (getCommand("force") != null) {
+            getCommand("force").setExecutor(new ForceCommand(this));
+            getCommand("force").setTabCompleter(new org.perseus.forcePlugin.commands.ForceTabCompleter());
+        }
+        if (getCommand("forcestats") != null) {
+            getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
+            getCommand("forcestats").setTabCompleter(new org.perseus.forcePlugin.commands.ForceTabCompleter());
+        }
+        if (getCommand("forceadmin") != null) {
+            getCommand("forceadmin").setExecutor(new ForceAdminCommand(this));
+            getCommand("forceadmin").setTabCompleter(new org.perseus.forcePlugin.commands.ForceTabCompleter());
+        }
+        if (getCommand("forceenchant") != null) {
+            getCommand("forceenchant").setExecutor(new ForceEnchantCommand(this));
+            getCommand("forceenchant").setTabCompleter(new org.perseus.forcePlugin.commands.ForceTabCompleter());
+        }
 
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new ForcePlaceholders(this).register();
@@ -109,8 +118,8 @@ public class ForcePlugin extends JavaPlugin {
     public void reloadPluginConfig() {
         reloadConfig();
         // --- THE FIX: Changed 'true' to 'false' to prevent overwriting ---
-        saveResource("ranks.yml", true);
-        saveResource("passives.yml", true);
+        saveResource("ranks.yml", false);
+        saveResource("passives.yml", false);
         // --- END FIX ---
 
         this.abilityConfigManager = new AbilityConfigManager(this);

@@ -13,7 +13,6 @@ import org.perseus.forcePlugin.data.ForceSide;
 import java.util.UUID;
 import org.bukkit.potion.PotionEffectType;
 
-@SuppressWarnings("deprecation")
 public class Adapter_1_21 implements VersionAdapter {
 
     private Particle sonicBoomParticle;
@@ -21,7 +20,22 @@ public class Adapter_1_21 implements VersionAdapter {
 
     @Override
     public org.bukkit.entity.FallingBlock spawnFallingBlock(Location location, ItemStack itemStack) {
-        return location.getWorld().spawnFallingBlock(location, itemStack.getData());
+        org.bukkit.World world = location.getWorld();
+        if (world == null) {
+            return null;
+        }
+        org.bukkit.Material material = itemStack.getType();
+        org.bukkit.block.data.BlockData blockData;
+        try {
+            if (material.isBlock()) {
+                blockData = material.createBlockData();
+            } else {
+                blockData = org.bukkit.Material.SAND.createBlockData();
+            }
+        } catch (Exception e) {
+            blockData = org.bukkit.Material.SAND.createBlockData();
+        }
+        return world.spawnFallingBlock(location, blockData);
     }
 
     @Override
@@ -73,7 +87,11 @@ public class Adapter_1_21 implements VersionAdapter {
 
     @Override
     public Particle getRedstoneParticle() {
-        return Particle.valueOf("DUST");
+        try {
+            return Particle.valueOf("DUST");
+        } catch (IllegalArgumentException e) {
+            return Particle.REDSTONE;
+        }
     }
 
     @Override

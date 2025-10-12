@@ -1,7 +1,6 @@
 package org.perseus.forcePlugin.listeners;
 
 import org.bukkit.Sound;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,8 +31,8 @@ public class PassiveListener implements Listener {
                     if (forceUser != null && forceUser.hasUnlockedPassive("SOOTHING_PRESENCE")) {
                         int level = forceUser.getPassiveLevel("SOOTHING_PRESENCE");
                         double healAmount = plugin.getPassiveManager().getPassiveDoubleValue("SOOTHING_PRESENCE", level, "heal-amount", 0.25) * 2;
-                        if (player.getHealth() < player.getMaxHealth()) {
-                            player.setHealth(Math.min(player.getMaxHealth(), player.getHealth() + healAmount));
+                        if (player.getHealth() < org.perseus.forcePlugin.managers.HealthUtil.getMaxHealth(player)) {
+                            player.setHealth(Math.min(org.perseus.forcePlugin.managers.HealthUtil.getMaxHealth(player), player.getHealth() + healAmount));
                         }
                     }
                 }

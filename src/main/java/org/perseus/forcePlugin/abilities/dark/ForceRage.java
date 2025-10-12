@@ -51,7 +51,7 @@ public class ForceRage implements Ability {
                 double z2 = playerLoc.getZ() + radius * Math.sin(angle + Math.PI);
                 Location particleLoc2 = new Location(player.getWorld(), x2, playerLoc.getY() + (20 - (ticks % 20)) / 10.0, z2);
                 Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(50, 0, 0), 1.0F);
-                player.getWorld().spawnParticle(Particle.REDSTONE, particleLoc1, 1, 0, 0, 0, 0, dustOptions);
+                player.getWorld().spawnParticle(org.perseus.forcePlugin.ForcePlugin.getPlugin(org.perseus.forcePlugin.ForcePlugin.class).getVersionAdapter().getRedstoneParticle(), particleLoc1, 1, 0, 0, 0, 0, dustOptions);
                 player.getWorld().spawnParticle(Particle.SMOKE_LARGE, particleLoc2, 1, 0, 0, 0, 0);
                 angle += Math.PI / 6;
                 ticks++;

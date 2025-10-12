@@ -2,6 +2,7 @@ package org.perseus.forcePlugin.listeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -42,7 +43,12 @@ public class ProjectileDeflectionListener implements Listener {
             event.setCancelled(true);
             projectile.remove();
 
-            Projectile newProjectile = player.launchProjectile(projectile.getClass());
+            Projectile newProjectile;
+            try {
+                newProjectile = player.launchProjectile((Class<? extends Projectile>) projectile.getClass());
+            } catch (Throwable ignored) {
+                newProjectile = player.launchProjectile(Snowball.class);
+            }
             newProjectile.setShooter(player);
             newProjectile.setVelocity(player.getLocation().getDirection().multiply(2.5));
         }

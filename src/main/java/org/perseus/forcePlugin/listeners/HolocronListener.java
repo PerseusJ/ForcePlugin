@@ -1,7 +1,5 @@
 package org.perseus.forcePlugin.listeners;
 
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -48,7 +46,7 @@ public class HolocronListener implements Listener {
         } else {
             selectingPlayers.remove(player.getUniqueId());
             plugin.getHolocronManager().updateHolocronName(player);
-            sendActionBarMessage(player, "");
+            org.perseus.forcePlugin.managers.ActionBarUtil.send(player, "");
         }
     }
 
@@ -156,12 +154,8 @@ public class HolocronListener implements Listener {
         Ability activeAbility = plugin.getAbilityManager().getAbility(forceUser.getActiveAbilityId());
         if (activeAbility != null) {
             ChatColor color = (forceUser.getSide() == ForceSide.LIGHT) ? ChatColor.AQUA : ChatColor.RED;
-            sendActionBarMessage(player, color + "" + ChatColor.BOLD + "Selected: " + activeAbility.getName());
+            org.perseus.forcePlugin.managers.ActionBarUtil.send(player, color + "" + ChatColor.BOLD + "Selected: " + activeAbility.getName());
             player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.5f, 1.5f);
         }
-    }
-
-    private void sendActionBarMessage(Player player, String message) {
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
     }
 }
