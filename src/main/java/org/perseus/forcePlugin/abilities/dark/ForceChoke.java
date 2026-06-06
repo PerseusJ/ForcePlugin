@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.abilities.dark;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -53,7 +55,7 @@ public class ForceChoke implements Ability {
                 double x = radius * Math.cos(angle);
                 double z = radius * Math.sin(angle);
                 // SMOKE_NORMAL is not in 1.16, use SMOKE_LARGE
-                target.getWorld().spawnParticle(Particle.SMOKE_LARGE, particleLoc.clone().add(x, 0, z), 1, 0, 0, 0, 0);
+                target.getWorld().spawnParticle(VersionUtil.LARGE_SMOKE, particleLoc.clone().add(x, 0, z), 1, 0, 0, 0, 0);
                 target.getWorld().spawnParticle(Particle.SQUID_INK, particleLoc.clone().add(-x, 0, -z), 1, 0, 0, 0, 0);
                 ticks++;
             }

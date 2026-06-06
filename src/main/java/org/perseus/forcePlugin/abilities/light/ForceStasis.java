@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.abilities.light;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -65,7 +67,7 @@ public class ForceStasis implements Ability {
         if (rayTrace == null || rayTrace.getHitEntity() == null) return;
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
 
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration, 200, false, false));
+        target.addPotionEffect(new PotionEffect(VersionUtil.SLOWNESS, duration, 200, false, false));
         player.getWorld().playSound(target.getLocation(), Sound.BLOCK_GLASS_BREAK, 1.0f, 0.8f);
 
         new BukkitRunnable() {
@@ -81,7 +83,7 @@ public class ForceStasis implements Ability {
                 for (int i = 0; i < 10; i++) {
                     Vector direction = new Vector(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize();
                     Location particleLoc = center.clone().add(direction.multiply(1.2));
-                    target.getWorld().spawnParticle(Particle.SNOW_SHOVEL, particleLoc, 1, 0, 0, 0, 0);
+                    target.getWorld().spawnParticle(VersionUtil.SNOWFLAKE, particleLoc, 1, 0, 0, 0, 0);
                 }
                 ticks++;
             }

@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.abilities.light;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -19,8 +21,8 @@ public class ForceHeal implements Ability {
     private final AbilityConfigManager configManager;
     private final ForcePlugin plugin;
     private static final List<PotionEffectType> DEBUFFS = Arrays.asList(
-            PotionEffectType.SLOW, PotionEffectType.WEAKNESS, PotionEffectType.POISON,
-            PotionEffectType.WITHER, PotionEffectType.BLINDNESS, PotionEffectType.CONFUSION,
+            VersionUtil.SLOWNESS, PotionEffectType.WEAKNESS, PotionEffectType.POISON,
+            PotionEffectType.WITHER, PotionEffectType.BLINDNESS, VersionUtil.NAUSEA,
             PotionEffectType.HUNGER, PotionEffectType.LEVITATION
     );
     public ForceHeal(AbilityConfigManager configManager, ForcePlugin plugin) { this.configManager = configManager; this.plugin = plugin; }
@@ -58,7 +60,7 @@ public class ForceHeal implements Ability {
                     double angle = Math.random() * 2 * Math.PI;
                     double x = center.getX() + radius * Math.cos(angle);
                     double z = center.getZ() + radius * Math.sin(angle);
-                    player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, new Location(player.getWorld(), x, center.getY(), z), 1, 0, 0, 0, 0);
+                    player.getWorld().spawnParticle(VersionUtil.HAPPY_VILLAGER, new Location(player.getWorld(), x, center.getY(), z), 1, 0, 0, 0, 0);
                 }
                 radius += 0.1;
                 yOffset += 0.1;

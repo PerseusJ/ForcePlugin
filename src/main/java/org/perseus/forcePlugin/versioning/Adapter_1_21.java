@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.versioning;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 import org.bukkit.Bukkit;
@@ -52,12 +54,12 @@ public class Adapter_1_21 implements VersionAdapter {
         try {
             sonicBoomParticle = Particle.valueOf("SONIC_BOOM");
         } catch (IllegalArgumentException e) {
-            sonicBoomParticle = Particle.EXPLOSION_LARGE;
+            sonicBoomParticle = VersionUtil.EXPLOSION;
         }
         try {
             explosionEmitterParticle = Particle.valueOf("EXPLOSION_EMITTER");
         } catch (IllegalArgumentException e) {
-            explosionEmitterParticle = Particle.EXPLOSION_HUGE;
+            explosionEmitterParticle = VersionUtil.EXPLOSION_EMITTER;
         }
     }
 
@@ -90,12 +92,12 @@ public class Adapter_1_21 implements VersionAdapter {
         try {
             return Particle.valueOf("DUST");
         } catch (IllegalArgumentException e) {
-            return Particle.REDSTONE;
+            return VersionUtil.DUST;
         }
     }
 
     @Override
     public PotionEffectType getMiningFatigueEffectType() {
-        return PotionEffectType.SLOW_DIGGING;
+        return VersionUtil.MINING_FATIGUE;
     }
 }

@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.versioning;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import org.bukkit.Location;
@@ -47,8 +49,7 @@ public class Adapter_1_16 implements VersionAdapter {
 
     @Override
     public FallingBlock spawnFallingBlock(Location location, ItemStack itemStack) {
-        // getData() is deprecated but is the correct way for this version.
-        return location.getWorld().spawnFallingBlock(location, itemStack.getData());
+        return location.getWorld().spawnFallingBlock(location, itemStack.getType().createBlockData());
     }
 
     @Override
@@ -59,22 +60,22 @@ public class Adapter_1_16 implements VersionAdapter {
     @Override
     public void playSonicBoom(Location location) {
         // SONIC_BOOM does not exist in 1.16. We use a similar-looking fallback.
-        location.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, location, 1);
+        location.getWorld().spawnParticle(VersionUtil.EXPLOSION, location, 1);
     }
 
     @Override
     public void playExplosionEmitter(Location location) {
         // EXPLOSION_EMITTER does not exist in 1.16. This is the closest equivalent.
-        location.getWorld().spawnParticle(Particle.EXPLOSION_HUGE, location, 1);
+        location.getWorld().spawnParticle(VersionUtil.EXPLOSION_EMITTER, location, 1);
     }
 
     @Override
     public Particle getRedstoneParticle() {
-        return Particle.REDSTONE;
+        return VersionUtil.DUST;
     }
 
     @Override
     public PotionEffectType getMiningFatigueEffectType() {
-        return PotionEffectType.SLOW_DIGGING;
+        return VersionUtil.MINING_FATIGUE;
     }
 }

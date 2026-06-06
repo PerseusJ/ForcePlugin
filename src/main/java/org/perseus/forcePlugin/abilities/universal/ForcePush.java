@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.abilities.universal;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -33,7 +35,7 @@ public class ForcePush implements Ability {
         int nauseaAmplifier = configManager.getIntValue(getID(), level, "nausea-amplifier", 1) - 1;
 
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GHAST_SHOOT, 0.7f, 1.5f);
-        player.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, player.getLocation().add(0, 1, 0).add(player.getLocation().getDirection()), 5, 0.5, 0.5, 0.5, 0.0);
+        player.getWorld().spawnParticle(VersionUtil.POOF, player.getLocation().add(0, 1, 0).add(player.getLocation().getDirection()), 5, 0.5, 0.5, 0.5, 0.0);
 
         for (Entity entity : player.getNearbyEntities(range, range, range)) {
             if (entity instanceof Player && entity.equals(player)) continue;
@@ -43,7 +45,7 @@ public class ForcePush implements Ability {
                 Vector knockback = player.getLocation().getDirection().multiply(strength).setY(upwardForce);
                 entity.setVelocity(knockback);
                 if (entity instanceof LivingEntity && nauseaDuration > 0) {
-                    ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, nauseaDuration, nauseaAmplifier));
+                    ((LivingEntity) entity).addPotionEffect(new PotionEffect(VersionUtil.NAUSEA, nauseaDuration, nauseaAmplifier));
                 }
             }
         }

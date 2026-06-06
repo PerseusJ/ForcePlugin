@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.gui;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -76,7 +78,7 @@ public class ForceEnchantGUI {
             lore.add(ChatColor.GRAY + "Current Level: " + ChatColor.YELLOW + currentLevel);
 
             if (selectedLevel > currentLevel) {
-                enchantIcon.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+                enchantIcon.addUnsafeEnchantment(VersionUtil.UNBREAKING, 1);
                 meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                 lore.add(ChatColor.GREEN + "Selected Level: " + ChatColor.YELLOW + selectedLevel);
             }

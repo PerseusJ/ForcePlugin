@@ -6,10 +6,10 @@ force-energy:
   regeneration-per-second: 2.5
 
 progression:
-  max-force-level: 50
+  max-force-level: 100
   points-per-level: 1
   base-xp: 100
-  xp-per-level-multiplier: 50
+  xp-per-level-multiplier: 25
   xp-gain:
     per-ability-use: 1.0
     per-telekinesis-launch: 2.0
@@ -35,6 +35,13 @@ abilities:
     max-level: 1
     levels:
       '1': { initial-energy-cost: 10.0, energy-cost-per-second: 5.0, cooldown: 20.0, range: 20, launch-strength: 3.0 }
+  FORCE_SENSE:
+    unlock-cost: 1
+    max-level: 3
+    levels:
+      '1': { energy-cost: 15.0, cooldown: 10.0, duration-seconds: 5, radius: 10, upgrade-cost: 1 }
+      '2': { energy-cost: 12.0, cooldown: 8.0, duration-seconds: 8, radius: 20, upgrade-cost: 2 }
+      '3': { energy-cost: 10.0, cooldown: 5.0, duration-seconds: 12, radius: 30 }
 
   # Light Side Exclusive
   FORCE_HEAL:
@@ -75,6 +82,25 @@ abilities:
     max-level: 1
     levels:
       '1': { energy-cost: 20.0, cooldown: 12.0, duration-seconds: 1.5 }
+  FORCE_CLARITY:
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 20.0, cooldown: 15.0, duration-seconds: 5, upgrade-cost: 2 }
+      '2': { energy-cost: 15.0, cooldown: 12.0, duration-seconds: 8 }
+  FORCE_MEND:
+    unlock-cost: 2
+    max-level: 3
+    levels:
+      '1': { energy-cost: 25.0, cooldown: 15.0, heal-amount-hearts: 2.0, upgrade-cost: 2 }
+      '2': { energy-cost: 22.0, cooldown: 12.0, heal-amount-hearts: 3.5, upgrade-cost: 3 }
+      '3': { energy-cost: 20.0, cooldown: 10.0, heal-amount-hearts: 5.0 }
+  FORCE_VALOR:
+    unlock-cost: 3
+    max-level: 2
+    levels:
+      '1': { energy-cost: 35.0, cooldown: 30.0, duration-seconds: 8, radius: 8, upgrade-cost: 3 }
+      '2': { energy-cost: 30.0, cooldown: 25.0, duration-seconds: 12, radius: 12 }
 
   # Dark Side Exclusive
   FORCE_CHOKE:
@@ -113,6 +139,25 @@ abilities:
     max-level: 1
     levels:
       '1': { energy-cost: 40.0, cooldown: 35.0, duration-seconds: 8, speed-amplifier: 2, strength-amplifier: 2 }
+  FORCE_CORRUPT:
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 25.0, cooldown: 15.0, wither-duration-seconds: 3, poison-duration-seconds: 5, slow-duration-seconds: 4, upgrade-cost: 2 }
+      '2': { energy-cost: 20.0, cooldown: 12.0, wither-duration-seconds: 5, poison-duration-seconds: 8, slow-duration-seconds: 6 }
+  SOUL_REND:
+    unlock-cost: 2
+    max-level: 3
+    levels:
+      '1': { energy-cost: 30.0, cooldown: 20.0, duration-seconds: 5, weakness-amplifier: 1, upgrade-cost: 2 }
+      '2': { energy-cost: 25.0, cooldown: 18.0, duration-seconds: 7, weakness-amplifier: 2, upgrade-cost: 3 }
+      '3': { energy-cost: 20.0, cooldown: 15.0, duration-seconds: 10, weakness-amplifier: 3 }
+  DARK_AURA:
+    unlock-cost: 3
+    max-level: 2
+    levels:
+      '1': { energy-cost: 40.0, cooldown: 35.0, duration-seconds: 10, damage-per-second-hearts: 1.0, radius: 5, upgrade-cost: 3 }
+      '2': { energy-cost: 35.0, cooldown: 30.0, duration-seconds: 15, damage-per-second-hearts: 1.5, radius: 8 }
 
 # Ultimate Abilities
 ultimate-abilities:

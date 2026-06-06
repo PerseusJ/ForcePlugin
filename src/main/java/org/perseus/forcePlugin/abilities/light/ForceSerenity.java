@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.abilities.light;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -32,8 +34,8 @@ public class ForceSerenity implements Ability {
         double healPerSecond = configManager.getDoubleValue(getID(), level, "heal-per-second-hearts", 1.0) * 2;
         int radius = configManager.getIntValue(getID(), level, "radius", 7);
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration, 200));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, duration, 2));
+        player.addPotionEffect(new PotionEffect(VersionUtil.SLOWNESS, duration, 200));
+        player.addPotionEffect(new PotionEffect(VersionUtil.RESISTANCE, duration, 2));
         player.getWorld().playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
 
         new BukkitRunnable() {
@@ -57,7 +59,7 @@ public class ForceSerenity implements Ability {
                 for (double angle = 0; angle < 2 * Math.PI; angle += Math.PI / 16) {
                     double x = center.getX() + radius * Math.cos(angle);
                     double z = center.getZ() + radius * Math.sin(angle);
-                    player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, new Location(player.getWorld(), x, center.getY() + 0.5, z), 1, 0, 0, 0, 0);
+                    player.getWorld().spawnParticle(VersionUtil.HAPPY_VILLAGER, new Location(player.getWorld(), x, center.getY() + 0.5, z), 1, 0, 0, 0, 0);
                 }
                 ticks++;
             }

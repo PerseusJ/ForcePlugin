@@ -1,5 +1,5 @@
 name: ForcePlugin
-version: '1.0'
+version: '${version}'
 main: org.perseus.forcePlugin.ForcePlugin
 api-version: '1.16'
 author: Perseusj

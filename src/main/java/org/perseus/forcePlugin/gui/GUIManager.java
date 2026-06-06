@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.gui;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -196,7 +198,7 @@ public class GUIManager {
             ItemMeta meta = icon.getItemMeta();
             meta.setDisplayName(spec.getDisplayName());
             meta.setLore(spec.getDescription());
-            meta.addEnchant(Enchantment.DURABILITY, 1, true);
+            meta.addEnchant(VersionUtil.UNBREAKING, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             icon.setItemMeta(meta);
             gui.setItem(specSlots[i], icon);
@@ -237,7 +239,7 @@ public class GUIManager {
         }
         meta.setLore(lore);
 
-        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        meta.addEnchant(VersionUtil.UNBREAKING, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         icon.setItemMeta(meta);
         return icon;
@@ -292,7 +294,7 @@ public class GUIManager {
             lore.add(ChatColor.AQUA + "Max Level");
         }
         meta.setLore(lore);
-        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        meta.addEnchant(VersionUtil.UNBREAKING, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         icon.setItemMeta(meta);
         return icon;

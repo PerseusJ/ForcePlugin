@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.abilities.universal;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -51,7 +53,7 @@ public class ForcePull implements Ability {
                     return;
                 }
                 Location point = start.clone().add(direction.clone().multiply(traveled));
-                player.getWorld().spawnParticle(Particle.CRIT_MAGIC, point, 1, 0, 0, 0, 0);
+                player.getWorld().spawnParticle(VersionUtil.ENCHANTED_HIT, point, 1, 0, 0, 0, 0);
                 traveled += 1.0;
             }
         }.runTaskTimer(plugin, 0L, 1L);

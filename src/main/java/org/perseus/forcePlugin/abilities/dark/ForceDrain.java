@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.abilities.dark;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;

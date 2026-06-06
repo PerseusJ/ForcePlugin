@@ -40,6 +40,15 @@ passives:
         '1': { regen-bonus: 0.5, upgrade-cost: 2 }
         '2': { regen-bonus: 1.0, upgrade-cost: 2 }
         '3': { regen-bonus: 1.5 }
+    TRANSCENDENCE:
+      display-name: "&eTranscendence"
+      description:
+        - "&7On death, cheat death once"
+        - "&7with a powerful Force explosion."
+      unlock-cost: 5
+      max-level: 1
+      levels:
+        '1': {}
 
   # ------------------------------------------------- #
   #                  Dark Side Passives               #
@@ -78,3 +87,29 @@ passives:
         '1': { wither-chance: 15, wither-duration: 3, wither-amplifier: 1, upgrade-cost: 2 }
         '2': { wither-chance: 20, wither-duration: 4, wither-amplifier: 1, upgrade-cost: 3 }
         '3': { wither-chance: 25, wither-duration: 5, wither-amplifier: 2 }
+    BLOOD_PRICE:
+      display-name: "&4Blood Price"
+      description:
+        - "&7When active, your abilities consume"
+        - "&7health instead of energy if depleted."
+      unlock-cost: 3
+      max-level: 2
+      levels:
+        '1': { cost-reduction: 0, upgrade-cost: 3 }
+        '2': { cost-reduction: 20 }
+
+  # ------------------------------------------------- #
+  #                Neutral Passives                   #
+  # ------------------------------------------------- #
+  NONE:
+    FORCE_ATTUNEMENT:
+      display-name: "&bForce Attunement"
+      description:
+        - "&7After standing still for 3 seconds,"
+        - "&7your Force energy regenerates much faster."
+      unlock-cost: 1
+      max-level: 3
+      levels:
+        '1': { regen-multiplier: 1.5, upgrade-cost: 2 }
+        '2': { regen-multiplier: 1.75, upgrade-cost: 2 }
+        '3': { regen-multiplier: 2.0 }

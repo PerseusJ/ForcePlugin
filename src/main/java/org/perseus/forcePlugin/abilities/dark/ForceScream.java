@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.abilities.dark;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -40,7 +42,7 @@ public class ForceScream implements Ability {
                 LivingEntity target = (LivingEntity) entity;
                 target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, duration, weaknessAmp));
                 // SLOWNESS is not in 1.16, use SLOW
-                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration, slownessAmp));
+                target.addPotionEffect(new PotionEffect(VersionUtil.SLOWNESS, duration, slownessAmp));
             }
         }
 

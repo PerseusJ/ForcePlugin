@@ -1,5 +1,7 @@
 package org.perseus.forcePlugin.abilities.dark;
 
+import org.perseus.forcePlugin.versioning.VersionUtil;
+
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -32,7 +34,7 @@ public class UnstoppableVengeance implements Ability {
         int duration = configManager.getIntValue(getID(), level, "duration-seconds", 8) * 20;
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, 0));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, duration, 1));
+        player.addPotionEffect(new PotionEffect(VersionUtil.RESISTANCE, duration, 1));
         UltimateAbilityListener.addVengefulPlayer(player.getUniqueId());
 
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f, 1.2f);
@@ -47,7 +49,7 @@ public class UnstoppableVengeance implements Ability {
                     return;
                 }
                 Location center = player.getLocation();
-                player.getWorld().spawnParticle(Particle.SMOKE_LARGE, center.clone().add(0, 1, 0), 3, 0.3, 0.3, 0.3, 0);
+                player.getWorld().spawnParticle(VersionUtil.LARGE_SMOKE, center.clone().add(0, 1, 0), 3, 0.3, 0.3, 0.3, 0);
                 Particle.DustOptions dustOptions = new Particle.DustOptions(Color.MAROON, 1.5F);
                 player.getWorld().spawnParticle(org.perseus.forcePlugin.ForcePlugin.getPlugin(org.perseus.forcePlugin.ForcePlugin.class).getVersionAdapter().getRedstoneParticle(), center.clone().add(Math.random() - 0.5, Math.random() * 2, Math.random() - 0.5), 1, 0, 0, 0, 0, dustOptions);
                 ticks++;

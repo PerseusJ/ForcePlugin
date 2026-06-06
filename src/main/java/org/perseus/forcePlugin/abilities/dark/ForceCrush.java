@@ -1,4 +1,6 @@
 package org.perseus.forcePlugin.abilities.dark;
+
+import org.perseus.forcePlugin.versioning.VersionUtil;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -66,7 +68,7 @@ public class ForceCrush implements Ability {
         LivingEntity target = (LivingEntity) rayTrace.getHitEntity();
 
         target.damage(damage, player);
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration, slownessAmp));
+        target.addPotionEffect(new PotionEffect(VersionUtil.SLOWNESS, duration, slownessAmp));
         player.getWorld().playSound(target.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.8f, 0.8f);
 
         new BukkitRunnable() {

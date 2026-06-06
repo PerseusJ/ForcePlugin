@@ -9,11 +9,27 @@ ranks:
       display-name: "&bPadawan"
     - level-required: 11
       display-name: "&bJedi Knight"
+    - level-required: 25
+      display-name: "&bJedi Master"
+    - level-required: 50
+      display-name: "&bJedi High Council"
+    - level-required: 75
+      display-name: "&bJedi Grand Master"
+    - level-required: 100
+      display-name: "&bForce Transcendent"
   DARK:
     - level-required: 1
       display-name: "&cAcolyte"
     - level-required: 11
       display-name: "&cSith Apprentice"
+    - level-required: 25
+      display-name: "&cSith Lord"
+    - level-required: 50
+      display-name: "&cDark Council Member"
+    - level-required: 75
+      display-name: "&cDark Lord of the Sith"
+    - level-required: 100
+      display-name: "&cSith Emperor"
 
 # --- Specialization Paths ---
 specializations:

@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'org.perseus'
-version = '1.0-SNAPSHOT'
+version = '2.4'
 
 repositories {
     mavenCentral()
@@ -26,12 +26,12 @@ dependencies {
     compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
     compileOnly("com.mojang:authlib:1.5.21")
     compileOnly("me.clip:placeholderapi:2.11.6")
-    implementation("org.xerial:sqlite-jdbc:3.41.2.1")
+    compileOnly("org.xerial:sqlite-jdbc:3.41.2.1")
 }
 
 tasks {
     runServer {
-        minecraftVersion("1.21")
+        minecraftVersion("1.16.5")
     }
 }
 
