@@ -83,6 +83,7 @@ public class ForceAdminCommand implements CommandExecutor {
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(target);
         forceUser.setSide(ForceSide.NONE);
         forceUser.getUnlockedAbilities().clear();
+        forceUser.getUnlockedPassives().clear();
         forceUser.unlockAbility("FORCE_PUSH");
         forceUser.unlockAbility("FORCE_PULL");
         forceUser.clearSlotBinds();
@@ -95,6 +96,7 @@ public class ForceAdminCommand implements CommandExecutor {
         forceUser.setNeedsToChoosePath(false);
         plugin.getForceBarManager().updateBar(target);
         plugin.getLevelingManager().updateXpBar(target);
+        plugin.getForceUserManager().savePlayerData(target);
         sender.sendMessage(ChatColor.GREEN + "Completely reset " + target.getName() + "'s Force data.");
         target.sendMessage(ChatColor.YELLOW + "An admin has reset your Force data.");
     }

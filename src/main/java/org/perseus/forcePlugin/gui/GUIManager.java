@@ -90,6 +90,23 @@ public class GUIManager {
                 gui.setItem(abilitySlots[i], createLockedAbilityIcon(ability));
             }
         }
+        String[] ultimates = forceUser.getSide() == ForceSide.LIGHT ? 
+                new String[]{"FORCE_ABSORB", "FORCE_CAMOUFLAGE", "FORCE_SERENITY"} : 
+                new String[]{"UNSTOPPABLE_VENGEANCE", "MARK_OF_THE_HUNT", "CHAIN_LIGHTNING"};
+        int[] ultimateLevels = {33, 66, 100};
+        int[] ultimateSlots = {39, 40, 41};
+
+        for (int i = 0; i < ultimates.length; i++) {
+            Ability ultimate = abilityManager.getAbility(ultimates[i]);
+            if (ultimate != null) {
+                if (forceUser.hasUnlockedAbility(ultimate.getID())) {
+                    gui.setItem(ultimateSlots[i], createUnlockedAbilityIcon(ultimate, forceUser));
+                } else {
+                    gui.setItem(ultimateSlots[i], createLockedUltimateIcon(ultimate, ultimateLevels[i]));
+                }
+            }
+        }
+
         player.openInventory(gui);
     }
 
@@ -148,7 +165,7 @@ public class GUIManager {
         for (int i = 0; i < gui.getSize(); i++) { gui.setItem(i, filler); }
 
         List<String> passiveIds = passiveManager.getPassiveIdsForSide(forceUser.getSide());
-        int[] passiveSlots = {11, 13, 15};
+        int[] passiveSlots = {10, 11, 12, 13, 14, 15, 16};
 
         for (int i = 0; i < passiveIds.size() && i < passiveSlots.length; i++) {
             String passiveId = passiveIds.get(i);
@@ -230,6 +247,22 @@ public class GUIManager {
         return icon;
     }
 
+    private ItemStack createLockedUltimateIcon(Ability ability, int unlockLevel) {
+        ItemStack icon = new ItemStack(Material.BARRIER);
+        ItemMeta meta = icon.getItemMeta();
+        meta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + ability.getName());
+        List<String> lore = new ArrayList<>();
+        lore.add(ChatColor.GRAY + ability.getDescription());
+        lore.add("");
+        lore.add(ChatColor.RED + "Locked Ultimate");
+        lore.add(ChatColor.GOLD + "Unlocks at Level: " + unlockLevel);
+        lore.add("");
+        lore.add(ChatColor.DARK_GRAY + "Continue leveling to unlock!");
+        meta.setLore(lore);
+        icon.setItemMeta(meta);
+        return icon;
+    }
+
     private ItemStack createLevelIcon(Ability ability, int level, String title) {
         ItemStack icon = new ItemStack(Material.PAPER);
         ItemMeta meta = icon.getItemMeta();
@@ -254,7 +287,7 @@ public class GUIManager {
         lore.add("");
         if (level < maxLevel) {
             // --- THE FIX: Use the correct method to get upgrade-cost ---
-            int upgradeCost = plugin.getPassiveManager().getPassiveIntValue(passive.getId(), level + 1, "upgrade-cost", 1);
+            int upgradeCost = plugin.getPassiveManager().getPassiveIntValue(passive.getId(), level, "upgrade-cost", 1);
             lore.add(ChatColor.YELLOW + "Click to upgrade!");
             lore.add(ChatColor.GRAY + "Cost: " + ChatColor.GREEN + upgradeCost + " Point(s)");
         } else {

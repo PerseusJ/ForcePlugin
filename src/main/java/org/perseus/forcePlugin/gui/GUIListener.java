@@ -124,6 +124,11 @@ public class GUIListener implements Listener {
             if (forceUser.hasUnlockedAbility(clickedAbility.getID())) {
                 plugin.getGuiManager().openUpgradeGUI(player, clickedAbility);
             } else {
+                if (org.perseus.forcePlugin.listeners.UltimateAbilityListener.ULTIMATE_ABILITY_IDS.contains(clickedAbility.getID())) {
+                    player.sendMessage(ChatColor.RED + "Ultimate abilities unlock automatically by leveling up!");
+                    player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                    return;
+                }
                 int unlockCost = plugin.getAbilityConfigManager().getUnlockCost(clickedAbility.getID());
                 if (forceUser.getForcePoints() >= unlockCost) {
                     forceUser.addForcePoints(-unlockCost);
@@ -199,7 +204,7 @@ public class GUIListener implements Listener {
             int maxLevel = plugin.getPassiveManager().getPassiveTopLevelIntValue(passiveId, "max-level", 1);
             if (currentLevel < maxLevel) {
                 // --- THE FIX: Use the correct manager to get the upgrade cost ---
-                int upgradeCost = plugin.getPassiveManager().getPassiveIntValue(passiveId, currentLevel + 1, "upgrade-cost", 1);
+                int upgradeCost = plugin.getPassiveManager().getPassiveIntValue(passiveId, currentLevel, "upgrade-cost", 1);
                 if (forceUser.getForcePoints() >= upgradeCost) {
                     forceUser.addForcePoints(-upgradeCost);
                     forceUser.upgradePassive(passiveId);
