@@ -73,7 +73,7 @@ public class LevelingManager {
             player.sendMessage("");
             player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "You have reached a new milestone!");
             player.sendMessage(ChatColor.YELLOW + "You are ready to choose your final path.");
-            player.sendMessage(ChatColor.YELLOW + "Right-click your Holocron to make your permanent choice.");
+            player.sendMessage(ChatColor.YELLOW + "Use " + ChatColor.GOLD + "/force choose" + ChatColor.YELLOW + " to select your specialization.");
             player.sendMessage("");
         }
 

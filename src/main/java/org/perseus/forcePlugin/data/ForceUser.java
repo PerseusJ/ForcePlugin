@@ -13,7 +13,7 @@ public class ForceUser {
     private double forceXp;
     private int forcePoints;
     private final Map<String, Integer> unlockedAbilities;
-    private String activeAbilityId;
+    private final Map<Integer, String> slotBinds;
     private String specialization;
     private boolean needsToChoosePath;
 
@@ -32,7 +32,7 @@ public class ForceUser {
         this.forceXp = 0.0;
         this.forcePoints = 0;
         this.unlockedAbilities = new HashMap<>();
-        this.activeAbilityId = null;
+        this.slotBinds = new HashMap<>();
         this.specialization = null;
         this.needsToChoosePath = false;
         this.unlockedPassives = new HashMap<>(); // Initialize new map
@@ -50,7 +50,16 @@ public class ForceUser {
     public Map<String, Integer> getUnlockedAbilities() { return unlockedAbilities; }
     public boolean hasUnlockedAbility(String abilityId) { return unlockedAbilities.containsKey(abilityId); }
     public int getAbilityLevel(String abilityId) { return unlockedAbilities.getOrDefault(abilityId, 0); }
-    public String getActiveAbilityId() { return activeAbilityId; }
+    public String getBoundAbilityId(int slot) { return slotBinds.get(slot); }
+    public Map<Integer, String> getSlotBinds() { return slotBinds; }
+    public void setSlotBind(int slot, String abilityId) {
+        if (abilityId == null) {
+            slotBinds.remove(slot);
+        } else {
+            slotBinds.put(slot, abilityId);
+        }
+    }
+    public void clearSlotBinds() { slotBinds.clear(); }
     public String getSpecialization() { return specialization; }
     public boolean needsToChoosePath() { return needsToChoosePath; }
 
@@ -80,7 +89,6 @@ public class ForceUser {
             unlockedAbilities.put(abilityId, currentLevel + 1);
         }
     }
-    public void setActiveAbilityId(String activeAbilityId) { this.activeAbilityId = activeAbilityId; }
     public void setSpecialization(String specialization) { this.specialization = specialization; }
     public void setNeedsToChoosePath(boolean needsToChoosePath) { this.needsToChoosePath = needsToChoosePath; }
     public void setForceRegenModifier(double forceRegenModifier) { this.forceRegenModifier = forceRegenModifier; }

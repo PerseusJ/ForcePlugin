@@ -17,7 +17,7 @@ commands:
     aliases: [fs]
   forceadmin:
     description: Admin command for the ForcePlugin.
-    usage: /<command> [reload|setside|reset|check|setlevel|givexp|givepoints|giveholocron]
+    usage: /<command> [reload|setside|reset|check|setlevel|givexp|givepoints]
     aliases: [fa]
   forceenchant:
     description: Use Force Energy to temporarily enchant tools.

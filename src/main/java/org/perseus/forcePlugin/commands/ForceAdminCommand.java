@@ -38,7 +38,6 @@ public class ForceAdminCommand implements CommandExecutor {
             case "setlevel": handleSetLevel(sender, args); break;
             case "givexp": handleGiveXp(sender, args); break;
             case "givepoints": handleGivePoints(sender, args); break;
-            case "giveholocron": handleGiveHolocron(sender, args); break;
             default: sendHelpMessage(sender); break;
         }
         return true;
@@ -86,13 +85,14 @@ public class ForceAdminCommand implements CommandExecutor {
         forceUser.getUnlockedAbilities().clear();
         forceUser.unlockAbility("FORCE_PUSH");
         forceUser.unlockAbility("FORCE_PULL");
-        forceUser.setActiveAbilityId("FORCE_PUSH");
+        forceUser.clearSlotBinds();
+        forceUser.setSlotBind(0, "FORCE_PUSH");
+        forceUser.setSlotBind(1, "FORCE_PULL");
         forceUser.setForceLevel(1);
         forceUser.setForceXp(0);
         forceUser.setForcePoints(0);
         forceUser.setSpecialization(null);
         forceUser.setNeedsToChoosePath(false);
-        plugin.getHolocronManager().removeHolocron(target);
         plugin.getForceBarManager().updateBar(target);
         plugin.getLevelingManager().updateXpBar(target);
         sender.sendMessage(ChatColor.GREEN + "Completely reset " + target.getName() + "'s Force data.");
@@ -120,12 +120,17 @@ public class ForceAdminCommand implements CommandExecutor {
         double neededXp = plugin.getLevelingManager().getXpForNextLevel(forceUser.getForceLevel());
         sender.sendMessage(String.format(ChatColor.YELLOW + "XP: " + ChatColor.WHITE + "%.1f / %.1f", forceUser.getForceXp(), neededXp));
         sender.sendMessage(ChatColor.YELLOW + "Points: " + ChatColor.GREEN + forceUser.getForcePoints());
-        String activeAbilityName = "None";
-        if (forceUser.getActiveAbilityId() != null) {
-            Ability ability = plugin.getAbilityManager().getAbility(forceUser.getActiveAbilityId());
-            if (ability != null) activeAbilityName = ability.getName();
+        StringBuilder bindsStr = new StringBuilder();
+        for (int slot = 0; slot < 9; slot++) {
+            String boundId = forceUser.getBoundAbilityId(slot);
+            if (boundId != null) {
+                Ability boundAbility = plugin.getAbilityManager().getAbility(boundId);
+                String name = (boundAbility != null) ? boundAbility.getName() : boundId;
+                if (bindsStr.length() > 0) bindsStr.append(", ");
+                bindsStr.append("Slot ").append(slot + 1).append(": ").append(name);
+            }
         }
-        sender.sendMessage(ChatColor.YELLOW + "Active Ability: " + ChatColor.WHITE + activeAbilityName);
+        sender.sendMessage(ChatColor.YELLOW + "Slot Binds: " + ChatColor.WHITE + (bindsStr.length() > 0 ? bindsStr.toString() : "None"));
     }
 
     private void handleSetLevel(CommandSender sender, String[] args) {
@@ -189,25 +194,6 @@ public class ForceAdminCommand implements CommandExecutor {
         }
     }
 
-    private void handleGiveHolocron(CommandSender sender, String[] args) {
-        if (args.length != 2) {
-            sender.sendMessage(ChatColor.RED + "Usage: /fa giveholocron <player>");
-            return;
-        }
-        Player target = Bukkit.getPlayer(args[1]);
-        if (target == null) {
-            sender.sendMessage(ChatColor.RED + "Player not found.");
-            return;
-        }
-        ForceUser forceUser = plugin.getForceUserManager().getForceUser(target);
-        if (forceUser.getSide() == ForceSide.NONE) {
-            sender.sendMessage(ChatColor.RED + "That player has not chosen a side yet.");
-            return;
-        }
-        plugin.getHolocronManager().giveHolocron(target);
-        sender.sendMessage(ChatColor.GREEN + "Gave a new Holocron to " + target.getName() + ".");
-    }
-
     private void sendHelpMessage(CommandSender sender) {
         sender.sendMessage(ChatColor.GOLD + "--- ForceAdmin Help ---");
         sender.sendMessage(ChatColor.YELLOW + "/fa reload" + ChatColor.GRAY + " - Reloads the config.yml.");
@@ -217,6 +203,5 @@ public class ForceAdminCommand implements CommandExecutor {
         sender.sendMessage(ChatColor.YELLOW + "/fa setlevel <player> <level>" + ChatColor.GRAY + " - Sets a player's Force Level.");
         sender.sendMessage(ChatColor.YELLOW + "/fa givexp <player> <amount>" + ChatColor.GRAY + " - Gives a player Force XP.");
         sender.sendMessage(ChatColor.YELLOW + "/fa givepoints <player> <amount>" + ChatColor.GRAY + " - Gives a player Force Points.");
-        sender.sendMessage(ChatColor.YELLOW + "/fa giveholocron <player>" + ChatColor.GRAY + " - Gives a player a new Holocron.");
     }
 }

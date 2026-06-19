@@ -2,6 +2,7 @@ package org.perseus.forcePlugin.managers;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ActionTrigger;
 
 public class AbilityConfigManager {
 
@@ -33,5 +34,14 @@ public class AbilityConfigManager {
             configPath = "abilities." + abilityId + "." + path;
         }
         return config.getInt(configPath, defaultValue);
+    }
+
+    public ActionTrigger getTrigger(String abilityId) {
+        String triggerStr = config.getString("abilities." + abilityId + ".trigger", "LEFT_CLICK");
+        try {
+            return ActionTrigger.valueOf(triggerStr.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return ActionTrigger.LEFT_CLICK;
+        }
     }
 }

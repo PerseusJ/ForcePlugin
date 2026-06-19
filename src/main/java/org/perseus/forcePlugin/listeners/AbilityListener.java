@@ -8,11 +8,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.abilities.Ability;
+import org.perseus.forcePlugin.data.ActionTrigger;
 import org.perseus.forcePlugin.data.ForceUser;
 import org.perseus.forcePlugin.managers.*;
 
@@ -28,22 +29,14 @@ public class AbilityListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Action action = event.getAction();
-        ItemStack itemInHand = event.getItem();
 
         TelekinesisManager telekinesisManager = plugin.getTelekinesisManager();
         ForceUserManager userManager = plugin.getForceUserManager();
 
-        if (action != Action.LEFT_CLICK_AIR && action != Action.LEFT_CLICK_BLOCK) {
-            return;
-        }
+        boolean isLeftClick = action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK;
+        boolean isRightClick = action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK;
 
-        if (!plugin.getHolocronManager().isHolocron(itemInHand)) {
-            return;
-        }
-
-        event.setCancelled(true);
-
-        if (player.isSneaking()) {
+        if (!isLeftClick && !isRightClick) {
             return;
         }
 
@@ -51,7 +44,13 @@ public class AbilityListener implements Listener {
         if (forceUser == null) return;
 
         if (forceUser.needsToChoosePath()) {
-            org.perseus.forcePlugin.managers.ActionBarUtil.send(player, ChatColor.RED + "You must choose your final path! Right-click your Holocron.");
+            org.perseus.forcePlugin.managers.ActionBarUtil.send(player, ChatColor.RED + "You must choose your final path!");
+            return;
+        }
+
+        if (isRightClick) {
+            event.setCancelled(true);
+            plugin.getGuiManager().openBindGUI(player);
             return;
         }
 
@@ -59,12 +58,14 @@ public class AbilityListener implements Listener {
             telekinesisManager.launch(player);
             double xpToGive = plugin.getConfig().getDouble("progression.xp-gain.per-telekinesis-launch", 2.0);
             plugin.getLevelingManager().addXp(player, xpToGive);
+            event.setCancelled(true);
             return;
         }
 
-        String abilityId = forceUser.getActiveAbilityId();
+        int heldSlot = player.getInventory().getHeldItemSlot();
+        String abilityId = forceUser.getBoundAbilityId(heldSlot);
         if (abilityId == null) {
-            org.perseus.forcePlugin.managers.ActionBarUtil.send(player, ChatColor.YELLOW + "No ability selected.");
+            org.perseus.forcePlugin.managers.ActionBarUtil.send(player, ChatColor.YELLOW + "No ability bound to this slot.");
             return;
         }
 
@@ -72,11 +73,44 @@ public class AbilityListener implements Listener {
         Ability ability = abilityManager.getAbility(abilityId);
         if (ability == null) return;
 
+        ActionTrigger trigger = plugin.getAbilityConfigManager().getTrigger(abilityId);
+        if (trigger == ActionTrigger.SHIFT && !player.isSneaking()) {
+            return;
+        }
+
+        if (tryActivateAbility(player, forceUser, ability, abilityId)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
+        if (!event.isSneaking()) return;
+
+        Player player = event.getPlayer();
+        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
+        if (forceUser == null || forceUser.needsToChoosePath()) return;
+
+        int heldSlot = player.getInventory().getHeldItemSlot();
+        String abilityId = forceUser.getBoundAbilityId(heldSlot);
+        if (abilityId == null) return;
+
+        AbilityManager abilityManager = plugin.getAbilityManager();
+        Ability ability = abilityManager.getAbility(abilityId);
+        if (ability == null) return;
+
+        ActionTrigger trigger = plugin.getAbilityConfigManager().getTrigger(abilityId);
+        if (trigger != ActionTrigger.SHIFT) return;
+
         if (!forceUser.hasUnlockedAbility(abilityId)) {
             player.sendMessage(ChatColor.RED + "A bug has occurred: Tried to use a locked ability.");
             return;
         }
 
+        tryActivateAbility(player, forceUser, ability, abilityId);
+    }
+
+    private boolean tryActivateAbility(Player player, ForceUser forceUser, Ability ability, String abilityId) {
         int abilityLevel = forceUser.getAbilityLevel(abilityId);
         CooldownManager cooldownManager = plugin.getCooldownManager();
         LevelingManager levelingManager = plugin.getLevelingManager();
@@ -85,12 +119,12 @@ public class AbilityListener implements Listener {
         if (cooldownManager.isOnCooldown(player, ability.getID())) {
             String remaining = cooldownManager.getRemainingCooldownFormatted(player, ability.getID());
             org.perseus.forcePlugin.managers.ActionBarUtil.send(player, ChatColor.RED + ability.getName() + " is on cooldown: " + remaining);
-            return;
+            return false;
         }
 
         if (forceUser.getCurrentForceEnergy() < ability.getEnergyCost(abilityLevel)) {
             org.perseus.forcePlugin.managers.ActionBarUtil.send(player, ChatColor.AQUA + "Not enough Force Energy!");
-            return;
+            return false;
         }
 
         forceUser.setCurrentForceEnergy(forceUser.getCurrentForceEnergy() - ability.getEnergyCost(abilityLevel));
@@ -100,6 +134,7 @@ public class AbilityListener implements Listener {
 
         double xpToGive = plugin.getConfig().getDouble("progression.xp-gain.per-ability-use", 1.0);
         levelingManager.addXp(player, xpToGive);
+        return true;
     }
 
     @EventHandler

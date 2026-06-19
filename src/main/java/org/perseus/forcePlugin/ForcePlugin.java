@@ -26,12 +26,12 @@ public class ForcePlugin extends JavaPlugin {
     private AbilityConfigManager abilityConfigManager;
     private TelekinesisManager telekinesisManager;
     private LevelingManager levelingManager;
-    private HolocronManager holocronManager;
     private DatabaseManager databaseManager;
     private RankManager rankManager;
     private VersionAdapter versionAdapter;
     private PassiveManager passiveManager;
     private ForceEnchantManager forceEnchantManager;
+    private HudManager hudManager;
 
     @Override
     public void onEnable() {
@@ -53,7 +53,6 @@ public class ForcePlugin extends JavaPlugin {
         this.abilityConfigManager = new AbilityConfigManager(this);
         this.telekinesisManager = new TelekinesisManager(this);
         this.levelingManager = new LevelingManager(this);
-        this.holocronManager = new HolocronManager(this);
         this.abilityManager = new AbilityManager(this, abilityConfigManager, telekinesisManager);
         this.cooldownManager = new CooldownManager();
         this.forceBarManager = new ForceBarManager(this, forceUserManager);
@@ -62,6 +61,7 @@ public class ForcePlugin extends JavaPlugin {
         this.forceEnchantManager = new ForceEnchantManager(this);
         this.guiManager = new GUIManager(this, abilityManager, forceUserManager, abilityConfigManager, rankManager, passiveManager);
         new AmbientEffectsManager(this);
+        this.hudManager = new HudManager(this);
 
         // Register listeners
         getServer().getPluginManager().registerEvents(new PlayerConnectionListener(this), this);
@@ -69,14 +69,17 @@ public class ForcePlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GUIListener(this), this);
         getServer().getPluginManager().registerEvents(new ProjectileDeflectionListener(), this);
         getServer().getPluginManager().registerEvents(new ExperienceListener(this), this);
-        getServer().getPluginManager().registerEvents(new HolocronListener(this), this);
         getServer().getPluginManager().registerEvents(new UltimateAbilityListener(this), this);
         getServer().getPluginManager().registerEvents(new PassiveListener(this), this);
+        getServer().getPluginManager().registerEvents(new HotbarListener(this), this);
+        getServer().getPluginManager().registerEvents(hudManager, this);
 
         // Register commands (null-checked to avoid NPEs if plugin.yml is misconfigured)
         if (getCommand("force") != null) {
+            org.perseus.forcePlugin.commands.ForceTabCompleter forceTabCompleter = new org.perseus.forcePlugin.commands.ForceTabCompleter();
+            forceTabCompleter.setPlugin(this);
             getCommand("force").setExecutor(new ForceCommand(this));
-            getCommand("force").setTabCompleter(new org.perseus.forcePlugin.commands.ForceTabCompleter());
+            getCommand("force").setTabCompleter(forceTabCompleter);
         }
         if (getCommand("forcestats") != null) {
             getCommand("forcestats").setExecutor(new ForceStatsCommand(this));
@@ -104,6 +107,9 @@ public class ForcePlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (hudManager != null) {
+            hudManager.removeAll();
+        }
         for (Player player : getServer().getOnlinePlayers()) {
             if (forceUserManager != null && forceUserManager.getForceUser(player) != null) {
                 forceUserManager.savePlayerData(player);
@@ -130,6 +136,7 @@ public class ForcePlugin extends JavaPlugin {
         this.passiveManager.loadPassives();
         this.forceEnchantManager.loadEnchantmentData();
         this.guiManager = new GUIManager(this, this.abilityManager, this.forceUserManager, this.abilityConfigManager, this.rankManager, this.passiveManager);
+        this.hudManager.reloadConfig();
         getLogger().info("ForcePlugin configuration has been reloaded.");
     }
 
@@ -157,10 +164,10 @@ public class ForcePlugin extends JavaPlugin {
     public AbilityConfigManager getAbilityConfigManager() { return abilityConfigManager; }
     public TelekinesisManager getTelekinesisManager() { return telekinesisManager; }
     public LevelingManager getLevelingManager() { return levelingManager; }
-    public HolocronManager getHolocronManager() { return holocronManager; }
     public DatabaseManager getDatabaseManager() { return databaseManager; }
     public RankManager getRankManager() { return rankManager; }
     public VersionAdapter getVersionAdapter() { return versionAdapter; }
     public PassiveManager getPassiveManager() { return passiveManager; }
     public ForceEnchantManager getForceEnchantManager() { return forceEnchantManager; }
+    public HudManager getHudManager() { return hudManager; }
 }

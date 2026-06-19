@@ -16,8 +16,9 @@ progression:
     per-mob-kill: 5.0
 
 abilities:
-  # Universal Abilities
+  # Universal Abilities - trigger determines activation action (LEFT_CLICK, RIGHT_CLICK, SHIFT)
   FORCE_PUSH:
+    trigger: LEFT_CLICK
     unlock-cost: 1
     max-level: 3
     levels:
@@ -25,17 +26,20 @@ abilities:
       '2': { energy-cost: 14.0, cooldown: 3.5, strength: 2.5, upward-force: 1.3, nausea-duration-seconds: 4, nausea-amplifier: 1, upgrade-cost: 2 }
       '3': { energy-cost: 12.0, cooldown: 3.0, strength: 3.0, upward-force: 1.4, nausea-duration-seconds: 5, nausea-amplifier: 2 }
   FORCE_PULL:
+    trigger: LEFT_CLICK
     unlock-cost: 1
     max-level: 2
     levels:
       '1': { energy-cost: 15.0, cooldown: 10.0, strength: 2.5, upgrade-cost: 2 }
       '2': { energy-cost: 12.0, cooldown: 8.0, strength: 3.0 }
   TELEKINESIS:
+    trigger: RIGHT_CLICK
     unlock-cost: 3
     max-level: 1
     levels:
       '1': { initial-energy-cost: 10.0, energy-cost-per-second: 5.0, cooldown: 20.0, range: 20, launch-strength: 3.0 }
   FORCE_SENSE:
+    trigger: RIGHT_CLICK
     unlock-cost: 1
     max-level: 3
     levels:
@@ -45,6 +49,7 @@ abilities:
 
   # Light Side Exclusive
   FORCE_HEAL:
+    trigger: RIGHT_CLICK
     unlock-cost: 1
     max-level: 3
     levels:
@@ -52,18 +57,21 @@ abilities:
       '2': { energy-cost: 28.0, cooldown: 10.0, heal-amount-hearts: 3.0, upgrade-cost: 2 }
       '3': { energy-cost: 25.0, cooldown: 8.0, heal-amount-hearts: 4.0 }
   FORCE_REPULSE:
+    trigger: LEFT_CLICK
     unlock-cost: 2
     max-level: 2
     levels:
       '1': { energy-cost: 35.0, cooldown: 18.0, radius: 6, strength: 2.5, upgrade-cost: 2 }
       '2': { energy-cost: 30.0, cooldown: 15.0, radius: 8, strength: 3.0 }
   FORCE_STASIS:
+    trigger: LEFT_CLICK
     unlock-cost: 2
     max-level: 2
     levels:
       '1': { energy-cost: 20.0, cooldown: 15.0, duration-seconds: 3, upgrade-cost: 2 }
       '2': { energy-cost: 18.0, cooldown: 12.0, duration-seconds: 4 }
   FORCE_BARRIER:
+    trigger: RIGHT_CLICK
     unlock-cost: 2
     max-level: 3
     levels:
@@ -71,6 +79,7 @@ abilities:
       '2': { energy-cost: 28.0, cooldown: 22.0, duration-seconds: 12, shield-hearts: 3, upgrade-cost: 2 }
       '3': { energy-cost: 25.0, cooldown: 20.0, duration-seconds: 15, shield-hearts: 4 }
   FORCE_JUDGMENT:
+    trigger: LEFT_CLICK
     unlock-cost: 2
     max-level: 3
     levels:
@@ -78,17 +87,20 @@ abilities:
       '2': { energy-cost: 22.0, cooldown: 7.0, damage-hearts: 4.0, upgrade-cost: 3 }
       '3': { energy-cost: 20.0, cooldown: 6.0, damage-hearts: 5.0 }
   FORCE_DEFLECTION:
+    trigger: SHIFT
     unlock-cost: 3
     max-level: 1
     levels:
       '1': { energy-cost: 20.0, cooldown: 12.0, duration-seconds: 1.5 }
   FORCE_CLARITY:
+    trigger: RIGHT_CLICK
     unlock-cost: 2
     max-level: 2
     levels:
       '1': { energy-cost: 20.0, cooldown: 15.0, duration-seconds: 5, upgrade-cost: 2 }
       '2': { energy-cost: 15.0, cooldown: 12.0, duration-seconds: 8 }
   FORCE_MEND:
+    trigger: RIGHT_CLICK
     unlock-cost: 2
     max-level: 3
     levels:
@@ -96,6 +108,7 @@ abilities:
       '2': { energy-cost: 22.0, cooldown: 12.0, heal-amount-hearts: 3.5, upgrade-cost: 3 }
       '3': { energy-cost: 20.0, cooldown: 10.0, heal-amount-hearts: 5.0 }
   FORCE_VALOR:
+    trigger: RIGHT_CLICK
     unlock-cost: 3
     max-level: 2
     levels:
@@ -104,12 +117,14 @@ abilities:
 
   # Dark Side Exclusive
   FORCE_CHOKE:
+    trigger: LEFT_CLICK
     unlock-cost: 2
     max-level: 2
     levels:
       '1': { energy-cost: 30.0, cooldown: 12.0, duration-seconds: 3, damage-per-second-hearts: 1.0, upgrade-cost: 2 }
       '2': { energy-cost: 28.0, cooldown: 10.0, duration-seconds: 4, damage-per-second-hearts: 1.5 }
   FORCE_LIGHTNING:
+    trigger: LEFT_CLICK
     unlock-cost: 2
     max-level: 3
     levels:
@@ -117,35 +132,41 @@ abilities:
       '2': { energy-cost: 22.0, cooldown: 7.0, damage-hearts: 4.0, upgrade-cost: 3 }
       '3': { energy-cost: 20.0, cooldown: 6.0, damage-hearts: 5.0 }
   FORCE_SCREAM:
+    trigger: RIGHT_CLICK
     unlock-cost: 2
     max-level: 2
     levels:
       '1': { energy-cost: 25.0, cooldown: 20.0, radius: 8, duration-seconds: 5, upgrade-cost: 2 }
       '2': { energy-cost: 22.0, cooldown: 16.0, radius: 10, duration-seconds: 7 }
   FORCE_DRAIN:
+    trigger: LEFT_CLICK
     unlock-cost: 3
     max-level: 2
     levels:
       '1': { energy-cost: 40.0, cooldown: 25.0, drain-amount-hearts: 2.0, upgrade-cost: 3 }
       '2': { energy-cost: 35.0, cooldown: 20.0, drain-amount-hearts: 3.0 }
   FORCE_CRUSH:
+    trigger: LEFT_CLICK
     unlock-cost: 2
     max-level: 2
     levels:
       '1': { energy-cost: 35.0, cooldown: 15.0, damage-hearts: 4.0, upgrade-cost: 2 }
       '2': { energy-cost: 30.0, cooldown: 12.0, damage-hearts: 5.5 }
   FORCE_RAGE:
+    trigger: SHIFT
     unlock-cost: 3
     max-level: 1
     levels:
       '1': { energy-cost: 40.0, cooldown: 35.0, duration-seconds: 8, speed-amplifier: 2, strength-amplifier: 2 }
   FORCE_CORRUPT:
+    trigger: LEFT_CLICK
     unlock-cost: 2
     max-level: 2
     levels:
       '1': { energy-cost: 25.0, cooldown: 15.0, wither-duration-seconds: 3, poison-duration-seconds: 5, slow-duration-seconds: 4, upgrade-cost: 2 }
       '2': { energy-cost: 20.0, cooldown: 12.0, wither-duration-seconds: 5, poison-duration-seconds: 8, slow-duration-seconds: 6 }
   SOUL_REND:
+    trigger: LEFT_CLICK
     unlock-cost: 2
     max-level: 3
     levels:
@@ -153,6 +174,7 @@ abilities:
       '2': { energy-cost: 25.0, cooldown: 18.0, duration-seconds: 7, weakness-amplifier: 2, upgrade-cost: 3 }
       '3': { energy-cost: 20.0, cooldown: 15.0, duration-seconds: 10, weakness-amplifier: 3 }
   DARK_AURA:
+    trigger: SHIFT
     unlock-cost: 3
     max-level: 2
     levels:
@@ -334,3 +356,8 @@ force-enchanting:
     LURE:
       energy-cost-per-level: 10
       max-level: 3
+
+# Optional sidebar scoreboard HUD showing slot binds
+hud:
+  enabled: true
+  title: "&6Force Binds"

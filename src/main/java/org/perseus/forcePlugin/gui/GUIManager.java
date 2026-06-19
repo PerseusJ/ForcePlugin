@@ -38,6 +38,8 @@ public class GUIManager {
     private final RankManager rankManager;
     private final PassiveManager passiveManager;
     private final ForceEnchantGUI forceEnchantGUI;
+    private final BindGUI bindGUI;
+    private final AbilityPickerGUI abilityPickerGUI;
 
     public GUIManager(ForcePlugin plugin, AbilityManager abilityManager, ForceUserManager userManager, AbilityConfigManager configManager, RankManager rankManager, PassiveManager passiveManager) {
         this.plugin = plugin;
@@ -47,6 +49,8 @@ public class GUIManager {
         this.rankManager = rankManager;
         this.passiveManager = passiveManager;
         this.forceEnchantGUI = new ForceEnchantGUI(plugin);
+        this.bindGUI = new BindGUI(plugin);
+        this.abilityPickerGUI = new AbilityPickerGUI(plugin);
     }
 
     public void openAbilityGUI(Player player) {
@@ -337,6 +341,14 @@ public class GUIManager {
 
     public void openForceEnchantGUI(Player player) {
         forceEnchantGUI.open(player);
+    }
+
+    public void openBindGUI(Player player) {
+        bindGUI.open(player);
+    }
+
+    public void openAbilityPickerGUI(Player player, int slot) {
+        abilityPickerGUI.open(player, slot);
     }
 
     public void openChooseSideGUI(Player player) {

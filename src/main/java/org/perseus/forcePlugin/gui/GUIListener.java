@@ -56,6 +56,10 @@ public class GUIListener implements Listener {
             handleForceEnchantGUI(event, player);
         } else if (viewTitle.equals(GUIManager.CHOOSE_SIDE_GUI_TITLE)) {
             handleChooseSideGUI(event, player);
+        } else if (viewTitle.equals(BindGUI.TITLE)) {
+            handleBindGUI(event, player);
+        } else if (viewTitle.startsWith(AbilityPickerGUI.TITLE_PREFIX)) {
+            handleAbilityPickerGUI(event, player);
         }
     }
 
@@ -287,6 +291,77 @@ public class GUIListener implements Listener {
         return null;
     }
 
+    private void handleBindGUI(InventoryClickEvent event, Player player) {
+        event.setCancelled(true);
+        ItemStack clickedItem = event.getCurrentItem();
+        if (clickedItem == null || !clickedItem.hasItemMeta() || clickedItem.getItemMeta().getDisplayName().equals(" ")) return;
+
+        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
+        if (forceUser == null) return;
+
+        int slot = event.getSlot();
+
+        if (slot >= 0 && slot < 9) {
+            plugin.getGuiManager().openAbilityPickerGUI(player, slot);
+            return;
+        }
+
+        String displayName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
+
+        if (displayName.equals("Reset Current Slot")) {
+            int heldSlot = player.getInventory().getHeldItemSlot();
+            forceUser.setSlotBind(heldSlot, null);
+            player.sendMessage(ChatColor.GRAY + "Unbound slot " + (heldSlot + 1) + ".");
+            plugin.getHudManager().updateScoreboard(player);
+            plugin.getGuiManager().openBindGUI(player);
+        } else if (displayName.equals("Unbind All")) {
+            forceUser.clearSlotBinds();
+            player.sendMessage(ChatColor.RED + "All slot bindings cleared.");
+            plugin.getHudManager().updateScoreboard(player);
+            plugin.getGuiManager().openBindGUI(player);
+        } else if (displayName.equals("Close")) {
+            player.closeInventory();
+        }
+    }
+
+    private void handleAbilityPickerGUI(InventoryClickEvent event, Player player) {
+        event.setCancelled(true);
+        ItemStack clickedItem = event.getCurrentItem();
+        if (clickedItem == null || !clickedItem.hasItemMeta() || clickedItem.getItemMeta().getDisplayName().equals(" ")) return;
+
+        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
+        if (forceUser == null) return;
+
+        String viewTitle = event.getView().getTitle();
+        String slotStr = viewTitle.replace(AbilityPickerGUI.TITLE_PREFIX, "").trim();
+        int slot;
+        try {
+            slot = Integer.parseInt(slotStr) - 1;
+        } catch (NumberFormatException e) {
+            return;
+        }
+
+        Material clickedType = clickedItem.getType();
+        if (clickedType == Material.BARRIER) {
+            plugin.getGuiManager().openBindGUI(player);
+            return;
+        }
+
+        String itemName = ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName());
+        if (itemName.contains("(Currently Bound)")) {
+            itemName = itemName.replace(" (Currently Bound)", "").trim();
+        }
+
+        Ability clickedAbility = findAbilityByName(forceUser, itemName);
+        if (clickedAbility != null && forceUser.hasUnlockedAbility(clickedAbility.getID())) {
+            forceUser.setSlotBind(slot, clickedAbility.getID());
+            player.sendMessage(ChatColor.GREEN + "Bound " + clickedAbility.getName() + " to slot " + (slot + 1) + ".");
+            player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5f, 1.2f);
+            plugin.getHudManager().updateScoreboard(player);
+            plugin.getGuiManager().openBindGUI(player);
+        }
+    }
+
     private void handleChooseSideGUI(InventoryClickEvent event, Player player) {
         event.setCancelled(true);
         ItemStack clickedItem = event.getCurrentItem();
@@ -300,14 +375,12 @@ public class GUIListener implements Listener {
         if (clickedType == Material.WHITE_WOOL) {
             forceUser.setSide(ForceSide.LIGHT);
             player.sendMessage(ChatColor.AQUA + "You have embraced the Light Side of the Force.");
-            plugin.getHolocronManager().giveHolocron(player);
-            player.sendMessage(ChatColor.YELLOW + "A Holocron has been added to your inventory. Hold it to channel the Force!");
+            plugin.getHudManager().updateScoreboard(player);
             player.closeInventory();
         } else if (clickedType == Material.BLACK_WOOL) {
             forceUser.setSide(ForceSide.DARK);
             player.sendMessage(ChatColor.RED + "You have succumbed to the Dark Side of the Force.");
-            plugin.getHolocronManager().giveHolocron(player);
-            player.sendMessage(ChatColor.YELLOW + "A Holocron has been added to your inventory. Hold it to channel the Force!");
+            plugin.getHudManager().updateScoreboard(player);
             player.closeInventory();
         }
     }

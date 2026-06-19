@@ -26,8 +26,9 @@ public class ForceUserManager {
 
             forceUser.unlockAbility("FORCE_PUSH");
             forceUser.unlockAbility("FORCE_PULL");
-            if (forceUser.getActiveAbilityId() == null) {
-                forceUser.setActiveAbilityId("FORCE_PUSH");
+            if (forceUser.getSlotBinds().isEmpty()) {
+                forceUser.setSlotBind(0, "FORCE_PUSH");
+                forceUser.setSlotBind(1, "FORCE_PULL");
             }
 
             plugin.getServer().getScheduler().runTask(plugin, () -> {
@@ -35,6 +36,7 @@ public class ForceUserManager {
                 plugin.getLogger().info("Loaded data for " + player.getName());
                 plugin.getLevelingManager().updateXpBar(player);
                 plugin.getForceBarManager().addPlayer(player);
+                plugin.getHudManager().addPlayer(player);
             });
         });
     }

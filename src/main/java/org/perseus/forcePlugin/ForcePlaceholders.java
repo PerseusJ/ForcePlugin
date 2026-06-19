@@ -4,6 +4,7 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.perseus.forcePlugin.abilities.Ability;
 import org.perseus.forcePlugin.data.ForceSide;
 import org.perseus.forcePlugin.data.ForceUser;
 
@@ -69,6 +70,16 @@ public class ForcePlaceholders extends PlaceholderExpansion {
 
             case "xp_bar":
                 return createProgressBar(forceUser.getForceXp(), plugin.getLevelingManager().getXpForNextLevel(forceUser.getForceLevel()));
+
+            case "active_ability": {
+                int heldSlot = player.getInventory().getHeldItemSlot();
+                String abilityId = forceUser.getBoundAbilityId(heldSlot);
+                if (abilityId != null) {
+                    Ability ability = plugin.getAbilityManager().getAbility(abilityId);
+                    return ability != null ? ability.getName() : abilityId;
+                }
+                return "None";
+            }
 
             case "rank":
                 return plugin.getRankManager().getRank(forceUser);

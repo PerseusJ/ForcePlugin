@@ -1,12 +1,9 @@
 package org.perseus.forcePlugin.managers;
 
-import org.perseus.forcePlugin.versioning.VersionUtil;
-
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.perseus.forcePlugin.ForcePlugin;
 import org.perseus.forcePlugin.data.ForceSide;
@@ -27,9 +24,8 @@ public class AmbientEffectsManager {
             public void run() {
                 for (Player player : plugin.getServer().getOnlinePlayers()) {
                     ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
-                    ItemStack itemInHand = player.getInventory().getItemInMainHand();
 
-                    if (forceUser != null && plugin.getHolocronManager().isHolocron(itemInHand) && forceUser.getSide() != ForceSide.NONE) {
+                    if (forceUser != null && forceUser.getSide() != ForceSide.NONE) {
                         spawnAmbientParticle(player, forceUser.getSide());
                     }
                 }

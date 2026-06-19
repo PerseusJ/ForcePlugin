@@ -66,13 +66,15 @@ public class DatabaseManager {
                 + "unlocked_abilities TEXT NOT NULL,"
                 + "specialization TEXT,"
                 + "needs_choice INTEGER NOT NULL DEFAULT 0,"
-                + "unlocked_passives TEXT" // New column
+                + "unlocked_passives TEXT," // New column
+                + "slot_binds TEXT"          // New column for hotbar bindings
                 + ");";
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
             addColumnIfNotExists("specialization", "TEXT");
             addColumnIfNotExists("needs_choice", "INTEGER NOT NULL DEFAULT 0");
-            addColumnIfNotExists("unlocked_passives", "TEXT"); // Add new column if not exists
+            addColumnIfNotExists("unlocked_passives", "TEXT");
+            addColumnIfNotExists("slot_binds", "TEXT");
         } catch (SQLException e) {
             plugin.getLogger().log(Level.SEVERE, "Could not create or update database table!", e);
         }
@@ -104,7 +106,6 @@ public class DatabaseManager {
 
             if (rs.next()) {
                 forceUser.setSide(ForceSide.valueOf(rs.getString("side")));
-                forceUser.setActiveAbilityId(rs.getString("active_ability"));
                 forceUser.setForceLevel(rs.getInt("force_level"));
                 forceUser.setForceXp(rs.getDouble("force_xp"));
                 forceUser.setForcePoints(rs.getInt("force_points"));
@@ -126,6 +127,14 @@ public class DatabaseManager {
                         forceUser.getUnlockedPassives().putAll(unlockedPassives);
                     }
                 }
+
+                String slotBindsJson = rs.getString("slot_binds");
+                if (slotBindsJson != null) {
+                    Map<Integer, String> slotBinds = gson.fromJson(slotBindsJson, new TypeToken<Map<Integer, String>>(){}.getType());
+                    if (slotBinds != null) {
+                        forceUser.getSlotBinds().putAll(slotBinds);
+                    }
+                }
             }
         } catch (SQLException e) {
             plugin.getLogger().log(Level.SEVERE, "Could not load player data for " + uuid, e);
@@ -135,21 +144,21 @@ public class DatabaseManager {
 
     public synchronized void savePlayerData(ForceUser forceUser) {
         connect();
-        String sql = "INSERT OR REPLACE INTO force_users (uuid, side, active_ability, force_level, force_xp, force_points, unlocked_abilities, specialization, needs_choice, unlocked_passives) "
-                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT OR REPLACE INTO force_users (uuid, side, active_ability, force_level, force_xp, force_points, unlocked_abilities, specialization, needs_choice, unlocked_passives, slot_binds) "
+                + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, forceUser.getUuid().toString());
             pstmt.setString(2, forceUser.getSide().name());
-            pstmt.setString(3, forceUser.getActiveAbilityId());
+            pstmt.setNull(3, java.sql.Types.VARCHAR);
             pstmt.setInt(4, forceUser.getForceLevel());
             pstmt.setDouble(5, forceUser.getForceXp());
             pstmt.setInt(6, forceUser.getForcePoints());
             pstmt.setString(7, gson.toJson(forceUser.getUnlockedAbilities()));
             pstmt.setString(8, forceUser.getSpecialization());
             pstmt.setInt(9, forceUser.needsToChoosePath() ? 1 : 0);
-            // --- NEW: Save passives ---
             pstmt.setString(10, gson.toJson(forceUser.getUnlockedPassives()));
+            pstmt.setString(11, gson.toJson(forceUser.getSlotBinds()));
             pstmt.executeUpdate();
         } catch (SQLException e) {
             plugin.getLogger().log(Level.SEVERE, "Could not save player data for " + forceUser.getUuid(), e);

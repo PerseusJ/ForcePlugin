@@ -13,8 +13,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+import org.perseus.forcePlugin.ForcePlugin;
+import org.perseus.forcePlugin.data.ForceUser;
 
 public class ForceTabCompleter implements TabCompleter {
+
+    private ForcePlugin plugin;
+
+    public void setPlugin(ForcePlugin plugin) {
+        this.plugin = plugin;
+    }
 
 	@Override
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
@@ -35,7 +43,20 @@ public class ForceTabCompleter implements TabCompleter {
 
 	private List<String> completeForce(CommandSender sender, String[] args) {
 		if (args.length == 1) {
-			return prefixFilter(args[0], listOf("choose"));
+			return prefixFilter(args[0], listOf("choose", "bind"));
+		}
+		if (args.length >= 2 && args[0].equalsIgnoreCase("bind")) {
+			if (args.length == 2) {
+				return prefixFilter(args[1], listOf("1","2","3","4","5","6","7","8","9","list","gui"));
+			}
+			if (args.length == 3 && sender instanceof Player) {
+				Player player = (Player) sender;
+				ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
+				if (forceUser != null) {
+					List<String> abilities = new ArrayList<>(forceUser.getUnlockedAbilities().keySet());
+					return prefixFilter(args[2], abilities);
+				}
+			}
 		}
 		return Collections.emptyList();
 	}
@@ -49,7 +70,7 @@ public class ForceTabCompleter implements TabCompleter {
 
 	private List<String> completeForceAdmin(CommandSender sender, String[] args) {
 		if (args.length == 1) {
-			return prefixFilter(args[0], listOf("reload","setside","reset","check","setlevel","givexp","givepoints","giveholocron"));
+			return prefixFilter(args[0], listOf("reload","setside","reset","check","setlevel","givexp","givepoints"));
 		}
 		if (args.length >= 2) {
 			String sub = args[0].toLowerCase(Locale.ROOT);
@@ -60,7 +81,6 @@ public class ForceTabCompleter implements TabCompleter {
 				case "setlevel":
 				case "givexp":
 				case "givepoints":
-				case "giveholocron":
 					if (args.length == 2) {
 						return completePlayersPreferSelf(sender, args[1]);
 					}

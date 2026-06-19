@@ -25,6 +25,7 @@ public class PlayerConnectionListener implements Listener {
 
         // Load data asynchronously. The callback will handle bar creation.
         userManager.loadPlayerData(player);
+        plugin.getHudManager().addPlayer(player);
     }
 
     @EventHandler
