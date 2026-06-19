@@ -31,6 +31,7 @@ public class AbilityManager {
         registerAbility(new ForcePush(configManager));
         registerAbility(new ForcePull(configManager, plugin));
         registerAbility(new Telekinesis(configManager, telekinesisManager));
+        registerAbility(new ForceSense(configManager, plugin));
 
         // Light Side
         registerAbility(new ForceHeal(configManager, plugin));
@@ -42,6 +43,9 @@ public class AbilityManager {
         registerAbility(new ForceAbsorb(configManager, plugin));
         registerAbility(new ForceCamouflage(configManager));
         registerAbility(new ForceSerenity(configManager, plugin));
+        registerAbility(new ForceClarity(configManager, plugin));
+        registerAbility(new ForceMend(configManager, plugin));
+        registerAbility(new ForceValor(configManager, plugin));
 
         // Dark Side
         registerAbility(new ForceChoke(plugin, configManager));
@@ -53,6 +57,9 @@ public class AbilityManager {
         registerAbility(new UnstoppableVengeance(configManager, plugin));
         registerAbility(new MarkOfTheHunt(configManager));
         registerAbility(new ChainLightning(configManager, plugin));
+        registerAbility(new DarkAura(configManager, plugin));
+        registerAbility(new ForceCorrupt(configManager, plugin));
+        registerAbility(new SoulRend(configManager, plugin));
     }
 
     private void registerAbility(Ability ability) {
