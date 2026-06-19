@@ -43,11 +43,6 @@ public class AbilityListener implements Listener {
         ForceUser forceUser = userManager.getForceUser(player);
         if (forceUser == null) return;
 
-        if (forceUser.needsToChoosePath()) {
-            org.perseus.forcePlugin.managers.ActionBarUtil.send(player, ChatColor.RED + "You must choose your final path!");
-            return;
-        }
-
         if (isRightClick) {
             event.setCancelled(true);
             plugin.getGuiManager().openBindGUI(player);
@@ -89,7 +84,7 @@ public class AbilityListener implements Listener {
 
         Player player = event.getPlayer();
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
-        if (forceUser == null || forceUser.needsToChoosePath()) return;
+        if (forceUser == null) return;
 
         int heldSlot = player.getInventory().getHeldItemSlot();
         String abilityId = forceUser.getBoundAbilityId(heldSlot);

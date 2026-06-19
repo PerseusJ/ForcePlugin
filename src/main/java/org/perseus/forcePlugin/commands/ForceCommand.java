@@ -47,10 +47,16 @@ public class ForceCommand implements CommandExecutor {
                 return true;
             }
             plugin.getGuiManager().openChooseSideGUI(player);
+        } else if (args.length >= 1 && args[0].equalsIgnoreCase("abilities")) {
+            if (forceUser.getSide() == ForceSide.NONE) {
+                player.sendMessage(ChatColor.RED + "You must choose a path first (/force choose).");
+                return true;
+            }
+            plugin.getGuiManager().openAbilityGUI(player);
         } else if (args.length >= 1 && args[0].equalsIgnoreCase("bind")) {
             handleBindCommand(player, forceUser, args);
         } else {
-            player.sendMessage(ChatColor.YELLOW + "Usage: /force choose | /force bind <slot> [ability] | /force bind list | /force bind gui");
+            player.sendMessage(ChatColor.YELLOW + "Usage: /force choose | /force abilities | /force bind <slot> [ability] | /force bind list | /force bind gui");
         }
         return true;
     }

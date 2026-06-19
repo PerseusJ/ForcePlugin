@@ -43,7 +43,7 @@ public class ForceTabCompleter implements TabCompleter {
 
 	private List<String> completeForce(CommandSender sender, String[] args) {
 		if (args.length == 1) {
-			return prefixFilter(args[0], listOf("choose", "bind"));
+			return prefixFilter(args[0], listOf("choose", "abilities", "bind"));
 		}
 		if (args.length >= 2 && args[0].equalsIgnoreCase("bind")) {
 			if (args.length == 2) {

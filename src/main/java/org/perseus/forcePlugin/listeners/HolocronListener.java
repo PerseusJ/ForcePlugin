@@ -54,20 +54,7 @@ public class HolocronListener implements Listener {
         }
     }
 
-    @EventHandler
-    public void onRightClick(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
-            return;
-        }
 
-        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
-        if (forceUser == null) return;
-
-        if (forceUser.needsToChoosePath()) {
-            plugin.getGuiManager().openSpecializationGUI(player);
-        }
-    }
 
     private void cycleBind(Player player, int slot, int direction) {
         ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);

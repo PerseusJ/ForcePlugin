@@ -27,7 +27,6 @@ public class GUIManager {
 
     public static final String ABILITY_GUI_TITLE = "Select Your Abilities";
     public static final String UPGRADE_GUI_TITLE_PREFIX = "Manage: ";
-    public static final String SPECIALIZATION_GUI_TITLE = "Choose Your Final Path";
     public static final String PASSIVES_GUI_TITLE = "Passive Skills";
     public static final String CHOOSE_SIDE_GUI_TITLE = "Choose your side";
 
@@ -89,16 +88,6 @@ public class GUIManager {
                 gui.setItem(abilitySlots[i], createUnlockedAbilityIcon(ability, forceUser));
             } else {
                 gui.setItem(abilitySlots[i], createLockedAbilityIcon(ability));
-            }
-        }
-
-        if (forceUser.getSpecialization() != null) {
-            String ultimateId = getUltimateForSpec(forceUser.getSpecialization());
-            if (ultimateId != null && forceUser.hasUnlockedAbility(ultimateId)) {
-                Ability ultimate = abilityManager.getAbility(ultimateId);
-                if (ultimate != null) {
-                    gui.setItem(40, createUnlockedAbilityIcon(ultimate, forceUser));
-                }
             }
         }
         player.openInventory(gui);
@@ -182,33 +171,7 @@ public class GUIManager {
         player.openInventory(gui);
     }
 
-    public void openSpecializationGUI(Player player) {
-        ForceUser forceUser = userManager.getForceUser(player);
-        if (forceUser == null || forceUser.getSide() == ForceSide.NONE) return;
 
-        Inventory gui = Bukkit.createInventory(null, 27, SPECIALIZATION_GUI_TITLE);
-        ItemStack filler = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
-        ItemMeta fillerMeta = filler.getItemMeta();
-        fillerMeta.setDisplayName(" ");
-        filler.setItemMeta(fillerMeta);
-        for (int i = 0; i < gui.getSize(); i++) { gui.setItem(i, filler); }
-
-        List<Rank> specs = rankManager.getSpecializations(forceUser.getSide());
-        int[] specSlots = {11, 13, 15};
-
-        for (int i = 0; i < specs.size() && i < specSlots.length; i++) {
-            Rank spec = specs.get(i);
-            ItemStack icon = new ItemStack(spec.getMaterial());
-            ItemMeta meta = icon.getItemMeta();
-            meta.setDisplayName(spec.getDisplayName());
-            meta.setLore(spec.getDescription());
-            meta.addEnchant(VersionUtil.UNBREAKING, 1, true);
-            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            icon.setItemMeta(meta);
-            gui.setItem(specSlots[i], icon);
-        }
-        player.openInventory(gui);
-    }
 
     private ItemStack createUnlockedAbilityIcon(Ability ability, ForceUser forceUser) {
         int level = forceUser.getAbilityLevel(ability.getID());
@@ -322,18 +285,6 @@ public class GUIManager {
         return icon;
     }
 
-    private String getUltimateForSpec(String specId) {
-        if (specId == null) return null;
-        switch (specId) {
-            case "GUARDIAN": return "FORCE_ABSORB";
-            case "SENTINEL": return "FORCE_CAMOUFLAGE";
-            case "CONSULAR": return "FORCE_SERENITY";
-            case "WARRIOR": return "UNSTOPPABLE_VENGEANCE";
-            case "INQUISITOR": return "MARK_OF_THE_HUNT";
-            case "SORCERER": return "CHAIN_LIGHTNING";
-            default: return null;
-        }
-    }
 
     public ForceEnchantGUI getForceEnchantGUI() {
         return forceEnchantGUI;

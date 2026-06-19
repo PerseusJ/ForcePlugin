@@ -48,8 +48,6 @@ public class GUIListener implements Listener {
             handleAbilitySelection(event, player);
         } else if (viewTitle.startsWith(GUIManager.UPGRADE_GUI_TITLE_PREFIX)) {
             handleUpgradeMenu(event, player);
-        } else if (viewTitle.equals(GUIManager.SPECIALIZATION_GUI_TITLE)) {
-            handleSpecializationChoice(event, player);
         } else if (viewTitle.equals(GUIManager.PASSIVES_GUI_TITLE)) {
             handlePassivesMenu(event, player);
         } else if (viewTitle.equals(ForceEnchantGUI.GUI_TITLE)) {
@@ -175,36 +173,7 @@ public class GUIListener implements Listener {
         }
     }
 
-    private void handleSpecializationChoice(InventoryClickEvent event, Player player) {
-        event.setCancelled(true);
-        ItemStack clickedItem = event.getCurrentItem();
-        if (clickedItem == null || !clickedItem.hasItemMeta() || clickedItem.getType() == Material.BLACK_STAINED_GLASS_PANE) return;
 
-        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
-        if (forceUser == null) return;
-
-        String displayName = clickedItem.getItemMeta().getDisplayName();
-        for (Rank spec : plugin.getRankManager().getSpecializations(forceUser.getSide())) {
-            if (spec.getDisplayName().equals(displayName)) {
-                forceUser.setSpecialization(spec.getId());
-                forceUser.setNeedsToChoosePath(false);
-
-                String ultimateId = getUltimateForSpec(spec.getId());
-                if (ultimateId != null) {
-                    forceUser.unlockAbility(ultimateId);
-                    Ability ultimateAbility = plugin.getAbilityManager().getAbility(ultimateId);
-                    if (ultimateAbility != null) {
-                        player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Ultimate Ability Unlocked: " + ultimateAbility.getName());
-                    }
-                }
-
-                player.closeInventory();
-                player.sendMessage(ChatColor.GOLD + "You have chosen the path of the " + spec.getDisplayName() + ChatColor.GOLD + "!");
-                player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f);
-                return;
-            }
-        }
-    }
 
     private void handlePassivesMenu(InventoryClickEvent event, Player player) {
         event.setCancelled(true);
@@ -259,18 +228,7 @@ public class GUIListener implements Listener {
         }
     }
 
-    private String getUltimateForSpec(String specId) {
-        if (specId == null) return null;
-        switch (specId) {
-            case "GUARDIAN": return "FORCE_ABSORB";
-            case "SENTINEL": return "FORCE_CAMOUFLAGE";
-            case "CONSULAR": return "FORCE_SERENITY";
-            case "WARRIOR": return "UNSTOPPABLE_VENGEANCE";
-            case "INQUISITOR": return "MARK_OF_THE_HUNT";
-            case "SORCERER": return "CHAIN_LIGHTNING";
-            default: return null;
-        }
-    }
+
 
     private Ability findAbilityByName(ForceUser user, String name) {
         for (Ability ability : plugin.getAbilityManager().getAllAbilitiesBySide(user.getSide())) {

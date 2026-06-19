@@ -68,13 +68,26 @@ public class LevelingManager {
                 10, 70, 20);
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
 
-        if (newLevel == 31 && forceUser.getSpecialization() == null) {
-            forceUser.setNeedsToChoosePath(true);
-            player.sendMessage("");
-            player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "You have reached a new milestone!");
-            player.sendMessage(ChatColor.YELLOW + "You are ready to choose your final path.");
-            player.sendMessage(ChatColor.YELLOW + "Use " + ChatColor.GOLD + "/force choose" + ChatColor.YELLOW + " to select your specialization.");
-            player.sendMessage("");
+        // Check for special ability unlocks
+        String ultimateToUnlock = null;
+        if (newLevel == 33) {
+            ultimateToUnlock = forceUser.getSide() == ForceSide.LIGHT ? "FORCE_ABSORB" : "UNSTOPPABLE_VENGEANCE";
+        } else if (newLevel == 66) {
+            ultimateToUnlock = forceUser.getSide() == ForceSide.LIGHT ? "FORCE_CAMOUFLAGE" : "MARK_OF_THE_HUNT";
+        } else if (newLevel == 100) {
+            ultimateToUnlock = forceUser.getSide() == ForceSide.LIGHT ? "FORCE_SERENITY" : "CHAIN_LIGHTNING";
+        }
+
+        if (ultimateToUnlock != null && !forceUser.hasUnlockedAbility(ultimateToUnlock)) {
+            forceUser.unlockAbility(ultimateToUnlock);
+            org.perseus.forcePlugin.abilities.Ability ultimate = plugin.getAbilityManager().getAbility(ultimateToUnlock);
+            if (ultimate != null) {
+                player.sendMessage("");
+                player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Ultimate Ability Unlocked!");
+                player.sendMessage(ChatColor.YELLOW + "You have unlocked: " + ChatColor.AQUA + ultimate.getName());
+                player.sendMessage(ChatColor.GRAY + "Use " + ChatColor.GOLD + "/force abilities" + ChatColor.GRAY + " to view it.");
+                player.sendMessage("");
+            }
         }
 
         if (forceUser.getForceLevel() < maxLevel && forceUser.getForceXp() >= getXpForNextLevel(forceUser.getForceLevel())) {
