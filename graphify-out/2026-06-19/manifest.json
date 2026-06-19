@@ -55,8 +55,8 @@
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/ForcePlugin.java": {
-    "mtime": 1781806515.662212,
-    "ast_hash": "6c1dd88181b0e612decb94d336fbc37f",
+    "mtime": 1781855561.5996964,
+    "ast_hash": "6e515949fb771100da5dbbe84ea7e95f",
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/abilities/Ability.java": {
@@ -210,13 +210,13 @@
     "semantic_hash": "459dc3e2b1d7f325e9145eab581ca1a1"
   },
   "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java": {
-    "mtime": 1781804901.9549253,
-    "ast_hash": "33b3cfa787aa0fb53b3ee83777419b7a",
+    "mtime": 1781855540.912941,
+    "ast_hash": "4f70b4d23b6a0d3f16750d89d0e65d96",
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java": {
-    "mtime": 1781806528.146921,
-    "ast_hash": "2eea16ef26e7f33d470198db933a5c19",
+    "mtime": 1781855542.5677943,
+    "ast_hash": "171638e7a7ed464f78512c094df4120e",
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/commands/ForceEnchantCommand.java": {
@@ -230,8 +230,8 @@
     "semantic_hash": "f67ea2206a8e6578a8a04acc6f274ff7"
   },
   "src/main/java/org/perseus/forcePlugin/commands/ForceTabCompleter.java": {
-    "mtime": 1781804121.586366,
-    "ast_hash": "a2948a0dd4e46fa41cae13dcdf87eabf",
+    "mtime": 1781855544.1778493,
+    "ast_hash": "6e6bfaa539e4318868812f8706b2692e",
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/data/DatabaseManager.java": {
@@ -270,8 +270,8 @@
     "semantic_hash": "8e8777256eb182eabef17092c8a0854d"
   },
   "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java": {
-    "mtime": 1781854013.4642024,
-    "ast_hash": "ef261f8053b90a3a28a3f72b5e0d3b78",
+    "mtime": 1781855289.0659487,
+    "ast_hash": "fefdf807dc2690f5ba7e2e8e77885b7d",
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/gui/GUIManager.java": {
@@ -290,8 +290,8 @@
     "semantic_hash": "7f4ae7ed8624c938f3ffc22d65062993"
   },
   "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java": {
-    "mtime": 1781854518.6217337,
-    "ast_hash": "10c39e38af37ad12c9d8becc6c91550a",
+    "mtime": 1781855540.1899083,
+    "ast_hash": "5a9d159c249cf0aca901949434885c69",
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/listeners/PassiveListener.java": {
@@ -300,9 +300,9 @@
     "semantic_hash": "9ae857b9ef3dcf020678b5faa341acf8"
   },
   "src/main/java/org/perseus/forcePlugin/listeners/PlayerConnectionListener.java": {
-    "mtime": 1780783724.107193,
-    "ast_hash": "9461a7d3254f4adb6e7e6d78fa76ae70",
-    "semantic_hash": "9461a7d3254f4adb6e7e6d78fa76ae70"
+    "mtime": 1781855545.7181087,
+    "ast_hash": "5b4004eb293ba2b9296e03addff973cc",
+    "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/listeners/ProjectileDeflectionListener.java": {
     "mtime": 1780768084.0934699,
@@ -330,9 +330,9 @@
     "semantic_hash": "4cdbce13d62f5c27794c5fc94b93ac01"
   },
   "src/main/java/org/perseus/forcePlugin/managers/AmbientEffectsManager.java": {
-    "mtime": 1780783838.8159013,
-    "ast_hash": "cdbc33bb3b0363e972795b8301385987",
-    "semantic_hash": "cdbc33bb3b0363e972795b8301385987"
+    "mtime": 1781855322.1497066,
+    "ast_hash": "393e7ff28392d97f5a2c8a9be4a9f7fe",
+    "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/managers/CooldownManager.java": {
     "mtime": 1780783724.109193,
@@ -358,11 +358,6 @@
     "mtime": 1780768084.0934699,
     "ast_hash": "114154b254138a90f7252bde56aabb67",
     "semantic_hash": "114154b254138a90f7252bde56aabb67"
-  },
-  "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java": {
-    "mtime": 1781804898.6551757,
-    "ast_hash": "07affacfa8bc150fcb26ac78d0501c4c",
-    "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/managers/LevelingManager.java": {
     "mtime": 1781854017.7026324,
@@ -430,9 +425,9 @@
     "semantic_hash": "6cb903ab6b87ad826be6cb173ee52c4f"
   },
   "src/main/resources/plugin.yml": {
-    "mtime": 1780783704.6114018,
-    "ast_hash": "b72a6c995b8adc79ba489fd20f7b1f5d",
-    "semantic_hash": "b72a6c995b8adc79ba489fd20f7b1f5d"
+    "mtime": 1781855544.9406905,
+    "ast_hash": "d7b464a22654dadf4903d50cb04d4db8",
+    "semantic_hash": ""
   },
   "src/main/resources/ranks.yml": {
     "mtime": 1780770371.84403,
@@ -485,8 +480,8 @@
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/managers/HudManager.java": {
-    "mtime": 1781854530.3699975,
-    "ast_hash": "91be6a12987a6db89a2ee3725c43eca5",
+    "mtime": 1781856624.5123835,
+    "ast_hash": "c1b95d91acdcc9f93e31107342a457cb",
     "semantic_hash": ""
   },
   ".opencode/plans/fix_implementation_plan.md": {

@@ -231,7 +231,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "forceplugin_forceplaceholders",
-      "community": 7,
+      "community": 37,
       "norm_label": "forceplaceholders.java"
     },
     {
@@ -241,7 +241,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "forceplugin_forceplaceholders_forceplaceholders",
-      "community": 7,
+      "community": 37,
       "norm_label": "forceplaceholders"
     },
     {
@@ -251,7 +251,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "placeholderexpansion",
-      "community": 7,
+      "community": 37,
       "norm_label": "placeholderexpansion"
     },
     {
@@ -261,7 +261,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "forceplugin_forceplaceholders_forceplaceholders_forceplaceholders",
-      "community": 7,
+      "community": 37,
       "norm_label": ".forceplaceholders()"
     },
     {
@@ -271,7 +271,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplaceholders_java_forceplugin",
-      "community": 7,
+      "community": 37,
       "norm_label": "forceplugin"
     },
     {
@@ -281,7 +281,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "forceplugin_forceplaceholders_forceplaceholders_getidentifier",
-      "community": 7,
+      "community": 37,
       "norm_label": ".getidentifier()"
     },
     {
@@ -291,7 +291,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplaceholders_java_string",
-      "community": 7,
+      "community": 37,
       "norm_label": "string"
     },
     {
@@ -301,7 +301,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplaceholders_java_override",
-      "community": 7,
+      "community": 37,
       "norm_label": "override"
     },
     {
@@ -311,7 +311,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "notnull",
-      "community": 7,
+      "community": 37,
       "norm_label": "notnull"
     },
     {
@@ -321,7 +321,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "forceplugin_forceplaceholders_forceplaceholders_getauthor",
-      "community": 7,
+      "community": 37,
       "norm_label": ".getauthor()"
     },
     {
@@ -331,7 +331,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "forceplugin_forceplaceholders_forceplaceholders_getversion",
-      "community": 7,
+      "community": 37,
       "norm_label": ".getversion()"
     },
     {
@@ -341,7 +341,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "forceplugin_forceplaceholders_forceplaceholders_persist",
-      "community": 7,
+      "community": 37,
       "norm_label": ".persist()"
     },
     {
@@ -351,7 +351,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "forceplugin_forceplaceholders_forceplaceholders_onplaceholderrequest",
-      "community": 6,
+      "community": 1,
       "norm_label": ".onplaceholderrequest()"
     },
     {
@@ -361,7 +361,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplaceholders_java_player",
-      "community": 7,
+      "community": 37,
       "norm_label": "player"
     },
     {
@@ -371,7 +371,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "forceplugin_forceplaceholders_forceplaceholders_createprogressbar",
-      "community": 7,
+      "community": 37,
       "norm_label": ".createprogressbar()"
     },
     {
@@ -381,7 +381,7 @@
       "source_location": "L104",
       "_origin": "ast",
       "id": "forceplugin_forceplaceholders_forceplaceholders_repeat",
-      "community": 7,
+      "community": 37,
       "norm_label": ".repeat()"
     },
     {
@@ -391,7 +391,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "forceplugin_forceplugin",
-      "community": 39,
+      "community": 6,
       "norm_label": "forceplugin.java"
     },
     {
@@ -401,7 +401,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin",
-      "community": 39,
+      "community": 6,
       "norm_label": "forceplugin"
     },
     {
@@ -411,64 +411,64 @@
       "source_location": "",
       "_origin": "ast",
       "id": "javaplugin",
-      "community": 39,
+      "community": 6,
       "norm_label": "javaplugin"
     },
     {
       "label": ".onEnable()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L37",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_onenable",
-      "community": 39,
+      "community": 37,
       "norm_label": ".onenable()"
     },
     {
       "label": "Override",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L37",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplugin_java_override",
-      "community": 39,
+      "community": 37,
       "norm_label": "override"
     },
     {
       "label": ".onDisable()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L111",
+      "source_location": "L108",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_ondisable",
-      "community": 39,
+      "community": 37,
       "norm_label": ".ondisable()"
     },
     {
       "label": ".reloadPluginConfig()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L127",
+      "source_location": "L124",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_reloadpluginconfig",
-      "community": 0,
+      "community": 2,
       "norm_label": ".reloadpluginconfig()"
     },
     {
       "label": ".setupVersionAdapter()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L146",
+      "source_location": "L143",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_setupversionadapter",
-      "community": 39,
+      "community": 37,
       "norm_label": ".setupversionadapter()"
     },
     {
       "label": ".getForceUserManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L162",
+      "source_location": "L159",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getforceusermanager",
       "community": 6,
@@ -478,7 +478,7 @@
       "label": "ForceUserManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L162",
+      "source_location": "L159",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplugin_java_forceusermanager",
       "community": 6,
@@ -488,7 +488,7 @@
       "label": ".getAbilityManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L163",
+      "source_location": "L160",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getabilitymanager",
       "community": 6,
@@ -498,7 +498,7 @@
       "label": "AbilityManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L163",
+      "source_location": "L160",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplugin_java_abilitymanager",
       "community": 6,
@@ -508,7 +508,7 @@
       "label": ".getCooldownManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L164",
+      "source_location": "L161",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getcooldownmanager",
       "community": 0,
@@ -518,7 +518,7 @@
       "label": "CooldownManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L164",
+      "source_location": "L161",
       "_origin": "ast",
       "id": "cooldownmanager",
       "community": 0,
@@ -528,7 +528,7 @@
       "label": ".getForceBarManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L165",
+      "source_location": "L162",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getforcebarmanager",
       "community": 0,
@@ -538,77 +538,77 @@
       "label": "ForceBarManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L165",
+      "source_location": "L162",
       "_origin": "ast",
       "id": "forcebarmanager",
-      "community": 0,
+      "community": 4,
       "norm_label": "forcebarmanager"
     },
     {
       "label": ".getGuiManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L166",
+      "source_location": "L163",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getguimanager",
-      "community": 9,
+      "community": 6,
       "norm_label": ".getguimanager()"
     },
     {
       "label": "GUIManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L166",
+      "source_location": "L163",
       "_origin": "ast",
       "id": "guimanager",
-      "community": 39,
+      "community": 6,
       "norm_label": "guimanager"
     },
     {
       "label": ".getAbilityConfigManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L167",
+      "source_location": "L164",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getabilityconfigmanager",
-      "community": 0,
+      "community": 17,
       "norm_label": ".getabilityconfigmanager()"
     },
     {
       "label": "AbilityConfigManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L167",
+      "source_location": "L164",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplugin_java_abilityconfigmanager",
-      "community": 0,
+      "community": 17,
       "norm_label": "abilityconfigmanager"
     },
     {
       "label": ".getTelekinesisManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L168",
+      "source_location": "L165",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_gettelekinesismanager",
-      "community": 39,
+      "community": 0,
       "norm_label": ".gettelekinesismanager()"
     },
     {
       "label": "TelekinesisManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L168",
+      "source_location": "L165",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplugin_java_telekinesismanager",
-      "community": 39,
+      "community": 0,
       "norm_label": "telekinesismanager"
     },
     {
       "label": ".getLevelingManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L169",
+      "source_location": "L166",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getlevelingmanager",
       "community": 65,
@@ -618,77 +618,57 @@
       "label": "LevelingManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L169",
+      "source_location": "L166",
       "_origin": "ast",
       "id": "levelingmanager",
       "community": 65,
       "norm_label": "levelingmanager"
     },
     {
-      "label": ".getHolocronManager()",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L170",
-      "_origin": "ast",
-      "id": "forceplugin_forceplugin_forceplugin_getholocronmanager",
-      "community": 20,
-      "norm_label": ".getholocronmanager()"
-    },
-    {
-      "label": "HolocronManager",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L170",
-      "_origin": "ast",
-      "id": "holocronmanager",
-      "community": 13,
-      "norm_label": "holocronmanager"
-    },
-    {
       "label": ".getDatabaseManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L171",
+      "source_location": "L167",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getdatabasemanager",
-      "community": 39,
+      "community": 6,
       "norm_label": ".getdatabasemanager()"
     },
     {
       "label": "DatabaseManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L171",
+      "source_location": "L167",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplugin_java_databasemanager",
-      "community": 39,
+      "community": 6,
       "norm_label": "databasemanager"
     },
     {
       "label": ".getRankManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L172",
+      "source_location": "L168",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getrankmanager",
-      "community": 6,
+      "community": 1,
       "norm_label": ".getrankmanager()"
     },
     {
       "label": "RankManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L172",
+      "source_location": "L168",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplugin_java_rankmanager",
-      "community": 6,
+      "community": 1,
       "norm_label": "rankmanager"
     },
     {
       "label": ".getVersionAdapter()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L173",
+      "source_location": "L169",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getversionadapter",
       "community": 39,
@@ -698,7 +678,7 @@
       "label": "VersionAdapter",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L173",
+      "source_location": "L169",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplugin_java_versionadapter",
       "community": 39,
@@ -708,7 +688,7 @@
       "label": ".getPassiveManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L174",
+      "source_location": "L170",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getpassivemanager",
       "community": 8,
@@ -718,7 +698,7 @@
       "label": "PassiveManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L174",
+      "source_location": "L170",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_forceplugin_java_passivemanager",
       "community": 8,
@@ -728,7 +708,7 @@
       "label": ".getForceEnchantManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L175",
+      "source_location": "L171",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_getforceenchantmanager",
       "community": 2,
@@ -738,7 +718,7 @@
       "label": "ForceEnchantManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L175",
+      "source_location": "L171",
       "_origin": "ast",
       "id": "forceenchantmanager",
       "community": 2,
@@ -748,7 +728,7 @@
       "label": ".getHudManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L176",
+      "source_location": "L172",
       "_origin": "ast",
       "id": "forceplugin_forceplugin_forceplugin_gethudmanager",
       "community": 6,
@@ -758,7 +738,7 @@
       "label": "HudManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L176",
+      "source_location": "L172",
       "_origin": "ast",
       "id": "hudmanager",
       "community": 6,
@@ -1581,7 +1561,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dark_forcecorrupt",
-      "community": 5,
+      "community": 39,
       "norm_label": "forcecorrupt.java"
     },
     {
@@ -1591,7 +1571,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "dark_forcecorrupt_forcecorrupt",
-      "community": 5,
+      "community": 39,
       "norm_label": "forcecorrupt"
     },
     {
@@ -1601,7 +1581,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "dark_forcecorrupt_forcecorrupt_forcecorrupt",
-      "community": 5,
+      "community": 39,
       "norm_label": ".forcecorrupt()"
     },
     {
@@ -1611,7 +1591,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_forcecorrupt_java_abilityconfigmanager",
-      "community": 5,
+      "community": 39,
       "norm_label": "abilityconfigmanager"
     },
     {
@@ -1621,7 +1601,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_forcecorrupt_java_forceplugin",
-      "community": 5,
+      "community": 39,
       "norm_label": "forceplugin"
     },
     {
@@ -1631,7 +1611,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "dark_forcecorrupt_forcecorrupt_getid",
-      "community": 5,
+      "community": 39,
       "norm_label": ".getid()"
     },
     {
@@ -1641,7 +1621,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_forcecorrupt_java_string",
-      "community": 5,
+      "community": 39,
       "norm_label": "string"
     },
     {
@@ -1651,7 +1631,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_forcecorrupt_java_override",
-      "community": 5,
+      "community": 39,
       "norm_label": "override"
     },
     {
@@ -1661,7 +1641,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "dark_forcecorrupt_forcecorrupt_getname",
-      "community": 5,
+      "community": 39,
       "norm_label": ".getname()"
     },
     {
@@ -1671,7 +1651,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "dark_forcecorrupt_forcecorrupt_getdescription",
-      "community": 5,
+      "community": 39,
       "norm_label": ".getdescription()"
     },
     {
@@ -1681,7 +1661,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "dark_forcecorrupt_forcecorrupt_getside",
-      "community": 5,
+      "community": 39,
       "norm_label": ".getside()"
     },
     {
@@ -1691,7 +1671,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_forcecorrupt_java_forceside",
-      "community": 5,
+      "community": 39,
       "norm_label": "forceside"
     },
     {
@@ -1701,7 +1681,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "dark_forcecorrupt_forcecorrupt_getenergycost",
-      "community": 5,
+      "community": 39,
       "norm_label": ".getenergycost()"
     },
     {
@@ -1711,7 +1691,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "dark_forcecorrupt_forcecorrupt_getcooldown",
-      "community": 5,
+      "community": 39,
       "norm_label": ".getcooldown()"
     },
     {
@@ -1721,7 +1701,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "dark_forcecorrupt_forcecorrupt_execute",
-      "community": 5,
+      "community": 39,
       "norm_label": ".execute()"
     },
     {
@@ -1731,7 +1711,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_forcecorrupt_java_player",
-      "community": 5,
+      "community": 39,
       "norm_label": "player"
     },
     {
@@ -1741,7 +1721,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_forcecorrupt_java_forceuser",
-      "community": 5,
+      "community": 39,
       "norm_label": "forceuser"
     },
     {
@@ -2601,7 +2581,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dark_markofthehunt",
-      "community": 17,
+      "community": 5,
       "norm_label": "markofthehunt.java"
     },
     {
@@ -2611,7 +2591,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "dark_markofthehunt_markofthehunt",
-      "community": 17,
+      "community": 5,
       "norm_label": "markofthehunt"
     },
     {
@@ -2621,7 +2601,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "dark_markofthehunt_markofthehunt_markofthehunt",
-      "community": 17,
+      "community": 5,
       "norm_label": ".markofthehunt()"
     },
     {
@@ -2631,7 +2611,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_markofthehunt_java_abilityconfigmanager",
-      "community": 17,
+      "community": 5,
       "norm_label": "abilityconfigmanager"
     },
     {
@@ -2641,7 +2621,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "dark_markofthehunt_markofthehunt_getid",
-      "community": 17,
+      "community": 5,
       "norm_label": ".getid()"
     },
     {
@@ -2651,7 +2631,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_markofthehunt_java_string",
-      "community": 17,
+      "community": 5,
       "norm_label": "string"
     },
     {
@@ -2661,7 +2641,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_markofthehunt_java_override",
-      "community": 17,
+      "community": 5,
       "norm_label": "override"
     },
     {
@@ -2671,7 +2651,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "dark_markofthehunt_markofthehunt_getname",
-      "community": 17,
+      "community": 5,
       "norm_label": ".getname()"
     },
     {
@@ -2681,7 +2661,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "dark_markofthehunt_markofthehunt_getdescription",
-      "community": 17,
+      "community": 5,
       "norm_label": ".getdescription()"
     },
     {
@@ -2691,7 +2671,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "dark_markofthehunt_markofthehunt_getside",
-      "community": 17,
+      "community": 5,
       "norm_label": ".getside()"
     },
     {
@@ -2701,7 +2681,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_markofthehunt_java_forceside",
-      "community": 17,
+      "community": 5,
       "norm_label": "forceside"
     },
     {
@@ -2711,7 +2691,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "dark_markofthehunt_markofthehunt_getenergycost",
-      "community": 17,
+      "community": 5,
       "norm_label": ".getenergycost()"
     },
     {
@@ -2721,7 +2701,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "dark_markofthehunt_markofthehunt_getcooldown",
-      "community": 17,
+      "community": 5,
       "norm_label": ".getcooldown()"
     },
     {
@@ -2731,7 +2711,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "dark_markofthehunt_markofthehunt_execute",
-      "community": 17,
+      "community": 5,
       "norm_label": ".execute()"
     },
     {
@@ -2741,7 +2721,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_markofthehunt_java_player",
-      "community": 17,
+      "community": 5,
       "norm_label": "player"
     },
     {
@@ -2751,7 +2731,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_markofthehunt_java_forceuser",
-      "community": 17,
+      "community": 5,
       "norm_label": "forceuser"
     },
     {
@@ -2931,7 +2911,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dark_unstoppablevengeance",
-      "community": 24,
+      "community": 17,
       "norm_label": "unstoppablevengeance.java"
     },
     {
@@ -2941,7 +2921,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "dark_unstoppablevengeance_unstoppablevengeance",
-      "community": 24,
+      "community": 17,
       "norm_label": "unstoppablevengeance"
     },
     {
@@ -2951,7 +2931,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "dark_unstoppablevengeance_unstoppablevengeance_unstoppablevengeance",
-      "community": 24,
+      "community": 17,
       "norm_label": ".unstoppablevengeance()"
     },
     {
@@ -2961,7 +2941,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_unstoppablevengeance_java_abilityconfigmanager",
-      "community": 24,
+      "community": 17,
       "norm_label": "abilityconfigmanager"
     },
     {
@@ -2971,7 +2951,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_unstoppablevengeance_java_forceplugin",
-      "community": 24,
+      "community": 17,
       "norm_label": "forceplugin"
     },
     {
@@ -2981,7 +2961,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "dark_unstoppablevengeance_unstoppablevengeance_getid",
-      "community": 24,
+      "community": 17,
       "norm_label": ".getid()"
     },
     {
@@ -2991,7 +2971,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_unstoppablevengeance_java_string",
-      "community": 24,
+      "community": 17,
       "norm_label": "string"
     },
     {
@@ -3001,7 +2981,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_unstoppablevengeance_java_override",
-      "community": 24,
+      "community": 17,
       "norm_label": "override"
     },
     {
@@ -3011,7 +2991,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "dark_unstoppablevengeance_unstoppablevengeance_getname",
-      "community": 24,
+      "community": 17,
       "norm_label": ".getname()"
     },
     {
@@ -3021,7 +3001,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "dark_unstoppablevengeance_unstoppablevengeance_getdescription",
-      "community": 24,
+      "community": 17,
       "norm_label": ".getdescription()"
     },
     {
@@ -3031,7 +3011,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "dark_unstoppablevengeance_unstoppablevengeance_getside",
-      "community": 24,
+      "community": 17,
       "norm_label": ".getside()"
     },
     {
@@ -3041,7 +3021,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_unstoppablevengeance_java_forceside",
-      "community": 24,
+      "community": 17,
       "norm_label": "forceside"
     },
     {
@@ -3051,7 +3031,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "dark_unstoppablevengeance_unstoppablevengeance_getenergycost",
-      "community": 24,
+      "community": 17,
       "norm_label": ".getenergycost()"
     },
     {
@@ -3061,7 +3041,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "dark_unstoppablevengeance_unstoppablevengeance_getcooldown",
-      "community": 24,
+      "community": 17,
       "norm_label": ".getcooldown()"
     },
     {
@@ -3071,7 +3051,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "dark_unstoppablevengeance_unstoppablevengeance_execute",
-      "community": 24,
+      "community": 17,
       "norm_label": ".execute()"
     },
     {
@@ -3081,7 +3061,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_unstoppablevengeance_java_player",
-      "community": 24,
+      "community": 17,
       "norm_label": "player"
     },
     {
@@ -3091,7 +3071,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_abilities_dark_unstoppablevengeance_java_forceuser",
-      "community": 24,
+      "community": 17,
       "norm_label": "forceuser"
     },
     {
@@ -5801,7 +5781,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "commands_forceadmincommand",
-      "community": 72,
+      "community": 65,
       "norm_label": "forceadmincommand.java"
     },
     {
@@ -5831,7 +5811,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "commands_forceadmincommand_forceadmincommand_forceadmincommand",
-      "community": 72,
+      "community": 65,
       "norm_label": ".forceadmincommand()"
     },
     {
@@ -5841,7 +5821,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forceadmincommand_java_forceplugin",
-      "community": 72,
+      "community": 65,
       "norm_label": "forceplugin"
     },
     {
@@ -5871,7 +5851,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forceadmincommand_java_command",
-      "community": 72,
+      "community": 65,
       "norm_label": "command"
     },
     {
@@ -5898,7 +5878,7 @@
       "label": ".handleReload()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L47",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "commands_forceadmincommand_forceadmincommand_handlereload",
       "community": 65,
@@ -5908,7 +5888,7 @@
       "label": ".handleSetSide()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L52",
+      "source_location": "L51",
       "_origin": "ast",
       "id": "commands_forceadmincommand_forceadmincommand_handlesetside",
       "community": 65,
@@ -5918,7 +5898,7 @@
       "label": ".handleReset()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L74",
+      "source_location": "L73",
       "_origin": "ast",
       "id": "commands_forceadmincommand_forceadmincommand_handlereset",
       "community": 65,
@@ -5928,17 +5908,17 @@
       "label": ".handleCheck()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L104",
+      "source_location": "L102",
       "_origin": "ast",
       "id": "commands_forceadmincommand_forceadmincommand_handlecheck",
-      "community": 65,
+      "community": 1,
       "norm_label": ".handlecheck()"
     },
     {
       "label": ".handleSetLevel()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L138",
+      "source_location": "L136",
       "_origin": "ast",
       "id": "commands_forceadmincommand_forceadmincommand_handlesetlevel",
       "community": 65,
@@ -5948,7 +5928,7 @@
       "label": ".handleGiveXp()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L160",
+      "source_location": "L158",
       "_origin": "ast",
       "id": "commands_forceadmincommand_forceadmincommand_handlegivexp",
       "community": 65,
@@ -5958,27 +5938,17 @@
       "label": ".handleGivePoints()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L179",
+      "source_location": "L177",
       "_origin": "ast",
       "id": "commands_forceadmincommand_forceadmincommand_handlegivepoints",
       "community": 65,
       "norm_label": ".handlegivepoints()"
     },
     {
-      "label": ".handleGiveHolocron()",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L199",
-      "_origin": "ast",
-      "id": "commands_forceadmincommand_forceadmincommand_handlegiveholocron",
-      "community": 65,
-      "norm_label": ".handlegiveholocron()"
-    },
-    {
       "label": ".sendHelpMessage()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L218",
+      "source_location": "L197",
       "_origin": "ast",
       "id": "commands_forceadmincommand_forceadmincommand_sendhelpmessage",
       "community": 65,
@@ -5998,7 +5968,7 @@
       "label": "ForceCommand",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L17",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "commands_forcecommand_forcecommand",
       "community": 13,
@@ -6008,7 +5978,7 @@
       "label": ".ForceCommand()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L21",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "commands_forcecommand_forcecommand_forcecommand",
       "community": 13,
@@ -6018,7 +5988,7 @@
       "label": "ForcePlugin",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L21",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forcecommand_java_forceplugin",
       "community": 13,
@@ -6028,7 +5998,7 @@
       "label": ".onCommand()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L25",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "commands_forcecommand_forcecommand_oncommand",
       "community": 13,
@@ -6038,7 +6008,7 @@
       "label": "CommandSender",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L25",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forcecommand_java_commandsender",
       "community": 13,
@@ -6048,7 +6018,7 @@
       "label": "Command",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L25",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forcecommand_java_command",
       "community": 13,
@@ -6058,7 +6028,7 @@
       "label": "String",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L25",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forcecommand_java_string",
       "community": 13,
@@ -6068,7 +6038,7 @@
       "label": "Override",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L25",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forcecommand_java_override",
       "community": 13,
@@ -6078,7 +6048,7 @@
       "label": ".handleBindCommand()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L60",
+      "source_location": "L58",
       "_origin": "ast",
       "id": "commands_forcecommand_forcecommand_handlebindcommand",
       "community": 6,
@@ -6088,7 +6058,7 @@
       "label": "Player",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L60",
+      "source_location": "L58",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forcecommand_java_player",
       "community": 13,
@@ -6098,7 +6068,7 @@
       "label": "ForceUser",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L60",
+      "source_location": "L58",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forcecommand_java_forceuser",
       "community": 13,
@@ -6201,7 +6171,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "commands_forcestatscommand",
-      "community": 1,
+      "community": 13,
       "norm_label": "forcestatscommand.java"
     },
     {
@@ -6211,7 +6181,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "commands_forcestatscommand_forcestatscommand",
-      "community": 1,
+      "community": 13,
       "norm_label": "forcestatscommand"
     },
     {
@@ -6221,7 +6191,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "commands_forcestatscommand_forcestatscommand_forcestatscommand",
-      "community": 1,
+      "community": 13,
       "norm_label": ".forcestatscommand()"
     },
     {
@@ -6231,7 +6201,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forcestatscommand_java_forceplugin",
-      "community": 1,
+      "community": 13,
       "norm_label": "forceplugin"
     },
     {
@@ -6251,7 +6221,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forcestatscommand_java_commandsender",
-      "community": 1,
+      "community": 13,
       "norm_label": "commandsender"
     },
     {
@@ -6261,7 +6231,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_commands_forcestatscommand_java_command",
-      "community": 1,
+      "community": 13,
       "norm_label": "command"
     },
     {
@@ -6438,7 +6408,7 @@
       "label": ".completePlayersPreferSelf()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceTabCompleter.java",
-      "source_location": "L108",
+      "source_location": "L107",
       "_origin": "ast",
       "id": "commands_forcetabcompleter_forcetabcompleter_completeplayerspreferself",
       "community": 37,
@@ -6448,7 +6418,7 @@
       "label": ".listOf()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceTabCompleter.java",
-      "source_location": "L119",
+      "source_location": "L118",
       "_origin": "ast",
       "id": "commands_forcetabcompleter_forcetabcompleter_listof",
       "community": 37,
@@ -6458,7 +6428,7 @@
       "label": ".prefixFilter()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceTabCompleter.java",
-      "source_location": "L125",
+      "source_location": "L124",
       "_origin": "ast",
       "id": "commands_forcetabcompleter_forcetabcompleter_prefixfilter",
       "community": 37,
@@ -6481,7 +6451,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "data_databasemanager",
-      "community": 39,
+      "community": 37,
       "norm_label": "databasemanager.java"
     },
     {
@@ -6491,7 +6461,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "data_databasemanager_databasemanager",
-      "community": 39,
+      "community": 37,
       "norm_label": "databasemanager"
     },
     {
@@ -6501,7 +6471,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "data_databasemanager_databasemanager_databasemanager",
-      "community": 39,
+      "community": 37,
       "norm_label": ".databasemanager()"
     },
     {
@@ -6511,7 +6481,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_data_databasemanager_java_forceplugin",
-      "community": 39,
+      "community": 37,
       "norm_label": "forceplugin"
     },
     {
@@ -6521,7 +6491,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "data_databasemanager_databasemanager_connect",
-      "community": 39,
+      "community": 37,
       "norm_label": ".connect()"
     },
     {
@@ -6531,7 +6501,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "data_databasemanager_databasemanager_disconnect",
-      "community": 39,
+      "community": 37,
       "norm_label": ".disconnect()"
     },
     {
@@ -6541,7 +6511,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "data_databasemanager_databasemanager_initializedatabase",
-      "community": 39,
+      "community": 37,
       "norm_label": ".initializedatabase()"
     },
     {
@@ -6551,7 +6521,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "data_databasemanager_databasemanager_addcolumnifnotexists",
-      "community": 39,
+      "community": 37,
       "norm_label": ".addcolumnifnotexists()"
     },
     {
@@ -6561,7 +6531,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_data_databasemanager_java_string",
-      "community": 39,
+      "community": 37,
       "norm_label": "string"
     },
     {
@@ -6581,7 +6551,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_data_databasemanager_java_uuid",
-      "community": 39,
+      "community": 37,
       "norm_label": "uuid"
     },
     {
@@ -6741,7 +6711,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "data_forceuser_forceuser_getside",
-      "community": 65,
+      "community": 3,
       "norm_label": ".getside()"
     },
     {
@@ -6751,7 +6721,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_data_forceuser_java_forceside",
-      "community": 65,
+      "community": 3,
       "norm_label": "forceside"
     },
     {
@@ -6791,7 +6761,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "data_forceuser_forceuser_getforcepoints",
-      "community": 9,
+      "community": 1,
       "norm_label": ".getforcepoints()"
     },
     {
@@ -6821,7 +6791,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_data_forceuser_java_string",
-      "community": 3,
+      "community": 8,
       "norm_label": "string"
     },
     {
@@ -6851,7 +6821,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "data_forceuser_forceuser_getabilitylevel",
-      "community": 3,
+      "community": 8,
       "norm_label": ".getabilitylevel()"
     },
     {
@@ -6881,7 +6851,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "data_forceuser_forceuser_setslotbind",
-      "community": 34,
+      "community": 6,
       "norm_label": ".setslotbind()"
     },
     {
@@ -6891,7 +6861,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "data_forceuser_forceuser_clearslotbinds",
-      "community": 65,
+      "community": 3,
       "norm_label": ".clearslotbinds()"
     },
     {
@@ -6901,7 +6871,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "data_forceuser_forceuser_getspecialization",
-      "community": 3,
+      "community": 8,
       "norm_label": ".getspecialization()"
     },
     {
@@ -6931,7 +6901,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "data_forceuser_forceuser_hasunlockedpassive",
-      "community": 3,
+      "community": 8,
       "norm_label": ".hasunlockedpassive()"
     },
     {
@@ -6941,7 +6911,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "data_forceuser_forceuser_getpassivelevel",
-      "community": 3,
+      "community": 8,
       "norm_label": ".getpassivelevel()"
     },
     {
@@ -7031,7 +7001,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "data_forceuser_forceuser_unlockability",
-      "community": 3,
+      "community": 9,
       "norm_label": ".unlockability()"
     },
     {
@@ -7091,7 +7061,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "data_forceuser_forceuser_unlockpassive",
-      "community": 3,
+      "community": 8,
       "norm_label": ".unlockpassive()"
     },
     {
@@ -7101,7 +7071,7 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "data_forceuser_forceuser_upgradepassive",
-      "community": 3,
+      "community": 8,
       "norm_label": ".upgradepassive()"
     },
     {
@@ -7591,7 +7561,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "listener",
-      "community": 4,
+      "community": 8,
       "norm_label": "listener"
     },
     {
@@ -7630,7 +7600,7 @@
       "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
       "source_location": "L42",
       "_origin": "ast",
-      "id": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_inventoryclickevent",
+      "id": "inventoryclickevent",
       "community": 9,
       "norm_label": "inventoryclickevent"
     },
@@ -7651,7 +7621,7 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "gui_guilistener_guilistener_handleforceenchantgui",
-      "community": 9,
+      "community": 2,
       "norm_label": ".handleforceenchantgui()"
     },
     {
@@ -7691,7 +7661,7 @@
       "source_location": "L178",
       "_origin": "ast",
       "id": "gui_guilistener_guilistener_handlespecializationchoice",
-      "community": 6,
+      "community": 9,
       "norm_label": ".handlespecializationchoice()"
     },
     {
@@ -7701,7 +7671,7 @@
       "source_location": "L209",
       "_origin": "ast",
       "id": "gui_guilistener_guilistener_handlepassivesmenu",
-      "community": 9,
+      "community": 8,
       "norm_label": ".handlepassivesmenu()"
     },
     {
@@ -7761,7 +7731,7 @@
       "source_location": "L284",
       "_origin": "ast",
       "id": "gui_guilistener_guilistener_findpassivebyname",
-      "community": 8,
+      "community": 9,
       "norm_label": ".findpassivebyname()"
     },
     {
@@ -7771,7 +7741,7 @@
       "source_location": "L284",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_passive",
-      "community": 8,
+      "community": 9,
       "norm_label": "passive"
     },
     {
@@ -7781,7 +7751,7 @@
       "source_location": "L294",
       "_origin": "ast",
       "id": "gui_guilistener_guilistener_handlebindgui",
-      "community": 9,
+      "community": 6,
       "norm_label": ".handlebindgui()"
     },
     {
@@ -7791,7 +7761,7 @@
       "source_location": "L327",
       "_origin": "ast",
       "id": "gui_guilistener_guilistener_handleabilitypickergui",
-      "community": 9,
+      "community": 6,
       "norm_label": ".handleabilitypickergui()"
     },
     {
@@ -7901,7 +7871,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "gui_guimanager_guimanager_openabilitygui",
-      "community": 9,
+      "community": 8,
       "norm_label": ".openabilitygui()"
     },
     {
@@ -7921,7 +7891,7 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "gui_guimanager_guimanager_openupgradegui",
-      "community": 67,
+      "community": 8,
       "norm_label": ".openupgradegui()"
     },
     {
@@ -7931,7 +7901,7 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_gui_guimanager_java_ability",
-      "community": 67,
+      "community": 8,
       "norm_label": "ability"
     },
     {
@@ -7961,7 +7931,7 @@
       "source_location": "L213",
       "_origin": "ast",
       "id": "gui_guimanager_guimanager_createunlockedabilityicon",
-      "community": 67,
+      "community": 8,
       "norm_label": ".createunlockedabilityicon()"
     },
     {
@@ -7981,7 +7951,7 @@
       "source_location": "L213",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_gui_guimanager_java_itemstack",
-      "community": 67,
+      "community": 8,
       "norm_label": "itemstack"
     },
     {
@@ -7991,7 +7961,7 @@
       "source_location": "L252",
       "_origin": "ast",
       "id": "gui_guimanager_guimanager_createlockedabilityicon",
-      "community": 67,
+      "community": 8,
       "norm_label": ".createlockedabilityicon()"
     },
     {
@@ -8001,7 +7971,7 @@
       "source_location": "L270",
       "_origin": "ast",
       "id": "gui_guimanager_guimanager_createlevelicon",
-      "community": 67,
+      "community": 8,
       "norm_label": ".createlevelicon()"
     },
     {
@@ -8011,7 +7981,7 @@
       "source_location": "L270",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_gui_guimanager_java_string",
-      "community": 67,
+      "community": 8,
       "norm_label": "string"
     },
     {
@@ -8051,7 +8021,7 @@
       "source_location": "L325",
       "_origin": "ast",
       "id": "gui_guimanager_guimanager_getultimateforspec",
-      "community": 67,
+      "community": 8,
       "norm_label": ".getultimateforspec()"
     },
     {
@@ -8061,7 +8031,7 @@
       "source_location": "L338",
       "_origin": "ast",
       "id": "gui_guimanager_guimanager_getforceenchantgui",
-      "community": 8,
+      "community": 2,
       "norm_label": ".getforceenchantgui()"
     },
     {
@@ -8071,7 +8041,7 @@
       "source_location": "L338",
       "_origin": "ast",
       "id": "forceenchantgui",
-      "community": 8,
+      "community": 2,
       "norm_label": "forceenchantgui"
     },
     {
@@ -8091,7 +8061,7 @@
       "source_location": "L346",
       "_origin": "ast",
       "id": "gui_guimanager_guimanager_openbindgui",
-      "community": 9,
+      "community": 6,
       "norm_label": ".openbindgui()"
     },
     {
@@ -8271,7 +8241,7 @@
       "source_location": "L140",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_abilitylistener_java_entitydamagebyentityevent",
-      "community": 8,
+      "community": 0,
       "norm_label": "entitydamagebyentityevent"
     },
     {
@@ -8281,7 +8251,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "listeners_experiencelistener",
-      "community": 4,
+      "community": 7,
       "norm_label": "experiencelistener.java"
     },
     {
@@ -8291,7 +8261,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "listeners_experiencelistener_experiencelistener",
-      "community": 4,
+      "community": 7,
       "norm_label": "experiencelistener"
     },
     {
@@ -8301,7 +8271,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "listeners_experiencelistener_experiencelistener_experiencelistener",
-      "community": 4,
+      "community": 7,
       "norm_label": ".experiencelistener()"
     },
     {
@@ -8311,7 +8281,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_experiencelistener_java_forceplugin",
-      "community": 4,
+      "community": 7,
       "norm_label": "forceplugin"
     },
     {
@@ -8321,7 +8291,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "listeners_experiencelistener_experiencelistener_onmobkill",
-      "community": 4,
+      "community": 7,
       "norm_label": ".onmobkill()"
     },
     {
@@ -8331,7 +8301,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_experiencelistener_java_entitydeathevent",
-      "community": 4,
+      "community": 7,
       "norm_label": "entitydeathevent"
     },
     {
@@ -8341,7 +8311,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_experiencelistener_java_eventhandler",
-      "community": 4,
+      "community": 7,
       "norm_label": "eventhandler"
     },
     {
@@ -8351,7 +8321,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "listeners_experiencelistener_experiencelistener_onplayerjoin",
-      "community": 4,
+      "community": 7,
       "norm_label": ".onplayerjoin()"
     },
     {
@@ -8361,7 +8331,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_experiencelistener_java_playerjoinevent",
-      "community": 4,
+      "community": 7,
       "norm_label": "playerjoinevent"
     },
     {
@@ -8371,7 +8341,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "listeners_experiencelistener_experiencelistener_onexpchange",
-      "community": 4,
+      "community": 7,
       "norm_label": ".onexpchange()"
     },
     {
@@ -8381,7 +8351,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "playerexpchangeevent",
-      "community": 4,
+      "community": 7,
       "norm_label": "playerexpchangeevent"
     },
     {
@@ -8391,7 +8361,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "listeners_experiencelistener_experiencelistener_onlevelchange",
-      "community": 4,
+      "community": 7,
       "norm_label": ".onlevelchange()"
     },
     {
@@ -8401,7 +8371,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "playerlevelchangeevent",
-      "community": 4,
+      "community": 7,
       "norm_label": "playerlevelchangeevent"
     },
     {
@@ -8411,174 +8381,114 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "listeners_holocronlistener",
-      "community": 20,
+      "community": 8,
       "norm_label": "holocronlistener.java"
     },
     {
       "label": "HolocronListener",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L28",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "listeners_holocronlistener_holocronlistener",
-      "community": 20,
+      "community": 8,
       "norm_label": "holocronlistener"
     },
     {
       "label": ".HolocronListener()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L33",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "listeners_holocronlistener_holocronlistener_holocronlistener",
-      "community": 20,
+      "community": 8,
       "norm_label": ".holocronlistener()"
     },
     {
       "label": "ForcePlugin",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L33",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_forceplugin",
-      "community": 20,
+      "community": 8,
       "norm_label": "forceplugin"
     },
     {
       "label": ".onSneak()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L37",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "listeners_holocronlistener_holocronlistener_onsneak",
-      "community": 20,
+      "community": 8,
       "norm_label": ".onsneak()"
     },
     {
       "label": "PlayerToggleSneakEvent",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L37",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_playertogglesneakevent",
-      "community": 20,
+      "community": 8,
       "norm_label": "playertogglesneakevent"
     },
     {
       "label": "EventHandler",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L37",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_eventhandler",
-      "community": 20,
+      "community": 8,
       "norm_label": "eventhandler"
     },
     {
       "label": ".onScroll()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L53",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "listeners_holocronlistener_holocronlistener_onscroll",
-      "community": 20,
+      "community": 8,
       "norm_label": ".onscroll()"
     },
     {
       "label": "PlayerItemHeldEvent",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L53",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_playeritemheldevent",
-      "community": 20,
+      "community": 8,
       "norm_label": "playeritemheldevent"
     },
     {
       "label": ".onRightClick()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L73",
+      "source_location": "L57",
       "_origin": "ast",
       "id": "listeners_holocronlistener_holocronlistener_onrightclick",
-      "community": 20,
+      "community": 8,
       "norm_label": ".onrightclick()"
     },
     {
       "label": "PlayerInteractEvent",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L73",
+      "source_location": "L57",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_playerinteractevent",
-      "community": 20,
+      "community": 8,
       "norm_label": "playerinteractevent"
-    },
-    {
-      "label": ".onDrop()",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L89",
-      "_origin": "ast",
-      "id": "listeners_holocronlistener_holocronlistener_ondrop",
-      "community": 20,
-      "norm_label": ".ondrop()"
-    },
-    {
-      "label": "PlayerDropItemEvent",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L89",
-      "_origin": "ast",
-      "id": "playerdropitemevent",
-      "community": 20,
-      "norm_label": "playerdropitemevent"
-    },
-    {
-      "label": ".onInventoryClick()",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L97",
-      "_origin": "ast",
-      "id": "listeners_holocronlistener_holocronlistener_oninventoryclick",
-      "community": 20,
-      "norm_label": ".oninventoryclick()"
-    },
-    {
-      "label": "InventoryClickEvent",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L97",
-      "_origin": "ast",
-      "id": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_inventoryclickevent",
-      "community": 20,
-      "norm_label": "inventoryclickevent"
-    },
-    {
-      "label": ".onPlayerDeath()",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L114",
-      "_origin": "ast",
-      "id": "listeners_holocronlistener_holocronlistener_onplayerdeath",
-      "community": 20,
-      "norm_label": ".onplayerdeath()"
-    },
-    {
-      "label": "PlayerDeathEvent",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L114",
-      "_origin": "ast",
-      "id": "playerdeathevent",
-      "community": 20,
-      "norm_label": "playerdeathevent"
     },
     {
       "label": ".cycleBind()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L130",
+      "source_location": "L72",
       "_origin": "ast",
       "id": "listeners_holocronlistener_holocronlistener_cyclebind",
       "community": 6,
@@ -8588,7 +8498,7 @@
       "label": "Player",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L130",
+      "source_location": "L72",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_player",
       "community": 6,
@@ -8598,7 +8508,7 @@
       "label": ".showBoundAbility()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L153",
+      "source_location": "L95",
       "_origin": "ast",
       "id": "listeners_holocronlistener_holocronlistener_showboundability",
       "community": 6,
@@ -8611,7 +8521,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "listeners_hotbarlistener",
-      "community": 4,
+      "community": 72,
       "norm_label": "hotbarlistener.java"
     },
     {
@@ -8621,7 +8531,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "listeners_hotbarlistener_hotbarlistener",
-      "community": 4,
+      "community": 72,
       "norm_label": "hotbarlistener"
     },
     {
@@ -8631,7 +8541,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "listeners_hotbarlistener_hotbarlistener_hotbarlistener",
-      "community": 4,
+      "community": 72,
       "norm_label": ".hotbarlistener()"
     },
     {
@@ -8641,7 +8551,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_hotbarlistener_java_forceplugin",
-      "community": 4,
+      "community": 72,
       "norm_label": "forceplugin"
     },
     {
@@ -8661,7 +8571,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_hotbarlistener_java_playeritemheldevent",
-      "community": 4,
+      "community": 72,
       "norm_label": "playeritemheldevent"
     },
     {
@@ -8671,7 +8581,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_hotbarlistener_java_eventhandler",
-      "community": 4,
+      "community": 72,
       "norm_label": "eventhandler"
     },
     {
@@ -8781,7 +8691,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "listeners_playerconnectionlistener",
-      "community": 0,
+      "community": 4,
       "norm_label": "playerconnectionlistener.java"
     },
     {
@@ -8791,7 +8701,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "listeners_playerconnectionlistener_playerconnectionlistener",
-      "community": 0,
+      "community": 4,
       "norm_label": "playerconnectionlistener"
     },
     {
@@ -8801,7 +8711,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "listeners_playerconnectionlistener_playerconnectionlistener_playerconnectionlistener",
-      "community": 0,
+      "community": 4,
       "norm_label": ".playerconnectionlistener()"
     },
     {
@@ -8811,7 +8721,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_playerconnectionlistener_java_forceplugin",
-      "community": 0,
+      "community": 4,
       "norm_label": "forceplugin"
     },
     {
@@ -8821,7 +8731,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "listeners_playerconnectionlistener_playerconnectionlistener_onplayerjoin",
-      "community": 0,
+      "community": 4,
       "norm_label": ".onplayerjoin()"
     },
     {
@@ -8831,7 +8741,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_playerconnectionlistener_java_playerjoinevent",
-      "community": 0,
+      "community": 4,
       "norm_label": "playerjoinevent"
     },
     {
@@ -8841,27 +8751,27 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_playerconnectionlistener_java_eventhandler",
-      "community": 0,
+      "community": 4,
       "norm_label": "eventhandler"
     },
     {
       "label": ".onPlayerQuit()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/PlayerConnectionListener.java",
-      "source_location": "L30",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "listeners_playerconnectionlistener_playerconnectionlistener_onplayerquit",
-      "community": 0,
+      "community": 4,
       "norm_label": ".onplayerquit()"
     },
     {
       "label": "PlayerQuitEvent",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/PlayerConnectionListener.java",
-      "source_location": "L30",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_playerconnectionlistener_java_playerquitevent",
-      "community": 0,
+      "community": 4,
       "norm_label": "playerquitevent"
     },
     {
@@ -8871,7 +8781,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "listeners_projectiledeflectionlistener",
-      "community": 4,
+      "community": 28,
       "norm_label": "projectiledeflectionlistener.java"
     },
     {
@@ -8881,7 +8791,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "listeners_projectiledeflectionlistener_projectiledeflectionlistener",
-      "community": 4,
+      "community": 28,
       "norm_label": "projectiledeflectionlistener"
     },
     {
@@ -8891,7 +8801,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "listeners_projectiledeflectionlistener_projectiledeflectionlistener_adddeflectingplayer",
-      "community": 4,
+      "community": 28,
       "norm_label": ".adddeflectingplayer()"
     },
     {
@@ -8901,7 +8811,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_projectiledeflectionlistener_java_uuid",
-      "community": 4,
+      "community": 28,
       "norm_label": "uuid"
     },
     {
@@ -8911,7 +8821,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "listeners_projectiledeflectionlistener_projectiledeflectionlistener_removedeflectingplayer",
-      "community": 4,
+      "community": 28,
       "norm_label": ".removedeflectingplayer()"
     },
     {
@@ -8921,7 +8831,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "listeners_projectiledeflectionlistener_projectiledeflectionlistener_isdeflecting",
-      "community": 4,
+      "community": 28,
       "norm_label": ".isdeflecting()"
     },
     {
@@ -8931,7 +8841,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "listeners_projectiledeflectionlistener_projectiledeflectionlistener_onprojectilehit",
-      "community": 4,
+      "community": 28,
       "norm_label": ".onprojectilehit()"
     },
     {
@@ -8941,7 +8851,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "projectilehitevent",
-      "community": 4,
+      "community": 28,
       "norm_label": "projectilehitevent"
     },
     {
@@ -8951,7 +8861,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_listeners_projectiledeflectionlistener_java_eventhandler",
-      "community": 4,
+      "community": 28,
       "norm_label": "eventhandler"
     },
     {
@@ -9211,7 +9121,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "managers_abilityconfigmanager_abilityconfigmanager_getunlockcost",
-      "community": 67,
+      "community": 48,
       "norm_label": ".getunlockcost()"
     },
     {
@@ -9421,7 +9331,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "managers_actionbarutil",
-      "community": 0,
+      "community": 24,
       "norm_label": "actionbarutil.java"
     },
     {
@@ -9431,7 +9341,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "managers_actionbarutil_actionbarutil",
-      "community": 0,
+      "community": 24,
       "norm_label": "actionbarutil"
     },
     {
@@ -9441,7 +9351,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "managers_actionbarutil_actionbarutil_actionbarutil",
-      "community": 0,
+      "community": 24,
       "norm_label": ".actionbarutil()"
     },
     {
@@ -9451,7 +9361,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "managers_actionbarutil_actionbarutil_send",
-      "community": 0,
+      "community": 24,
       "norm_label": ".send()"
     },
     {
@@ -9461,7 +9371,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_actionbarutil_java_player",
-      "community": 0,
+      "community": 24,
       "norm_label": "player"
     },
     {
@@ -9471,7 +9381,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_actionbarutil_java_string",
-      "community": 0,
+      "community": 24,
       "norm_label": "string"
     },
     {
@@ -9481,7 +9391,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_actionbarutil_java_suppresswarnings",
-      "community": 0,
+      "community": 24,
       "norm_label": "suppresswarnings"
     },
     {
@@ -9498,7 +9408,7 @@
       "label": "AmbientEffectsManager",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/AmbientEffectsManager.java",
-      "source_location": "L15",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "managers_ambienteffectsmanager_ambienteffectsmanager",
       "community": 39,
@@ -9508,7 +9418,7 @@
       "label": ".AmbientEffectsManager()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/AmbientEffectsManager.java",
-      "source_location": "L19",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "managers_ambienteffectsmanager_ambienteffectsmanager_ambienteffectsmanager",
       "community": 39,
@@ -9518,7 +9428,7 @@
       "label": "ForcePlugin",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/AmbientEffectsManager.java",
-      "source_location": "L19",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_ambienteffectsmanager_java_forceplugin",
       "community": 39,
@@ -9528,7 +9438,7 @@
       "label": ".startEffectTask()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/AmbientEffectsManager.java",
-      "source_location": "L24",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "managers_ambienteffectsmanager_ambienteffectsmanager_starteffecttask",
       "community": 39,
@@ -9538,7 +9448,7 @@
       "label": ".spawnAmbientParticle()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/AmbientEffectsManager.java",
-      "source_location": "L40",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "managers_ambienteffectsmanager_ambienteffectsmanager_spawnambientparticle",
       "community": 39,
@@ -9548,7 +9458,7 @@
       "label": "Player",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/AmbientEffectsManager.java",
-      "source_location": "L40",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_ambienteffectsmanager_java_player",
       "community": 39,
@@ -9558,7 +9468,7 @@
       "label": "ForceSide",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/AmbientEffectsManager.java",
-      "source_location": "L40",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_ambienteffectsmanager_java_forceside",
       "community": 39,
@@ -9571,7 +9481,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "managers_cooldownmanager",
-      "community": 0,
+      "community": 20,
       "norm_label": "cooldownmanager.java"
     },
     {
@@ -9581,7 +9491,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "managers_cooldownmanager_cooldownmanager",
-      "community": 0,
+      "community": 20,
       "norm_label": "cooldownmanager"
     },
     {
@@ -9591,7 +9501,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "managers_cooldownmanager_cooldownmanager_setcooldown",
-      "community": 0,
+      "community": 20,
       "norm_label": ".setcooldown()"
     },
     {
@@ -9601,7 +9511,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_cooldownmanager_java_player",
-      "community": 0,
+      "community": 20,
       "norm_label": "player"
     },
     {
@@ -9611,7 +9521,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_cooldownmanager_java_string",
-      "community": 0,
+      "community": 20,
       "norm_label": "string"
     },
     {
@@ -9621,7 +9531,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "managers_cooldownmanager_cooldownmanager_isoncooldown",
-      "community": 0,
+      "community": 20,
       "norm_label": ".isoncooldown()"
     },
     {
@@ -9631,7 +9541,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "managers_cooldownmanager_cooldownmanager_getremainingcooldownformatted",
-      "community": 0,
+      "community": 20,
       "norm_label": ".getremainingcooldownformatted()"
     },
     {
@@ -9641,7 +9551,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "managers_cooldownmanager_cooldownmanager_getremainingcooldownmillis",
-      "community": 0,
+      "community": 20,
       "norm_label": ".getremainingcooldownmillis()"
     },
     {
@@ -9651,7 +9561,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "managers_forcebarmanager",
-      "community": 0,
+      "community": 4,
       "norm_label": "forcebarmanager.java"
     },
     {
@@ -9661,7 +9571,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "managers_forcebarmanager_forcebarmanager",
-      "community": 0,
+      "community": 4,
       "norm_label": "forcebarmanager"
     },
     {
@@ -9671,7 +9581,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "managers_forcebarmanager_forcebarmanager_forcebarmanager",
-      "community": 0,
+      "community": 4,
       "norm_label": ".forcebarmanager()"
     },
     {
@@ -9681,7 +9591,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_forcebarmanager_java_forceplugin",
-      "community": 0,
+      "community": 4,
       "norm_label": "forceplugin"
     },
     {
@@ -9691,7 +9601,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_forcebarmanager_java_forceusermanager",
-      "community": 0,
+      "community": 4,
       "norm_label": "forceusermanager"
     },
     {
@@ -9701,7 +9611,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "managers_forcebarmanager_forcebarmanager_reloadconfig",
-      "community": 0,
+      "community": 4,
       "norm_label": ".reloadconfig()"
     },
     {
@@ -9731,7 +9641,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "managers_forcebarmanager_forcebarmanager_removeplayer",
-      "community": 0,
+      "community": 4,
       "norm_label": ".removeplayer()"
     },
     {
@@ -9751,7 +9661,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "managers_forcebarmanager_forcebarmanager_startenergyregentask",
-      "community": 0,
+      "community": 4,
       "norm_label": ".startenergyregentask()"
     },
     {
@@ -9811,7 +9721,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "managers_forceenchantmanager_forceenchantmanager_canuse",
-      "community": 6,
+      "community": 2,
       "norm_label": ".canuse()"
     },
     {
@@ -10135,126 +10045,6 @@
       "norm_label": "suppresswarnings"
     },
     {
-      "label": "HolocronManager.java",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "managers_holocronmanager",
-      "community": 20,
-      "norm_label": "holocronmanager.java"
-    },
-    {
-      "label": "HolocronManager",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L16",
-      "_origin": "ast",
-      "id": "managers_holocronmanager_holocronmanager",
-      "community": 20,
-      "norm_label": "holocronmanager"
-    },
-    {
-      "label": ".HolocronManager()",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L23",
-      "_origin": "ast",
-      "id": "managers_holocronmanager_holocronmanager_holocronmanager",
-      "community": 20,
-      "norm_label": ".holocronmanager()"
-    },
-    {
-      "label": "ForcePlugin",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L23",
-      "_origin": "ast",
-      "id": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_forceplugin",
-      "community": 20,
-      "norm_label": "forceplugin"
-    },
-    {
-      "label": ".giveHolocron()",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L27",
-      "_origin": "ast",
-      "id": "managers_holocronmanager_holocronmanager_giveholocron",
-      "community": 20,
-      "norm_label": ".giveholocron()"
-    },
-    {
-      "label": "Player",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L27",
-      "_origin": "ast",
-      "id": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_player",
-      "community": 20,
-      "norm_label": "player"
-    },
-    {
-      "label": ".createHolocronItem()",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "managers_holocronmanager_holocronmanager_createholocronitem",
-      "community": 20,
-      "norm_label": ".createholocronitem()"
-    },
-    {
-      "label": "ForceSide",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_forceside",
-      "community": 20,
-      "norm_label": "forceside"
-    },
-    {
-      "label": "ItemStack",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_itemstack",
-      "community": 20,
-      "norm_label": "itemstack"
-    },
-    {
-      "label": ".updateHolocronName()",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L50",
-      "_origin": "ast",
-      "id": "managers_holocronmanager_holocronmanager_updateholocronname",
-      "community": 6,
-      "norm_label": ".updateholocronname()"
-    },
-    {
-      "label": ".isHolocron()",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L79",
-      "_origin": "ast",
-      "id": "managers_holocronmanager_holocronmanager_isholocron",
-      "community": 20,
-      "norm_label": ".isholocron()"
-    },
-    {
-      "label": ".removeHolocron()",
-      "file_type": "code",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L86",
-      "_origin": "ast",
-      "id": "managers_holocronmanager_holocronmanager_removeholocron",
-      "community": 20,
-      "norm_label": ".removeholocron()"
-    },
-    {
       "label": "HudManager.java",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/HudManager.java",
@@ -10368,7 +10158,7 @@
       "label": ".onHotbarChange()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/HudManager.java",
-      "source_location": "L122",
+      "source_location": "L124",
       "_origin": "ast",
       "id": "managers_hudmanager_hudmanager_onhotbarchange",
       "community": 4,
@@ -10378,7 +10168,7 @@
       "label": "PlayerItemHeldEvent",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/HudManager.java",
-      "source_location": "L122",
+      "source_location": "L124",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_hudmanager_java_playeritemheldevent",
       "community": 4,
@@ -10388,7 +10178,7 @@
       "label": "EventHandler",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/HudManager.java",
-      "source_location": "L122",
+      "source_location": "L124",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_hudmanager_java_eventhandler",
       "community": 4,
@@ -10398,7 +10188,7 @@
       "label": ".onPlayerQuit()",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/HudManager.java",
-      "source_location": "L128",
+      "source_location": "L130",
       "_origin": "ast",
       "id": "managers_hudmanager_hudmanager_onplayerquit",
       "community": 4,
@@ -10408,7 +10198,7 @@
       "label": "PlayerQuitEvent",
       "file_type": "code",
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/HudManager.java",
-      "source_location": "L128",
+      "source_location": "L130",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_hudmanager_java_playerquitevent",
       "community": 4,
@@ -10531,7 +10321,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "managers_particleutil",
-      "community": 70,
+      "community": 39,
       "norm_label": "particleutil.java"
     },
     {
@@ -10541,7 +10331,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "managers_particleutil_particleutil",
-      "community": 70,
+      "community": 39,
       "norm_label": "particleutil"
     },
     {
@@ -10551,7 +10341,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "managers_particleutil_particleutil_drawparticlebeam",
-      "community": 70,
+      "community": 39,
       "norm_label": ".drawparticlebeam()"
     },
     {
@@ -10561,7 +10351,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_particleutil_java_location",
-      "community": 70,
+      "community": 39,
       "norm_label": "location"
     },
     {
@@ -10571,7 +10361,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_particleutil_java_particle",
-      "community": 70,
+      "community": 39,
       "norm_label": "particle"
     },
     {
@@ -10581,7 +10371,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "object",
-      "community": 70,
+      "community": 39,
       "norm_label": "object"
     },
     {
@@ -10591,7 +10381,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "managers_particleutil_particleutil_drawzigzagbeam",
-      "community": 70,
+      "community": 39,
       "norm_label": ".drawzigzagbeam()"
     },
     {
@@ -10751,7 +10541,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "managers_rankmanager",
-      "community": 8,
+      "community": 64,
       "norm_label": "rankmanager.java"
     },
     {
@@ -10761,7 +10551,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "managers_rankmanager_rankmanager",
-      "community": 8,
+      "community": 64,
       "norm_label": "rankmanager"
     },
     {
@@ -10771,7 +10561,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "managers_rankmanager_rankmanager_rankmanager",
-      "community": 8,
+      "community": 64,
       "norm_label": ".rankmanager()"
     },
     {
@@ -10781,7 +10571,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_rankmanager_java_forceplugin",
-      "community": 8,
+      "community": 64,
       "norm_label": "forceplugin"
     },
     {
@@ -10791,7 +10581,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "managers_rankmanager_rankmanager_loadranks",
-      "community": 8,
+      "community": 64,
       "norm_label": ".loadranks()"
     },
     {
@@ -10801,7 +10591,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "managers_rankmanager_rankmanager_getrank",
-      "community": 1,
+      "community": 64,
       "norm_label": ".getrank()"
     },
     {
@@ -10811,7 +10601,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_rankmanager_java_forceuser",
-      "community": 8,
+      "community": 64,
       "norm_label": "forceuser"
     },
     {
@@ -10821,7 +10611,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_rankmanager_java_string",
-      "community": 1,
+      "community": 64,
       "norm_label": "string"
     },
     {
@@ -10831,7 +10621,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "managers_rankmanager_rankmanager_getspecializations",
-      "community": 8,
+      "community": 64,
       "norm_label": ".getspecializations()"
     },
     {
@@ -10841,7 +10631,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_rankmanager_java_forceside",
-      "community": 8,
+      "community": 64,
       "norm_label": "forceside"
     },
     {
@@ -10851,7 +10641,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_rankmanager_java_list",
-      "community": 8,
+      "community": 64,
       "norm_label": "list"
     },
     {
@@ -10861,7 +10651,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "rank",
-      "community": 8,
+      "community": 64,
       "norm_label": "rank"
     },
     {
@@ -10871,7 +10661,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "managers_telekinesismanager",
-      "community": 0,
+      "community": 36,
       "norm_label": "telekinesismanager.java"
     },
     {
@@ -10881,7 +10671,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "managers_telekinesismanager_telekinesismanager",
-      "community": 0,
+      "community": 36,
       "norm_label": "telekinesismanager"
     },
     {
@@ -10891,7 +10681,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "managers_telekinesismanager_telekinesismanager_telekinesismanager",
-      "community": 0,
+      "community": 36,
       "norm_label": ".telekinesismanager()"
     },
     {
@@ -10901,7 +10691,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_telekinesismanager_java_forceplugin",
-      "community": 0,
+      "community": 36,
       "norm_label": "forceplugin"
     },
     {
@@ -10911,7 +10701,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "managers_telekinesismanager_telekinesismanager_islifting",
-      "community": 0,
+      "community": 36,
       "norm_label": ".islifting()"
     },
     {
@@ -10921,7 +10711,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_telekinesismanager_java_player",
-      "community": 0,
+      "community": 36,
       "norm_label": "player"
     },
     {
@@ -10931,7 +10721,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "managers_telekinesismanager_telekinesismanager_getliftedtarget",
-      "community": 0,
+      "community": 36,
       "norm_label": ".getliftedtarget()"
     },
     {
@@ -10941,7 +10731,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "src_main_java_org_perseus_forceplugin_managers_telekinesismanager_java_livingentity",
-      "community": 0,
+      "community": 36,
       "norm_label": "livingentity"
     },
     {
@@ -10951,7 +10741,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "managers_telekinesismanager_telekinesismanager_startlifting",
-      "community": 0,
+      "community": 36,
       "norm_label": ".startlifting()"
     },
     {
@@ -10961,7 +10751,7 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "managers_telekinesismanager_telekinesismanager_stoplifting",
-      "community": 0,
+      "community": 36,
       "norm_label": ".stoplifting()"
     },
     {
@@ -10971,7 +10761,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "managers_telekinesismanager_telekinesismanager_launch",
-      "community": 0,
+      "community": 36,
       "norm_label": ".launch()"
     },
     {
@@ -13139,16 +12929,6 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L160",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "forceplugin_forceplugin_forceplugin",
-      "target": "forceplugin_forceplugin_forceplugin_getholocronmanager"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
       "source_location": "L176",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -13429,17 +13209,6 @@
       "source_location": "L112",
       "weight": 1.0,
       "source": "commands_forceadmincommand_forceadmincommand_handlecheck",
-      "target": "forceplugin_forceplugin_forceplugin_getforceusermanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L202",
-      "weight": 1.0,
-      "source": "commands_forceadmincommand_forceadmincommand_handlegiveholocron",
       "target": "forceplugin_forceplugin_forceplugin_getforceusermanager"
     },
     {
@@ -13799,28 +13568,6 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L28",
-      "weight": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_giveholocron",
-      "target": "forceplugin_forceplugin_forceplugin_getforceusermanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L60",
-      "weight": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_updateholocronname",
-      "target": "forceplugin_forceplugin_forceplugin_getforceusermanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/HudManager.java",
       "source_location": "L73",
       "weight": 1.0,
@@ -13968,17 +13715,6 @@
       "source_location": "L29",
       "weight": 1.0,
       "source": "listeners_hotbarlistener_hotbarlistener_onhotbarchange",
-      "target": "forceplugin_forceplugin_forceplugin_getabilitymanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L63",
-      "weight": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_updateholocronname",
       "target": "forceplugin_forceplugin_forceplugin_getabilitymanager"
     },
     {
@@ -14521,138 +14257,6 @@
       "target": "forceplugin_forceplugin_forceplugin_getlevelingmanager"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L207",
-      "weight": 1.0,
-      "source": "commands_forceadmincommand_forceadmincommand_handlegiveholocron",
-      "target": "forceplugin_forceplugin_forceplugin_getholocronmanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L95",
-      "weight": 1.0,
-      "source": "commands_forceadmincommand_forceadmincommand_handlereset",
-      "target": "forceplugin_forceplugin_forceplugin_getholocronmanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L35",
-      "weight": 1.0,
-      "source": "commands_forcecommand_forcecommand_oncommand",
-      "target": "forceplugin_forceplugin_forceplugin_getholocronmanager"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
-      "source_location": "L160",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "forceplugin_forceplugin_forceplugin_getholocronmanager",
-      "target": "holocronmanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
-      "source_location": "L303",
-      "weight": 1.0,
-      "source": "gui_guilistener_guilistener_handlechoosesidegui",
-      "target": "forceplugin_forceplugin_forceplugin_getholocronmanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/AbilityListener.java",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "listeners_abilitylistener_abilitylistener_onplayerinteract",
-      "target": "forceplugin_forceplugin_forceplugin_getholocronmanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L92",
-      "weight": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_ondrop",
-      "target": "forceplugin_forceplugin_forceplugin_getholocronmanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L103",
-      "weight": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_oninventoryclick",
-      "target": "forceplugin_forceplugin_forceplugin_getholocronmanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L119",
-      "weight": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_onplayerdeath",
-      "target": "forceplugin_forceplugin_forceplugin_getholocronmanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L78",
-      "weight": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_onrightclick",
-      "target": "forceplugin_forceplugin_forceplugin_getholocronmanager"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L41",
-      "weight": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_onsneak",
-      "target": "forceplugin_forceplugin_forceplugin_getholocronmanager"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceCommand.java",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "commands_forcecommand",
-      "target": "holocronmanager"
-    },
-    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/ForcePlugin.java",
@@ -14793,17 +14397,6 @@
       "source_location": "L169",
       "weight": 1.0,
       "source": "managers_forceenchantmanager_forceenchantmanager_applydebuffs",
-      "target": "forceplugin_forceplugin_forceplugin_getversionadapter"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_createholocronitem",
       "target": "forceplugin_forceplugin_forceplugin_getversionadapter"
     },
     {
@@ -15009,10 +14602,32 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
+      "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
+      "source_location": "L378",
+      "weight": 1.0,
+      "source": "gui_guilistener_guilistener_handlechoosesidegui",
+      "target": "forceplugin_forceplugin_forceplugin_gethudmanager"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
       "source_location": "L148",
       "weight": 1.0,
       "source": "listeners_holocronlistener_holocronlistener_cyclebind",
+      "target": "forceplugin_forceplugin_forceplugin_gethudmanager"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/PlayerConnectionListener.java",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "listeners_playerconnectionlistener_playerconnectionlistener_onplayerjoin",
       "target": "forceplugin_forceplugin_forceplugin_gethudmanager"
     },
     {
@@ -15907,17 +15522,6 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "listeners_hotbarlistener",
-      "target": "ability"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager",
       "target": "ability"
     },
     {
@@ -27258,16 +26862,6 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L192",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "commands_forceadmincommand_forceadmincommand",
-      "target": "commands_forceadmincommand_forceadmincommand_handlegiveholocron"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
       "source_location": "L172",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -27434,17 +27028,6 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L41",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "commands_forceadmincommand_forceadmincommand_oncommand",
-      "target": "commands_forceadmincommand_forceadmincommand_handlegiveholocron"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
       "source_location": "L40",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -27576,17 +27159,6 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L192",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "commands_forceadmincommand_forceadmincommand_handlegiveholocron",
-      "target": "src_main_java_org_perseus_forceplugin_commands_forceadmincommand_java_commandsender"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
       "source_location": "L172",
       "weight": 1.0,
       "context": "parameter_type",
@@ -27669,17 +27241,6 @@
       "context": "parameter_type",
       "confidence_score": 1.0,
       "source": "commands_forceadmincommand_forceadmincommand_handlecheck",
-      "target": "src_main_java_org_perseus_forceplugin_commands_forceadmincommand_java_string"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L192",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "commands_forceadmincommand_forceadmincommand_handlegiveholocron",
       "target": "src_main_java_org_perseus_forceplugin_commands_forceadmincommand_java_string"
     },
     {
@@ -27908,17 +27469,6 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L95",
-      "weight": 1.0,
-      "source": "commands_forceadmincommand_forceadmincommand_handlereset",
-      "target": "managers_holocronmanager_holocronmanager_removeholocron"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
       "source_location": "L97",
       "weight": 1.0,
       "source": "commands_forceadmincommand_forceadmincommand_handlereset",
@@ -28088,28 +27638,6 @@
       "weight": 1.0,
       "source": "commands_forceadmincommand_forceadmincommand_handlegivepoints",
       "target": "managers_forceusermanager_forceusermanager_getforceuser"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L202",
-      "weight": 1.0,
-      "source": "commands_forceadmincommand_forceadmincommand_handlegiveholocron",
-      "target": "managers_forceusermanager_forceusermanager_getforceuser"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/commands/ForceAdminCommand.java",
-      "source_location": "L207",
-      "weight": 1.0,
-      "source": "commands_forceadmincommand_forceadmincommand_handlegiveholocron",
-      "target": "managers_holocronmanager_holocronmanager_giveholocron"
     },
     {
       "relation": "contains",
@@ -30896,17 +30424,6 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L64",
-      "weight": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_updateholocronname",
-      "target": "data_forceuser_forceuser_getboundabilityid"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/HudManager.java",
       "source_location": "L91",
       "weight": 1.0,
@@ -31818,17 +31335,6 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager",
-      "target": "material"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/versioning/Adapter_1_16.java",
       "source_location": "L8",
       "weight": 1.0,
@@ -32378,6 +31884,17 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "gui_guilistener",
+      "target": "inventoryclickevent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
       "source_location": "L8",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -32438,17 +31955,6 @@
       "confidence_score": 1.0,
       "source": "gui_guilistener",
       "target": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_forceuser"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "gui_guilistener",
-      "target": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_inventoryclickevent"
     },
     {
       "relation": "imports",
@@ -32906,6 +32412,17 @@
       "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
       "source_location": "L42",
       "weight": 1.0,
+      "context": "parameter_type",
+      "source": "gui_guilistener_guilistener_oninventoryclick",
+      "target": "inventoryclickevent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
+      "source_location": "L42",
+      "weight": 1.0,
       "context": "attribute",
       "confidence_score": 1.0,
       "source": "gui_guilistener_guilistener_oninventoryclick",
@@ -32915,34 +32432,23 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
-      "source_location": "L42",
+      "source_location": "L327",
       "weight": 1.0,
       "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "gui_guilistener_guilistener_oninventoryclick",
-      "target": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_inventoryclickevent"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
-      "source_location": "L325",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
       "source": "gui_guilistener_guilistener_handleabilitypickergui",
-      "target": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_inventoryclickevent"
+      "target": "inventoryclickevent",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
-      "source_location": "L105",
+      "source_location": "L109",
       "weight": 1.0,
       "context": "parameter_type",
-      "confidence_score": 1.0,
       "source": "gui_guilistener_guilistener_handleabilityselection",
-      "target": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_inventoryclickevent"
+      "target": "inventoryclickevent",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -32951,64 +32457,64 @@
       "source_location": "L294",
       "weight": 1.0,
       "context": "parameter_type",
-      "confidence_score": 1.0,
       "source": "gui_guilistener_guilistener_handlebindgui",
-      "target": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_inventoryclickevent"
+      "target": "inventoryclickevent",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
-      "source_location": "L290",
+      "source_location": "L365",
       "weight": 1.0,
       "context": "parameter_type",
-      "confidence_score": 1.0,
       "source": "gui_guilistener_guilistener_handlechoosesidegui",
-      "target": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_inventoryclickevent"
+      "target": "inventoryclickevent",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
-      "source_location": "L62",
+      "source_location": "L66",
       "weight": 1.0,
       "context": "parameter_type",
-      "confidence_score": 1.0,
       "source": "gui_guilistener_guilistener_handleforceenchantgui",
-      "target": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_inventoryclickevent"
+      "target": "inventoryclickevent",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
-      "source_location": "L205",
+      "source_location": "L209",
       "weight": 1.0,
       "context": "parameter_type",
-      "confidence_score": 1.0,
       "source": "gui_guilistener_guilistener_handlepassivesmenu",
-      "target": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_inventoryclickevent"
+      "target": "inventoryclickevent",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
-      "source_location": "L174",
+      "source_location": "L178",
       "weight": 1.0,
       "context": "parameter_type",
-      "confidence_score": 1.0,
       "source": "gui_guilistener_guilistener_handlespecializationchoice",
-      "target": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_inventoryclickevent"
+      "target": "inventoryclickevent",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
-      "source_location": "L140",
+      "source_location": "L144",
       "weight": 1.0,
       "context": "parameter_type",
-      "confidence_score": 1.0,
       "source": "gui_guilistener_guilistener_handleupgrademenu",
-      "target": "src_main_java_org_perseus_forceplugin_gui_guilistener_java_inventoryclickevent"
+      "target": "inventoryclickevent",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -33610,10 +33116,10 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/main/java/org/perseus/forcePlugin/gui/GUIListener.java",
-      "source_location": "L303",
+      "source_location": "L378",
       "weight": 1.0,
       "source": "gui_guilistener_guilistener_handlechoosesidegui",
-      "target": "managers_holocronmanager_holocronmanager_giveholocron"
+      "target": "managers_hudmanager_hudmanager_updatescoreboard"
     },
     {
       "relation": "contains",
@@ -34720,17 +34226,6 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/AbilityListener.java",
-      "source_location": "L40",
-      "weight": 1.0,
-      "source": "listeners_abilitylistener_abilitylistener_onplayerinteract",
-      "target": "managers_holocronmanager_holocronmanager_isholocron"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/AbilityListener.java",
       "source_location": "L61",
       "weight": 1.0,
       "source": "listeners_abilitylistener_abilitylistener_onplayerinteract",
@@ -35306,28 +34801,6 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener",
-      "target": "playerdeathevent"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L12",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener",
-      "target": "playerdropitemevent"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
       "source_location": "L6",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -35344,17 +34817,6 @@
       "confidence_score": 1.0,
       "source": "listeners_holocronlistener",
       "target": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_forceplugin"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener",
-      "target": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_inventoryclickevent"
     },
     {
       "relation": "imports",
@@ -35419,36 +34881,6 @@
       "confidence_score": 1.0,
       "source": "listeners_holocronlistener_holocronlistener",
       "target": "listeners_holocronlistener_holocronlistener_holocronlistener"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L90",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener",
-      "target": "listeners_holocronlistener_holocronlistener_ondrop"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L98",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener",
-      "target": "listeners_holocronlistener_holocronlistener_oninventoryclick"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L115",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener",
-      "target": "listeners_holocronlistener_holocronlistener_onplayerdeath"
     },
     {
       "relation": "method",
@@ -35524,28 +34956,6 @@
       "target": "managers_actionbarutil_actionbarutil_send"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L41",
-      "weight": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_onsneak",
-      "target": "managers_holocronmanager_holocronmanager_isholocron"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L48",
-      "weight": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_onsneak",
-      "target": "managers_holocronmanager_holocronmanager_updateholocronname"
-    },
-    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
@@ -35566,39 +34976,6 @@
       "confidence_score": 1.0,
       "source": "listeners_holocronlistener_holocronlistener_onsneak",
       "target": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_playertogglesneakevent"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L90",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_ondrop",
-      "target": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_eventhandler"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L98",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_oninventoryclick",
-      "target": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_eventhandler"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L115",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_onplayerdeath",
-      "target": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_eventhandler"
     },
     {
       "relation": "references",
@@ -35656,17 +35033,6 @@
       "target": "managers_forceusermanager_forceusermanager_getforceuser"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L78",
-      "weight": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_onrightclick",
-      "target": "managers_holocronmanager_holocronmanager_isholocron"
-    },
-    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
@@ -35676,72 +35042,6 @@
       "confidence_score": 1.0,
       "source": "listeners_holocronlistener_holocronlistener_onrightclick",
       "target": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_playerinteractevent"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L92",
-      "weight": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_ondrop",
-      "target": "managers_holocronmanager_holocronmanager_isholocron"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L90",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_ondrop",
-      "target": "playerdropitemevent"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L103",
-      "weight": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_oninventoryclick",
-      "target": "managers_holocronmanager_holocronmanager_isholocron"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L98",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_oninventoryclick",
-      "target": "src_main_java_org_perseus_forceplugin_listeners_holocronlistener_java_inventoryclickevent"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L119",
-      "weight": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_onplayerdeath",
-      "target": "managers_holocronmanager_holocronmanager_isholocron"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/listeners/HolocronListener.java",
-      "source_location": "L115",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "listeners_holocronlistener_holocronlistener_onplayerdeath",
-      "target": "playerdeathevent"
     },
     {
       "relation": "calls",
@@ -37364,17 +36664,6 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L63",
-      "weight": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_updateholocronname",
-      "target": "managers_abilitymanager_abilitymanager_getability"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/HudManager.java",
       "source_location": "L94",
       "weight": 1.0,
@@ -38746,28 +38035,6 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L28",
-      "weight": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_giveholocron",
-      "target": "managers_forceusermanager_forceusermanager_getforceuser"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L60",
-      "weight": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_updateholocronname",
-      "target": "managers_forceusermanager_forceusermanager_getforceuser"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
       "source_file": "src/main/java/org/perseus/forcePlugin/managers/HudManager.java",
       "source_location": "L73",
       "weight": 1.0,
@@ -38858,252 +38125,6 @@
       "confidence_score": 1.0,
       "source": "managers_healthutil_healthutil_getmaxhealth",
       "target": "src_main_java_org_perseus_forceplugin_managers_healthutil_java_suppresswarnings"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L16",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager",
-      "target": "managers_holocronmanager_holocronmanager"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager",
-      "target": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_forceplugin"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager",
-      "target": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_forceside"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager",
-      "target": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_itemstack"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager",
-      "target": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_player"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L38",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager",
-      "target": "managers_holocronmanager_holocronmanager_createholocronitem"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L27",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager",
-      "target": "managers_holocronmanager_holocronmanager_giveholocron"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L23",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager",
-      "target": "managers_holocronmanager_holocronmanager_holocronmanager"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L77",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager",
-      "target": "managers_holocronmanager_holocronmanager_isholocron"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L84",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager",
-      "target": "managers_holocronmanager_holocronmanager_removeholocron"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L50",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager",
-      "target": "managers_holocronmanager_holocronmanager_updateholocronname"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L23",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_holocronmanager",
-      "target": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_forceplugin"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L33",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_giveholocron",
-      "target": "managers_holocronmanager_holocronmanager_createholocronitem"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L31",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_giveholocron",
-      "target": "managers_holocronmanager_holocronmanager_removeholocron"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L35",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_giveholocron",
-      "target": "managers_holocronmanager_holocronmanager_updateholocronname"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L27",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_giveholocron",
-      "target": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_player"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L84",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_removeholocron",
-      "target": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_player"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L50",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_updateholocronname",
-      "target": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_player"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L38",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_createholocronitem",
-      "target": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_forceside"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L38",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_createholocronitem",
-      "target": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_itemstack"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L77",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_isholocron",
-      "target": "src_main_java_org_perseus_forceplugin_managers_holocronmanager_java_itemstack"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L53",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_updateholocronname",
-      "target": "managers_holocronmanager_holocronmanager_isholocron"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/org/perseus/forcePlugin/managers/HolocronManager.java",
-      "source_location": "L86",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "managers_holocronmanager_holocronmanager_removeholocron",
-      "target": "managers_holocronmanager_holocronmanager_isholocron"
     },
     {
       "relation": "contains",
