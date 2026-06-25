@@ -92,8 +92,6 @@ public class ForceAdminCommand implements CommandExecutor {
         forceUser.setForceLevel(1);
         forceUser.setForceXp(0);
         forceUser.setForcePoints(0);
-        forceUser.setSpecialization(null);
-        forceUser.setNeedsToChoosePath(false);
         plugin.getForceBarManager().updateBar(target);
         plugin.getLevelingManager().updateXpBar(target);
         plugin.getForceUserManager().savePlayerData(target);

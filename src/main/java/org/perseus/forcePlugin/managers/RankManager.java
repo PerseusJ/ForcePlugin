@@ -19,7 +19,6 @@ public class RankManager {
 
     private final ForcePlugin plugin;
     private final Map<ForceSide, List<Rank>> linearRanks = new HashMap<>();
-    private final Map<ForceSide, List<Rank>> specializations = new HashMap<>();
 
     public RankManager(ForcePlugin plugin) {
         this.plugin = plugin;
@@ -28,7 +27,6 @@ public class RankManager {
 
     public void loadRanks() {
         linearRanks.clear();
-        specializations.clear();
         File ranksFile = new File(plugin.getDataFolder(), "ranks.yml");
         if (!ranksFile.exists()) {
             plugin.saveResource("ranks.yml", false);
@@ -54,35 +52,11 @@ public class RankManager {
             }
         }
 
-        // Load Specializations
-        ConfigurationSection specSection = ranksConfig.getConfigurationSection("specializations");
-        if (specSection != null) {
-            for (String sideKey : specSection.getKeys(false)) {
-                try {
-                    ForceSide side = ForceSide.valueOf(sideKey.toUpperCase());
-                    List<Rank> sideSpecs = new ArrayList<>();
-                    for (Map<?, ?> specMap : specSection.getMapList(sideKey)) {
-                        sideSpecs.add(new Rank((String) specMap.get("id"), (String) specMap.get("display-name"), (List<String>) specMap.get("description"), (String) specMap.get("material")));
-                    }
-                    specializations.put(side, sideSpecs);
-                } catch (Exception e) {
-                    plugin.getLogger().warning("Invalid specialization configuration for side: " + sideKey);
-                }
-            }
-        }
-        plugin.getLogger().info("Loaded ranks and specializations from ranks.yml.");
+        plugin.getLogger().info("Loaded ranks from ranks.yml.");
     }
 
     public String getRank(ForceUser forceUser) {
         if (forceUser.getSide() == ForceSide.NONE) return "";
-
-        if (forceUser.getSpecialization() != null) {
-            return specializations.get(forceUser.getSide()).stream()
-                    .filter(spec -> spec.getId().equals(forceUser.getSpecialization()))
-                    .findFirst()
-                    .map(Rank::getDisplayName)
-                    .orElse("");
-        }
 
         List<Rank> sideRanks = linearRanks.get(forceUser.getSide());
         if (sideRanks == null) return "";
@@ -92,9 +66,5 @@ public class RankManager {
             }
         }
         return "";
-    }
-
-    public List<Rank> getSpecializations(ForceSide side) {
-        return specializations.getOrDefault(side, new ArrayList<>());
     }
 }

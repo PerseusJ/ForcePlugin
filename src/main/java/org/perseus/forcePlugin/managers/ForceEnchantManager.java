@@ -57,8 +57,8 @@ public class ForceEnchantManager {
         if (forceUser == null) {
             return false;
         }
-        // A player can use this feature if they have chosen a specialization.
-        return forceUser.getSpecialization() != null;
+        // A player can use this feature once they have chosen a side (Light or Dark).
+        return forceUser.getSide() != org.perseus.forcePlugin.data.ForceSide.NONE;
     }
 
     public List<ForceEnchantment> getApplicableEnchantments(ItemStack item) {

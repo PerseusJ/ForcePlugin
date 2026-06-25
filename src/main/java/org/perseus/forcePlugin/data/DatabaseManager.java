@@ -64,15 +64,11 @@ public class DatabaseManager {
                 + "force_xp REAL NOT NULL,"
                 + "force_points INTEGER NOT NULL,"
                 + "unlocked_abilities TEXT NOT NULL,"
-                + "specialization TEXT,"
-                + "needs_choice INTEGER NOT NULL DEFAULT 0,"
-                + "unlocked_passives TEXT," // New column
-                + "slot_binds TEXT"          // New column for hotbar bindings
+                + "unlocked_passives TEXT,"
+                + "slot_binds TEXT"
                 + ");";
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
-            addColumnIfNotExists("specialization", "TEXT");
-            addColumnIfNotExists("needs_choice", "INTEGER NOT NULL DEFAULT 0");
             addColumnIfNotExists("unlocked_passives", "TEXT");
             addColumnIfNotExists("slot_binds", "TEXT");
         } catch (SQLException e) {
@@ -116,10 +112,7 @@ public class DatabaseManager {
                     forceUser.getUnlockedAbilities().putAll(unlockedAbilities);
                 }
 
-                forceUser.setSpecialization(rs.getString("specialization"));
-                forceUser.setNeedsToChoosePath(rs.getInt("needs_choice") == 1);
-
-                // --- NEW: Load passives ---
+                // Load passives
                 String passivesJson = rs.getString("unlocked_passives");
                 if (passivesJson != null) {
                     Map<String, Integer> unlockedPassives = gson.fromJson(passivesJson, new TypeToken<Map<String, Integer>>(){}.getType());
@@ -144,8 +137,8 @@ public class DatabaseManager {
 
     public synchronized void savePlayerData(ForceUser forceUser) {
         connect();
-        String sql = "INSERT OR REPLACE INTO force_users (uuid, side, active_ability, force_level, force_xp, force_points, unlocked_abilities, specialization, needs_choice, unlocked_passives, slot_binds) "
-                + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT OR REPLACE INTO force_users (uuid, side, active_ability, force_level, force_xp, force_points, unlocked_abilities, unlocked_passives, slot_binds) "
+                + "VALUES(?,?,?,?,?,?,?,?,?)";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, forceUser.getUuid().toString());
@@ -155,10 +148,8 @@ public class DatabaseManager {
             pstmt.setDouble(5, forceUser.getForceXp());
             pstmt.setInt(6, forceUser.getForcePoints());
             pstmt.setString(7, gson.toJson(forceUser.getUnlockedAbilities()));
-            pstmt.setString(8, forceUser.getSpecialization());
-            pstmt.setInt(9, forceUser.needsToChoosePath() ? 1 : 0);
-            pstmt.setString(10, gson.toJson(forceUser.getUnlockedPassives()));
-            pstmt.setString(11, gson.toJson(forceUser.getSlotBinds()));
+            pstmt.setString(8, gson.toJson(forceUser.getUnlockedPassives()));
+            pstmt.setString(9, gson.toJson(forceUser.getSlotBinds()));
             pstmt.executeUpdate();
         } catch (SQLException e) {
             plugin.getLogger().log(Level.SEVERE, "Could not save player data for " + forceUser.getUuid(), e);
