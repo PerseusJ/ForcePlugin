@@ -2,10 +2,11 @@
 > **Current Release:** v2.5 (SpigotMC)
 > **Roadmap Scope:** Long-term. Each entry is its own versioned release.
 > **Versioning Convention:** Minor bumps (2.x) for targeted fixes/additions, major bumps (3.0, 4.0) for sweeping overhauls.
+> After a version is implemented in the project, please mark that version as [COMPLETED] to keep track which next version is to be continue.
 
 ---
 
-## Version 2.6 — Dead Code Purge & Legacy Cleanup
+## Version 2.6 — Dead Code Purge & Legacy Cleanup [COMPLETED]
 **Type:** Patch / Refactor  
 **Priority:** 🔴 Critical (do first)
 
