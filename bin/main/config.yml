@@ -1,0 +1,363 @@
+# ------------------------------------------------- #
+#                ForcePlugin Config                 #
+# ------------------------------------------------- #
+
+force-energy:
+  regeneration-per-second: 2.5
+
+progression:
+  max-force-level: 100
+  points-per-level: 1
+  base-xp: 100
+  xp-per-level-multiplier: 25
+  xp-gain:
+    per-ability-use: 1.0
+    per-telekinesis-launch: 2.0
+    per-mob-kill: 5.0
+
+abilities:
+  # Universal Abilities - trigger determines activation action (LEFT_CLICK, RIGHT_CLICK, SHIFT)
+  FORCE_PUSH:
+    trigger: LEFT_CLICK
+    unlock-cost: 1
+    max-level: 3
+    levels:
+      '1': { energy-cost: 15.0, cooldown: 4.0, strength: 2.0, upward-force: 1.2, nausea-duration-seconds: 3, nausea-amplifier: 1, upgrade-cost: 1 }
+      '2': { energy-cost: 14.0, cooldown: 3.5, strength: 2.5, upward-force: 1.3, nausea-duration-seconds: 4, nausea-amplifier: 1, upgrade-cost: 2 }
+      '3': { energy-cost: 12.0, cooldown: 3.0, strength: 3.0, upward-force: 1.4, nausea-duration-seconds: 5, nausea-amplifier: 2 }
+  FORCE_PULL:
+    trigger: LEFT_CLICK
+    unlock-cost: 1
+    max-level: 2
+    levels:
+      '1': { energy-cost: 15.0, cooldown: 10.0, strength: 2.5, upgrade-cost: 2 }
+      '2': { energy-cost: 12.0, cooldown: 8.0, strength: 3.0 }
+  TELEKINESIS:
+    trigger: RIGHT_CLICK
+    unlock-cost: 3
+    max-level: 1
+    levels:
+      '1': { initial-energy-cost: 10.0, energy-cost-per-second: 5.0, cooldown: 20.0, range: 20, launch-strength: 3.0 }
+  FORCE_SENSE:
+    trigger: RIGHT_CLICK
+    unlock-cost: 1
+    max-level: 3
+    levels:
+      '1': { energy-cost: 15.0, cooldown: 10.0, duration-seconds: 5, radius: 10, upgrade-cost: 1 }
+      '2': { energy-cost: 12.0, cooldown: 8.0, duration-seconds: 8, radius: 20, upgrade-cost: 2 }
+      '3': { energy-cost: 10.0, cooldown: 5.0, duration-seconds: 12, radius: 30 }
+
+  # Light Side Exclusive
+  FORCE_HEAL:
+    trigger: RIGHT_CLICK
+    unlock-cost: 1
+    max-level: 3
+    levels:
+      '1': { energy-cost: 30.0, cooldown: 12.0, heal-amount-hearts: 2.0, upgrade-cost: 1 }
+      '2': { energy-cost: 28.0, cooldown: 10.0, heal-amount-hearts: 3.0, upgrade-cost: 2 }
+      '3': { energy-cost: 25.0, cooldown: 8.0, heal-amount-hearts: 4.0 }
+  FORCE_REPULSE:
+    trigger: LEFT_CLICK
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 35.0, cooldown: 18.0, radius: 6, strength: 2.5, upgrade-cost: 2 }
+      '2': { energy-cost: 30.0, cooldown: 15.0, radius: 8, strength: 3.0 }
+  FORCE_STASIS:
+    trigger: LEFT_CLICK
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 20.0, cooldown: 15.0, duration-seconds: 3, upgrade-cost: 2 }
+      '2': { energy-cost: 18.0, cooldown: 12.0, duration-seconds: 4 }
+  FORCE_BARRIER:
+    trigger: RIGHT_CLICK
+    unlock-cost: 2
+    max-level: 3
+    levels:
+      '1': { energy-cost: 30.0, cooldown: 25.0, duration-seconds: 10, shield-hearts: 2, upgrade-cost: 1 }
+      '2': { energy-cost: 28.0, cooldown: 22.0, duration-seconds: 12, shield-hearts: 3, upgrade-cost: 2 }
+      '3': { energy-cost: 25.0, cooldown: 20.0, duration-seconds: 15, shield-hearts: 4 }
+  FORCE_JUDGMENT:
+    trigger: LEFT_CLICK
+    unlock-cost: 2
+    max-level: 3
+    levels:
+      '1': { energy-cost: 25.0, cooldown: 8.0, damage-hearts: 3.0, upgrade-cost: 2 }
+      '2': { energy-cost: 22.0, cooldown: 7.0, damage-hearts: 4.0, upgrade-cost: 3 }
+      '3': { energy-cost: 20.0, cooldown: 6.0, damage-hearts: 5.0 }
+  FORCE_DEFLECTION:
+    trigger: SHIFT
+    unlock-cost: 3
+    max-level: 1
+    levels:
+      '1': { energy-cost: 20.0, cooldown: 12.0, duration-seconds: 1.5 }
+  FORCE_CLARITY:
+    trigger: RIGHT_CLICK
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 20.0, cooldown: 15.0, duration-seconds: 5, upgrade-cost: 2 }
+      '2': { energy-cost: 15.0, cooldown: 12.0, duration-seconds: 8 }
+  FORCE_MEND:
+    trigger: RIGHT_CLICK
+    unlock-cost: 2
+    max-level: 3
+    levels:
+      '1': { energy-cost: 25.0, cooldown: 15.0, heal-amount-hearts: 2.0, upgrade-cost: 2 }
+      '2': { energy-cost: 22.0, cooldown: 12.0, heal-amount-hearts: 3.5, upgrade-cost: 3 }
+      '3': { energy-cost: 20.0, cooldown: 10.0, heal-amount-hearts: 5.0 }
+  FORCE_VALOR:
+    trigger: RIGHT_CLICK
+    unlock-cost: 3
+    max-level: 2
+    levels:
+      '1': { energy-cost: 35.0, cooldown: 30.0, duration-seconds: 8, radius: 8, upgrade-cost: 3 }
+      '2': { energy-cost: 30.0, cooldown: 25.0, duration-seconds: 12, radius: 12 }
+
+  # Dark Side Exclusive
+  FORCE_CHOKE:
+    trigger: LEFT_CLICK
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 30.0, cooldown: 12.0, duration-seconds: 3, damage-per-second-hearts: 1.0, upgrade-cost: 2 }
+      '2': { energy-cost: 28.0, cooldown: 10.0, duration-seconds: 4, damage-per-second-hearts: 1.5 }
+  FORCE_LIGHTNING:
+    trigger: LEFT_CLICK
+    unlock-cost: 2
+    max-level: 3
+    levels:
+      '1': { energy-cost: 25.0, cooldown: 8.0, damage-hearts: 3.0, upgrade-cost: 2 }
+      '2': { energy-cost: 22.0, cooldown: 7.0, damage-hearts: 4.0, upgrade-cost: 3 }
+      '3': { energy-cost: 20.0, cooldown: 6.0, damage-hearts: 5.0 }
+  FORCE_SCREAM:
+    trigger: RIGHT_CLICK
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 25.0, cooldown: 20.0, radius: 8, duration-seconds: 5, upgrade-cost: 2 }
+      '2': { energy-cost: 22.0, cooldown: 16.0, radius: 10, duration-seconds: 7 }
+  FORCE_DRAIN:
+    trigger: LEFT_CLICK
+    unlock-cost: 3
+    max-level: 2
+    levels:
+      '1': { energy-cost: 40.0, cooldown: 25.0, drain-amount-hearts: 2.0, upgrade-cost: 3 }
+      '2': { energy-cost: 35.0, cooldown: 20.0, drain-amount-hearts: 3.0 }
+  FORCE_CRUSH:
+    trigger: LEFT_CLICK
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 35.0, cooldown: 15.0, damage-hearts: 4.0, upgrade-cost: 2 }
+      '2': { energy-cost: 30.0, cooldown: 12.0, damage-hearts: 5.5 }
+  FORCE_RAGE:
+    trigger: SHIFT
+    unlock-cost: 3
+    max-level: 1
+    levels:
+      '1': { energy-cost: 40.0, cooldown: 35.0, duration-seconds: 8, speed-amplifier: 2, strength-amplifier: 2 }
+  FORCE_CORRUPT:
+    trigger: LEFT_CLICK
+    unlock-cost: 2
+    max-level: 2
+    levels:
+      '1': { energy-cost: 25.0, cooldown: 15.0, wither-duration-seconds: 3, poison-duration-seconds: 5, slow-duration-seconds: 4, upgrade-cost: 2 }
+      '2': { energy-cost: 20.0, cooldown: 12.0, wither-duration-seconds: 5, poison-duration-seconds: 8, slow-duration-seconds: 6 }
+  SOUL_REND:
+    trigger: LEFT_CLICK
+    unlock-cost: 2
+    max-level: 3
+    levels:
+      '1': { energy-cost: 30.0, cooldown: 20.0, duration-seconds: 5, weakness-amplifier: 1, upgrade-cost: 2 }
+      '2': { energy-cost: 25.0, cooldown: 18.0, duration-seconds: 7, weakness-amplifier: 2, upgrade-cost: 3 }
+      '3': { energy-cost: 20.0, cooldown: 15.0, duration-seconds: 10, weakness-amplifier: 3 }
+  DARK_AURA:
+    trigger: SHIFT
+    unlock-cost: 3
+    max-level: 2
+    levels:
+      '1': { energy-cost: 40.0, cooldown: 35.0, duration-seconds: 10, damage-per-second-hearts: 1.0, radius: 5, upgrade-cost: 3 }
+      '2': { energy-cost: 35.0, cooldown: 30.0, duration-seconds: 15, damage-per-second-hearts: 1.5, radius: 8 }
+
+# Ultimate Abilities
+ultimate-abilities:
+  FORCE_ABSORB:
+    energy-cost: 50.0
+    cooldown: 60.0
+    duration-seconds: 3.0
+    knockback-per-heart: 0.2
+  FORCE_CAMOUFLAGE:
+    energy-cost: 40.0
+    cooldown: 50.0
+    duration-seconds: 8.0
+    bonus-damage-multiplier: 1.5
+  FORCE_SERENITY:
+    energy-cost: 60.0
+    cooldown: 75.0
+    duration-seconds: 5.0
+    heal-per-second-hearts: 1.0
+    radius: 7
+  UNSTOPPABLE_VENGEANCE:
+    energy-cost: 50.0
+    cooldown: 60.0
+    duration-seconds: 8.0
+    damage-increase-per-heart: 0.1
+  MARK_OF_THE_HUNT:
+    energy-cost: 30.0
+    cooldown: 90.0
+    duration-seconds: 60.0
+    damage-multiplier: 1.2
+  CHAIN_LIGHTNING:
+    energy-cost: 55.0
+    cooldown: 45.0
+    initial-damage-hearts: 4.0
+    max-jumps: 3
+    damage-falloff-per-jump: 0.75
+
+force-enchanting:
+  # --- Debuffs applied after enchanting ---
+  debuffs:
+    # Duration of the regen slowdown in seconds. This scales with the total enchantment cost.
+    # Formula: duration = base-duration * total-energy-cost
+    regen-slowdown-base-duration: 1.5
+    # How much to reduce energy regen by. 0.5 means 50% slower.
+    regen-slowdown-modifier: 0.5
+    # Hunger effect level to apply. Set to 0 to disable.
+    hunger-level: 1
+    # Duration of the hunger effect in seconds.
+    hunger-duration-seconds: 20
+    # Fatigue effect level to apply. Set to 0 to disable.
+    fatigue-level: 1
+    # Duration of the fatigue effect in seconds.
+    fatigue-duration-seconds: 20
+  # --- Enchantments ---
+  # A list of all enchantments that can be applied.
+  # Bukkit Enchantment Names: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/enchantments/Enchantment.html
+  # Cost is PER LEVEL. A level 2 enchant costs twice the base, level 3 three times, etc.
+  enchantments:
+    EFFICIENCY:
+      # Cost in Force Energy per level.
+      energy-cost-per-level: 15
+      # Maximum level the player can apply.
+      max-level: 5
+    UNBREAKING:
+      energy-cost-per-level: 10
+      max-level: 3
+    FORTUNE:
+      energy-cost-per-level: 25
+      max-level: 3
+    SILK_TOUCH:
+      energy-cost-per-level: 30
+      max-level: 1
+    SHARPNESS:
+      energy-cost-per-level: 15
+      max-level: 5
+    LOOTING:
+      energy-cost-per-level: 25
+      max-level: 3
+    PROTECTION:
+      energy-cost-per-level: 20
+      max-level: 4
+    FEATHER_FALLING:
+      energy-cost-per-level: 10
+      max-level: 4
+    MENDING:
+      energy-cost-per-level: 50
+      max-level: 1
+    # --- Other Armor ---
+    FIRE_PROTECTION:
+      energy-cost-per-level: 15
+      max-level: 4
+    BLAST_PROTECTION:
+      energy-cost-per-level: 15
+      max-level: 4
+    PROJECTILE_PROTECTION:
+      energy-cost-per-level: 15
+      max-level: 4
+    RESPIRATION:
+      energy-cost-per-level: 15
+      max-level: 3
+    AQUA_AFFINITY:
+      energy-cost-per-level: 15
+      max-level: 1
+    THORNS:
+      energy-cost-per-level: 20
+      max-level: 3
+    DEPTH_STRIDER:
+      energy-cost-per-level: 10
+      max-level: 3
+    FROST_WALKER:
+      energy-cost-per-level: 20
+      max-level: 2
+    SOUL_SPEED:
+      energy-cost-per-level: 15
+      max-level: 3
+    SWIFT_SNEAK: # 1.19+
+      energy-cost-per-level: 15
+      max-level: 3
+    # --- Other Melee Weapons ---
+    SMITE:
+      energy-cost-per-level: 12
+      max-level: 5
+    BANE_OF_ARTHROPODS:
+      energy-cost-per-level: 12
+      max-level: 5
+    KNOCKBACK:
+      energy-cost-per-level: 10
+      max-level: 2
+    FIRE_ASPECT:
+      energy-cost-per-level: 20
+      max-level: 2
+    SWEEPING_EDGE:
+      energy-cost-per-level: 15
+      max-level: 3
+    # --- Bows ---
+    POWER:
+      energy-cost-per-level: 15
+      max-level: 5
+    PUNCH:
+      energy-cost-per-level: 10
+      max-level: 2
+    FLAME:
+      energy-cost-per-level: 25
+      max-level: 1
+    INFINITY:
+      energy-cost-per-level: 30
+      max-level: 1
+    # --- Crossbows ---
+    QUICK_CHARGE:
+      energy-cost-per-level: 15
+      max-level: 3
+    MULTISHOT:
+      energy-cost-per-level: 25
+      max-level: 1
+    PIERCING:
+      energy-cost-per-level: 20
+      max-level: 4
+    # --- Tridents ---
+    LOYALTY:
+      energy-cost-per-level: 15
+      max-level: 3
+    IMPALING:
+      energy-cost-per-level: 15
+      max-level: 5
+    RIPTIDE:
+      energy-cost-per-level: 20
+      max-level: 3
+    CHANNELING:
+      energy-cost-per-level: 30
+      max-level: 1
+    # --- Fishing Rods ---
+    LUCK_OF_THE_SEA:
+      energy-cost-per-level: 25
+      max-level: 3
+    LURE:
+      energy-cost-per-level: 10
+      max-level: 3
+
+# Optional sidebar scoreboard HUD showing slot binds
+hud:
+  enabled: true
+  title: "&6Force Binds"
