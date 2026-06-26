@@ -29,6 +29,7 @@ public class GUIManager {
     public static final String UPGRADE_GUI_TITLE_PREFIX = "Manage: ";
     public static final String PASSIVES_GUI_TITLE = "Passive Skills";
     public static final String CHOOSE_SIDE_GUI_TITLE = "Choose your side";
+    public static final String CONFIRM_SIDE_SWITCH_GUI_TITLE = "\u26a0 Confirm Side Switch";
 
     private final ForcePlugin plugin;
     private final AbilityManager abilityManager;
@@ -354,6 +355,66 @@ public class GUIManager {
 
         gui.setItem(11, lightSide);
         gui.setItem(15, darkSide);
+
+        player.openInventory(gui);
+    }
+
+    public void openConfirmSideSwitchGUI(Player player) {
+        Inventory gui = Bukkit.createInventory(null, 27, CONFIRM_SIDE_SWITCH_GUI_TITLE);
+
+        // Filler
+        ItemStack filler = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta fillerMeta = filler.getItemMeta();
+        fillerMeta.setDisplayName(" ");
+        filler.setItemMeta(fillerMeta);
+        for (int i = 0; i < gui.getSize(); i++) { gui.setItem(i, filler); }
+
+        // Warning icon — what will be LOST (slot 11)
+        ItemStack lostItem = new ItemStack(Material.CRYING_OBSIDIAN);
+        ItemMeta lostMeta = lostItem.getItemMeta();
+        lostMeta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "What You Will LOSE");
+        lostMeta.setLore(Arrays.asList(
+                ChatColor.DARK_RED + "✗ " + ChatColor.RED + "All unlocked abilities",
+                ChatColor.DARK_RED + "✗ " + ChatColor.RED + "All unlocked passives",
+                ChatColor.DARK_RED + "✗ " + ChatColor.RED + "All slot bindings",
+                ChatColor.DARK_RED + "✗ " + ChatColor.RED + "All Force Points",
+                "",
+                ChatColor.GRAY + "Your path will be erased."
+        ));
+        lostItem.setItemMeta(lostMeta);
+        gui.setItem(11, lostItem);
+
+        // Info icon — what will be KEPT (slot 13)
+        ItemStack keptItem = new ItemStack(Material.BOOK);
+        ItemMeta keptMeta = keptItem.getItemMeta();
+        keptMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "What You Will KEEP");
+        keptMeta.setLore(Arrays.asList(
+                ChatColor.GREEN + "✔ " + ChatColor.WHITE + "Force Level",
+                ChatColor.GREEN + "✔ " + ChatColor.WHITE + "Force XP",
+                "",
+                ChatColor.GRAY + "Your experience in the Force endures."
+        ));
+        keptItem.setItemMeta(keptMeta);
+        gui.setItem(13, keptItem);
+
+        // Confirm button (slot 20)
+        ItemStack confirm = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
+        ItemMeta confirmMeta = confirm.getItemMeta();
+        confirmMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "✔ Yes, Switch Sides");
+        confirmMeta.setLore(Arrays.asList(
+                ChatColor.GRAY + "I accept the consequences.",
+                ChatColor.GRAY + "My path will be reborn."
+        ));
+        confirm.setItemMeta(confirmMeta);
+        gui.setItem(20, confirm);
+
+        // Cancel button (slot 24)
+        ItemStack cancel = new ItemStack(Material.RED_STAINED_GLASS_PANE);
+        ItemMeta cancelMeta = cancel.getItemMeta();
+        cancelMeta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "✗ Cancel");
+        cancelMeta.setLore(Arrays.asList(ChatColor.GRAY + "Remain on your current path."));
+        cancel.setItemMeta(cancelMeta);
+        gui.setItem(24, cancel);
 
         player.openInventory(gui);
     }

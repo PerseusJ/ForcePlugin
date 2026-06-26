@@ -26,7 +26,7 @@ The plugin currently carries significant dead code from a removed Holocron scrol
 
 ---
 
-## Version 2.7 — Side Switching: Redemption & Fall
+## Version 2.7 — Side Switching: Redemption & Fall [COMPLETED]
 **Type:** Feature  
 **Priority:** 🔴 High
 

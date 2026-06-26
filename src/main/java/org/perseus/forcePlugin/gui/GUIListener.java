@@ -54,6 +54,8 @@ public class GUIListener implements Listener {
             handleForceEnchantGUI(event, player);
         } else if (viewTitle.equals(GUIManager.CHOOSE_SIDE_GUI_TITLE)) {
             handleChooseSideGUI(event, player);
+        } else if (viewTitle.equals(GUIManager.CONFIRM_SIDE_SWITCH_GUI_TITLE)) {
+            handleConfirmSideSwitchGUI(event, player);
         } else if (viewTitle.equals(BindGUI.TITLE)) {
             handleBindGUI(event, player);
         } else if (viewTitle.startsWith(AbilityPickerGUI.TITLE_PREFIX)) {
@@ -345,6 +347,64 @@ public class GUIListener implements Listener {
             player.sendMessage(ChatColor.RED + "You have succumbed to the Dark Side of the Force.");
             plugin.getHudManager().updateScoreboard(player);
             player.closeInventory();
+        }
+    }
+
+    private void handleConfirmSideSwitchGUI(InventoryClickEvent event, Player player) {
+        event.setCancelled(true);
+        ItemStack clickedItem = event.getCurrentItem();
+        if (clickedItem == null || !clickedItem.hasItemMeta()) return;
+
+        ForceUser forceUser = plugin.getForceUserManager().getForceUser(player);
+        if (forceUser == null) return;
+
+        Material clickedType = clickedItem.getType();
+
+        if (clickedType == Material.LIME_STAINED_GLASS_PANE) {
+            // Guard: only allow if side-switch is enabled in config
+            if (!plugin.getConfig().getBoolean("side-switch.enabled", true)) {
+                player.sendMessage(ChatColor.RED + "Side switching is currently disabled by an admin.");
+                player.closeInventory();
+                return;
+            }
+
+            ForceSide currentSide = forceUser.getSide();
+            // Determine the opposite side; if somehow NONE, default to LIGHT
+            ForceSide newSide = (currentSide == ForceSide.LIGHT) ? ForceSide.DARK : ForceSide.LIGHT;
+
+            ForceSide oldSide = forceUser.performSideSwitch(newSide);
+
+            plugin.getHudManager().updateScoreboard(player);
+            player.closeInventory();
+            player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 0.7f);
+
+            // Side-colored confirmation message to the player
+            if (newSide == ForceSide.LIGHT) {
+                player.sendMessage(ChatColor.AQUA + "You have turned to the Light Side of the Force.");
+                player.sendMessage(ChatColor.GRAY + "All your abilities and passives have been reset.");
+            } else {
+                player.sendMessage(ChatColor.RED + "You have fallen to the Dark Side of the Force.");
+                player.sendMessage(ChatColor.GRAY + "All your abilities and passives have been reset.");
+            }
+
+            // Server-wide broadcast (if enabled)
+            if (plugin.getConfig().getBoolean("side-switch.announce", true)) {
+                String template = plugin.getConfig().getString(
+                        "side-switch.announce-message",
+                        "&e{player} &7has switched from the &c{old_side} &7to the &b{new_side}&7!"
+                );
+                String message = template
+                        .replace("{player}", player.getName())
+                        .replace("{old_side}", oldSide.name())
+                        .replace("{new_side}", newSide.name());
+                // Translate legacy color codes
+                String coloredMessage = ChatColor.translateAlternateColorCodes('&', message);
+                org.bukkit.Bukkit.broadcastMessage(coloredMessage);
+            }
+
+        } else if (clickedType == Material.RED_STAINED_GLASS_PANE) {
+            player.closeInventory();
+            player.sendMessage(ChatColor.GRAY + "Side switch cancelled.");
         }
     }
 }

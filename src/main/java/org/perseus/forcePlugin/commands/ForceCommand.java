@@ -43,10 +43,10 @@ public class ForceCommand implements CommandExecutor {
 
         if (args.length >= 1 && args[0].equalsIgnoreCase("choose")) {
             if (forceUser.getSide() != ForceSide.NONE) {
-                player.sendMessage(ChatColor.RED + "You have already chosen your path. You cannot change it.");
-                return true;
+                plugin.getGuiManager().openConfirmSideSwitchGUI(player);
+            } else {
+                plugin.getGuiManager().openChooseSideGUI(player);
             }
-            plugin.getGuiManager().openChooseSideGUI(player);
         } else if (args.length >= 1 && args[0].equalsIgnoreCase("abilities")) {
             if (forceUser.getSide() == ForceSide.NONE) {
                 player.sendMessage(ChatColor.RED + "You must choose a path first (/force choose).");

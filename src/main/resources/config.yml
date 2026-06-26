@@ -361,3 +361,12 @@ force-enchanting:
 hud:
   enabled: true
   title: "&6Force Binds"
+
+# --- Side Switching (v2.7) ---
+side-switch:
+  # Set to false to completely disable player-initiated side switching.
+  enabled: true
+  # Broadcast a server-wide message when a player switches sides.
+  announce: true
+  # Placeholders: {player}, {old_side}, {new_side}
+  announce-message: "&e{player} &7has switched from the &c{old_side} &7to the &b{new_side}&7!"

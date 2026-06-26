@@ -98,4 +98,22 @@ public class ForceUser {
             unlockedPassives.put(passiveId, currentLevel + 1);
         }
     }
+
+    /**
+     * Performs a full side switch for the player.
+     * Clears all unlocked abilities, passives, slot binds, and Force Points,
+     * then sets the new side. Force Level and XP are intentionally preserved.
+     *
+     * @param newSide The new ForceSide to assign.
+     * @return The player's old ForceSide, for use in announcement messages.
+     */
+    public ForceSide performSideSwitch(ForceSide newSide) {
+        ForceSide oldSide = this.side;
+        this.side = newSide;
+        unlockedAbilities.clear();
+        unlockedPassives.clear();
+        slotBinds.clear();
+        this.forcePoints = 0;
+        return oldSide;
+    }
 }

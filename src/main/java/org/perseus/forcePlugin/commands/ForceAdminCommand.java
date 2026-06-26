@@ -61,10 +61,11 @@ public class ForceAdminCommand implements CommandExecutor {
         try {
             ForceSide side = ForceSide.valueOf(args[2].toUpperCase());
             ForceUser forceUser = plugin.getForceUserManager().getForceUser(target);
-            forceUser.setSide(side);
+            forceUser.performSideSwitch(side);
             plugin.getForceBarManager().updateBar(target);
-            sender.sendMessage(ChatColor.GREEN + "Set " + target.getName() + "'s side to " + side.name() + ".");
-            target.sendMessage(ChatColor.YELLOW + "An admin has set your Force alignment to " + side.name() + ".");
+            plugin.getHudManager().updateScoreboard(target);
+            sender.sendMessage(ChatColor.GREEN + "Set " + target.getName() + "'s side to " + side.name() + " and cleared their abilities/passives.");
+            target.sendMessage(ChatColor.YELLOW + "An admin has changed your Force alignment to " + side.name() + ". Your abilities and passives have been reset.");
         } catch (IllegalArgumentException e) {
             sender.sendMessage(ChatColor.RED + "Invalid side. Use <light|dark|none>.");
         }
