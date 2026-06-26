@@ -1,16 +1,16 @@
 # Graph Report - ForcePlugin  (2026-06-26)
 
 ## Corpus Check
-- 92 files · ~35,174 words
+- 92 files · ~35,175 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1191 nodes · 2664 edges · 71 communities (62 shown, 9 thin omitted)
-- Extraction: 80% EXTRACTED · 20% INFERRED · 0% AMBIGUOUS · INFERRED: 543 edges (avg confidence: 0.8)
+- 1191 nodes · 2673 edges · 80 communities (71 shown, 9 thin omitted)
+- Extraction: 80% EXTRACTED · 20% INFERRED · 0% AMBIGUOUS · INFERRED: 544 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `89367e2b`
+- Built from commit: `91f6188d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -46,16 +46,22 @@
 - [[_COMMUNITY_Force Deflection|Force Deflection]]
 - [[_COMMUNITY_Force Heal|Force Heal]]
 - [[_COMMUNITY_Force Mend|Force Mend]]
+- [[_COMMUNITY_Community 31|Community 31]]
+- [[_COMMUNITY_Community 32|Community 32]]
 - [[_COMMUNITY_Force Stasis|Force Stasis]]
+- [[_COMMUNITY_Community 34|Community 34]]
 - [[_COMMUNITY_Force Sense Ability|Force Sense Ability]]
 - [[_COMMUNITY_Telekinesis Ability|Telekinesis Ability]]
 - [[_COMMUNITY_Force Tab Completer|Force Tab Completer]]
+- [[_COMMUNITY_Community 38|Community 38]]
 - [[_COMMUNITY_Plugin Entry Point|Plugin Entry Point]]
 - [[_COMMUNITY_Ability Base Class|Ability Base Class]]
 - [[_COMMUNITY_Holocron Manager|Holocron Manager]]
 - [[_COMMUNITY_Abstract Ability Framework|Abstract Ability Framework]]
+- [[_COMMUNITY_Community 43|Community 43]]
 - [[_COMMUNITY_Version Utility|Version Utility]]
 - [[_COMMUNITY_Passive Data Model|Passive Data Model]]
+- [[_COMMUNITY_Community 46|Community 46]]
 - [[_COMMUNITY_Config YAML Documents|Config YAML Documents]]
 - [[_COMMUNITY_Community 48|Community 48]]
 - [[_COMMUNITY_Community 49|Community 49]]
@@ -65,10 +71,13 @@
 - [[_COMMUNITY_Ultimate Abilities Config|Ultimate Abilities Config]]
 - [[_COMMUNITY_Neutral Passives|Neutral Passives]]
 - [[_COMMUNITY_Community 64|Community 64]]
+- [[_COMMUNITY_Community 65|Community 65]]
 - [[_COMMUNITY_Community 66|Community 66]]
+- [[_COMMUNITY_Community 67|Community 67]]
 - [[_COMMUNITY_Community 68|Community 68]]
 - [[_COMMUNITY_Community 69|Community 69]]
 - [[_COMMUNITY_Community 70|Community 70]]
+- [[_COMMUNITY_Community 71|Community 71]]
 - [[_COMMUNITY_Community 72|Community 72]]
 - [[_COMMUNITY_Community 78|Community 78]]
 - [[_COMMUNITY_Community 79|Community 79]]
@@ -107,27 +116,27 @@
 - **Light Side System** — resources_config_light_abilities, resources_ranks_light_ranks, resources_ranks_light_specializations, resources_passives_light_passives [INFERRED 0.95]
 - **Dark Side System** — resources_config_dark_abilities, resources_ranks_dark_ranks, resources_ranks_dark_specializations, resources_passives_dark_passives [INFERRED 0.95]
 
-## Communities (71 total, 9 thin omitted)
+## Communities (80 total, 9 thin omitted)
 
 ### Community 0 - "Admin Commands & Dark Abilities"
 Cohesion: 0.14
-Nodes (13): CooldownManager, AbilityListener, PlayerInteractEvent, PlayerToggleSneakEvent, AbilityConfigManager, Ability, EntityDamageByEntityEvent, EventHandler (+5 more)
+Nodes (13): CooldownManager, AbilityListener, PlayerInteractEvent, PlayerToggleSneakEvent, TelekinesisManager, Ability, EntityDamageByEntityEvent, EventHandler (+5 more)
 
 ### Community 1 - "Admin Command Handlers"
-Cohesion: 0.18
-Nodes (8): ForceAdminCommand, LevelingManager, Command, CommandSender, ForcePlugin, Override, String, ForceSide
+Cohesion: 0.20
+Nodes (7): ForceAdminCommand, ForceSide, Command, CommandSender, ForcePlugin, Override, String
 
 ### Community 2 - "Force Enchant Command & GUI"
-Cohesion: 0.09
-Nodes (20): ForceEnchantment, ForceEnchantManager, ForceEnchantment, ForceEnchantGUI, ForceEnchantManager, Enchantment, Enchantment, ForcePlugin (+12 more)
+Cohesion: 0.05
+Nodes (33): CommandExecutor, ForceEnchantCommand, ForceStatsCommand, ForceEnchantment, ForceEnchantment, ForceEnchantGUI, ForceEnchantManager, RankManager (+25 more)
 
 ### Community 3 - "Database Manager"
-Cohesion: 0.15
-Nodes (5): ForceUser, Integer, Map, String, UUID
+Cohesion: 0.18
+Nodes (5): ForceUser, String, PassiveManager, Passive, EventHandler
 
 ### Community 4 - "Force Bar & Connection Listeners"
-Cohesion: 0.06
-Nodes (27): ForceBarManager, Listener, ExperienceListener, PlayerConnectionListener, ProjectileDeflectionListener, ForceBarManager, HudManager, PlayerExpChangeEvent (+19 more)
+Cohesion: 0.25
+Nodes (8): LevelingManager, ExperienceListener, PlayerExpChangeEvent, PlayerLevelChangeEvent, EntityDeathEvent, EventHandler, ForcePlugin, PlayerJoinEvent
 
 ### Community 5 - "Dark Corrupt Ability"
 Cohesion: 0.26
@@ -135,19 +144,19 @@ Nodes (7): MarkOfTheHunt, AbilityConfigManager, ForceSide, ForceUser, Override, 
 
 ### Community 6 - "Cooldown & Ability Listener"
 Cohesion: 0.16
-Nodes (9): LevelingManager, Override, String, AbilityManager, RankManager, String, ForcePlugin, ForceUser (+1 more)
+Nodes (10): LevelingManager, Override, String, AbilityManager, RankManager, String, ForcePlugin, ForceUser (+2 more)
 
 ### Community 7 - "Rank Data Model"
 Cohesion: 0.24
 Nodes (8): ForceRepulse, AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override, Player, String
 
 ### Community 8 - "Ability Manager"
-Cohesion: 0.05
-Nodes (34): ActionTrigger, ForceEnchantGUI, GUIManager, PassiveListener, AbilityConfigManager, PassiveManager, Command, CommandSender (+26 more)
+Cohesion: 0.21
+Nodes (7): ForceEnchantGUI, GUIManager, ItemStack, Ability, ForceUser, Player, String
 
 ### Community 9 - "Force Points & GUI Manager"
-Cohesion: 0.20
-Nodes (11): GUIListener, HudManager, InventoryClickEvent, ForceUserManager, Ability, EventHandler, ForcePlugin, ForceUser (+3 more)
+Cohesion: 0.16
+Nodes (15): EventHandler, ForceEnchantManager, ForcePlugin, GUIListener, HudManager, InventoryClickEvent, AbilityConfigManager, ForceUserManager (+7 more)
 
 ### Community 10 - "Force Enchant GUI"
 Cohesion: 0.24
@@ -163,7 +172,7 @@ Nodes (8): UnstoppableVengeance, AbilityConfigManager, ForcePlugin, ForceSide, F
 
 ### Community 13 - "Holocron Listener"
 Cohesion: 0.04
-Nodes (55): ForcePlugin — Long-Term Development Roadmap, Version 2.6 — Dead Code Purge & Legacy Cleanup [COMPLETED], Version 2.7 — Side Switching: Redemption & Fall, Version 2.8 — Database & Data Layer Hardening, Version 2.9 — ForceBar & Energy System Overhaul, Version 3.0 — The GUI Rework, Version 3.1 — New Ability: Force Speed, Version 3.2 — New Ability: Force Vision (+47 more)
+Nodes (55): ForcePlugin — Long-Term Development Roadmap, Version 2.6 — Dead Code Purge & Legacy Cleanup [COMPLETED], Version 2.7 — Side Switching: Redemption & Fall [COMPLETED], Version 2.8 — Database & Data Layer Hardening, Version 2.9 — ForceBar & Energy System Overhaul, Version 3.0 — The GUI Rework, Version 3.1 — New Ability: Force Speed, Version 3.2 — New Ability: Force Vision (+47 more)
 
 ### Community 14 - "Chain Lightning"
 Cohesion: 0.19
@@ -222,8 +231,8 @@ Cohesion: 0.22
 Nodes (8): ForceClarity, AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override, Player, String
 
 ### Community 28 - "Force Deflection"
-Cohesion: 0.24
-Nodes (8): AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override, Player, String, ForcePull
+Cohesion: 0.08
+Nodes (24): ForceAbsorb, ForceJudgment, AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override, Player (+16 more)
 
 ### Community 29 - "Force Heal"
 Cohesion: 0.15
@@ -233,9 +242,21 @@ Nodes (11): ForceDrain, HealthUtil, AbilityConfigManager, ForcePlugin, ForceSide
 Cohesion: 0.22
 Nodes (8): ForceMend, AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override, Player, String
 
+### Community 31 - "Community 31"
+Cohesion: 0.24
+Nodes (8): ForceCrush, AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override, Player, String
+
+### Community 32 - "Community 32"
+Cohesion: 0.24
+Nodes (8): ForceSerenity, AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override, Player, String
+
 ### Community 33 - "Force Stasis"
 Cohesion: 0.24
 Nodes (8): ForceStasis, AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override, Player, String
+
+### Community 34 - "Community 34"
+Cohesion: 0.26
+Nodes (6): PassiveManager, ForcePlugin, ForceSide, List, Passive, String
 
 ### Community 35 - "Force Sense Ability"
 Cohesion: 0.23
@@ -248,6 +269,10 @@ Nodes (12): TelekinesisManager, AbilityConfigManager, ForceSide, ForceUser, Over
 ### Community 37 - "Force Tab Completer"
 Cohesion: 0.32
 Nodes (9): ForceTabCompleter, Nullable, Command, CommandSender, ForcePlugin, List, Override, String (+1 more)
+
+### Community 38 - "Community 38"
+Cohesion: 0.26
+Nodes (5): HudManager, EventHandler, ForcePlugin, PlayerItemHeldEvent, PlayerQuitEvent
 
 ### Community 39 - "Plugin Entry Point"
 Cohesion: 0.06
@@ -262,8 +287,12 @@ Cohesion: 0.57
 Nodes (3): CooldownManager, Player, String
 
 ### Community 42 - "Abstract Ability Framework"
-Cohesion: 0.27
+Cohesion: 0.24
 Nodes (5): AbstractAbility, AbilityConfigManager, ForcePlugin, Override, String
+
+### Community 43 - "Community 43"
+Cohesion: 0.27
+Nodes (6): ForceBarManager, PlayerConnectionListener, EventHandler, ForcePlugin, PlayerJoinEvent, PlayerQuitEvent
 
 ### Community 44 - "Version Utility"
 Cohesion: 0.31
@@ -273,9 +302,13 @@ Nodes (5): Enchantment, Particle, PotionEffectType, SuppressWarnings, VersionUti
 Cohesion: 0.43
 Nodes (3): Passive, List, String
 
+### Community 46 - "Community 46"
+Cohesion: 0.33
+Nodes (4): ActionTrigger, AbilityConfigManager, ForcePlugin, String
+
 ### Community 48 - "Community 48"
-Cohesion: 0.24
-Nodes (8): ForceAbsorb, AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override, Player, String
+Cohesion: 0.36
+Nodes (4): ProjectileDeflectionListener, ProjectileHitEvent, EventHandler, UUID
 
 ### Community 49 - "Community 49"
 Cohesion: 0.24
@@ -286,35 +319,47 @@ Cohesion: 0.67
 Nodes (3): Dark Side Specializations, Light Side Specializations, Specialization Paths
 
 ### Community 60 - "Community 60"
-Cohesion: 0.11
-Nodes (19): Ability, Collection, ForceCamouflage, HotbarListener, AbilityManager, AbilityConfigManager, ForceSide, ForceUser (+11 more)
+Cohesion: 0.14
+Nodes (15): Ability, Collection, ForceCamouflage, AbilityManager, AbilityConfigManager, ForceSide, ForceUser, Override (+7 more)
 
 ### Community 64 - "Community 64"
-Cohesion: 0.09
-Nodes (15): Rank, AbilityPickerGUI, BindGUI, RankManager, Material, List, String, ForcePlugin (+7 more)
+Cohesion: 0.12
+Nodes (11): Rank, AbilityPickerGUI, BindGUI, Material, List, String, ForcePlugin, Player (+3 more)
+
+### Community 65 - "Community 65"
+Cohesion: 0.29
+Nodes (6): AbilityConfigManager, AbilityManager, ForceUserManager, PassiveManager, RankManager, ForcePlugin
 
 ### Community 66 - "Community 66"
-Cohesion: 0.08
-Nodes (24): ForceChoke, ForceCrush, ForceSerenity, AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override (+16 more)
+Cohesion: 0.24
+Nodes (8): ForceChoke, AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override, Player, String
+
+### Community 67 - "Community 67"
+Cohesion: 0.38
+Nodes (5): Listener, HotbarListener, EventHandler, ForcePlugin, PlayerItemHeldEvent
 
 ### Community 68 - "Community 68"
-Cohesion: 0.24
-Nodes (8): ForceJudgment, AbilityConfigManager, ForcePlugin, ForceSide, ForceUser, Override, Player, String
+Cohesion: 0.38
+Nodes (4): PassiveListener, EntityDamageByEntityEvent, EntityDeathEvent, ForcePlugin
 
 ### Community 69 - "Community 69"
-Cohesion: 0.13
-Nodes (15): CommandExecutor, ForceCommand, ForceEnchantCommand, ForceStatsCommand, ForcePlugin, ForceUser, Player, Command (+7 more)
+Cohesion: 0.27
+Nodes (8): ForceCommand, Command, CommandSender, ForcePlugin, ForceUser, Override, Player, String
 
 ### Community 70 - "Community 70"
-Cohesion: 0.14
-Nodes (8): DatabaseManager, ForcePlugin, ForcePlugin, ForceUser, String, UUID, Override, TelekinesisManager
+Cohesion: 0.12
+Nodes (9): DatabaseManager, Integer, Map, ForcePlugin, ForceUser, String, UUID, Override (+1 more)
+
+### Community 71 - "Community 71"
+Cohesion: 0.43
+Nodes (3): ForceBarManager, ForcePlugin, ForceUserManager
 
 ### Community 72 - "Community 72"
 Cohesion: 0.33
 Nodes (5): ForceUserManager, DatabaseManager, ForcePlugin, ForceUser, Player
 
 ## Knowledge Gaps
-- **111 isolated node(s):** `$schema`, `plugin`, `@opencode-ai/plugin`, `java.compile.nullAnalysis.mode`, `java.configuration.updateBuildConfiguration` (+106 more)
+- **110 isolated node(s):** `Version 2.6 — Dead Code Purge & Legacy Cleanup [COMPLETED]`, `Version 2.7 — Side Switching: Redemption & Fall [COMPLETED]`, `Version 2.8 — Database & Data Layer Hardening`, `Version 2.9 — ForceBar & Energy System Overhaul`, `Version 3.0 — The GUI Rework` (+105 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -322,16 +367,16 @@ Nodes (5): ForceUserManager, DatabaseManager, ForcePlugin, ForceUser, Player
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `AbstractAbility` connect `Abstract Ability Framework` to `Force Sense Ability`, `Plugin Entry Point`, `Light Camouflage Ultimate`, `Dark Aura`, `Soul Rend`, `Force Clarity`, `Community 60`, `Force Mend`?**
-  _High betweenness centrality (0.107) - this node is a cross-community bridge._
-- **Why does `Material` connect `Community 64` to `Force Enchant Command & GUI`, `Community 69`, `Ability Manager`, `Force Points & GUI Manager`, `Version Adapter 1.16`, `Version Adapter 1.21`?**
-  _High betweenness centrality (0.048) - this node is a cross-community bridge._
-- **Why does `ForcePlugin` connect `Community 70` to `Admin Commands & Dark Abilities`, `Admin Command Handlers`, `Force Enchant Command & GUI`, `Cooldown & Ability Listener`, `Plugin Entry Point`, `Ability Manager`, `Force Points & GUI Manager`?**
-  _High betweenness centrality (0.041) - this node is a cross-community bridge._
-- **What connects `$schema`, `plugin`, `@opencode-ai/plugin` to the rest of the system?**
-  _111 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _High betweenness centrality (0.094) - this node is a cross-community bridge._
+- **Why does `Material` connect `Community 64` to `Force Enchant Command & GUI`, `Ability Manager`, `Force Points & GUI Manager`, `Version Adapter 1.16`, `Version Adapter 1.21`?**
+  _High betweenness centrality (0.062) - this node is a cross-community bridge._
+- **Why does `ForceUser` connect `Database Manager` to `Admin Commands & Dark Abilities`, `Admin Command Handlers`, `Force Enchant Command & GUI`, `Community 70`, `Cooldown & Ability Listener`?**
+  _High betweenness centrality (0.033) - this node is a cross-community bridge._
+- **What connects `Version 2.6 — Dead Code Purge & Legacy Cleanup [COMPLETED]`, `Version 2.7 — Side Switching: Redemption & Fall [COMPLETED]`, `Version 2.8 — Database & Data Layer Hardening` to the rest of the system?**
+  _110 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Admin Commands & Dark Abilities` be split into smaller, more focused modules?**
-  _Cohesion score 0.13846153846153847 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.14 - nodes in this community are weakly interconnected._
 - **Should `Force Enchant Command & GUI` be split into smaller, more focused modules?**
-  _Cohesion score 0.08985200845665962 - nodes in this community are weakly interconnected._
-- **Should `Force Bar & Connection Listeners` be split into smaller, more focused modules?**
-  _Cohesion score 0.06103896103896104 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.052917232021709636 - nodes in this community are weakly interconnected._
+- **Should `Holocron Listener` be split into smaller, more focused modules?**
+  _Cohesion score 0.03571428571428571 - nodes in this community are weakly interconnected._
