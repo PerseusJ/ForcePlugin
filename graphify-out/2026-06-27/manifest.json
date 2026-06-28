@@ -55,8 +55,8 @@
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/ForcePlugin.java": {
-    "mtime": 1782614366.040269,
-    "ast_hash": "1f3c108d92a6c9701a65af0e3cd5eecc",
+    "mtime": 1781855561.5996964,
+    "ast_hash": "6e515949fb771100da5dbbe84ea7e95f",
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/abilities/Ability.java": {
@@ -235,8 +235,8 @@
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/data/DatabaseManager.java": {
-    "mtime": 1782614333.9094555,
-    "ast_hash": "fbd7477abd0a88d6faa140e4fc39ae9d",
+    "mtime": 1782355743.51782,
+    "ast_hash": "ea22c0d8de5580817519e31757db4224",
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/data/ForceEnchantment.java": {
@@ -250,8 +250,8 @@
     "semantic_hash": "d086a18dd21ff2fd7f8543e782f69b38"
   },
   "src/main/java/org/perseus/forcePlugin/data/ForceUser.java": {
-    "mtime": 1782614322.973532,
-    "ast_hash": "cab1671898f660d2a4a249b2701b36c8",
+    "mtime": 1782493526.312509,
+    "ast_hash": "21a2afd45cf008d9eb972cce51adf34f",
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/data/Passive.java": {
@@ -345,8 +345,8 @@
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/managers/ForceUserManager.java": {
-    "mtime": 1782614343.5721166,
-    "ast_hash": "a42523c4a5732bf13c5b9a403988a2f1",
+    "mtime": 1781806522.8910148,
+    "ast_hash": "ee1a1c448c222640731f4c34d646e10a",
     "semantic_hash": ""
   },
   "src/main/java/org/perseus/forcePlugin/managers/HealthUtil.java": {
@@ -410,8 +410,8 @@
     "semantic_hash": "637776aa6f7496d069afe7520c845c8a"
   },
   "src/main/resources/config.yml": {
-    "mtime": 1782614308.347146,
-    "ast_hash": "cd24652ae53ac010db4b8358a59d176d",
+    "mtime": 1782493621.066565,
+    "ast_hash": "e06ade3073ed796a4e41cbed5ea309f9",
     "semantic_hash": ""
   },
   "src/main/resources/passives.yml": {
@@ -475,8 +475,8 @@
     "semantic_hash": ""
   },
   "bin/main/config.yml": {
-    "mtime": 1782614308.347,
-    "ast_hash": "cd24652ae53ac010db4b8358a59d176d",
+    "mtime": 1782493621.066,
+    "ast_hash": "e06ade3073ed796a4e41cbed5ea309f9",
     "semantic_hash": ""
   },
   "bin/main/passives.yml": {
