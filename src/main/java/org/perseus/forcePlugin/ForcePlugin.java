@@ -32,6 +32,7 @@ public class ForcePlugin extends JavaPlugin {
     private PassiveManager passiveManager;
     private ForceEnchantManager forceEnchantManager;
     private HudManager hudManager;
+    private int autoSaveTaskId = -1;
 
     @Override
     public void onEnable() {
@@ -46,9 +47,13 @@ public class ForcePlugin extends JavaPlugin {
         saveResource("ranks.yml", false);
         saveResource("passives.yml", false);
 
-        // Initialize managers
+        // Initialize database with retry logic
         this.databaseManager = new DatabaseManager(this);
-        this.databaseManager.connect();
+        if (!this.databaseManager.connect(3)) {
+            getLogger().severe("!!! Could not connect to the database after 3 attempts. Disabling plugin. !!!");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         this.forceUserManager = new ForceUserManager(this, databaseManager);
         this.abilityConfigManager = new AbilityConfigManager(this);
         this.telekinesisManager = new TelekinesisManager(this);
@@ -102,23 +107,59 @@ public class ForcePlugin extends JavaPlugin {
         for (Player player : getServer().getOnlinePlayers()) {
             forceUserManager.loadPlayerData(player);
         }
+
+        // Start auto-save interval
+        startAutoSaveTask();
+
         getLogger().info("ForcePlugin has been enabled!");
     }
 
     @Override
     public void onDisable() {
+        // Cancel auto-save task
+        if (autoSaveTaskId != -1) {
+            getServer().getScheduler().cancelTask(autoSaveTaskId);
+            autoSaveTaskId = -1;
+        }
+
         if (hudManager != null) {
             hudManager.removeAll();
         }
-        for (Player player : getServer().getOnlinePlayers()) {
-            if (forceUserManager != null && forceUserManager.getForceUser(player) != null) {
-                forceUserManager.savePlayerData(player);
+        if (forceUserManager != null) {
+            forceUserManager.saveAllOnlinePlayers();
+            // Wait for pending async saves to complete (up to 10 seconds)
+            int waited = 0;
+            while (forceUserManager.getPendingSaveCount() > 0 && waited < 100) {
+                try {
+                    Thread.sleep(100);
+                    waited++;
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+            if (forceUserManager.getPendingSaveCount() > 0) {
+                getLogger().warning("Timed out waiting for " + forceUserManager.getPendingSaveCount() + " pending saves to complete.");
             }
         }
         if (this.databaseManager != null) {
             this.databaseManager.disconnect();
         }
         getLogger().info("ForcePlugin has been disabled!");
+    }
+
+    private void startAutoSaveTask() {
+        int intervalMinutes = getConfig().getInt("database.auto-save-interval-minutes", 5);
+        long intervalTicks = intervalMinutes * 60L * 20L;
+        if (intervalTicks <= 0) {
+            intervalTicks = 5 * 60 * 20; // default 5 minutes
+        }
+        autoSaveTaskId = getServer().getScheduler().runTaskTimerAsynchronously(this, () -> {
+            if (forceUserManager != null) {
+                forceUserManager.saveAllOnlinePlayers();
+                getLogger().info("Auto-save completed for all online players.");
+            }
+        }, intervalTicks, intervalTicks).getTaskId();
     }
 
     public void reloadPluginConfig() {

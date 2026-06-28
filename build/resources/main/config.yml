@@ -5,6 +5,9 @@
 force-energy:
   regeneration-per-second: 2.5
 
+database:
+  auto-save-interval-minutes: 5
+
 progression:
   max-force-level: 100
   points-per-level: 1

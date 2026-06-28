@@ -21,7 +21,11 @@ public class DatabaseManager {
         this.plugin = plugin;
     }
 
-    public synchronized void connect() {
+    public synchronized boolean connect() {
+        return connect(1);
+    }
+
+    public synchronized boolean connect(int maxRetries) {
         File dataFolder = new File(plugin.getDataFolder(), "playerdata.db");
         if (!dataFolder.exists()) {
             try {
@@ -31,17 +35,40 @@ public class DatabaseManager {
             }
         }
 
-        try {
-            if (connection != null && !connection.isClosed()) {
-                return;
+        if (connection != null) {
+            try {
+                if (!connection.isClosed()) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                // connection is stale, proceed to reconnect
             }
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dataFolder);
-            plugin.getLogger().info("Successfully connected to the SQLite database.");
-            initializeDatabase();
-        } catch (SQLException | ClassNotFoundException e) {
-            plugin.getLogger().log(Level.SEVERE, "Failed to connect to the SQLite database!", e);
         }
+
+        int attempts = 0;
+        while (attempts < maxRetries) {
+            attempts++;
+            try {
+                Class.forName("org.sqlite.JDBC");
+                connection = DriverManager.getConnection("jdbc:sqlite:" + dataFolder);
+                plugin.getLogger().info("Successfully connected to the SQLite database.");
+                initializeDatabase();
+                return true;
+            } catch (SQLException | ClassNotFoundException e) {
+                if (attempts < maxRetries) {
+                    plugin.getLogger().warning("Failed to connect to database (attempt " + attempts + "/" + maxRetries + "). Retrying in 2 seconds...");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                        break;
+                    }
+                } else {
+                    plugin.getLogger().log(Level.SEVERE, "Failed to connect to the SQLite database after " + maxRetries + " attempts!", e);
+                }
+            }
+        }
+        return false;
     }
 
     public synchronized void disconnect() {

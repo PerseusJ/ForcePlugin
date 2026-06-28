@@ -22,6 +22,9 @@ public class ForceUser {
     private double forceRegenModifier;
     private long regenDebuffExpiry;
 
+    // Data loading flag to prevent ability use during async load
+    private volatile boolean dataLoaded;
+
     public ForceUser(UUID uuid) {
         this.uuid = uuid;
         this.side = ForceSide.NONE;
@@ -34,6 +37,7 @@ public class ForceUser {
         this.unlockedPassives = new HashMap<>();
         this.forceRegenModifier = 1.0;
         this.regenDebuffExpiry = 0L;
+        this.dataLoaded = false;
     }
 
     // --- GETTERS ---
@@ -63,6 +67,7 @@ public class ForceUser {
     public int getPassiveLevel(String passiveId) { return unlockedPassives.getOrDefault(passiveId, 0); }
     public double getForceRegenModifier() { return forceRegenModifier; }
     public long getRegenDebuffExpiry() { return regenDebuffExpiry; }
+    public boolean isDataLoaded() { return dataLoaded; }
 
 
     // --- SETTERS ---
@@ -85,6 +90,7 @@ public class ForceUser {
     }
     public void setForceRegenModifier(double forceRegenModifier) { this.forceRegenModifier = forceRegenModifier; }
     public void setRegenDebuffExpiry(long regenDebuffExpiry) { this.regenDebuffExpiry = regenDebuffExpiry; }
+    public void setDataLoaded(boolean dataLoaded) { this.dataLoaded = dataLoaded; }
 
     // Setters for passives
     public void unlockPassive(String passiveId) {
